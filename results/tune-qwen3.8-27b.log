@@ -5,3 +5,8 @@
 [11-02 17:28:05] layer-auto-mtp3-32k : image True; 7k prompt
 [11-02 17:35:04] layer-auto-mtp3-32k : loading
 [11-02 17:37:46] layer-auto-mtp3-32k : loaded, vram 13209+11431 MiB; speed test
+[11-02 17:38:32] layer-auto-mtp3-32k-b256-ub256 : loading
+[11-02 17:39:16] layer-auto-mtp3-32k-b256-ub256 : loaded, vram 13050+11119 MiB; speed test
+[11-02 17:39:36] layer-auto-mtp3-32k-b256-ub256 : speed 34.7 tok/s; image test
+[11-02 17:39:41] layer-auto-mtp3-32k-b256-ub256 : image True; 7k prompt
+[11-02 17:40:03] layer-auto-mtp3-32k-b256-ub256 : MEAN 34.7 tok/s (code 39.1 / chat 30.2), accept 76%, vram 13109+11873 MiB, image True, 7k prompt True @ 405 t/s -> pass
