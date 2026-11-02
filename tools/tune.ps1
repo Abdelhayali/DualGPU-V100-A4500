@@ -16,14 +16,19 @@ function L($s) { $s = "[{0}] {1}" -f (Get-Date -Format 'MM-dd HH:mm:ss'), $s; Ad
 foreach ($c in $configs) {
     $a = Get-SrvArgs $m $c
     $r = [ordered]@{ model = $Model; config = $c.name; time = (Get-Date -Format s); args = ($a -join ' ').Replace("$Root\", '') }
+    L "$($c.name) : loading"      # step lines go to disk first, so a crash or power loss shows which step it hit
     if (-not (Start-Srv $a "$Root\results\logs\$Model-$($c.name).log")) {
         $r.status = 'no-start'; L "$($c.name) : does not start"
     } else {
         $r.vram_mib = Get-Vram
+        L "$($c.name) : loaded, vram $($r.vram_mib) MiB; speed test"
         $s = Test-Speed
         if (-not $s) { $r.status = 'gen-failed'; L "$($c.name) : vram $($r.vram_mib), generation failed" }
         else {
-            $img = Test-Image; $lp = Test-LongPrompt
+            L "$($c.name) : speed $($s.mean) tok/s; image test"
+            $img = Test-Image
+            L "$($c.name) : image $img; 7k prompt"
+            $lp = Test-LongPrompt
             $r.code = $s.code; $r.chat = $s.chat; $r.mean = $s.mean; $r.accept = $s.acc
             $r.image = $img; $r.longprompt = $lp.ok; $r.pp = $lp.pp; $r.vram_peak_mib = Get-Vram
             $r.status = if ($img -and $lp.ok) { 'pass' } else { 'FAIL' }
