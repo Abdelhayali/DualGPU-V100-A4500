@@ -20,12 +20,29 @@
     { "name": "l40-mtp3-32k",        "ctx": 32768, "sm": "layer", "ts": "40,60", "spec": "mtp", "n": 3 },
     { "name": "l60-mtp3-32k",        "ctx": 32768, "sm": "layer", "ts": "60,40", "spec": "mtp", "n": 3 },
 
+    { "name": "l45-nodraft-32k",     "ctx": 32768, "sm": "layer", "ts": "45,55" },
+    { "name": "l45-mtp2-32k",        "ctx": 32768, "sm": "layer", "ts": "45,55", "spec": "mtp", "n": 2 },
+    { "name": "l45-mtp4-32k",        "ctx": 32768, "sm": "layer", "ts": "45,55", "spec": "mtp", "n": 4 },
+    { "name": "l45-dfl4-32k",        "ctx": 32768, "sm": "layer", "ts": "45,55", "spec": "dflash", "n": 4 },
+    { "name": "l45-dfl6-32k",        "ctx": 32768, "sm": "layer", "ts": "45,55", "spec": "dflash", "n": 6 },
+    { "name": "l45-dfl6-32k-dA",     "ctx": 32768, "sm": "layer", "ts": "45,55", "spec": "dflash", "n": 6, "devd": "CUDA0" },
+    { "name": "l45-mtp3-32k-q8",     "ctx": 32768, "sm": "layer", "ts": "45,55", "kv": "q8_0", "spec": "mtp", "n": 3 },
+    { "name": "l45-mtp3-32k-ub128",  "ctx": 32768, "sm": "layer", "ts": "45,55", "ub": 128, "spec": "mtp", "n": 3 },
+    { "name": "l45-mtp3-32k-ub512",  "ctx": 32768, "sm": "layer", "ts": "45,55", "ub": 512, "spec": "mtp", "n": 3 },
+    { "name": "l45-mtp3-128k",       "ctx": 131072, "sm": "layer", "ts": "45,55", "spec": "mtp", "n": 3 },
+    { "name": "l45-mtp3-128k-q8",    "ctx": 131072, "sm": "layer", "ts": "45,55", "kv": "q8_0", "spec": "mtp", "n": 3 },
+    { "name": "l45-mtp3-262k-q8",    "ctx": 262144, "sm": "layer", "ts": "45,55", "kv": "q8_0", "spec": "mtp", "n": 3 },
+    { "name": "l45-mtp3-262k-q4",    "ctx": 262144, "sm": "layer", "ts": "45,55", "kv": "q4_0", "spec": "mtp", "n": 3 },
+
     { "name": "row-mg0-mtp3-32k",    "ctx": 32768, "sm": "row", "mg": 0, "spec": "mtp", "n": 3, "note": "both GPUs busy at once: not run (crash risk)" },
     { "name": "row-mg1-mtp3-32k",    "ctx": 32768, "sm": "row", "mg": 1, "spec": "mtp", "n": 3, "note": "both GPUs busy at once: not run (crash risk)" },
     { "name": "tensor-mtp3-32k",     "ctx": 32768, "sm": "tensor", "spec": "mtp", "n": 3, "note": "both GPUs busy at once: not run (crash risk)" }
   ],
   "sets": {
     "split": ["l50-mtp3-32k", "l45-mtp3-32k", "l40-mtp3-32k", "l60-mtp3-32k"],
+    "spec": ["l45-nodraft-32k", "l45-mtp2-32k", "l45-mtp4-32k", "l45-dfl4-32k", "l45-dfl6-32k", "l45-dfl6-32k-dA"],
+    "kv-ub": ["l45-mtp3-32k-q8", "l45-mtp3-32k-ub128", "l45-mtp3-32k-ub512"],
+    "ctx": ["l45-mtp3-128k", "l45-mtp3-128k-q8", "l45-mtp3-262k-q8", "l45-mtp3-262k-q4"],
     "parallel-risky": ["row-mg0-mtp3-32k", "row-mg1-mtp3-32k", "tensor-mtp3-32k"]
   }
 }

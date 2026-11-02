@@ -30,3 +30,7 @@
 [11-02 17:46:45] l60-mtp3-32k : speed 31.9 tok/s; image test
 [11-02 17:46:50] l60-mtp3-32k : image True; 7k prompt
 [11-02 17:47:14] l60-mtp3-32k : MEAN 31.9 tok/s (code 37.2 / chat 26.5), accept 76%, vram 14087+10905 MiB, image True, 7k prompt True @ 382 t/s -> pass
+[11-02 17:47:29] layer-auto-mtp3-32k : loading
+[11-02 17:48:13] layer-auto-mtp3-32k : loaded, vram 13242+11431 MiB; speed test
+[11-02 17:48:34] layer-auto-mtp3-32k : speed 33.0 tok/s; image test
+[11-02 17:48:38] layer-auto-mtp3-32k : image True; 7k prompt
