@@ -10,3 +10,23 @@
 [11-02 17:39:36] layer-auto-mtp3-32k-b256-ub256 : speed 34.7 tok/s; image test
 [11-02 17:39:41] layer-auto-mtp3-32k-b256-ub256 : image True; 7k prompt
 [11-02 17:40:03] layer-auto-mtp3-32k-b256-ub256 : MEAN 34.7 tok/s (code 39.1 / chat 30.2), accept 76%, vram 13109+11873 MiB, image True, 7k prompt True @ 405 t/s -> pass
+[11-02 17:41:14] l50-mtp3-32k : loading
+[11-02 17:41:58] l50-mtp3-32k : loaded, vram 11825+12345 MiB; speed test
+[11-02 17:42:17] l50-mtp3-32k : speed 36.3 tok/s; image test
+[11-02 17:42:21] l50-mtp3-32k : image True; 7k prompt
+[11-02 17:42:44] l50-mtp3-32k : MEAN 36.3 tok/s (code 41.9 / chat 30.7), accept 72%, vram 11880+13099 MiB, image True, 7k prompt True @ 389 t/s -> pass
+[11-02 17:42:44] l45-mtp3-32k : loading
+[11-02 17:43:27] l45-mtp3-32k : loaded, vram 10896+13277 MiB; speed test
+[11-02 17:43:45] l45-mtp3-32k : speed 37.7 tok/s; image test
+[11-02 17:43:49] l45-mtp3-32k : image True; 7k prompt
+[11-02 17:44:11] l45-mtp3-32k : MEAN 37.7 tok/s (code 42.2 / chat 33.2), accept 77%, vram 10946+14033 MiB, image True, 7k prompt True @ 385 t/s -> pass
+[11-02 17:44:11] l40-mtp3-32k : loading
+[11-02 17:44:55] l40-mtp3-32k : loaded, vram 9898+14269 MiB; speed test
+[11-02 17:45:13] l40-mtp3-32k : speed 37.7 tok/s; image test
+[11-02 17:45:17] l40-mtp3-32k : image True; 7k prompt
+[11-02 17:45:40] l40-mtp3-32k : MEAN 37.7 tok/s (code 42.6 / chat 32.8), accept 75%, vram 9952+15043 MiB, image True, 7k prompt True @ 378 t/s -> pass
+[11-02 17:45:40] l60-mtp3-32k : loading
+[11-02 17:46:23] l60-mtp3-32k : loaded, vram 14029+10153 MiB; speed test
+[11-02 17:46:45] l60-mtp3-32k : speed 31.9 tok/s; image test
+[11-02 17:46:50] l60-mtp3-32k : image True; 7k prompt
+[11-02 17:47:14] l60-mtp3-32k : MEAN 31.9 tok/s (code 37.2 / chat 26.5), accept 76%, vram 14087+10905 MiB, image True, 7k prompt True @ 382 t/s -> pass
