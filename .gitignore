@@ -1,0 +1,16 @@
+# model files (downloaded, large)
+models/
+*.gguf
+# llama.cpp source clone, build tree and binaries (rebuild with tools\build-kernel.bat)
+kernel/src/
+kernel/build/
+kernel/bin/
+# raw server/build/download logs (contain local paths and user names); summaries live in results\*.jsonl / *.log
+results/logs/
+results/build-*.log
+results/download-*.log
+# secrets
+hf-token.txt
+*.token
+.env
+__pycache__/

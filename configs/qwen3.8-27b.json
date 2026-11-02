@@ -1,0 +1,28 @@
+{
+  "id": "qwen3.8-27b",
+  "name": "Qwen3.8-27B (dense hybrid, MTP head built in)",
+  "gguf": "Qwen3.8-27B-UD-Q5_K_XL.gguf",
+  "mmproj": "mmproj-F16.gguf",
+  "draft": "Qwen3.8-27B-DFlash2-Q4_K_M.gguf",
+  "files": [
+    { "repo": "unsloth/Qwen3.8-27B-GGUF", "file": "Qwen3.8-27B-UD-Q5_K_XL.gguf", "gb": 20.88 },
+    { "repo": "unsloth/Qwen3.8-27B-GGUF", "file": "mmproj-F16.gguf", "gb": 0.93 },
+    { "repo": "z-lab/Qwen3.8-27B-DFlash2-GGUF", "file": "Qwen3.8-27B-DFlash2-Q4_K_M.gguf", "gb": 1.14, "note": "only for spec=dflash" }
+  ],
+  "sampling": ["--temp", "0.7", "--top-k", "20", "--top-p", "0.8", "--min-p", "0"],
+  "configs": [
+    { "name": "layer-auto-mtp3-32k",     "ctx": 32768, "sm": "layer", "spec": "mtp", "n": 3 },
+    { "name": "layer-50-50-mtp3-32k",    "ctx": 32768, "sm": "layer", "ts": "50,50", "spec": "mtp", "n": 3 },
+    { "name": "layer-40-60-mtp3-32k",    "ctx": 32768, "sm": "layer", "ts": "40,60", "spec": "mtp", "n": 3 },
+    { "name": "layer-35-65-mtp3-32k",    "ctx": 32768, "sm": "layer", "ts": "35,65", "spec": "mtp", "n": 3 },
+    { "name": "layer-60-40-mtp3-32k",    "ctx": 32768, "sm": "layer", "ts": "60,40", "spec": "mtp", "n": 3 },
+    { "name": "row-mg0-mtp3-32k",        "ctx": 32768, "sm": "row", "mg": 0, "spec": "mtp", "n": 3 },
+    { "name": "row-mg1-mtp3-32k",        "ctx": 32768, "sm": "row", "mg": 1, "spec": "mtp", "n": 3 },
+    { "name": "tensor-mtp3-32k",         "ctx": 32768, "sm": "tensor", "spec": "mtp", "n": 3 },
+    { "name": "layer-nodraft-32k",       "ctx": 32768, "sm": "layer" }
+  ],
+  "sets": {
+    "split": ["layer-auto-mtp3-32k", "layer-50-50-mtp3-32k", "layer-40-60-mtp3-32k", "layer-35-65-mtp3-32k", "layer-60-40-mtp3-32k",
+              "row-mg0-mtp3-32k", "row-mg1-mtp3-32k", "tensor-mtp3-32k", "layer-nodraft-32k"]
+  }
+}
