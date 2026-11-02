@@ -18,8 +18,10 @@ function Get-SrvArgs($m, $c) {
     $md = "$Root\models\$($m.id)"
     $gguf = if ($c.gguf) { $c.gguf } else { $m.gguf }
     $kv = if ($c.kv) { $c.kv } else { 'f16' }
-    $ub = if ($c.ub) { $c.ub } else { 512 }
-    $b = if ($c.b) { $c.b } else { 2048 }     # b > ub lets both GPUs work on prompt chunks at the same time (pipeline)
+    $ub = if ($c.ub) { $c.ub } else { 256 }
+    # b > ub lets both GPUs process prompt chunks at the same time (pipeline). On this PC that peak crashed the V100 / the
+    # whole system twice (b 2048 / ub 512 during a 7k prompt), so b defaults to ub: the cards take turns.
+    $b = if ($c.b) { $c.b } else { $ub }
     $a = @('-m', "$md\$gguf", '-ngl', 'all', '-c', "$($c.ctx)", '-np', '1', '-fa', 'on', '-b', "$b", '-ub', "$ub",
            '--jinja', '--cache-ram', '2048', '--host', '127.0.0.1', '--port', "$Port")
     if ($m.mmproj) { $a += @('--mmproj', "$md\$($m.mmproj)"); if ($c.mmgpu -eq $false) { $a += '--no-mmproj-offload' } }

@@ -10,20 +10,22 @@
     { "repo": "z-lab/Qwen3.8-27B-DFlash2-GGUF", "file": "Qwen3.8-27B-DFlash2-Q4_K_M.gguf", "gb": 1.14, "note": "only for spec=dflash" }
   ],
   "sampling": ["--temp", "0.7", "--top-k", "20", "--top-p", "0.8", "--min-p", "0"],
+  "notes": "b defaults to ub (see tools/common.ps1): b 2048 / ub 512 crashed the PC twice on the 7k prompt. ts = A4500,V100.",
   "configs": [
-    { "name": "layer-auto-mtp3-32k",     "ctx": 32768, "sm": "layer", "spec": "mtp", "n": 3 },
+    { "name": "layer-auto-mtp3-32k",            "ctx": 32768, "sm": "layer", "b": 2048, "ub": 512, "spec": "mtp", "n": 3, "note": "CRASHES THE PC on the 7k prompt" },
     { "name": "layer-auto-mtp3-32k-b256-ub256", "ctx": 32768, "sm": "layer", "b": 256, "ub": 256, "spec": "mtp", "n": 3 },
-    { "name": "layer-50-50-mtp3-32k",    "ctx": 32768, "sm": "layer", "ts": "50,50", "spec": "mtp", "n": 3 },
-    { "name": "layer-40-60-mtp3-32k",    "ctx": 32768, "sm": "layer", "ts": "40,60", "spec": "mtp", "n": 3 },
-    { "name": "layer-35-65-mtp3-32k",    "ctx": 32768, "sm": "layer", "ts": "35,65", "spec": "mtp", "n": 3 },
-    { "name": "layer-60-40-mtp3-32k",    "ctx": 32768, "sm": "layer", "ts": "60,40", "spec": "mtp", "n": 3 },
-    { "name": "row-mg0-mtp3-32k",        "ctx": 32768, "sm": "row", "mg": 0, "spec": "mtp", "n": 3 },
-    { "name": "row-mg1-mtp3-32k",        "ctx": 32768, "sm": "row", "mg": 1, "spec": "mtp", "n": 3 },
-    { "name": "tensor-mtp3-32k",         "ctx": 32768, "sm": "tensor", "spec": "mtp", "n": 3 },
-    { "name": "layer-nodraft-32k",       "ctx": 32768, "sm": "layer" }
+
+    { "name": "l50-mtp3-32k",        "ctx": 32768, "sm": "layer", "ts": "50,50", "spec": "mtp", "n": 3 },
+    { "name": "l45-mtp3-32k",        "ctx": 32768, "sm": "layer", "ts": "45,55", "spec": "mtp", "n": 3 },
+    { "name": "l40-mtp3-32k",        "ctx": 32768, "sm": "layer", "ts": "40,60", "spec": "mtp", "n": 3 },
+    { "name": "l60-mtp3-32k",        "ctx": 32768, "sm": "layer", "ts": "60,40", "spec": "mtp", "n": 3 },
+
+    { "name": "row-mg0-mtp3-32k",    "ctx": 32768, "sm": "row", "mg": 0, "spec": "mtp", "n": 3, "note": "both GPUs busy at once: not run (crash risk)" },
+    { "name": "row-mg1-mtp3-32k",    "ctx": 32768, "sm": "row", "mg": 1, "spec": "mtp", "n": 3, "note": "both GPUs busy at once: not run (crash risk)" },
+    { "name": "tensor-mtp3-32k",     "ctx": 32768, "sm": "tensor", "spec": "mtp", "n": 3, "note": "both GPUs busy at once: not run (crash risk)" }
   ],
   "sets": {
-    "split": ["layer-auto-mtp3-32k", "layer-50-50-mtp3-32k", "layer-40-60-mtp3-32k", "layer-35-65-mtp3-32k", "layer-60-40-mtp3-32k",
-              "row-mg0-mtp3-32k", "row-mg1-mtp3-32k", "tensor-mtp3-32k", "layer-nodraft-32k"]
+    "split": ["l50-mtp3-32k", "l45-mtp3-32k", "l40-mtp3-32k", "l60-mtp3-32k"],
+    "parallel-risky": ["row-mg0-mtp3-32k", "row-mg1-mtp3-32k", "tensor-mtp3-32k"]
   }
 }
