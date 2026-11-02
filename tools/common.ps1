@@ -12,14 +12,15 @@ function Get-ModelCfg($id) {
 }
 
 # One config -> llama-server argument list. Fields (all optional except ctx):
-#   gguf (overrides the model default), ctx, kv (f16/q8_0/q4_0), ub, sm (layer/row/tensor/none), ts ("a,b"), mg,
+#   gguf (overrides the model default), ctx, kv (f16/q8_0/q4_0), b, ub, sm (layer/row/tensor/none), ts ("a,b"), mg,
 #   spec (mtp/dflash), n, mmgpu (vision projector on GPU, default true), extra (array of raw args)
 function Get-SrvArgs($m, $c) {
     $md = "$Root\models\$($m.id)"
     $gguf = if ($c.gguf) { $c.gguf } else { $m.gguf }
     $kv = if ($c.kv) { $c.kv } else { 'f16' }
     $ub = if ($c.ub) { $c.ub } else { 512 }
-    $a = @('-m', "$md\$gguf", '-ngl', 'all', '-c', "$($c.ctx)", '-np', '1', '-fa', 'on', '-b', '2048', '-ub', "$ub",
+    $b = if ($c.b) { $c.b } else { 2048 }     # b > ub lets both GPUs work on prompt chunks at the same time (pipeline)
+    $a = @('-m', "$md\$gguf", '-ngl', 'all', '-c', "$($c.ctx)", '-np', '1', '-fa', 'on', '-b', "$b", '-ub', "$ub",
            '--jinja', '--cache-ram', '2048', '--host', '127.0.0.1', '--port', "$Port")
     if ($m.mmproj) { $a += @('--mmproj', "$md\$($m.mmproj)"); if ($c.mmgpu -eq $false) { $a += '--no-mmproj-offload' } }
     if ($m.sampling) { $a += @($m.sampling) }

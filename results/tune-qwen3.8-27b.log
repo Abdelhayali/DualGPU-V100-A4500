@@ -1,1 +1,5 @@
 [11-02 15:01:46] layer-auto-mtp3-32k : MEAN 47.8 tok/s (code 53.8 / chat 41.9), accept 76%, vram 394 MiB, image True, 7k prompt False @  t/s -> FAIL
+[11-02 17:24:58] layer-auto-mtp3-32k : loading
+[11-02 17:27:41] layer-auto-mtp3-32k : loaded, vram 13280+11431 MiB; speed test
+[11-02 17:28:00] layer-auto-mtp3-32k : speed 36.4 tok/s; image test
+[11-02 17:28:05] layer-auto-mtp3-32k : image True; 7k prompt

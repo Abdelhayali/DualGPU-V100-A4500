@@ -12,6 +12,7 @@
   "sampling": ["--temp", "0.7", "--top-k", "20", "--top-p", "0.8", "--min-p", "0"],
   "configs": [
     { "name": "layer-auto-mtp3-32k",     "ctx": 32768, "sm": "layer", "spec": "mtp", "n": 3 },
+    { "name": "layer-auto-mtp3-32k-b256-ub256", "ctx": 32768, "sm": "layer", "b": 256, "ub": 256, "spec": "mtp", "n": 3 },
     { "name": "layer-50-50-mtp3-32k",    "ctx": 32768, "sm": "layer", "ts": "50,50", "spec": "mtp", "n": 3 },
     { "name": "layer-40-60-mtp3-32k",    "ctx": 32768, "sm": "layer", "ts": "40,60", "spec": "mtp", "n": 3 },
     { "name": "layer-35-65-mtp3-32k",    "ctx": 32768, "sm": "layer", "ts": "35,65", "spec": "mtp", "n": 3 },
