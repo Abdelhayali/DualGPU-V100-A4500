@@ -2,13 +2,18 @@
 # (test image + ~7k-token prompt). Appends one JSON line per config to results\tune-<model>.jsonl.
 # Usage: tools\tune.ps1 <model id> [config name ...]      (no names = every config in the file)
 #        tools\tune.ps1 <model id> -Set <set name>        (a named group from "sets" in the config file)
-param([Parameter(Mandatory)][string] $Model, [string] $Set, [Parameter(ValueFromRemainingArguments)] [string[]] $Names)
+[CmdletBinding(PositionalBinding = $false)]
+param([Parameter(Mandatory, Position = 0)][string] $Model, [string] $Set, [Parameter(ValueFromRemainingArguments)] [string[]] $Names)
 $ErrorActionPreference = 'Continue'
 . "$PSScriptRoot\common.ps1"
 $m = Get-ModelCfg $Model
 $configs = @($m.configs)
 if ($Set) { $Names = @($m.sets.$Set) }
-if ($Names) { $configs = $configs | Where-Object { $Names -contains $_.name } }
+if ($Set -and -not $Names) { throw "no set $Set in configs\$Model.json" }
+if ($Names) {
+    $configs = @($configs | Where-Object { $Names -contains $_.name })
+    if ($configs.Count -ne @($Names).Count) { throw "unknown config name(s): $($Names -join ', ')" }
+}
 New-Item -ItemType Directory -Force "$Root\results\logs" | Out-Null
 $out = "$Root\results\tune-$Model.jsonl"; $txt = "$Root\results\tune-$Model.log"
 function L($s) { $s = "[{0}] {1}" -f (Get-Date -Format 'MM-dd HH:mm:ss'), $s; Add-Content $txt $s; $s | Out-Host }

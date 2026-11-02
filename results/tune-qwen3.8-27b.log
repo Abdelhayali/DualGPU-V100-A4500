@@ -3,3 +3,5 @@
 [11-02 17:27:41] layer-auto-mtp3-32k : loaded, vram 13280+11431 MiB; speed test
 [11-02 17:28:00] layer-auto-mtp3-32k : speed 36.4 tok/s; image test
 [11-02 17:28:05] layer-auto-mtp3-32k : image True; 7k prompt
+[11-02 17:35:04] layer-auto-mtp3-32k : loading
+[11-02 17:37:46] layer-auto-mtp3-32k : loaded, vram 13209+11431 MiB; speed test
