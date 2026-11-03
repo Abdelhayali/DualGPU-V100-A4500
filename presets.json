@@ -1,0 +1,12 @@
+{
+  "models": {
+    "qwen3.8-27b": {
+      "default": "128k",
+      "presets": [
+        { "name": "128k", "config": "l60-mtp3-128k",          "summary": "default: 128k ctx, f16 KV, MTP 3, split 60/40 - 48.3 tok/s, 7k prompt 917 t/s" },
+        { "name": "fast", "config": "layer-auto-mtp3-32k",    "summary": "fastest: 32k ctx, f16 KV, MTP 3, auto split - 50.2 tok/s, 7k prompt 952 t/s" },
+        { "name": "262k", "config": "l65-mtp3-262k-q4-ub256", "summary": "full 262k ctx, q4 KV, MTP 3, split 65/35, ub 256 - 46.0 tok/s" }
+      ]
+    }
+  }
+}

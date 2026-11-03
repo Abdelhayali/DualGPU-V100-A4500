@@ -38,6 +38,9 @@
     { "name": "l60-mtp3-128k-q8",    "ctx": 131072, "sm": "layer", "ts": "60,40", "kv": "q8_0", "spec": "mtp", "n": 3 },
     { "name": "l60-mtp3-262k-q8",    "ctx": 262144, "sm": "layer", "ts": "60,40", "kv": "q8_0", "spec": "mtp", "n": 3 },
     { "name": "l60-mtp3-262k-q4",    "ctx": 262144, "sm": "layer", "ts": "60,40", "kv": "q4_0", "spec": "mtp", "n": 3 },
+    { "name": "l60-mtp3-262k-q8-ub256", "ctx": 262144, "sm": "layer", "ts": "60,40", "kv": "q8_0", "ub": 256, "spec": "mtp", "n": 3 },
+    { "name": "l65-mtp3-262k-q8-ub256", "ctx": 262144, "sm": "layer", "ts": "65,35", "kv": "q8_0", "ub": 256, "spec": "mtp", "n": 3 },
+    { "name": "l65-mtp3-262k-q4-ub256", "ctx": 262144, "sm": "layer", "ts": "65,35", "kv": "q4_0", "ub": 256, "spec": "mtp", "n": 3 },
 
     { "name": "row-mg0-mtp3-32k",    "ctx": 32768, "sm": "row", "mg": 0, "spec": "mtp", "n": 3, "note": "does not start: CUDA0 does not support split buffers" },
     { "name": "row-mg1-mtp3-32k",    "ctx": 32768, "sm": "row", "mg": 1, "spec": "mtp", "n": 3, "note": "does not start: CUDA0 does not support split buffers" },
@@ -49,6 +52,7 @@
     "kv-ub": ["l45-mtp3-32k-q8", "l45-mtp3-32k-ub256", "l45-mtp3-32k-ub1024"],
     "ctx": ["l45-mtp3-128k", "l45-mtp3-128k-q8", "l45-mtp3-262k-q8", "l45-mtp3-262k-q4"],
     "ctx60": ["l60-mtp3-128k", "l60-mtp3-128k-q8", "l60-mtp3-262k-q8", "l60-mtp3-262k-q4"],
+    "ctx262": ["l60-mtp3-262k-q8-ub256", "l65-mtp3-262k-q8-ub256", "l65-mtp3-262k-q4-ub256"],
     "parallel-risky": ["row-mg0-mtp3-32k", "row-mg1-mtp3-32k", "tensor-mtp3-32k"]
   }
 }
