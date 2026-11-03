@@ -1,0 +1,35 @@
+{
+  "id": "orcacyber-nano-27b",
+  "name": "OrcaCyber Nano 1.0 27B Mix-15.7G (Qwen3.8-27B base, security tune, MTP built in)",
+  "gguf": "OrcaCyber-Nano-1.0-AI-Defense-Mix-15.7G.gguf",
+  "mmproj": "mmproj-OrcaCyber-Nano-1.0-AI-Defense-F16.gguf",
+  "draft": "OrcaCyber-Nano-1.0-AI-Defense-DFlash2-Q8_0.gguf",
+  "files": [
+    { "repo": "orcarouter/OrcaCyber-Nano-1.0", "revision": "1af1635aa22b97e965450c2d69525761d9bd463f", "file": "OrcaCyber-Nano-1.0-AI-Defense-Mix-15.7G.gguf", "gb": 15.70, "note": "gated repo (needs access on HF)" },
+    { "repo": "orcarouter/OrcaCyber-Nano-1.0", "file": "mmproj-OrcaCyber-Nano-1.0-AI-Defense-F16.gguf", "gb": 0.93 },
+    { "repo": "orcarouter/OrcaCyber-Nano-1.0", "file": "OrcaCyber-Nano-1.0-AI-Defense-DFlash2-Q8_0.gguf", "gb": 2.06, "note": "only for spec=dflash" }
+  ],
+  "sampling": ["--temp", "1.0", "--top-k", "20", "--top-p", "0.95", "--min-p", "0"],
+  "notes": "Same architecture as qwen3.8-27b (64 layers, 16 full-attention). Sampling from the model card. ts = A4500,V100.",
+  "configs": [
+    { "name": "auto-mtp3-32k",      "ctx": 32768,  "sm": "layer", "spec": "mtp", "n": 3 },
+    { "name": "l45-mtp3-32k",       "ctx": 32768,  "sm": "layer", "ts": "45,55", "spec": "mtp", "n": 3 },
+    { "name": "l60-mtp3-32k",       "ctx": 32768,  "sm": "layer", "ts": "60,40", "spec": "mtp", "n": 3 },
+    { "name": "a4500-mtp3-32k",     "ctx": 32768,  "sm": "none", "mg": 0, "spec": "mtp", "n": 3, "note": "A4500 only" },
+
+    { "name": "auto-mtp2-32k",      "ctx": 32768,  "sm": "layer", "spec": "mtp", "n": 2 },
+    { "name": "auto-mtp4-32k",      "ctx": 32768,  "sm": "layer", "spec": "mtp", "n": 4 },
+    { "name": "auto-dfl4-32k",      "ctx": 32768,  "sm": "layer", "spec": "dflash", "n": 4 },
+    { "name": "auto-dfl7-32k",      "ctx": 32768,  "sm": "layer", "spec": "dflash", "n": 7, "note": "n 7 = the model card's setting" },
+
+    { "name": "auto-mtp3-128k",     "ctx": 131072, "sm": "layer", "spec": "mtp", "n": 3 },
+    { "name": "auto-mtp3-262k",     "ctx": 262144, "sm": "layer", "spec": "mtp", "n": 3 },
+    { "name": "auto-mtp3-262k-q8",  "ctx": 262144, "sm": "layer", "kv": "q8_0", "spec": "mtp", "n": 3, "note": "V100 at 16.1 GB: too tight" },
+    { "name": "l55-mtp3-262k-q8",   "ctx": 262144, "sm": "layer", "ts": "55,45", "kv": "q8_0", "spec": "mtp", "n": 3 }
+  ],
+  "sets": {
+    "split": ["auto-mtp3-32k", "l45-mtp3-32k", "l60-mtp3-32k", "a4500-mtp3-32k"],
+    "spec": ["auto-mtp2-32k", "auto-mtp4-32k", "auto-dfl4-32k", "auto-dfl7-32k"],
+    "ctx": ["auto-mtp3-128k", "auto-mtp3-262k", "auto-mtp3-262k-q8", "l55-mtp3-262k-q8"]
+  }
+}

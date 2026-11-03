@@ -1,6 +1,6 @@
 {
   "id": "qwen3.8-27b",
-  "name": "Qwen3.8-27B (dense hybrid, MTP head built in)",
+  "name": "Qwen3.8-27B UD-Q5_K_XL (dense hybrid, MTP built in)",
   "gguf": "Qwen3.8-27B-UD-Q5_K_XL.gguf",
   "mmproj": "mmproj-F16.gguf",
   "draft": "Qwen3.8-27B-DFlash2-Q4_K_M.gguf",

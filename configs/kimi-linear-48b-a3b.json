@@ -1,0 +1,24 @@
+{
+  "id": "kimi-linear-48b-a3b",
+  "name": "Kimi-Linear 48B-A3B Instruct abliterated (MoE, KDA linear attention, text only)",
+  "gguf": "Kimi-Linear-48B-A3B-Instruct-abliterated-bf16.i1-Q4_K_M.gguf",
+  "files": [
+    { "repo": "mradermacher/Kimi-Linear-48B-A3B-Instruct-abliterated-bf16-i1-GGUF", "file": "Kimi-Linear-48B-A3B-Instruct-abliterated-bf16.i1-Q4_K_M.gguf", "gb": 27.66 }
+  ],
+  "sampling": ["--temp", "0.6", "--top-p", "0.95", "--min-p", "0"],
+  "notes": "27 layers: 20 KDA (linear) + 7 full-attention MLA, so the KV cache is small; trained for 1M context. No vision, no draft model. Moonshot gives no sampling defaults: temp 0.6 as for its other Kimi models. ts = A4500,V100.",
+  "configs": [
+    { "name": "auto-32k",      "ctx": 32768,   "sm": "layer" },
+    { "name": "l50-32k",       "ctx": 32768,   "sm": "layer", "ts": "50,50" },
+    { "name": "l60-32k",       "ctx": 32768,   "sm": "layer", "ts": "60,40" },
+
+    { "name": "auto-128k",     "ctx": 131072,  "sm": "layer" },
+    { "name": "auto-262k",     "ctx": 262144,  "sm": "layer" },
+    { "name": "auto-512k",     "ctx": 524288,  "sm": "layer" },
+    { "name": "auto-1m-q8",    "ctx": 1048576, "sm": "layer", "kv": "q8_0" }
+  ],
+  "sets": {
+    "split": ["auto-32k", "l50-32k", "l60-32k"],
+    "ctx": ["auto-128k", "auto-262k", "auto-512k", "auto-1m-q8"]
+  }
+}

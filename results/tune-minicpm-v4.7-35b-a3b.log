@@ -1,0 +1,41 @@
+[11-03 21:02:31] auto-nodraft-32k : loading
+[11-03 21:03:27] auto-nodraft-32k : loaded, vram 17543+12591 MiB; speed test
+[11-03 21:03:35] auto-nodraft-32k : speed 91.6 tok/s; image test
+[11-03 21:03:37] auto-nodraft-32k : image True; 7k prompt
+[11-03 21:03:46] auto-nodraft-32k : MEAN 91.6 tok/s (code 91.1 / chat 92.1), vram 17593+12663 MiB, image True, 7k prompt True @ 1055 t/s -> pass
+[11-03 21:03:46] auto-dsp8-32k : loading
+[11-03 21:04:47] auto-dsp8-32k : loaded, vram 18498+14483 MiB; speed test
+[11-03 21:04:58] auto-dsp8-32k : speed 66.0 tok/s; image test
+[11-03 21:05:00] auto-dsp8-32k : image True; 7k prompt
+[11-03 21:05:10] auto-dsp8-32k : MEAN 66.0 tok/s (code 79.3 / chat 52.7), accept 32%, vram 18588+14665 MiB, image True, 7k prompt True @ 961 t/s -> pass
+[11-03 21:05:10] auto-dsp15-32k : loading
+[11-03 21:06:08] auto-dsp15-32k : loaded, vram 18772+14657 MiB; speed test
+[11-03 21:06:22] auto-dsp15-32k : speed 54.2 tok/s; image test
+[11-03 21:06:24] auto-dsp15-32k : image True; 7k prompt
+[11-03 21:06:34] auto-dsp15-32k : MEAN 54.2 tok/s (code 66.4 / chat 41.9), accept 18%, vram 18868+14843 MiB, image True, 7k prompt True @ 956 t/s -> pass
+[11-03 21:06:34] l50-dsp15-32k : loading
+[11-03 21:07:33] l50-dsp15-32k : loaded, vram 17387+16047 MiB; speed test
+[11-03 21:07:46] l50-dsp15-32k : speed 51.7 tok/s; image test
+[11-03 21:07:48] l50-dsp15-32k : image True; 7k prompt
+[11-03 21:07:59] l50-dsp15-32k : MEAN 51.7 tok/s (code 61.4 / chat 42.1), accept 19%, vram 17477+16235 MiB, image True, 7k prompt True @ 889 t/s -> pass
+[11-03 21:07:59] l40-dsp15-32k : loading
+[11-03 21:09:02] l40-dsp15-32k : does not start
+[11-03 21:09:07] l50-nodraft-32k : loading
+[11-03 21:10:02] l50-nodraft-32k : loaded, vram 16224+13919 MiB; speed test
+[11-03 21:10:10] l50-nodraft-32k : speed 87.0 tok/s; image test
+[11-03 21:10:12] l50-nodraft-32k : image True; 7k prompt
+[11-03 21:10:21] l50-nodraft-32k : MEAN 87.0 tok/s (code 86.6 / chat 87.5), vram 16278+13991 MiB, image True, 7k prompt True @ 982 t/s -> pass
+[11-03 21:10:21] l40-nodraft-32k : loading
+[11-03 21:11:23] l40-nodraft-32k : does not start
+[11-03 21:11:23] auto-nodraft-128k : loading
+[11-03 21:12:18] auto-nodraft-128k : loaded, vram 18901+13935 MiB; speed test
+[11-03 21:12:26] auto-nodraft-128k : speed 87.0 tok/s; image test
+[11-03 21:12:28] auto-nodraft-128k : image True; 7k prompt
+[11-03 21:12:37] auto-nodraft-128k : MEAN 87.0 tok/s (code 82.8 / chat 91.2), vram 18948+14007 MiB, image True, 7k prompt True @ 1055 t/s -> pass
+[11-03 21:12:37] auto-nodraft-262k : loading
+[11-03 21:13:44] auto-nodraft-262k : does not start
+[11-03 21:13:44] auto-nodraft-262k-q8 : loading
+[11-03 21:14:40] auto-nodraft-262k-q8 : loaded, vram 19952+14989 MiB; speed test
+[11-03 21:14:48] auto-nodraft-262k-q8 : speed 82.3 tok/s; image test
+[11-03 21:14:50] auto-nodraft-262k-q8 : image True; 7k prompt
+[11-03 21:14:58] auto-nodraft-262k-q8 : MEAN 82.3 tok/s (code 79.3 / chat 85.4), vram 20006+15061 MiB, image True, 7k prompt True @ 1051 t/s -> pass

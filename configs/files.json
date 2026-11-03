@@ -1,0 +1,62 @@
+{
+ "kimi-linear-48b-a3b/Kimi-Linear-48B-A3B-Instruct-abliterated-bf16.i1-Q4_K_M.gguf": {
+  "repo": "mradermacher/Kimi-Linear-48B-A3B-Instruct-abliterated-bf16-i1-GGUF",
+  "sha256": "ad4eca4c37c688e9d03aaf4558ddb869bd7740bc02423451be6d33e9502cde80",
+  "size": 29702759968,
+  "url": "https://huggingface.co/mradermacher/Kimi-Linear-48B-A3B-Instruct-abliterated-bf16-i1-GGUF/resolve/main/Kimi-Linear-48B-A3B-Instruct-abliterated-bf16.i1-Q4_K_M.gguf"
+ },
+ "minicpm-v4.7-35b-a3b/MiniCPM-V-4_7-35B-A3B-Q6_K.gguf": {
+  "repo": "openbmb/MiniCPM-V-4.7-35B-A3B-gguf",
+  "sha256": "b6eaa3a564235c72d251c033554fcd260a6035111246429793f6063eee516c73",
+  "size": 28513556640,
+  "url": "https://huggingface.co/openbmb/MiniCPM-V-4.7-35B-A3B-gguf/resolve/main/MiniCPM-V-4_7-35B-A3B-Q6_K.gguf"
+ },
+ "minicpm-v4.7-35b-a3b/dspark-MiniCPM-V-4_7-35B-A3B-F16.gguf": {
+  "repo": "openbmb/MiniCPM-V-4.7-35B-A3B-gguf",
+  "sha256": "2ec640fb446648dae379c38f22d7dcb1e1f0590e65b864fa801d826ac9395e82",
+  "size": 789442368,
+  "url": "https://huggingface.co/openbmb/MiniCPM-V-4.7-35B-A3B-gguf/resolve/main/dspark-MiniCPM-V-4_7-35B-A3B-F16.gguf"
+ },
+ "minicpm-v4.7-35b-a3b/mmproj-model-f16.gguf": {
+  "repo": "openbmb/MiniCPM-V-4.7-35B-A3B-gguf",
+  "sha256": "bff3b688e14c300eca273092c37c50a0ddfcc2054e079af1a0480edeed5d20f1",
+  "size": 1119575840,
+  "url": "https://huggingface.co/openbmb/MiniCPM-V-4.7-35B-A3B-gguf/resolve/main/mmproj-model-f16.gguf"
+ },
+ "orcacyber-nano-27b/OrcaCyber-Nano-1.0-AI-Defense-DFlash2-Q8_0.gguf": {
+  "repo": "orcarouter/OrcaCyber-Nano-1.0",
+  "sha256": "1336ac755846f9be77abb9cca4de99f98bed05e98485cfa46affc4b789ab7f52",
+  "size": 2056414112,
+  "url": "https://huggingface.co/orcarouter/OrcaCyber-Nano-1.0/resolve/1af1635aa22b97e965450c2d69525761d9bd463f/OrcaCyber-Nano-1.0-AI-Defense-DFlash2-Q8_0.gguf"
+ },
+ "orcacyber-nano-27b/OrcaCyber-Nano-1.0-AI-Defense-Mix-15.7G.gguf": {
+  "repo": "orcarouter/OrcaCyber-Nano-1.0",
+  "sha256": "4214beb4c3ee2323d97d19a5c6a3327f25d969c7db26956e2fc917cf297dc289",
+  "size": 15695148832,
+  "url": "https://huggingface.co/orcarouter/OrcaCyber-Nano-1.0/resolve/1af1635aa22b97e965450c2d69525761d9bd463f/OrcaCyber-Nano-1.0-AI-Defense-Mix-15.7G.gguf"
+ },
+ "orcacyber-nano-27b/mmproj-OrcaCyber-Nano-1.0-AI-Defense-F16.gguf": {
+  "repo": "orcarouter/OrcaCyber-Nano-1.0",
+  "sha256": "f854eb8f1e4fdd133a7375b9aa78792548e561f6d8b95da7660e91db56f85382",
+  "size": 927606848,
+  "url": "https://huggingface.co/orcarouter/OrcaCyber-Nano-1.0/resolve/1af1635aa22b97e965450c2d69525761d9bd463f/mmproj-OrcaCyber-Nano-1.0-AI-Defense-F16.gguf"
+ },
+ "qwen3.8-27b/Qwen3.8-27B-DFlash2-Q4_K_M.gguf": {
+  "repo": "z-lab/Qwen3.8-27B-DFlash2-GGUF",
+  "sha256": "1a25c56858e1ebe93f2718ac1d49d1151f9323325c1bbfd6209370f4db131ebd",
+  "size": 1143006816,
+  "url": "https://huggingface.co/z-lab/Qwen3.8-27B-DFlash2-GGUF/resolve/main/Qwen3.8-27B-DFlash2-Q4_K_M.gguf"
+ },
+ "qwen3.8-27b/Qwen3.8-27B-UD-Q5_K_XL.gguf": {
+  "repo": "unsloth/Qwen3.8-27B-GGUF",
+  "sha256": "8601193d3d5760c37fb8ce1b43afebc69df5fb24e1fbc5a547c32e2200305276",
+  "size": 20876938144,
+  "url": "https://huggingface.co/unsloth/Qwen3.8-27B-GGUF/resolve/main/Qwen3.8-27B-UD-Q5_K_XL.gguf"
+ },
+ "qwen3.8-27b/mmproj-F16.gguf": {
+  "repo": "unsloth/Qwen3.8-27B-GGUF",
+  "sha256": "cbb841a9ee0636b2ec172f5bb8df2ea8dfeb01e90fe7c6126581d662a0b4e43e",
+  "size": 927607488,
+  "url": "https://huggingface.co/unsloth/Qwen3.8-27B-GGUF/resolve/main/mmproj-F16.gguf"
+ }
+}

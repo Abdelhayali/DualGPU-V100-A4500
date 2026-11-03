@@ -36,9 +36,9 @@ function Get-SrvArgs($m, $c) {
     if ($c.ts) { $a += @('-ts', $c.ts) }
     if ($null -ne $c.mg) { $a += @('-mg', "$($c.mg)") }
     if ($c.spec) {
-        $type = @{ mtp = 'draft-mtp'; dflash = 'draft-dflash' }[$c.spec]
+        $type = @{ mtp = 'draft-mtp'; dflash = 'draft-dflash'; dspark = 'draft-dspark' }[$c.spec]
         $a += @('--spec-type', $type, '--spec-draft-n-max', "$($c.n)", '--spec-draft-p-min', '0')
-        if ($c.spec -eq 'dflash') { $a += @('--spec-draft-model', "$md\$($m.draft)", '--spec-draft-ngl', 'all') }
+        if ($c.spec -ne 'mtp') { $a += @('--spec-draft-model', "$md\$($m.draft)", '--spec-draft-ngl', 'all') }
         if ($c.devd) { $a += @('--spec-draft-device', $c.devd) }
         if ($kv -ne 'f16') { $a += @('--spec-draft-type-k', $kv, '--spec-draft-type-v', $kv) }
     }

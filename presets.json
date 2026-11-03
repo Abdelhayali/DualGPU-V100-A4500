@@ -7,6 +7,22 @@
         { "name": "fast", "config": "layer-auto-mtp3-32k",    "summary": "fastest: 32k ctx, f16 KV, MTP 3, auto split - 50.2 tok/s, 7k prompt 952 t/s" },
         { "name": "262k", "config": "l65-mtp3-262k-q4-ub256", "summary": "full 262k ctx, q4 KV, MTP 3, split 65/35, ub 256 - 46.0 tok/s" }
       ]
+    },
+    "orcacyber-nano-27b": {
+      "default": "128k",
+      "presets": [
+        { "name": "128k", "config": "auto-mtp3-128k",   "summary": "default: 128k ctx, f16 KV, MTP 3, auto split - 58.2 tok/s, 7k prompt 974 t/s" },
+        { "name": "code", "config": "auto-mtp4-32k",    "summary": "code: 32k ctx, MTP 4 - 57.9 tok/s mean, 69.9 on code" },
+        { "name": "262k", "config": "l55-mtp3-262k-q8", "summary": "full 262k ctx, q8 KV, MTP 3 - 56.5 tok/s (both GPUs nearly full)" }
+      ]
+    },
+    "minicpm-v4.7-35b-a3b": {
+      "default": "128k",
+      "presets": [
+        { "name": "128k", "config": "auto-nodraft-128k",    "summary": "default: 128k ctx, f16 KV, no draft - 87.0 tok/s, 7k prompt 1055 t/s" },
+        { "name": "fast", "config": "auto-nodraft-32k",     "summary": "fastest: 32k ctx, f16 KV, no draft - 91.6 tok/s" },
+        { "name": "262k", "config": "auto-nodraft-262k-q8", "summary": "full 262k ctx, q8 KV, no draft - 82.3 tok/s" }
+      ]
     }
   }
 }

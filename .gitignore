@@ -14,3 +14,7 @@ hf-token.txt
 *.token
 .env
 __pycache__/
+
+# GUI: per-user state (not in git)
+user-params.json
+user-models.json

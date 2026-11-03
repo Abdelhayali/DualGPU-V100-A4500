@@ -1,0 +1,31 @@
+{
+  "id": "minicpm-v4.7-35b-a3b",
+  "name": "MiniCPM-V 4.7 35B-A3B Q6_K (MoE vision-language)",
+  "gguf": "MiniCPM-V-4_7-35B-A3B-Q6_K.gguf",
+  "mmproj": "mmproj-model-f16.gguf",
+  "draft": "dspark-MiniCPM-V-4_7-35B-A3B-F16.gguf",
+  "files": [
+    { "repo": "openbmb/MiniCPM-V-4.7-35B-A3B-gguf", "file": "MiniCPM-V-4_7-35B-A3B-Q6_K.gguf", "gb": 26.56, "note": "root files: thinking disabled in the template" },
+    { "repo": "openbmb/MiniCPM-V-4.7-35B-A3B-gguf", "file": "mmproj-model-f16.gguf", "gb": 1.04 },
+    { "repo": "openbmb/MiniCPM-V-4.7-35B-A3B-gguf", "file": "dspark-MiniCPM-V-4_7-35B-A3B-F16.gguf", "gb": 0.74, "note": "only for spec=dspark" }
+  ],
+  "sampling": ["--temp", "1.0", "--top-k", "20", "--top-p", "0.95", "--min-p", "0"],
+  "notes": "Sampling from generation_config.json. DSpark is slower here (3B active: the draft costs more than it saves). DSpark drafts up to 15 tokens per pass (model card uses --spec-draft-n-max 15). ts = A4500,V100.",
+  "configs": [
+    { "name": "auto-nodraft-32k",   "ctx": 32768,  "sm": "layer" },
+    { "name": "auto-dsp8-32k",      "ctx": 32768,  "sm": "layer", "spec": "dspark", "n": 8 },
+    { "name": "auto-dsp15-32k",     "ctx": 32768,  "sm": "layer", "spec": "dspark", "n": 15 },
+    { "name": "l50-dsp15-32k",      "ctx": 32768,  "sm": "layer", "ts": "50,50", "spec": "dspark", "n": 15 },
+    { "name": "l40-dsp15-32k",      "ctx": 32768,  "sm": "layer", "ts": "40,60", "spec": "dspark", "n": 15 },
+
+    { "name": "l50-nodraft-32k",    "ctx": 32768,  "sm": "layer", "ts": "50,50" },
+    { "name": "l40-nodraft-32k",    "ctx": 32768,  "sm": "layer", "ts": "40,60" },
+    { "name": "auto-nodraft-128k",  "ctx": 131072, "sm": "layer" },
+    { "name": "auto-nodraft-262k",  "ctx": 262144, "sm": "layer" },
+    { "name": "auto-nodraft-262k-q8", "ctx": 262144, "sm": "layer", "kv": "q8_0" }
+  ],
+  "sets": {
+    "base": ["auto-nodraft-32k", "auto-dsp8-32k", "auto-dsp15-32k", "l50-dsp15-32k", "l40-dsp15-32k"],
+    "ctx": ["l50-nodraft-32k", "l40-nodraft-32k", "auto-nodraft-128k", "auto-nodraft-262k", "auto-nodraft-262k-q8"]
+  }
+}

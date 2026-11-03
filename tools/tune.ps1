@@ -34,12 +34,12 @@ foreach ($c in $configs) {
         if (-not $s) { $r.status = 'gen-failed'; L "$($c.name) : vram $($r.vram_mib), generation failed" }
         else {
             L "$($c.name) : speed $($s.mean) tok/s; image test"
-            $img = Test-Image
+            $img = if ($m.mmproj) { Test-Image } else { 'n/a' }   # text-only models: no vision projector, no image test
             L "$($c.name) : image $img; 7k prompt"
             $lp = Test-LongPrompt
             $r.code = $s.code; $r.chat = $s.chat; $r.mean = $s.mean; $r.accept = $s.acc
             $r.image = $img; $r.longprompt = $lp.ok; $r.pp = $lp.pp; $r.vram_peak_mib = Get-Vram
-            $r.status = if ($img -and $lp.ok) { 'pass' } else { 'FAIL' }
+            $r.status = if ($img -ne $false -and $lp.ok) { 'pass' } else { 'FAIL' }
             L ("$($c.name) : MEAN $($s.mean) tok/s (code $($s.code) / chat $($s.chat))" + $(if ($s.acc) { ", accept $($s.acc)%" } else { '' }) +
                ", vram $($r.vram_peak_mib) MiB, image $img, 7k prompt $($lp.ok) @ $($lp.pp) t/s -> $($r.status)")
         }
