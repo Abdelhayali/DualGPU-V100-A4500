@@ -18,3 +18,4 @@ __pycache__/
 # GUI: per-user state (not in git)
 user-params.json
 user-models.json
+tools/eval/results_phone/
