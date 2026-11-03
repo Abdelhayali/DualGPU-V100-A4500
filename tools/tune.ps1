@@ -16,7 +16,10 @@ if ($Names) {
 }
 New-Item -ItemType Directory -Force "$Root\results\logs" | Out-Null
 $out = "$Root\results\tune-$Model.jsonl"; $txt = "$Root\results\tune-$Model.log"
-function L($s) { $s = "[{0}] {1}" -f (Get-Date -Format 'MM-dd HH:mm:ss'), $s; Add-Content $txt $s; $s | Out-Host }
+function L($s) {
+    $s = "[{0}] {1}" -f (Get-Date -Format 'MM-dd HH:mm:ss'), $s; $s | Out-Host
+    for ($i = 0; $i -lt 20; $i++) { try { Add-Content $txt $s -EA Stop; break } catch { Start-Sleep -Milliseconds 250 } }   # a reader (tail) may hold the file
+}
 
 foreach ($c in $configs) {
     $a = Get-SrvArgs $m $c

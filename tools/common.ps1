@@ -3,7 +3,11 @@
 $Root = Split-Path $PSScriptRoot -Parent
 $Kd = "$Root\kernel\bin"
 $Port = 8899
-$env:CUDA_DEVICE_ORDER = 'PCI_BUS_ID'      # CUDA0 = nvidia-smi 0 = RTX A4500, CUDA1 = Tesla V100
+$env:CUDA_DEVICE_ORDER = 'PCI_BUS_ID'
+# Pin CUDA0 = RTX A4500, CUDA1 = Tesla V100 by UUID, whatever slots the cards sit in (configs' ts/mg/devd assume this order)
+$Gpus = @(nvidia-smi --query-gpu=uuid,name --format=csv,noheader | ForEach-Object { $u, $n = $_ -split ', ', 2; [pscustomobject]@{ uuid = $u; name = $n } } |
+          Sort-Object { $_.name -notmatch 'A4500' })
+$env:CUDA_VISIBLE_DEVICES = ($Gpus.uuid -join ',')
 
 function Get-ModelCfg($id) {
     $f = "$Root\configs\$id.json"
@@ -18,10 +22,11 @@ function Get-SrvArgs($m, $c) {
     $md = "$Root\models\$($m.id)"
     $gguf = if ($c.gguf) { $c.gguf } else { $m.gguf }
     $kv = if ($c.kv) { $c.kv } else { 'f16' }
-    $ub = if ($c.ub) { $c.ub } else { 256 }
-    # b > ub lets both GPUs process prompt chunks at the same time (pipeline). On this PC that peak crashed the V100 / the
-    # whole system twice (b 2048 / ub 512 during a 7k prompt), so b defaults to ub: the cards take turns.
-    $b = if ($c.b) { $c.b } else { $ub }
+    $ub = if ($c.ub) { $c.ub } else { 512 }
+    # b > ub lets both GPUs process prompt chunks at the same time (pipeline): 952 vs 405 t/s on the 7k prompt. With the
+    # old 500 W PSU that peak cut the power (4 hard resets on 2026-11-02); after the PSU swap it passes. Set b = ub to make
+    # the cards take turns again on a weak PSU.
+    $b = if ($c.b) { $c.b } else { 2048 }
     $a = @('-m', "$md\$gguf", '-ngl', 'all', '-c', "$($c.ctx)", '-np', '1', '-fa', 'on', '-b', "$b", '-ub', "$ub",
            '--jinja', '--cache-ram', '2048', '--host', '127.0.0.1', '--port', "$Port")
     if ($m.mmproj) { $a += @('--mmproj', "$md\$($m.mmproj)"); if ($c.mmgpu -eq $false) { $a += '--no-mmproj-offload' } }
@@ -53,7 +58,7 @@ function Start-Srv($a, $errlog) {
     return $false
 }
 
-function Get-Vram { (nvidia-smi --query-gpu=memory.used --format=csv,noheader,nounits) -join '+' }   # MiB, GPU0+GPU1
+function Get-Vram { ($Gpus | ForEach-Object { nvidia-smi -i $_.uuid --query-gpu=memory.used --format=csv,noheader,nounits }) -join '+' }   # MiB, A4500+V100
 
 function Gen($text, $max = 300) {
     $b = @{ messages = @(@{ role = 'user'; content = $text }); max_tokens = $max; temperature = 0; chat_template_kwargs = @{ enable_thinking = $false } } | ConvertTo-Json -Depth 5
