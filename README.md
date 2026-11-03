@@ -29,15 +29,17 @@ start.bat minicpm-v4.7-35b-a3b fast       :: a named preset
 | # | model (quant, size) | preset | ctx | gen tok/s | coding | reasoning | instr | search | agent | vision | longctx | **overall** |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 | OrcaCyber-Nano 1.0 27B Mix-15.7G (MTP), vision | `128k` | 128k | 61.6 | 94 | 100 | 50 | 100 | 100 | 88 | 100 | **90.2** |
-| 2 | MiniCPM-V 4.7 35B-A3B Q6_K (26.6 GB), vision | `128k` | 128k | 83.6 | 94 | 100 | 33 | 88 | 100 | 88 | 100 | **86.0** |
-| 3 | Qwen3.8-27B UD-Q5_K_XL (20.9 GB, MTP), vision | `128k` | 128k | 51.3 | 88 | 95 | 58 | 100 | 100 | 88 | 50 | **82.6** |
-| 4 | Kimi-Linear 48B-A3B abliterated i1-Q4_K_M (27.7 GB), text only | `262k` | 262k | 100.9 | 56 | 60 | 50 | 88 | 100 | - | 50 | **57.7**\* |
+| 2 | Qwen3.6-35B-A3B UD-Q5_K_XL (25.3 GB, MoE, MTP), vision | `128k` | 128k | 99.6 | 94 | 100 | 50 | 88 | 100 | 88 | 100 | **88.4** |
+| 3 | MiniCPM-V 4.7 35B-A3B Q6_K (26.6 GB), vision | `128k` | 128k | 83.6 | 94 | 100 | 33 | 88 | 100 | 88 | 100 | **86.0** |
+| 4 | Qwen3.8-27B UD-Q5_K_XL (20.9 GB, MTP), vision | `128k` | 128k | 51.3 | 88 | 95 | 58 | 100 | 100 | 88 | 50 | **82.6** |
+| 5 | Kimi-Linear 48B-A3B abliterated i1-Q4_K_M (27.7 GB), text only | `262k` | 262k | 100.9 | 56 | 60 | 50 | 88 | 100 | - | 50 | **57.7**\* |
 
 \* Kimi has no vision, which the suite scores as 0; its mean over the 6 text categories is 67.3. Many reasoning misses are
 format (it ends with a LaTeX `\[ ... \]` block, so the graded last line is `\]`), but the coding misses are real bugs.
 
-The two V100-only references on the same suite: OrcaCyber Mix-13G 89.8 at 60 tok/s (32k), MiniCPM-V 4.7 Q3 mix 87.5 at
-93 tok/s. Two GPUs give the bigger quants and 4-8x the context at about the same speed.
+The V100-only references on the same suite: OrcaCyber Mix-13G 89.8 at 60 tok/s (32k), MiniCPM-V 4.7 Q3 mix 87.5 at
+93 tok/s, Qwen3.6-35B-A3B UD-IQ3_XXS 88.4 at 119 tok/s (64k). Two GPUs give the bigger quants and 2-8x the context; for the
+small-active MoE models one V100 with a 3-bit quant is faster (the whole model sits on the faster card, no hand-over).
 
 ## Presets
 
@@ -46,6 +48,9 @@ The two V100-only references on the same suite: OrcaCyber Mix-13G 89.8 at 60 tok
 | orcacyber-nano-27b | **128k** (default) | `auto-mtp3-128k` | 128k | f16 | **58.2** | 974 t/s |
 | | code | `auto-mtp4-32k` | 32k | f16 | 57.9 (69.9 on code) | 970 t/s |
 | | 262k | `l55-mtp3-262k-q8` | 262k | q8_0 | 56.5 | 958 t/s |
+| qwen3.6-35b-a3b | **128k** (default) | `auto-mtp3-128k` | 128k | f16 | **95.2** (109.7 on code) | 919 t/s |
+| | fast | `l60-mtp3-32k` | 32k | f16 | 96.6 (111.0 on code) | 989 t/s |
+| | 262k | `auto-mtp3-262k-q8` | 262k | q8_0 | 86.0 | 916 t/s |
 | minicpm-v4.7-35b-a3b | **128k** (default) | `auto-nodraft-128k` | 128k | f16 | **87.0** | 1055 t/s |
 | | fast | `auto-nodraft-32k` | 32k | f16 | 91.6 | 1055 t/s |
 | | 262k | `auto-nodraft-262k-q8` | 262k | q8_0 | 82.3 | 1051 t/s |
@@ -60,6 +65,9 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
 
 - **OrcaCyber**: same architecture as Qwen3.8-27B. MTP 3-4 beats its DFlash2 drafter (50.6-51.1). Both GPUs: 57.3 tok/s vs
   47.5 on the A4500 alone. 262k f16 KV does not fit; q8 does, with both cards nearly full.
+- **Qwen3.6-35B-A3B**: unsloth's MTP build (MTP head in the file). MTP 3 95 tok/s vs 88 without (MTP 4: 112 on code,
+  78 on chat). Splits within 3 tok/s. 262k f16 KV runs text (93.6) but the vision encoder runs out of memory on the
+  A4500, so the 262k preset uses q8 KV.
 - **MiniCPM-V 4.7**: MoE with ~3B active, so the DSpark draft is a loss here (n8 66.0, n15 54.2 vs 91.6 without, 18-32%
   accepted). 40/60 split and 262k f16 KV do not fit.
 - **Kimi-Linear**: 20 linear-attention (KDA) + 7 MLA layers, so 512k context costs little. 1M does not fit (needs a 4.6 GB

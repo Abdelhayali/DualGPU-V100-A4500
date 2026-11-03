@@ -24,6 +24,14 @@
         { "name": "262k", "config": "auto-nodraft-262k-q8", "summary": "full 262k ctx, q8 KV, no draft - 82.3 tok/s" }
       ]
     },
+    "qwen3.6-35b-a3b": {
+      "default": "128k",
+      "presets": [
+        { "name": "128k", "config": "auto-mtp3-128k",    "summary": "default: 128k ctx, f16 KV, MTP 3 - 95.2 tok/s (code 109.7), 7k prompt 919 t/s" },
+        { "name": "fast", "config": "l60-mtp3-32k",      "summary": "fastest: 32k ctx, MTP 3, split 60/40 - 96.6 tok/s (code 111.0)" },
+        { "name": "262k", "config": "auto-mtp3-262k-q8", "summary": "full 262k ctx, q8 KV, MTP 3 - 86.0 tok/s (V100 nearly full)" }
+      ]
+    },
     "kimi-linear-48b-a3b": {
       "default": "262k",
       "presets": [
