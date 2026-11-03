@@ -1,0 +1,36 @@
+[11-03 22:26:46] auto-32k : loading
+[11-03 22:27:40] auto-32k : loaded, vram 17032+12980 MiB; speed test
+[11-03 22:27:47] auto-32k : speed 106.0 tok/s; image test
+[11-03 22:27:47] auto-32k : image n/a; 7k prompt
+[11-03 22:27:54] auto-32k : MEAN 106.0 tok/s (code 104.5 / chat 107.5), vram 17060+13072 MiB, image n/a, 7k prompt True @ 1276 t/s -> pass
+[11-03 22:27:54] l50-32k : loading
+[11-03 22:28:52] l50-32k : loaded, vram 14852+15168 MiB; speed test
+[11-03 22:28:59] l50-32k : speed 97.5 tok/s; image test
+[11-03 22:28:59] l50-32k : image n/a; 7k prompt
+[11-03 22:29:06] l50-32k : MEAN 97.5 tok/s (code 93.9 / chat 101.1), vram 14880+15260 MiB, image n/a, 7k prompt True @ 1195 t/s -> pass
+[11-03 22:29:06] l60-32k : loading
+[11-03 22:29:58] l60-32k : loaded, vram 18034+11978 MiB; speed test
+[11-03 22:30:05] l60-32k : speed 102.9 tok/s; image test
+[11-03 22:30:05] l60-32k : image n/a; 7k prompt
+[11-03 22:30:11] l60-32k : MEAN 102.9 tok/s (code 102.0 / chat 103.7), vram 18062+12070 MiB, image n/a, 7k prompt True @ 1349 t/s -> pass
+[11-03 22:30:16] auto-128k : loading
+[11-03 22:31:08] auto-128k : loaded, vram 17849+13688 MiB; speed test
+[11-03 22:31:15] auto-128k : speed 105.1 tok/s; image test
+[11-03 22:31:15] auto-128k : image n/a; 7k prompt
+[11-03 22:31:22] auto-128k : MEAN 105.1 tok/s (code 103.1 / chat 107.1), vram 17876+13780 MiB, image n/a, 7k prompt True @ 1296 t/s -> pass
+[11-03 22:31:22] auto-262k : loading
+[11-03 22:32:14] auto-262k : loaded, vram 18935+14632 MiB; speed test
+[11-03 22:32:20] auto-262k : speed 104.8 tok/s; image test
+[11-03 22:32:20] auto-262k : image n/a; 7k prompt
+[11-03 22:32:27] auto-262k : MEAN 104.8 tok/s (code 102.6 / chat 107.1), vram 18963+14724 MiB, image n/a, 7k prompt True @ 1299 t/s -> pass
+[11-03 22:32:27] auto-512k : loading
+[11-03 22:33:23] auto-512k : loaded, vram 19480+14926 MiB; speed test
+[11-03 22:33:29] auto-512k : speed 102.1 tok/s; image test
+[11-03 22:33:29] auto-512k : image n/a; 7k prompt
+[11-03 22:33:36] auto-512k : MEAN 102.1 tok/s (code 97.1 / chat 107.1), vram 19508+15018 MiB, image n/a, 7k prompt True @ 1259 t/s -> pass
+[11-03 22:33:36] auto-1m-q8 : loading
+[11-03 22:34:36] auto-1m-q8 : does not start
+[11-03 22:34:57] auto-1m : loading
+[11-03 22:35:58] auto-1m : does not start
+[11-03 22:35:58] auto-1m-k8 : loading
+[11-03 22:36:58] auto-1m-k8 : does not start

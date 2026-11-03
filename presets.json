@@ -23,6 +23,14 @@
         { "name": "fast", "config": "auto-nodraft-32k",     "summary": "fastest: 32k ctx, f16 KV, no draft - 91.6 tok/s" },
         { "name": "262k", "config": "auto-nodraft-262k-q8", "summary": "full 262k ctx, q8 KV, no draft - 82.3 tok/s" }
       ]
+    },
+    "kimi-linear-48b-a3b": {
+      "default": "262k",
+      "presets": [
+        { "name": "262k", "config": "auto-262k", "summary": "default: 262k ctx, f16 KV - 104.8 tok/s, 7k prompt 1299 t/s (text only)" },
+        { "name": "fast", "config": "auto-32k",  "summary": "fastest: 32k ctx - 106.0 tok/s" },
+        { "name": "512k", "config": "auto-512k", "summary": "max on this PC: 512k ctx, f16 KV - 102.1 tok/s (1M does not fit)" }
+      ]
     }
   }
 }

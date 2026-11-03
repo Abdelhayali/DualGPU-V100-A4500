@@ -1,0 +1,467 @@
+{
+ "label": "kimi-linear-48b-a3b@auto-262k",
+ "suite": "hard",
+ "scores": {
+  "coding": 56.2,
+  "reasoning": 60.0,
+  "ifeval": 50.0,
+  "search": 87.5,
+  "agent": 100.0,
+  "vision": 0.0,
+  "longctx": 50.0
+ },
+ "speed": {
+  "gen_tps": 100.9,
+  "prompt_tps": 1066.0
+ },
+ "log": [
+  {
+   "cat": "coding",
+   "task": "calc",
+   "ok": false,
+   "err": "IndexError: pop from empty list"
+  },
+  {
+   "cat": "coding",
+   "task": "regex",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "cat": "coding",
+   "task": "dijkstra_path",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "cat": "coding",
+   "task": "intervals",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "cat": "coding",
+   "task": "bigmul",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "cat": "coding",
+   "task": "lru_ttl",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "cat": "coding",
+   "task": "topo",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "cat": "coding",
+   "task": "edit",
+   "ok": false,
+   "err": "AssertionError"
+  },
+  {
+   "cat": "coding",
+   "task": "roman_parse",
+   "ok": false,
+   "err": "AssertionError: IIII"
+  },
+  {
+   "cat": "coding",
+   "task": "days",
+   "ok": false,
+   "err": "AssertionError"
+  },
+  {
+   "cat": "coding",
+   "task": "sudoku",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "cat": "coding",
+   "task": "trie",
+   "ok": false,
+   "err": "AssertionError"
+  },
+  {
+   "cat": "coding",
+   "task": "knapsack",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "cat": "coding",
+   "task": "rle",
+   "ok": false,
+   "err": "AssertionError"
+  },
+  {
+   "cat": "coding",
+   "task": "spiral_gen",
+   "ok": true,
+   "err": ""
+  },
+  {
+   "cat": "coding",
+   "task": "json_min",
+   "ok": false,
+   "err": "UnboundLocalError: cannot access local variable 'i' where it is not associated with a value"
+  },
+  {
+   "cat": "reasoning",
+   "task": "A store raises a price by 20% and then lowers the new price ",
+   "ok": true,
+   "final": "answer: 50"
+  },
+  {
+   "cat": "reasoning",
+   "task": "Tom is twice as old as Ann. In 6 years Tom will be 1.5 times",
+   "ok": true,
+   "final": "ann is 6 years old now"
+  },
+  {
+   "cat": "reasoning",
+   "task": "A tank fills in 6 hours with pipe A and in 4 hours with pipe",
+   "ok": true,
+   "final": "answer: 3"
+  },
+  {
+   "cat": "reasoning",
+   "task": "How many integers from 1 to 1000 are divisible by 3 or 5 but",
+   "ok": true,
+   "final": "401"
+  },
+  {
+   "cat": "reasoning",
+   "task": "What is the remainder when 7^2026 is divided by 10? Number o",
+   "ok": true,
+   "final": "answer:** 9"
+  },
+  {
+   "cat": "reasoning",
+   "task": "A clock shows 3:40. What is the smaller angle between the ho",
+   "ok": true,
+   "final": "130"
+  },
+  {
+   "cat": "reasoning",
+   "task": "If 5 machines make 5 widgets in 5 minutes, how many minutes ",
+   "ok": true,
+   "final": "answer: 5"
+  },
+  {
+   "cat": "reasoning",
+   "task": "A bag has 3 red and 5 blue balls. Two are drawn without repl",
+   "ok": false,
+   "final": "\\]"
+  },
+  {
+   "cat": "reasoning",
+   "task": "The sum of three consecutive odd integers is 159. What is th",
+   "ok": false,
+   "final": "\\]"
+  },
+  {
+   "cat": "reasoning",
+   "task": "A car travels 120 km at 60 km/h and returns the same 120 km ",
+   "ok": true,
+   "final": "final answer: 48"
+  },
+  {
+   "cat": "reasoning",
+   "task": "What day of the week was 1 January 2000? One word.",
+   "ok": true,
+   "final": "saturday"
+  },
+  {
+   "cat": "reasoning",
+   "task": "How many days are there from 15 March 2026 to 9 November 202",
+   "ok": false,
+   "final": "we can also double-check using known formulas: the number of days between two da"
+  },
+  {
+   "cat": "reasoning",
+   "task": "Five people A, B, C, D, E sit in a row. A is not at either e",
+   "ok": false,
+   "final": "thus"
+  },
+  {
+   "cat": "reasoning",
+   "task": "I am a three-digit number. My digits sum to 13, my hundreds ",
+   "ok": false,
+   "final": "\\]"
+  },
+  {
+   "cat": "reasoning",
+   "task": "A rectangle's length is 3 more than twice its width, and its",
+   "ok": false,
+   "final": "\\]"
+  },
+  {
+   "cat": "reasoning",
+   "task": "Each year a population grows by 10%. Starting from 10000, wh",
+   "ok": true,
+   "final": "13310"
+  },
+  {
+   "cat": "reasoning",
+   "task": "In a race, Ana finished ahead of Ben, Cara finished behind D",
+   "ok": true,
+   "final": "who finished second?** \u2192 **ben"
+  },
+  {
+   "cat": "reasoning",
+   "task": "A sequence starts 2, 6, 12, 20, 30, ... What is the 10th ter",
+   "ok": false,
+   "final": "\\]"
+  },
+  {
+   "cat": "reasoning",
+   "task": "How many ways can the letters of the word LEVEL be arranged?",
+   "ok": true,
+   "final": "30"
+  },
+  {
+   "cat": "reasoning",
+   "task": "A shirt costs $40 after a 20% discount. Sales tax of 10% is ",
+   "ok": false,
+   "final": "final answer: 14.80"
+  },
+  {
+   "cat": "ifeval",
+   "task": "Write exactly 3 sentences about the ocean. Every sentence mu",
+   "ok": true,
+   "rules": {
+    "sentences": true,
+    "all_sentences_end": true,
+    "word_count_exact": true
+   },
+   "reply": "The ocean stretches endlessly under the sky, its waves shimmering with a deep blue hue! Sunlight dances across the surface, casting ripples of blue light that shimmer like liquid glass! Beneath the wa"
+  },
+  {
+   "cat": "ifeval",
+   "task": "List 5 programming languages as a JSON object whose keys are",
+   "ok": true,
+   "rules": {
+    "json_obj_len": true,
+    "json_values_int": true
+   },
+   "reply": "{\"Python\": 1991, \"JavaScript\": 1995, \"Java\": 1995, \"C++\": 1985, \"Ruby\": 1995}"
+  },
+  {
+   "cat": "ifeval",
+   "task": "Write a haiku-like poem of exactly 3 lines about autumn, all",
+   "ok": false,
+   "rules": {
+    "lines": true,
+    "lowercase": true,
+    "no_char": false
+   },
+   "reply": "branches shed their dreams\nearth wears fire with quiet grace\ncool winds softly sing"
+  },
+  {
+   "cat": "ifeval",
+   "task": "Answer with exactly two paragraphs separated by a line conta",
+   "ok": true,
+   "rules": {
+    "paragraphs_sep": true,
+    "para_starts": true
+   },
+   "reply": "First, sleep is essential for cognitive function and mental clarity. During sleep, the brain consolidates memories, processes emotions, and clears out waste products that accumulate during waking hour"
+  },
+  {
+   "cat": "ifeval",
+   "task": "Give 4 tips for studying as a numbered list (1. 2. 3. 4.), e",
+   "ok": true,
+   "rules": {
+    "numbered": true,
+    "max_words_per_item": true,
+    "endswith": true
+   },
+   "reply": "1. Use active recall, not passive reading  \n2. Space study sessions, avoid cramming  \n3. Teach concepts aloud to yourself  \n4. Eliminate distractions, stay focused  \n\nGood luck!"
+  },
+  {
+   "cat": "ifeval",
+   "task": "Write a title for an article about solar energy. It must be ",
+   "ok": false,
+   "rules": {
+    "regex_full": true,
+    "bracket_words": false,
+    "title_case": true
+   },
+   "reply": "[[Harnessing the Sun: Solar Energy Revolution]]"
+  },
+  {
+   "cat": "ifeval",
+   "task": "Describe a cat in exactly 25 words. Do not use any commas.",
+   "ok": false,
+   "rules": {
+    "word_count": false,
+    "no_char": true
+   },
+   "reply": "A sleek feline moves with silent grace. Amber eyes gleam with curiosity. Soft fur shimmers in moonlight. Whiskers twitch with every sound. Claws extend and retract with precision. A purr rumbles like "
+  },
+  {
+   "cat": "ifeval",
+   "task": "Reply with a valid Python list of exactly 6 distinct prime n",
+   "ok": true,
+   "rules": {
+    "pylist_primes": true
+   },
+   "reply": "[53, 59, 61, 67, 71, 73]"
+  },
+  {
+   "cat": "ifeval",
+   "task": "Write three bullet points ('- ') about rain. The first must ",
+   "ok": false,
+   "rules": {
+    "bullet_word_counts": false
+   },
+   "reply": "- Rain falls from clouds.\n- Rain nourishes plants and replenishes water sources.\n- Rain creates puddles and can cause flooding."
+  },
+  {
+   "cat": "ifeval",
+   "task": "Spell the word 'strawberry' backwards in uppercase letters, ",
+   "ok": false,
+   "rules": {
+    "exact_lines": false
+   },
+   "reply": "### Thought Process:\n\n1. **Understand the Task**: We need to spell the word \"strawberry\" backwards in uppercase letters, then count how many times the letter 'r' appears in that reversed word, and fin"
+  },
+  {
+   "cat": "ifeval",
+   "task": "Write a sentence that contains the words 'river', 'silver' a",
+   "ok": true,
+   "rules": {
+    "ordered_words": true,
+    "word_range": true,
+    "endswith": true
+   },
+   "reply": "The river shimmered with silver light as the quiet forest held its breath, didn't it?"
+  },
+  {
+   "cat": "ifeval",
+   "task": "Output the numbers from 1 to 20, separated by commas without",
+   "ok": false,
+   "rules": {
+    "exact": false
+   },
+   "reply": "1,2,X,4,5,X,8,9,X,10,11,X,13,14,Y,X,17,18,X,20,Y"
+  },
+  {
+   "cat": "search",
+   "task": "Who won the 2026 Tour de Volta, and in which city was the wi",
+   "ok": true,
+   "searches": 2,
+   "reply": "Marta Kessler, Freiburg"
+  },
+  {
+   "cat": "search",
+   "task": "Which company makes the Aurora X9 drone, and in which countr",
+   "ok": true,
+   "searches": 2,
+   "reply": "Based on my search results:\n\n**Aurora X9 drone** is manufactured by **SkyForge Robotics**.\n\n**SkyForge Robotics** is headquartered in **Tallinn, Estonia**.\n\nThe company was founded in 2018 and is led "
+  },
+  {
+   "cat": "search",
+   "task": "In which city is the band that released the album 'Glass Riv",
+   "ok": true,
+   "searches": 2,
+   "reply": "Based on my search results, the band that released the album 'Glass Rivers' is Echo Harbor, and they are from **Galway, Ireland**.\n\nEcho Harbor is an indie band formed in 2014, and their album 'Glass "
+  },
+  {
+   "cat": "search",
+   "task": "By how many people did Norvale's population grow between 201",
+   "ok": true,
+   "searches": 1,
+   "reply": "27300"
+  },
+  {
+   "cat": "search",
+   "task": "What is the boiling point of Zentrolite? Use the most reliab",
+   "ok": true,
+   "searches": 1,
+   "reply": "Based on my search, the boiling point of Zentrolite is **213\u00b0C at 1 atm**.\n\nI found this information from a manufacturer datasheet for Zentrolite, which is the most reliable source for technical speci"
+  },
+  {
+   "cat": "search",
+   "task": "How many more seats does the Riverton Owls' stadium have now",
+   "ok": false,
+   "searches": 4,
+   "reply": "Based on my search results, the Riverton Owls' stadium capacity remains at 18,400 both before and after the 2021 expansion. Therefore, there are 0 more seats now than before the expansion."
+  },
+  {
+   "cat": "search",
+   "task": "Who is the directeur sportif of the team the 2026 Tour de Vo",
+   "ok": true,
+   "searches": 3,
+   "reply": "Based on my search results, I can answer your question:\n\nThe 2026 Tour de Volta was won by Marta Kessler from Germany. She rides for the team Velo Nord. The directeur sportif for Velo Nord is Lena Fuc"
+  },
+  {
+   "cat": "search",
+   "task": "How many minutes can the Aurora X9 fly, and what does it cos",
+   "ok": true,
+   "searches": 1,
+   "reply": "Based on my search results, the Aurora X9 can fly for 41 minutes and costs $1,299.\n\nTo calculate the cost per minute:\n- Total cost: $1,299\n- Flight time: 41 minutes\n- Cost per minute: $1,299 \u00f7 41 = $3"
+  },
+  {
+   "cat": "agent",
+   "task": "The tests fail. Find and fix the bug(s) in the project so th",
+   "ok": true,
+   "steps": 6,
+   "reply": "Excellent! I've successfully fixed both bugs:\n\n1. **Fixed the mean function**: Removed the `- 1` that was incorrectly subtracting 1 from the result\n2. **Fixed t"
+  },
+  {
+   "cat": "agent",
+   "task": "Add a function `slugify(title)` to text.py that lowercases, ",
+   "ok": true,
+   "steps": 6,
+   "reply": "The `slugify` function has been successfully implemented in text.py. The function:\n\n1. \u2705 Lowercases the input text\n2. \u2705 Replaces runs of non-alphanumeric charac"
+  },
+  {
+   "cat": "agent",
+   "task": "Read sales.csv and write report.txt containing one line per ",
+   "ok": true,
+   "steps": 5,
+   "reply": "Perfect! I've successfully created the report.txt file with the total sales per region in alphabetical order. The file contains:\n\n- East: 100 (55 + 45)\n- North:"
+  },
+  {
+   "cat": "agent",
+   "task": "The function in parser.py is used by app.py. Rename it from ",
+   "ok": true,
+   "steps": 5,
+   "reply": "Perfect! I've successfully renamed the function from `parse_cfg` to `parse_config` in all files:\n\n1. **parser.py**: Updated the function definition from `parse_"
+  },
+  {
+   "cat": "agent",
+   "task": "config.json has a bug: the 'timeout' must be the sum of all ",
+   "ok": true,
+   "steps": 3,
+   "reply": "Perfect! The config.json has been fixed with:\n- `enabled` set to `true` \u2713\n- `timeout` updated to the sum of all values in `retries_ms` (150+300+600+1200=2250) \u2713"
+  },
+  {
+   "cat": "agent",
+   "task": "Implement the missing function `merge_sorted(a, b)` in lists",
+   "ok": true,
+   "steps": 6,
+   "reply": "DONE"
+  },
+  {
+   "cat": "longctx",
+   "task": "What is the full six-digit vault code? Digits only.",
+   "ok": false,
+   "final": "- Last three digits"
+  },
+  {
+   "cat": "longctx",
+   "task": "In which year was Teo's daughter born? Number only.",
+   "ok": true,
+   "final": "Answer: 2027"
+  }
+ ],
+ "overall": 57.7
+}

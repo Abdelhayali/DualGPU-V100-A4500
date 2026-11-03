@@ -15,10 +15,13 @@
     { "name": "auto-128k",     "ctx": 131072,  "sm": "layer" },
     { "name": "auto-262k",     "ctx": 262144,  "sm": "layer" },
     { "name": "auto-512k",     "ctx": 524288,  "sm": "layer" },
-    { "name": "auto-1m-q8",    "ctx": 1048576, "sm": "layer", "kv": "q8_0" }
+    { "name": "auto-1m-q8",    "ctx": 1048576, "sm": "layer", "kv": "q8_0", "note": "does not start: V head dim 72 is not a multiple of the q8_0 block (32)" },
+    { "name": "auto-1m",       "ctx": 1048576, "sm": "layer", "note": "does not fit: needs a 4.6 GB more buffer on the A4500" },
+    { "name": "auto-1m-k8",    "ctx": 1048576, "sm": "layer", "extra": ["-ctk", "q8_0"], "note": "does not start: this model needs the same K and V cache type" }
   ],
   "sets": {
     "split": ["auto-32k", "l50-32k", "l60-32k"],
-    "ctx": ["auto-128k", "auto-262k", "auto-512k", "auto-1m-q8"]
+    "ctx": ["auto-128k", "auto-262k", "auto-512k", "auto-1m-q8"],
+    "ctx1m": ["auto-1m", "auto-1m-k8"]
   }
 }
