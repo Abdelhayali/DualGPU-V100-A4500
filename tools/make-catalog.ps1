@@ -36,6 +36,7 @@ function Get-Bench($r) {
 $models = @()
 foreach ($f in Get-ChildItem "$Root\configs\*.json" -Exclude files.json) {
     $m = Get-Content $f.FullName -Raw | ConvertFrom-Json
+    if ($m.wip) { Write-Warning "$($m.id): work in progress ($($m.wip)), skipped"; continue }
     $res = Get-Results $m.id
     $pm = $presets.models.($m.id)
     $files = @($m.files | ForEach-Object {
@@ -44,17 +45,18 @@ foreach ($f in Get-ChildItem "$Root\configs\*.json" -Exclude files.json) {
         [ordered]@{ name = $_.file; repo = $_.repo; size = $h.size; sha256 = $h.sha256; url = $h.url } })
     # files the configs never use (no draft config -> no draft file) are still listed, so "Download missing" gets them all
     $list = @()
+    $k = if ($m.kernel) { "dualgpu-$($m.kernel)" } else { 'dualgpu' }
     foreach ($p in @($pm.presets)) {
         if (-not $p) { continue }
         $c = @($m.configs) | Where-Object name -eq $p.config
-        $list += [ordered]@{ id = $p.name; name = "$($p.name): $($p.summary)"; kernel = 'dualgpu'; kernels = @('dualgpu')
+        $list += [ordered]@{ id = $p.name; name = "$($p.name): $($p.summary)"; kernel = $k; kernels = @($k)
                              bench = Get-Bench $res[$c.name]; params = Get-Params $m $c }
     }
     $used = @($pm.presets | ForEach-Object { $_.config })
     foreach ($c in @($m.configs)) {
         $r = $res[$c.name]
         if ($used -contains $c.name -or -not $r -or $r.status -ne 'pass') { continue }
-        $list += [ordered]@{ id = $c.name; name = "config $($c.name) (tested)"; kernel = 'dualgpu'; kernels = @('dualgpu')
+        $list += [ordered]@{ id = $c.name; name = "config $($c.name) (tested)"; kernel = $k; kernels = @($k)
                              bench = Get-Bench $r; params = Get-Params $m $c }
     }
     if (-not $list) { Write-Warning "$($m.id): no tested presets yet, skipped"; continue }
@@ -70,7 +72,11 @@ $cat = [ordered]@{
         name = 'llama.cpp da8fd08 (CUDA 12.9, sm_70 + sm_86: A4500 + V100)'
         desc = 'llama.cpp f336359 + V100 MMVQ tuning, built by tools\build-kernel.bat. kernel\bin.'
         exe = 'llama-server.exe'
-        download = @([ordered]@{ url = 'https://github.com/Abdelhayali/DualGPU-V100-A4500/releases/download/kernel-da8fd08/llamacpp-da8fd08-cuda12.9-sm70-sm86-win64.zip' }) } }
+        download = @([ordered]@{ url = 'https://github.com/Abdelhayali/DualGPU-V100-A4500/releases/download/kernel-da8fd08/llamacpp-da8fd08-cuda12.9-sm70-sm86-win64.zip' }) }
+      'dualgpu-ripple' = [ordered]@{
+        name = 'llama.cpp da8fd08 + Ripple port (ricursive architecture)'
+        desc = 'The same source plus AtomicChat ricursive-port.patch (kernel\patches), built by tools\build-kernel.bat <cuda> ripple. kernel\bin-ripple.'
+        exe = 'llama-server.exe'; dir = 'bin-ripple' } }
     models = $models
 }
 [IO.File]::WriteAllText("$Root\catalog.json", ($cat | ConvertTo-Json -Depth 10), [Text.UTF8Encoding]::new($false))

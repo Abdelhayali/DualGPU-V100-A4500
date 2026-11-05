@@ -18,9 +18,10 @@ for mid in sys.argv[1:]:
     cfg = json.loads((ROOT / "configs" / f"{mid}.json").read_text(encoding="utf-8"))
     for f in cfg["files"]:
         rev = f.get("revision") or next((x.get("revision") for x in cfg["files"] if x["repo"] == f["repo"] and x.get("revision")), None)
-        info = api.get_paths_info(f["repo"], [f["file"]], revision=rev, expand=True)[0]
+        rp = f.get("path", f["file"])   # path in the repo when the file sits in a subfolder there
+        info = api.get_paths_info(f["repo"], [rp], revision=rev, expand=True)[0]
         known[f"{mid}/{f['file']}"] = {"repo": f["repo"], "size": info.size, "sha256": info.lfs.sha256,
-                                       "url": hf_hub_url(f["repo"], f["file"], revision=rev)}
+                                       "url": hf_hub_url(f["repo"], rp, revision=rev)}
         local = ROOT / "models" / mid / f["file"]
         ok = "on disk, size ok" if local.exists() and local.stat().st_size == info.size else "NOT on disk / size differs"
         print(f"{mid}: {f['file']} {info.size} {info.lfs.sha256[:12]}  {ok}")

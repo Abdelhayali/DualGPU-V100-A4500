@@ -10,7 +10,13 @@
                                                          "url":  "https://github.com/Abdelhayali/DualGPU-V100-A4500/releases/download/kernel-da8fd08/llamacpp-da8fd08-cuda12.9-sm70-sm86-win64.zip"
                                                      }
                                                  ]
-                                }
+                                },
+                    "dualgpu-ripple":  {
+                                           "name":  "llama.cpp da8fd08 + Ripple port (ricursive architecture)",
+                                           "desc":  "The same source plus AtomicChat ricursive-port.patch (kernel\\patches), built by tools\\build-kernel.bat \u003ccuda\u003e ripple. kernel\\bin-ripple.",
+                                           "exe":  "llama-server.exe",
+                                           "dir":  "bin-ripple"
+                                       }
                 },
     "models":  [
                    {
@@ -37,11 +43,6 @@
                                                        ],
                                            "bench":  "104.8 tok/s (code 102.6 / chat 107.1), 7k prompt 1299 t/s, VRAM 18963+14724 MiB (A4500+V100)",
                                            "params":  [
-                                                          [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
                                                           [
                                                               "-c",
                                                               "262144",
@@ -78,6 +79,11 @@
                                                               ""
                                                           ],
                                                           [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
                                                               "--temp",
                                                               "0.6",
                                                               ""
@@ -108,11 +114,6 @@
                                                        ],
                                            "bench":  "106.0 tok/s (code 104.5 / chat 107.5), 7k prompt 1276 t/s, VRAM 17060+13072 MiB (A4500+V100)",
                                            "params":  [
-                                                          [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
                                                           [
                                                               "-c",
                                                               "32768",
@@ -149,6 +150,11 @@
                                                               ""
                                                           ],
                                                           [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
                                                               "--temp",
                                                               "0.6",
                                                               ""
@@ -179,11 +185,6 @@
                                                        ],
                                            "bench":  "102.1 tok/s (code 97.1 / chat 107.1), 7k prompt 1259 t/s, VRAM 19508+15018 MiB (A4500+V100)",
                                            "params":  [
-                                                          [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
                                                           [
                                                               "-c",
                                                               "524288",
@@ -220,6 +221,11 @@
                                                               ""
                                                           ],
                                                           [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
                                                               "--temp",
                                                               "0.6",
                                                               ""
@@ -250,11 +256,6 @@
                                                        ],
                                            "bench":  "97.5 tok/s (code 93.9 / chat 101.1), 7k prompt 1195 t/s, VRAM 14880+15260 MiB (A4500+V100)",
                                            "params":  [
-                                                          [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
                                                           [
                                                               "-c",
                                                               "32768",
@@ -288,6 +289,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -327,11 +333,6 @@
                                            "bench":  "102.9 tok/s (code 102.0 / chat 103.7), 7k prompt 1349 t/s, VRAM 18062+12070 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -364,6 +365,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -403,11 +409,6 @@
                                            "bench":  "105.1 tok/s (code 103.1 / chat 107.1), 7k prompt 1296 t/s, VRAM 17876+13780 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "131072",
                                                               ""
@@ -440,6 +441,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -505,11 +511,6 @@
                                            "bench":  "87.0 tok/s (code 82.8 / chat 91.2), 7k prompt 1055 t/s, VRAM 18948+14007 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "131072",
                                                               ""
@@ -542,6 +543,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -581,11 +587,6 @@
                                            "bench":  "91.6 tok/s (code 91.1 / chat 92.1), 7k prompt 1055 t/s, VRAM 17593+12663 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -618,6 +619,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -657,11 +663,6 @@
                                            "bench":  "82.3 tok/s (code 79.3 / chat 85.4), 7k prompt 1051 t/s, VRAM 20006+15061 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "262144",
                                                               ""
@@ -694,6 +695,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -743,11 +749,6 @@
                                            "bench":  "66.0 tok/s (code 79.3 / chat 52.7), draft accept 32%, 7k prompt 961 t/s, VRAM 18588+14665 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -780,6 +781,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -844,11 +850,6 @@
                                            "bench":  "54.2 tok/s (code 66.4 / chat 41.9), draft accept 18%, 7k prompt 956 t/s, VRAM 18868+14843 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -881,6 +882,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -945,11 +951,6 @@
                                            "bench":  "51.7 tok/s (code 61.4 / chat 42.1), draft accept 19%, 7k prompt 889 t/s, VRAM 17477+16235 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -982,6 +983,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -1051,11 +1057,6 @@
                                            "bench":  "87.0 tok/s (code 86.6 / chat 87.5), 7k prompt 982 t/s, VRAM 16278+13991 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -1088,6 +1089,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -1164,11 +1170,6 @@
                                            "bench":  "58.2 tok/s (code 65.6 / chat 50.9), draft accept 73%, 7k prompt 974 t/s, VRAM 14728+13879 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "131072",
                                                               ""
@@ -1201,6 +1202,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -1255,11 +1261,6 @@
                                            "bench":  "57.9 tok/s (code 69.9 / chat 45.9), draft accept 63%, 7k prompt 970 t/s, VRAM 10988+10101 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -1292,6 +1293,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -1346,11 +1352,6 @@
                                            "bench":  "56.5 tok/s (code 63.7 / chat 49.2), draft accept 72%, 7k prompt 958 t/s, VRAM 16548+16077 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "262144",
                                                               ""
@@ -1383,6 +1384,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -1462,11 +1468,6 @@
                                            "bench":  "57.3 tok/s (code 63.8 / chat 50.7), draft accept 73%, 7k prompt 969 t/s, VRAM 10896+10037 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -1499,6 +1500,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -1553,11 +1559,6 @@
                                            "bench":  "55.7 tok/s (code 62.9 / chat 48.5), draft accept 73%, 7k prompt 912 t/s, VRAM 9145+11785 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -1590,6 +1591,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -1649,11 +1655,6 @@
                                            "bench":  "56.2 tok/s (code 62.8 / chat 49.7), draft accept 73%, 7k prompt 959 t/s, VRAM 11651+9281 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -1686,6 +1687,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -1745,11 +1751,6 @@
                                            "bench":  "47.5 tok/s (code 53.6 / chat 41.5), draft accept 73%, 7k prompt 808 t/s, VRAM 19135+318 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -1782,6 +1783,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -1841,11 +1847,6 @@
                                            "bench":  "52.4 tok/s (code 56.5 / chat 48.3), draft accept 81%, 7k prompt 955 t/s, VRAM 10804+9975 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -1878,6 +1879,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -1932,11 +1938,6 @@
                                            "bench":  "50.6 tok/s (code 61.5 / chat 39.7), draft accept 64%, 7k prompt 863 t/s, VRAM 12623+10522 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -1969,6 +1970,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -2033,11 +2039,6 @@
                                            "bench":  "51.1 tok/s (code 66.9 / chat 35.3), draft accept 48%, 7k prompt 860 t/s, VRAM 12885+10712 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -2070,6 +2071,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -2134,11 +2140,6 @@
                                            "bench":  "56.8 tok/s (code 64.1 / chat 49.6), draft accept 72%, 7k prompt 949 t/s, VRAM 16552+16077 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "262144",
                                                               ""
@@ -2171,6 +2172,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -2270,11 +2276,6 @@
                                            "bench":  "95.2 tok/s (code 109.7 / chat 80.6), draft accept 74%, 7k prompt 919 t/s, VRAM 18678+14142 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "131072",
                                                               ""
@@ -2307,6 +2308,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -2361,11 +2367,6 @@
                                            "bench":  "96.6 tok/s (code 111.0 / chat 82.3), draft accept 73%, 7k prompt 989 t/s, VRAM 18364+11191 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -2398,6 +2399,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -2457,11 +2463,6 @@
                                            "bench":  "86.0 tok/s (code 97.6 / chat 74.5), draft accept 74%, 7k prompt 916 t/s, VRAM 19539+16178 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "262144",
                                                               ""
@@ -2494,6 +2495,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -2568,11 +2574,6 @@
                                            "bench":  "93.3 tok/s (code 105.2 / chat 81.4), draft accept 74%, 7k prompt 914 t/s, VRAM 17140+12413 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -2605,6 +2606,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -2659,11 +2665,6 @@
                                            "bench":  "94.5 tok/s (code 106.5 / chat 82.5), draft accept 75%, 7k prompt 836 t/s, VRAM 15264+14293 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -2696,6 +2697,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -2755,11 +2761,6 @@
                                            "bench":  "87.9 tok/s (code 87.0 / chat 88.8), 7k prompt 1049 t/s, VRAM 17032+11358 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -2792,6 +2793,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -2831,11 +2837,6 @@
                                            "bench":  "91.1 tok/s (code 99.6 / chat 82.5), draft accept 81%, 7k prompt 922 t/s, VRAM 17108+12387 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -2868,6 +2869,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -2922,11 +2928,6 @@
                                            "bench":  "95.1 tok/s (code 112.3 / chat 77.9), draft accept 64%, 7k prompt 922 t/s, VRAM 17185+12437 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -2959,6 +2960,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -3013,11 +3019,6 @@
                                            "bench":  "92.3 tok/s (code 103.3 / chat 81.2), draft accept 73%, 7k prompt 981 t/s, VRAM 19676+12920 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "131072",
                                                               ""
@@ -3050,6 +3051,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -3141,11 +3147,6 @@
                                            "bench":  "48.3 tok/s (code 54.2 / chat 42.3), draft accept 76%, 7k prompt 917 t/s, VRAM 18563+14675 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "131072",
                                                               ""
@@ -3178,6 +3179,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -3237,11 +3243,6 @@
                                            "bench":  "50.2 tok/s (code 55.9 / chat 44.4), draft accept 76%, 7k prompt 952 t/s, VRAM 13314+12185 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -3274,6 +3275,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -3328,11 +3334,6 @@
                                            "bench":  "46.0 tok/s (code 51.8 / chat 40.2), draft accept 75%, 7k prompt 846 t/s, VRAM 18059+14085 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "262144",
                                                               ""
@@ -3365,6 +3366,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -3444,11 +3450,6 @@
                                            "bench":  "34.7 tok/s (code 39.1 / chat 30.2), draft accept 76%, 7k prompt 405 t/s, VRAM 13109+11873 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -3481,6 +3482,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -3535,11 +3541,6 @@
                                            "bench":  "49.1 tok/s (code 55.8 / chat 42.3), draft accept 72%, 7k prompt 920 t/s, VRAM 12092+13411 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -3572,6 +3573,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -3631,11 +3637,6 @@
                                            "bench":  "49.7 tok/s (code 55.7 / chat 43.6), draft accept 77%, 7k prompt 896 t/s, VRAM 11156+14345 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -3668,6 +3669,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -3727,11 +3733,6 @@
                                            "bench":  "47.0 tok/s (code 53.4 / chat 40.6), draft accept 75%, 7k prompt 877 t/s, VRAM 10160+15355 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -3764,6 +3765,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -3823,11 +3829,6 @@
                                            "bench":  "49.2 tok/s (code 55.2 / chat 43.2), draft accept 76%, 7k prompt 918 t/s, VRAM 14282+11217 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -3860,6 +3861,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -3919,11 +3925,6 @@
                                            "bench":  "26.7 tok/s (code 26.8 / chat 26.5), 7k prompt 1087 t/s, VRAM 10943+12901 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -3956,6 +3957,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -4000,11 +4006,6 @@
                                            "bench":  "45.9 tok/s (code 50.1 / chat 41.7), draft accept 81%, 7k prompt 895 t/s, VRAM 11086+14265 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -4037,6 +4038,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -4096,11 +4102,6 @@
                                            "bench":  "49.1 tok/s (code 59.6 / chat 38.6), draft accept 63%, 7k prompt 884 t/s, VRAM 11230+14423 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -4133,6 +4134,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -4192,11 +4198,6 @@
                                            "bench":  "46.7 tok/s (code 54.8 / chat 38.6), draft accept 66%, 7k prompt 795 t/s, VRAM 12071+14682 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -4229,6 +4230,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -4298,11 +4304,6 @@
                                            "bench":  "47.9 tok/s (code 60.6 / chat 35.3), draft accept 54%, 7k prompt 797 t/s, VRAM 12217+14838 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -4335,6 +4336,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -4404,11 +4410,6 @@
                                            "bench":  "47.5 tok/s (code 52.7 / chat 42.3), draft accept 77%, 7k prompt 901 t/s, VRAM 10831+13917 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -4441,6 +4442,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -4520,11 +4526,6 @@
                                            "bench":  "49.2 tok/s (code 55.6 / chat 42.7), draft accept 77%, 7k prompt 800 t/s, VRAM 10974+14033 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -4557,6 +4558,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -4616,11 +4622,6 @@
                                            "bench":  "48.9 tok/s (code 55.2 / chat 42.6), draft accept 77%, 7k prompt 904 t/s, VRAM 11554+14966 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "32768",
                                                               ""
@@ -4653,6 +4654,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -4712,11 +4718,6 @@
                                            "bench":  "47.3 tok/s (code 52.9 / chat 41.7), draft accept 75%, 7k prompt 903 t/s, VRAM 16621+13935 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "131072",
                                                               ""
@@ -4749,6 +4750,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -4828,11 +4834,6 @@
                                            "bench":  "47.0 tok/s (code 52.9 / chat 41.0), draft accept 75%, 7k prompt 903 t/s, VRAM 17814+16097 MiB (A4500+V100)",
                                            "params":  [
                                                           [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
                                                               "-c",
                                                               "262144",
                                                               ""
@@ -4865,6 +4866,11 @@
                                                           [
                                                               "--cache-ram",
                                                               "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
                                                               ""
                                                           ],
                                                           [
@@ -4936,6 +4942,479 @@
                                        }
                                    ],
                        "mmproj":  "mmproj-F16.gguf"
+                   },
+                   {
+                       "id":  "ripple-65b",
+                       "name":  "Ripple-65B Preview AD-IQ3_XXS (65B dense, agentic coding, text only)",
+                       "desc":  "Ricursive\u0027s 65B dense model, 80 layers (64 sliding-window 1024 + 16 global without RoPE), so the KV cache only grows on 16 layers. New \u0027ricursive\u0027 architecture: runs on kernel/bin-ripple (the tested source + AtomicChat\u0027s port patch, kernel/patches/0002). No published sampling: temp 0.7 / top-p 0.95. No draft model. ts = A4500,V100.",
+                       "files":  [
+                                     {
+                                         "name":  "Ripple-65B-Preview-AD-IQ3_XXS.gguf",
+                                         "repo":  "AtomicChat/Ripple-65B-Preview-GGUF",
+                                         "size":  27964982752,
+                                         "sha256":  "0aca90d6d3062dcadbc5f7988504c2b53588d99f648b4e0b09107a72e427401a",
+                                         "url":  "https://huggingface.co/AtomicChat/Ripple-65B-Preview-GGUF/resolve/main/Ripple-65B-Preview-AD-IQ3_XXS.gguf"
+                                     }
+                                 ],
+                       "model":  "Ripple-65B-Preview-AD-IQ3_XXS.gguf",
+                       "presets":  [
+                                       {
+                                           "id":  "64k",
+                                           "name":  "64k: default: 64k ctx, f16 KV - 14.8 tok/s, 7k prompt 427 t/s (65B dense, text only, kernel bin-ripple)",
+                                           "kernel":  "dualgpu-ripple",
+                                           "kernels":  [
+                                                           "dualgpu-ripple"
+                                                       ],
+                                           "bench":  "14.8 tok/s (code 14.9 / chat 14.7), 7k prompt 427 t/s, VRAM 18421+15309 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "65536",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "512",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.7",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.95",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "layer",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "fast",
+                                           "name":  "fast: fastest: 32k ctx, f16 KV, split 50/50 - 15.2 tok/s",
+                                           "kernel":  "dualgpu-ripple",
+                                           "kernels":  [
+                                                           "dualgpu-ripple"
+                                                       ],
+                                           "bench":  "15.2 tok/s (code 15.2 / chat 15.1), 7k prompt 417 t/s, VRAM 15733+15695 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "32768",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "512",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.7",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.95",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "layer",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ts",
+                                                              "50,50",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "128k",
+                                           "name":  "128k: 128k ctx, q8 KV - 14.4 tok/s (V100 nearly full)",
+                                           "kernel":  "dualgpu-ripple",
+                                           "kernels":  [
+                                                           "dualgpu-ripple"
+                                                       ],
+                                           "bench":  "14.4 tok/s (code 14.5 / chat 14.3), 7k prompt 404 t/s, VRAM 19035+15913 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "131072",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "512",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.7",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.95",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctk",
+                                                              "q8_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctv",
+                                                              "q8_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "layer",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "262k",
+                                           "name":  "262k: 262k ctx, q4 KV - 14.4 tok/s (both GPUs nearly full)",
+                                           "kernel":  "dualgpu-ripple",
+                                           "kernels":  [
+                                                           "dualgpu-ripple"
+                                                       ],
+                                           "bench":  "14.4 tok/s (code 14.5 / chat 14.4), 7k prompt 405 t/s, VRAM 19255+16163 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "262144",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "512",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.7",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.95",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctk",
+                                                              "q4_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctv",
+                                                              "q4_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "layer",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "auto-32k",
+                                           "name":  "config auto-32k (tested)",
+                                           "kernel":  "dualgpu-ripple",
+                                           "kernels":  [
+                                                           "dualgpu-ripple"
+                                                       ],
+                                           "bench":  "15.0 tok/s (code 15.1 / chat 15.0), 7k prompt 445 t/s, VRAM 17141+14285 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "32768",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "512",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.7",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.95",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "layer",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "l60-32k",
+                                           "name":  "config l60-32k (tested)",
+                                           "kernel":  "dualgpu-ripple",
+                                           "kernels":  [
+                                                           "dualgpu-ripple"
+                                                       ],
+                                           "bench":  "14.5 tok/s (code 14.6 / chat 14.4), 7k prompt 449 t/s, VRAM 18429+12997 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "32768",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "512",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.7",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.95",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "layer",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ts",
+                                                              "60,40",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       }
+                                   ]
                    }
                ]
 }

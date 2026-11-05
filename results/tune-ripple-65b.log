@@ -1,0 +1,30 @@
+[11-05 11:27:19] auto-32k : loading
+[11-05 11:28:08] auto-32k : loaded, vram 17117+13725 MiB; speed test
+[11-05 11:28:38] auto-32k : speed 15.0 tok/s; image test
+[11-05 11:28:38] auto-32k : image n/a; 7k prompt
+[11-05 11:29:01] auto-32k : MEAN 15.0 tok/s (code 15.1 / chat 15.0), vram 17141+14285 MiB, image n/a, 7k prompt True @ 445 t/s -> pass
+[11-05 11:29:01] l50-32k : loading
+[11-05 11:29:50] l50-32k : loaded, vram 15709+15135 MiB; speed test
+[11-05 11:30:21] l50-32k : speed 15.2 tok/s; image test
+[11-05 11:30:21] l50-32k : image n/a; 7k prompt
+[11-05 11:30:45] l50-32k : MEAN 15.2 tok/s (code 15.2 / chat 15.1), vram 15733+15695 MiB, image n/a, 7k prompt True @ 417 t/s -> pass
+[11-05 11:30:45] l60-32k : loading
+[11-05 11:31:34] l60-32k : loaded, vram 18405+12437 MiB; speed test
+[11-05 11:32:05] l60-32k : speed 14.5 tok/s; image test
+[11-05 11:32:05] l60-32k : image n/a; 7k prompt
+[11-05 11:32:28] l60-32k : MEAN 14.5 tok/s (code 14.6 / chat 14.4), vram 18429+12997 MiB, image n/a, 7k prompt True @ 449 t/s -> pass
+[11-05 11:32:28] auto-64k : loading
+[11-05 11:33:17] auto-64k : loaded, vram 18397+14749 MiB; speed test
+[11-05 11:33:48] auto-64k : speed 14.8 tok/s; image test
+[11-05 11:33:48] auto-64k : image n/a; 7k prompt
+[11-05 11:34:11] auto-64k : MEAN 14.8 tok/s (code 14.9 / chat 14.7), vram 18421+15309 MiB, image n/a, 7k prompt True @ 427 t/s -> pass
+[11-05 11:34:11] auto-128k-q8 : loading
+[11-05 11:35:07] auto-128k-q8 : loaded, vram 19011+15353 MiB; speed test
+[11-05 11:35:33] auto-128k-q8 : speed 14.4 tok/s; image test
+[11-05 11:35:33] auto-128k-q8 : image n/a; 7k prompt
+[11-05 11:35:58] auto-128k-q8 : MEAN 14.4 tok/s (code 14.5 / chat 14.3), vram 19035+15913 MiB, image n/a, 7k prompt True @ 404 t/s -> pass
+[11-05 11:35:58] auto-262k-q4 : loading
+[11-05 11:36:50] auto-262k-q4 : loaded, vram 19231+15603 MiB; speed test
+[11-05 11:37:20] auto-262k-q4 : speed 14.4 tok/s; image test
+[11-05 11:37:20] auto-262k-q4 : image n/a; 7k prompt
+[11-05 11:37:45] auto-262k-q4 : MEAN 14.4 tok/s (code 14.5 / chat 14.4), vram 19255+16163 MiB, image n/a, 7k prompt True @ 405 t/s -> pass

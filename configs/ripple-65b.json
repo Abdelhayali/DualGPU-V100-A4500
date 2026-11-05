@@ -1,0 +1,24 @@
+{
+  "id": "ripple-65b",
+  "name": "Ripple-65B Preview AD-IQ3_XXS (65B dense, agentic coding, text only)",
+  "kernel": "ripple",
+  "gguf": "Ripple-65B-Preview-AD-IQ3_XXS.gguf",
+  "files": [
+    { "repo": "AtomicChat/Ripple-65B-Preview-GGUF", "file": "Ripple-65B-Preview-AD-IQ3_XXS.gguf", "gb": 27.96 }
+  ],
+  "sampling": ["--temp", "0.7", "--top-p", "0.95", "--min-p", "0"],
+  "notes": "Ricursive's 65B dense model, 80 layers (64 sliding-window 1024 + 16 global without RoPE), so the KV cache only grows on 16 layers. New 'ricursive' architecture: runs on kernel/bin-ripple (the tested source + AtomicChat's port patch, kernel/patches/0002). No published sampling: temp 0.7 / top-p 0.95. No draft model. ts = A4500,V100.",
+  "configs": [
+    { "name": "auto-32k",       "ctx": 32768,  "sm": "layer" },
+    { "name": "l50-32k",        "ctx": 32768,  "sm": "layer", "ts": "50,50" },
+    { "name": "l60-32k",        "ctx": 32768,  "sm": "layer", "ts": "60,40" },
+
+    { "name": "auto-64k",       "ctx": 65536,  "sm": "layer" },
+    { "name": "auto-128k-q8",   "ctx": 131072, "sm": "layer", "kv": "q8_0" },
+    { "name": "auto-262k-q4",   "ctx": 262144, "sm": "layer", "kv": "q4_0" }
+  ],
+  "sets": {
+    "split": ["auto-32k", "l50-32k", "l60-32k"],
+    "ctx": ["auto-64k", "auto-128k-q8", "auto-262k-q4"]
+  }
+}

@@ -21,3 +21,18 @@ tools\build-kernel.bat
 
 Prebuilt binaries (Windows x64, the exact `kernelin` used for every result here: llama-server/bench/cli + CUDA 12.9 runtime
 and cuBLAS DLLs + MSVC runtime) are attached to the GitHub release `kernel-da8fd08`. Unzip into `kernelin`.
+
+## Variant: `bin-ripple` (Ripple-65B Preview, `ricursive` architecture)
+
+`kernel/src-ripple` = the same `da8fd08` tree plus `patches/0002-ricursive-port-applied.patch`: AtomicChat's
+`ricursive-port.patch` (from `AtomicChat/Ripple-65B-Preview-GGUF`, written for llama.cpp `9e2a04a`, upstream PR #31692)
+with the two architecture-list hunks merged by hand. It only adds the model (no new ggml op), so every other model runs the
+same code as in `kernel/bin`. Rebuild:
+
+```bat
+git -C kernel\src worktree add ..\src-ripple da8fd08
+git -C kernel\src-ripple apply ..\patches\0002-ricursive-port-applied.patch
+tools\build-kernel.bat D:\pxa\cuda-12.9 ripple      (-> kernel\bin-ripple)
+```
+
+Models pick it with `"kernel": "ripple"` in `configs/<id>.json` (tools) and the catalog kernel `dualgpu-ripple` (GUI).

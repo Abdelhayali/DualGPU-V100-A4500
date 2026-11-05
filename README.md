@@ -32,9 +32,11 @@ start.bat minicpm-v4.7-35b-a3b fast       :: a named preset
 | 2 | Qwen3.6-35B-A3B UD-Q5_K_XL (25.3 GB, MoE, MTP), vision | `128k` | 128k | 99.6 | 94 | 100 | 50 | 88 | 100 | 88 | 100 | **88.4** |
 | 3 | MiniCPM-V 4.7 35B-A3B Q6_K (26.6 GB), vision | `128k` | 128k | 83.6 | 94 | 100 | 33 | 88 | 100 | 88 | 100 | **86.0** |
 | 4 | Qwen3.8-27B UD-Q5_K_XL (20.9 GB, MTP), vision | `128k` | 128k | 51.3 | 88 | 95 | 58 | 100 | 100 | 88 | 50 | **82.6** |
-| 5 | Kimi-Linear 48B-A3B abliterated i1-Q4_K_M (27.7 GB), text only | `262k` | 262k | 100.9 | 56 | 60 | 50 | 88 | 100 | - | 50 | **57.7**\* |
+| 5 | Ripple-65B Preview AD-IQ3_XXS (28.0 GB, dense), text only | `64k` | 64k | 13.9 | 75 | 100 | 83 | 100 | 100 | - | 100 | **79.8**\* |
+| 6 | Kimi-Linear 48B-A3B abliterated i1-Q4_K_M (27.7 GB), text only | `262k` | 262k | 100.9 | 56 | 60 | 50 | 88 | 100 | - | 50 | **57.7**\* |
 
-\* Kimi has no vision, which the suite scores as 0; its mean over the 6 text categories is 67.3. Many reasoning misses are
+\* Text-only models: the suite scores the missing vision category as 0. Over the 6 text categories Ripple averages 93.1
+(the best instruction-following score here, 83) and Kimi 67.3. Many reasoning misses are
 format (it ends with a LaTeX `\[ ... \]` block, so the graded last line is `\]`), but the coding misses are real bugs.
 
 The V100-only references on the same suite: OrcaCyber Mix-13G 89.8 at 60 tok/s (32k), MiniCPM-V 4.7 Q3 mix 87.5 at
@@ -57,6 +59,10 @@ small-active MoE models one V100 with a 3-bit quant is faster (the whole model s
 | kimi-linear-48b-a3b | **262k** (default) | `auto-262k` | 262k | f16 | **104.8** | 1299 t/s |
 | | fast | `auto-32k` | 32k | f16 | 106.0 | 1276 t/s |
 | | 512k | `auto-512k` | 512k | f16 | 102.1 | 1259 t/s |
+| ripple-65b | **64k** (default) | `auto-64k` | 64k | f16 | **14.8** | 427 t/s |
+| | fast | `l50-32k` | 32k | f16 | 15.2 | 417 t/s |
+| | 128k | `auto-128k-q8` | 128k | q8_0 | 14.4 | 404 t/s |
+| | 262k | `auto-262k-q4` | 262k | q4_0 | 14.4 | 405 t/s |
 | qwen3.8-27b | **128k** (default) | `l60-mtp3-128k` | 128k | f16 | **48.3** | 917 t/s |
 | | fast | `layer-auto-mtp3-32k` | 32k | f16 | 50.2 | 952 t/s |
 | | 262k | `l65-mtp3-262k-q4-ub256` | 262k | q4_0 | 46.0 | 846 t/s |
@@ -72,6 +78,10 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
   accepted). 40/60 split and 262k f16 KV do not fit.
 - **Kimi-Linear**: 20 linear-attention (KDA) + 7 MLA layers, so 512k context costs little. 1M does not fit (needs a 4.6 GB
   more buffer on the A4500); q8_0 KV is impossible (V head dim 72), and mixed K/V types are not supported for this model.
+- **Ripple-65B Preview**: 65B dense, so every token reads all 28 GB: ~15 tok/s whatever the split (auto 15.0, 50/50 15.2,
+  60/40 14.5). Only 16 of 80 layers keep a full KV cache (the rest slide over 1024 tokens), so 262k fits with q4 KV at the
+  same speed. New `ricursive` architecture: it runs on `kernel\bin-ripple`, the tested source plus AtomicChat's port
+  (`kernel/patches/0002-ricursive-port-applied.patch`), built with `tools\build-kernel.bat <cuda> ripple`.
 
 ### Qwen3.8-27B presets in detail
 
@@ -139,8 +149,8 @@ tools/eval.ps1          hard suite:  tools\eval.ps1 <model> <config>            
 tools/report.py         markdown tables from the results
 tools/fill-hashes.py    sizes + sha256 of model files from Hugging Face -> configs/files.json (GUI downloads)
 tools/make-catalog.ps1  configs + presets + results -> catalog.json (same launch args as start.bat)
-tools/build-kernel.bat  build llama.cpp (CUDA 12.9, sm_70 + sm_86) into kernel/bin
-kernel/                 SOURCE.md + patches (source and binaries are not in git)
+tools/build-kernel.bat  build llama.cpp (CUDA 12.9, sm_70 + sm_86) into kernel/bin; [cuda] <x>: kernel/src-x -> bin-x
+kernel/                 SOURCE.md + patches (source and binaries are not in git); bin-ripple = + Ripple port
 models/<model>/         GGUF files (not in git)
 ```
 

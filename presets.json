@@ -32,6 +32,15 @@
         { "name": "262k", "config": "auto-mtp3-262k-q8", "summary": "full 262k ctx, q8 KV, MTP 3 - 86.0 tok/s (V100 nearly full)" }
       ]
     },
+    "ripple-65b": {
+      "default": "64k",
+      "presets": [
+        { "name": "64k",  "config": "auto-64k",     "summary": "default: 64k ctx, f16 KV - 14.8 tok/s, 7k prompt 427 t/s (65B dense, text only, kernel bin-ripple)" },
+        { "name": "fast", "config": "l50-32k",      "summary": "fastest: 32k ctx, f16 KV, split 50/50 - 15.2 tok/s" },
+        { "name": "128k", "config": "auto-128k-q8", "summary": "128k ctx, q8 KV - 14.4 tok/s (V100 nearly full)" },
+        { "name": "262k", "config": "auto-262k-q4", "summary": "262k ctx, q4 KV - 14.4 tok/s (both GPUs nearly full)" }
+      ]
+    },
     "kimi-linear-48b-a3b": {
       "default": "262k",
       "presets": [

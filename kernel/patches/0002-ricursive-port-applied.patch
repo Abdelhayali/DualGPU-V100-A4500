@@ -1,0 +1,552 @@
+diff --git a/conversion/ricursive.py b/conversion/ricursive.py
+new file mode 100644
+index 0000000..bace82d
+--- /dev/null
++++ b/conversion/ricursive.py
+@@ -0,0 +1,87 @@
++from __future__ import annotations
++
++from typing import Iterable, TYPE_CHECKING
++
++if TYPE_CHECKING:
++    from torch import Tensor
++
++from .base import ModelBase, TextModel, gguf, logger
++
++
++@ModelBase.register("RicursiveForCausalLM")
++@ModelBase.example("ricursiveAI/Ripple-65B-Preview")
++class RicursiveModel(TextModel):
++    """Ricursive Intelligence Ripple: dense, sandwich (PeriNorm) blocks, per-head QK-norm, elementwise sigmoid
++    attention gate (g_proj), value residual from the scaled embeddings, sliding-window RoPE layers with NoPE global
++    layers, SwiGLU with activation clamping."""
++    model_arch = gguf.MODEL_ARCH.RICURSIVE
++
++    _MAP = {
++        "input_layernorm":            gguf.MODEL_TENSOR.ATTN_NORM,
++        "self_attn.q_proj":           gguf.MODEL_TENSOR.ATTN_Q,
++        "self_attn.k_proj":           gguf.MODEL_TENSOR.ATTN_K,
++        "self_attn.v_proj":           gguf.MODEL_TENSOR.ATTN_V,
++        "self_attn.o_proj":           gguf.MODEL_TENSOR.ATTN_OUT,
++        "self_attn.q_norm":           gguf.MODEL_TENSOR.ATTN_Q_NORM,
++        "self_attn.k_norm":           gguf.MODEL_TENSOR.ATTN_K_NORM,
++        "self_attn.g_proj":           gguf.MODEL_TENSOR.ATTN_GATE,
++        "self_attn.value_res_lambda": gguf.MODEL_TENSOR.ATTN_VRES_LAMBDA,
++        "post_attention_layernorm":   gguf.MODEL_TENSOR.ATTN_POST_NORM,
++        "pre_feedforward_layernorm":  gguf.MODEL_TENSOR.FFN_NORM,
++        "post_feedforward_layernorm": gguf.MODEL_TENSOR.FFN_POST_NORM,
++        "mlp.gate_proj":              gguf.MODEL_TENSOR.FFN_GATE,
++        "mlp.up_proj":                gguf.MODEL_TENSOR.FFN_UP,
++        "mlp.down_proj":              gguf.MODEL_TENSOR.FFN_DOWN,
++    }
++
++    def set_vocab(self):
++        self._set_vocab_gpt2()
++        # tokenizer_config.json carries a bare ChatML template (no tools, no reasoning) and gguf-py prefers it over
++        # chat_template.jinja; transformers uses the .jinja file, so embed that one
++        tmpl = self.dir_model / "chat_template.jinja"
++        if tmpl.is_file():
++            self.gguf_writer.add_chat_template(tmpl.read_text(encoding="utf-8"))
++            logger.info("gguf: chat_template from chat_template.jinja (overrides tokenizer_config.json)")
++        # eos_token_id = [<|im_end|>, <|endoftext|>]: the turn end must stop generation too
++        eos = self.hparams.get("eos_token_id")
++        if isinstance(eos, list):
++            tok_eos = self.hparams.get("bos_token_id")
++            extra = [e for e in eos if e != tok_eos]
++            if extra:
++                self.gguf_writer.add_eot_token_id(extra[0])
++                logger.info(f"gguf: eot_token_id = {extra[0]} (from eos list {eos})")
++
++    def set_gguf_parameters(self):
++        super().set_gguf_parameters()
++        hp = self.hparams
++        if not hp.get("use_gated_attention", True):
++            raise NotImplementedError("Ricursive without gated attention is not supported")
++        self.gguf_writer.add_vocab_size(hp["vocab_size"])
++        # only the local (sliding-window) layers are rotary; all of them use the full head_dim
++        self.gguf_writer.add_rope_dimension_count(hp["head_dim"])
++
++        if (sw := hp.get("sliding_window")) and "layer_types" in hp:
++            self.gguf_writer.add_sliding_window(sw)
++            self.gguf_writer.add_sliding_window_pattern([t == "sliding_attention" for t in hp["layer_types"]])
++
++        if (es := hp.get("embed_scale")) is not None:
++            self.gguf_writer.add_embedding_scale(float(es))
++        if (c := hp.get("ffn_clamp_threshold")):
++            self.gguf_writer.add_swiglu_clamp(float(c))
++
++    def modify_tensors(self, data_torch: Tensor, name: str, bid: int | None) -> Iterable[tuple[str, Tensor]]:
++        if name == "model.embed_tokens.weight":
++            yield self.format_tensor_name(gguf.MODEL_TENSOR.TOKEN_EMBD), data_torch
++            return
++        if name == "lm_head.weight":
++            yield self.format_tensor_name(gguf.MODEL_TENSOR.OUTPUT), data_torch
++            return
++        if name == "model.norm.weight":
++            yield self.format_tensor_name(gguf.MODEL_TENSOR.OUTPUT_NORM), data_torch
++            return
++        assert bid is not None, name
++        rest = name.split(f"model.layers.{bid}.", 1)[1]
++        key = rest[:-len(".weight")] if rest.endswith(".weight") else rest
++        if key not in self._MAP:
++            raise ValueError(f"unexpected tensor {name}")
++        yield self.format_tensor_name(self._MAP[key], bid), data_torch.reshape(1) if key.endswith("value_res_lambda") else data_torch
+diff --git a/gguf-py/gguf/constants.py b/gguf-py/gguf/constants.py
+index 00b5116..d36d070 100644
+--- a/gguf-py/gguf/constants.py
++++ b/gguf-py/gguf/constants.py
+@@ -161,6 +161,7 @@ class Keys:
+         EMBD_LENGTH_PER_LAYER_INP         = "{arch}.embedding_length_per_layer_input"
+         SWIGLU_CLAMP_EXP                  = "{arch}.swiglu_clamp_exp"
+         SWIGLU_CLAMP_SHEXP                = "{arch}.swiglu_clamp_shexp"
++        SWIGLU_CLAMP                      = "{arch}.swiglu_clamp"
+         HIDDEN_ACT                        = "{arch}.hidden_activation"
+         DENSE_FEAT_IN_SIZE                = "{arch}.{dense}_feat_in"
+         DENSE_FEAT_OUT_SIZE               = "{arch}.{dense}_feat_out"
+@@ -657,6 +658,7 @@ class MODEL_ARCH(IntEnum):
+     ARCEE            = auto()
+     AFMOE            = auto()
+     LAGUNA           = auto()
++    RICURSIVE        = auto()
+     ERNIE4_5         = auto()
+     ERNIE4_5_MOE     = auto()
+     HUNYUAN_MOE      = auto()
+@@ -790,6 +792,7 @@ class MODEL_TENSOR(IntEnum):
+     ATTN_K_NORM          = auto()
+     LAYER_OUT_NORM       = auto()
+     LAYER_OUT_SCALE      = auto()
++    ATTN_VRES_LAMBDA     = auto() # ricursive value residual
+     PER_LAYER_TOKEN_EMBD = auto() # gemma3n
+     PER_LAYER_MODEL_PROJ = auto() # gemma3n
+     PER_LAYER_INP_GATE   = auto() # gemma3n
+@@ -1472,6 +1475,7 @@ MODEL_ARCH_NAMES: dict[MODEL_ARCH, str] = {
+     MODEL_ARCH.ARCEE:            "arcee",
+     MODEL_ARCH.AFMOE:            "afmoe",
+     MODEL_ARCH.LAGUNA:           "laguna",
++    MODEL_ARCH.RICURSIVE:        "ricursive",
+     MODEL_ARCH.ERNIE4_5:         "ernie4_5",
+     MODEL_ARCH.ERNIE4_5_MOE:     "ernie4_5-moe",
+     MODEL_ARCH.FALCON_H1:        "falcon-h1",
+@@ -1604,6 +1608,7 @@ TENSOR_NAMES: dict[MODEL_TENSOR, str] = {
+     MODEL_TENSOR.FFN_POST_EXP_NORM:         "blk.{bid}.ffn_post_exp_norm",
+     MODEL_TENSOR.LAYER_OUT_NORM:            "blk.{bid}.layer_output_norm",
+     MODEL_TENSOR.LAYER_OUT_SCALE:           "blk.{bid}.layer_output_scale",
++    MODEL_TENSOR.ATTN_VRES_LAMBDA:          "blk.{bid}.attn_vres_lambda",
+     MODEL_TENSOR.PER_LAYER_TOKEN_EMBD:      "per_layer_token_embd",           # gemma3n
+     MODEL_TENSOR.PER_LAYER_MODEL_PROJ:      "per_layer_model_proj",           # gemma3n
+     MODEL_TENSOR.PER_LAYER_PROJ_NORM:       "per_layer_proj_norm",            # gemma3n
+@@ -5052,6 +5057,26 @@ MODEL_TENSORS: dict[MODEL_ARCH, list[MODEL_TENSOR]] = {
+         MODEL_TENSOR.FFN_POST_NORM,
+         MODEL_TENSOR.FFN_EXP_PROBS_B,
+     ],
++    MODEL_ARCH.RICURSIVE: [
++        MODEL_TENSOR.TOKEN_EMBD,
++        MODEL_TENSOR.OUTPUT_NORM,
++        MODEL_TENSOR.OUTPUT,
++        MODEL_TENSOR.ATTN_NORM,
++        MODEL_TENSOR.ATTN_Q,
++        MODEL_TENSOR.ATTN_K,
++        MODEL_TENSOR.ATTN_V,
++        MODEL_TENSOR.ATTN_OUT,
++        MODEL_TENSOR.ATTN_Q_NORM,
++        MODEL_TENSOR.ATTN_K_NORM,
++        MODEL_TENSOR.ATTN_GATE,
++        MODEL_TENSOR.ATTN_VRES_LAMBDA,
++        MODEL_TENSOR.ATTN_POST_NORM,
++        MODEL_TENSOR.FFN_NORM,
++        MODEL_TENSOR.FFN_GATE,
++        MODEL_TENSOR.FFN_DOWN,
++        MODEL_TENSOR.FFN_UP,
++        MODEL_TENSOR.FFN_POST_NORM,
++    ],
+     MODEL_ARCH.LAGUNA: [
+         MODEL_TENSOR.TOKEN_EMBD,
+         MODEL_TENSOR.OUTPUT_NORM,
+diff --git a/gguf-py/gguf/gguf_writer.py b/gguf-py/gguf/gguf_writer.py
+index 93ec95e..61754fe 100644
+--- a/gguf-py/gguf/gguf_writer.py
++++ b/gguf-py/gguf/gguf_writer.py
+@@ -906,6 +906,9 @@ class GGUFWriter:
+     def add_swiglu_clamp_exp(self, values: Sequence[float]) -> None:
+         self.add_array(Keys.LLM.SWIGLU_CLAMP_EXP.format(arch=self.arch), values)
+ 
++    def add_swiglu_clamp(self, value: float) -> None:
++        self.add_float32(Keys.LLM.SWIGLU_CLAMP.format(arch=self.arch), value)
++
+     def add_swiglu_clamp_shexp(self, values: Sequence[float]) -> None:
+         self.add_array(Keys.LLM.SWIGLU_CLAMP_SHEXP.format(arch=self.arch), values)
+ 
+diff --git a/src/llama-arch.cpp b/src/llama-arch.cpp
+index 1476a07..3c6c531 100644
+--- a/src/llama-arch.cpp
++++ b/src/llama-arch.cpp
+@@ -165,6 +165,7 @@ static const std::map<llm_arch, const char *> LLM_ARCH_NAMES = {
+     { LLM_ARCH_QWEN3TTS,         "qwen3tts"         },
+     { LLM_ARCH_POCKETTTS,        "pockettts"        },
+     { LLM_ARCH_K2_HORIZON,       "k2-horizon"       },
++    { LLM_ARCH_RICURSIVE,        "ricursive"        },
+     { LLM_ARCH_UNKNOWN,          "(unknown)"        },
+ };
+ 
+@@ -214,6 +215,7 @@ static const std::map<llm_kv, const char *> LLM_KV_NAMES = {
+     { LLM_KV_EXPERT_CHUNK_FEED_FORWARD_LENGTH,  "%s.expert_chunk_feed_forward_length"  },
+     { LLM_KV_SWIGLU_CLAMP_EXP,                  "%s.swiglu_clamp_exp"                  },
+     { LLM_KV_SWIGLU_CLAMP_SHEXP,                "%s.swiglu_clamp_shexp"                },
++    { LLM_KV_SWIGLU_CLAMP,                      "%s.swiglu_clamp"                      },
+     { LLM_KV_USE_PARALLEL_RESIDUAL,             "%s.use_parallel_residual"             },
+     { LLM_KV_TENSOR_DATA_LAYOUT,                "%s.tensor_data_layout"                },
+     { LLM_KV_EXPERT_COUNT,                      "%s.expert_count"                      },
+@@ -526,6 +528,7 @@ static const std::map<llm_tensor, const char *> LLM_TENSOR_NAMES = {
+     { LLM_TENSOR_ATTN_QKV,                               "blk.%d.attn_qkv" },
+     { LLM_TENSOR_LAYER_OUT_NORM,                         "blk.%d.layer_output_norm" },
+     { LLM_TENSOR_LAYER_OUT_SCALE,                        "blk.%d.layer_output_scale" },
++    { LLM_TENSOR_ATTN_VRES_LAMBDA,                       "blk.%d.attn_vres_lambda" },
+     { LLM_TENSOR_ATTN_OUT_NORM,                          "blk.%d.attn_output_norm" },
+     { LLM_TENSOR_POS_EMBD,                               "position_embd" },
+     { LLM_TENSOR_FFN_ACT,                                "blk.%d.ffn.act" },
+@@ -1002,6 +1005,7 @@ static const std::map<llm_tensor, llm_tensor_info> LLM_TENSOR_INFOS = {
+     {LLM_TENSOR_ATTN_K_NORM,                {LLM_TENSOR_LAYER_REPEATING, GGML_OP_MUL}},
+     {LLM_TENSOR_LAYER_OUT_NORM,             {LLM_TENSOR_LAYER_REPEATING, GGML_OP_MUL}},
+     {LLM_TENSOR_LAYER_OUT_SCALE,            {LLM_TENSOR_LAYER_REPEATING, GGML_OP_MUL}},
++    {LLM_TENSOR_ATTN_VRES_LAMBDA,           {LLM_TENSOR_LAYER_REPEATING, GGML_OP_MUL}},
+     {LLM_TENSOR_ATTN_Q_A_NORM,              {LLM_TENSOR_LAYER_REPEATING, GGML_OP_MUL}},
+     {LLM_TENSOR_ATTN_KV_A_NORM,             {LLM_TENSOR_LAYER_REPEATING, GGML_OP_MUL}},
+     {LLM_TENSOR_ATTN_SUB_NORM,              {LLM_TENSOR_LAYER_REPEATING, GGML_OP_MUL}},
+diff --git a/src/llama-arch.h b/src/llama-arch.h
+index 0c842d3..c4746fa 100644
+--- a/src/llama-arch.h
++++ b/src/llama-arch.h
+@@ -170,6 +170,7 @@ enum llm_arch {
+     LLM_ARCH_MINIMAX_01,
+     LLM_ARCH_HRM_TEXT,
+     LLM_ARCH_K2_HORIZON,
++    LLM_ARCH_RICURSIVE,
+     LLM_ARCH_UNKNOWN,
+ };
+ 
+@@ -219,6 +220,7 @@ enum llm_kv {
+     LLM_KV_EXPERT_CHUNK_FEED_FORWARD_LENGTH,
+     LLM_KV_SWIGLU_CLAMP_EXP,
+     LLM_KV_SWIGLU_CLAMP_SHEXP,
++    LLM_KV_SWIGLU_CLAMP,
+     LLM_KV_USE_PARALLEL_RESIDUAL,
+     LLM_KV_TENSOR_DATA_LAYOUT,
+     LLM_KV_EXPERT_COUNT,
+@@ -544,6 +546,7 @@ enum llm_tensor {
+     LLM_TENSOR_ATTN_K_NORM,
+     LLM_TENSOR_LAYER_OUT_NORM,
+     LLM_TENSOR_LAYER_OUT_SCALE,
++    LLM_TENSOR_ATTN_VRES_LAMBDA,
+     LLM_TENSOR_POST_ATTN_NORM,
+     LLM_TENSOR_POST_MLP_NORM,
+     LLM_TENSOR_PER_LAYER_TOKEN_EMBD, // gemma3n
+diff --git a/src/llama-hparams.h b/src/llama-hparams.h
+index 3e02536..fd587d2 100644
+--- a/src/llama-hparams.h
++++ b/src/llama-hparams.h
+@@ -236,6 +236,7 @@ struct llama_hparams {
+     // Additional scale factors (Granite/Granite MoE)
+     float f_residual_scale  = 0.0f;
+     float f_embedding_scale = 0.0f;
++    float f_swiglu_clamp    = 0.0f; // dense FFN: silu(min(gate, c)) * clamp(up, -c, c); 0 = off
+     float f_attention_scale = 0.0f;
+ 
+     // grok-2
+diff --git a/src/llama-model-saver.cpp b/src/llama-model-saver.cpp
+index 46b1d2a..0ad0363 100644
+--- a/src/llama-model-saver.cpp
++++ b/src/llama-model-saver.cpp
+@@ -263,6 +263,7 @@ void llama_model_saver::add_kv_from_model() {
+     add_kv(LLM_KV_TIME_DECAY_EXTRA_DIM,              hparams.time_decay_extra_dim);
+     add_kv(LLM_KV_RESIDUAL_SCALE,                    hparams.f_residual_scale);
+     add_kv(LLM_KV_EMBEDDING_SCALE,                   hparams.f_embedding_scale);
++    add_kv(LLM_KV_SWIGLU_CLAMP,                      hparams.f_swiglu_clamp);
+     add_kv(LLM_KV_HRM_LAYERS_PER_STACK,              hparams.n_hrm_layers_per_stack);
+     add_kv(LLM_KV_HRM_H_CYCLES,                      hparams.n_hrm_h_cycles);
+     add_kv(LLM_KV_HRM_L_CYCLES,                      hparams.n_hrm_l_cycles);
+diff --git a/src/llama-model.cpp b/src/llama-model.cpp
+index 3da3233..e449315 100644
+--- a/src/llama-model.cpp
++++ b/src/llama-model.cpp
+@@ -282,6 +282,8 @@ static llama_model * llama_model_mapping(llm_arch arch, const llama_model_params
+             return new llama_model_afmoe(params);
+         case LLM_ARCH_LAGUNA:
+             return new llama_model_laguna(params);
++        case LLM_ARCH_RICURSIVE:
++            return new llama_model_ricursive(params);
+         case LLM_ARCH_ERNIE4_5:
+             return new llama_model_ernie4_5(params);
+         case LLM_ARCH_ERNIE4_5_MOE:
+@@ -3550,6 +3552,7 @@ llama_rope_type llama_model_rope_type(const llama_model * model) {
+         case LLM_ARCH_QWEN3MOE:
+         case LLM_ARCH_LLADA_MOE:
+         case LLM_ARCH_RND1:
++        case LLM_ARCH_RICURSIVE:
+         case LLM_ARCH_OLMO2:
+         case LLM_ARCH_OLMOE:
+         case LLM_ARCH_PHI2:
+diff --git a/src/llama-model.h b/src/llama-model.h
+index 6335dc2..0c60691 100644
+--- a/src/llama-model.h
++++ b/src/llama-model.h
+@@ -276,6 +276,7 @@ struct llama_layer {
+     struct ggml_tensor * attn_kv_a_norm  = nullptr;
+     struct ggml_tensor * attn_sub_norm   = nullptr;
+     struct ggml_tensor * attn_post_norm  = nullptr;
++    struct ggml_tensor * attn_vres_lambda = nullptr; // value residual mix logit (ricursive)
+     struct ggml_tensor * ffn_sub_norm    = nullptr;
+     struct ggml_tensor * attn_norm_cross = nullptr;
+     struct ggml_tensor * attn_norm_enc   = nullptr;
+diff --git a/src/models/models.h b/src/models/models.h
+index ffeed17..0009d57 100644
+--- a/src/models/models.h
++++ b/src/models/models.h
+@@ -2041,6 +2041,18 @@ struct llama_model_afmoe : public llama_model_base {
+ };
+ 
+ 
++struct llama_model_ricursive : public llama_model_base {
++    llama_model_ricursive(const struct llama_model_params & params) : llama_model_base(params) {}
++    void load_arch_hparams(llama_model_loader & ml) override;
++    void load_arch_tensors(llama_model_loader & ml) override;
++
++    struct graph : public llm_graph_context {
++        graph(const llama_model & model, const llm_graph_params & params);
++    };
++
++    std::unique_ptr<llm_graph_context> build_arch_graph(const llm_graph_params & params) const override;
++};
++
+ struct llama_model_laguna : public llama_model_base {
+     llama_model_laguna(const struct llama_model_params & params) : llama_model_base(params) {}
+     void load_arch_hparams(llama_model_loader & ml) override;
+diff --git a/src/models/ricursive.cpp b/src/models/ricursive.cpp
+new file mode 100644
+index 0000000..de48ccd
+--- /dev/null
++++ b/src/models/ricursive.cpp
+@@ -0,0 +1,224 @@
++// Ricursive (Ripple-65B): dense transformer, Gemma-3n-like block layout.
++//
++// Per block (HF reference: modeling_ricursive.py):
++//   h      = attn_norm(x)
++//   q, k   = q_proj(h), k_proj(h)                      per-head RMSNorm on q and k
++//   v      = v_proj(lerp(x0, h, sigmoid(lambda_l)))    value residual; x0 = scaled token embeddings
++//   local  layers: sliding window + RoPE (NEOX, theta from the config)
++//   global layers: full attention, no RoPE (NoPE)
++//   a      = attn(q, k, v) * sigmoid(g_proj(h))        elementwise output gate, before o_proj
++//   x      = x + attn_post_norm(o_proj(a))
++//   y      = down(silu(min(gate, c)) * clamp(up, -c, c)),  c = swiglu_clamp
++//   x      = x + ffn_post_norm(y)
++// Plain RMSNorm (x * w, no 1 + w). Untied lm_head. Embeddings scaled by embedding_scale.
++
++#include "models.h"
++
++void llama_model_ricursive::load_arch_hparams(llama_model_loader & ml) {
++    ml.get_key(LLM_KV_ATTENTION_LAYERNORM_RMS_EPS, hparams.f_norm_rms_eps);
++    ml.get_key(LLM_KV_EMBEDDING_SCALE,             hparams.f_embedding_scale, false);
++    ml.get_key(LLM_KV_SWIGLU_CLAMP,                hparams.f_swiglu_clamp,    false);
++
++    hparams.n_swa = 0;
++    ml.get_key(LLM_KV_ATTENTION_SLIDING_WINDOW, hparams.n_swa, false);
++    if (hparams.n_swa > 0) {
++        hparams.swa_type = LLAMA_SWA_TYPE_STANDARD;
++        // the converter writes the per-layer pattern; the default is the reference's: every 5th layer global
++        load_swa_pattern(ml, 5);
++
++        // local layers run plain RoPE: no scaling inherited from the (RoPE-free) global layers
++        hparams.rope_freq_base_train_swa  = hparams.rope_freq_base_train;
++        hparams.rope_freq_scale_train_swa = 1.0f;
++        ml.get_key(LLM_KV_ROPE_FREQ_BASE_SWA, hparams.rope_freq_base_train_swa, false);
++    } else {
++        hparams.swa_type = LLAMA_SWA_TYPE_NONE;
++    }
++
++    switch (hparams.n_layer()) {
++        case 80: type = LLM_TYPE_65B; break;
++        default: type = LLM_TYPE_UNKNOWN;
++    }
++}
++
++void llama_model_ricursive::load_arch_tensors(llama_model_loader &) {
++    LLAMA_LOAD_LOCALS;
++
++    tok_embd = create_tensor(tn(LLM_TENSOR_TOKEN_EMBD, "weight"), {n_embd, n_vocab}, 0);
++
++    output_norm = create_tensor(tn(LLM_TENSOR_OUTPUT_NORM, "weight"), {n_embd}, 0);
++    output      = create_tensor(tn(LLM_TENSOR_OUTPUT,      "weight"), {n_embd, n_vocab}, TENSOR_NOT_REQUIRED);
++    if (output == NULL) {
++        output = create_tensor(tn(LLM_TENSOR_TOKEN_EMBD, "weight"), {n_embd, n_vocab}, TENSOR_DUPLICATED);
++    }
++
++    const int64_t n_embd_q = n_embd_head_k * n_head;
++
++    for (int i = 0; i < n_layer; ++i) {
++        auto & layer = layers[i];
++
++        layer.attn_norm = create_tensor(tn(LLM_TENSOR_ATTN_NORM, "weight", i), {n_embd}, 0);
++
++        layer.wq = create_tensor(tn(LLM_TENSOR_ATTN_Q,   "weight", i), {n_embd, n_embd_q},     0);
++        layer.wk = create_tensor(tn(LLM_TENSOR_ATTN_K,   "weight", i), {n_embd, n_embd_k_gqa}, 0);
++        layer.wv = create_tensor(tn(LLM_TENSOR_ATTN_V,   "weight", i), {n_embd, n_embd_v_gqa}, 0);
++        layer.wo = create_tensor(tn(LLM_TENSOR_ATTN_OUT, "weight", i), {n_embd_q, n_embd},     0);
++
++        layer.attn_q_norm = create_tensor(tn(LLM_TENSOR_ATTN_Q_NORM, "weight", i), {n_embd_head_k}, 0);
++        layer.attn_k_norm = create_tensor(tn(LLM_TENSOR_ATTN_K_NORM, "weight", i), {n_embd_head_k}, 0);
++
++        // elementwise output gate (g_proj) and the value-residual mix logit
++        layer.wqkv_gate        = create_tensor(tn(LLM_TENSOR_ATTN_GATE,        "weight", i), {n_embd, n_embd_q}, 0);
++        layer.attn_vres_lambda = create_tensor(tn(LLM_TENSOR_ATTN_VRES_LAMBDA, "weight", i), {1}, TENSOR_NOT_REQUIRED);
++
++        layer.attn_post_norm = create_tensor(tn(LLM_TENSOR_ATTN_POST_NORM, "weight", i), {n_embd}, 0);
++
++        layer.ffn_norm      = create_tensor(tn(LLM_TENSOR_FFN_NORM,      "weight", i), {n_embd},       0);
++        layer.ffn_gate      = create_tensor(tn(LLM_TENSOR_FFN_GATE,      "weight", i), {n_embd, n_ff}, 0);
++        layer.ffn_up        = create_tensor(tn(LLM_TENSOR_FFN_UP,        "weight", i), {n_embd, n_ff}, 0);
++        layer.ffn_down      = create_tensor(tn(LLM_TENSOR_FFN_DOWN,      "weight", i), {n_ff, n_embd}, 0);
++        layer.ffn_post_norm = create_tensor(tn(LLM_TENSOR_FFN_POST_NORM, "weight", i), {n_embd},       0);
++    }
++}
++
++std::unique_ptr<llm_graph_context> llama_model_ricursive::build_arch_graph(const llm_graph_params & params) const {
++    return std::make_unique<graph>(*this, params);
++}
++
++llama_model_ricursive::graph::graph(const llama_model & model, const llm_graph_params & params) : llm_graph_context(params) {
++    const int64_t n_embd_head = hparams.n_embd_head_v();
++    GGML_ASSERT(n_embd_head == hparams.n_embd_head_k());
++
++    ggml_tensor * cur;
++    ggml_tensor * inpL;
++
++    // build_inp_embd applies hparams.f_embedding_scale (the embedding_scale key) itself
++    inpL = build_inp_embd(model.tok_embd);
++    cb(inpL, "inp_scaled", -1);
++
++    // value-residual source: the scaled embeddings, before any block
++    ggml_tensor * inp_vres = inpL;
++
++    ggml_tensor * inp_pos = build_inp_pos();
++
++    const bool has_swa = hparams.swa_type != LLAMA_SWA_TYPE_NONE;
++    llm_graph_input_attn_kv      * inp_attn_kv   = has_swa ? nullptr : build_attn_inp_kv();
++    llm_graph_input_attn_kv_iswa * inp_attn_iswa = has_swa ? build_attn_inp_kv_iswa() : nullptr;
++
++    ggml_tensor * inp_out_ids = build_inp_out_ids();
++
++    const float kq_scale = 1.0f / sqrtf(float(n_embd_head));
++
++    for (int il = 0; il < n_layer; ++il) {
++        const auto & layer = model.layers[il];
++        const bool is_swa_il = hparams.is_swa(il);
++
++        ggml_tensor * inpSA = inpL;
++
++        cur = build_norm(inpL, layer.attn_norm, NULL, LLM_NORM_RMS, il);
++        cb(cur, "attn_norm", il);
++
++        {
++            ggml_tensor * attn_in = cur;
++
++            ggml_tensor * Qcur = build_lora_mm(layer.wq, attn_in, layer.wq_s);
++            ggml_tensor * Kcur = build_lora_mm(layer.wk, attn_in, layer.wk_s);
++
++            // value residual: v_proj(x0 + sigmoid(lambda) * (h - x0))
++            ggml_tensor * v_in = attn_in;
++            if (layer.attn_vres_lambda) {
++                ggml_tensor * mix = ggml_sigmoid(ctx0, layer.attn_vres_lambda);
++                v_in = ggml_add(ctx0, inp_vres, ggml_mul(ctx0, ggml_sub(ctx0, attn_in, inp_vres), mix));
++                cb(v_in, "vres_in", il);
++            }
++            ggml_tensor * Vcur = build_lora_mm(layer.wv, v_in, layer.wv_s);
++
++            Qcur = ggml_reshape_3d(ctx0, Qcur, n_embd_head, n_head,    n_tokens);
++            Kcur = ggml_reshape_3d(ctx0, Kcur, n_embd_head, n_head_kv, n_tokens);
++            Vcur = ggml_reshape_3d(ctx0, Vcur, n_embd_head, n_head_kv, n_tokens);
++
++            Qcur = build_norm(Qcur, layer.attn_q_norm, NULL, LLM_NORM_RMS, il);
++            Kcur = build_norm(Kcur, layer.attn_k_norm, NULL, LLM_NORM_RMS, il);
++            cb(Qcur, "Qcur_normed", il);
++            cb(Kcur, "Kcur_normed", il);
++
++            if (is_swa_il) {
++                // local layers: plain RoPE
++                const float freq_base_l = model.get_rope_freq_base(cparams, il);
++                Qcur = ggml_rope_ext(ctx0, Qcur, inp_pos, nullptr,
++                        n_rot, rope_type, n_ctx_orig, freq_base_l, 1.0f,
++                        0.0f, 1.0f, beta_fast, beta_slow);
++                Kcur = ggml_rope_ext(ctx0, Kcur, inp_pos, nullptr,
++                        n_rot, rope_type, n_ctx_orig, freq_base_l, 1.0f,
++                        0.0f, 1.0f, beta_fast, beta_slow);
++            }
++            // global layers: NoPE
++            cb(Qcur, "Qcur", il);
++            cb(Kcur, "Kcur", il);
++            cb(Vcur, "Vcur", il);
++
++            cur = has_swa
++                ? build_attn(inp_attn_iswa, NULL, NULL, NULL,
++                        Qcur, Kcur, Vcur, nullptr, nullptr, nullptr, kq_scale, il)
++                : build_attn(inp_attn_kv,   NULL, NULL, NULL,
++                        Qcur, Kcur, Vcur, nullptr, nullptr, nullptr, kq_scale, il);
++            cb(cur, "attn_out", il);
++
++            // elementwise sigmoid gate from the block input, in F32
++            ggml_tensor * gate = build_lora_mm(layer.wqkv_gate, attn_in);
++            gate = ggml_sigmoid(ctx0, gate);
++            cb(gate, "attn_gate", il);
++            cur = ggml_mul(ctx0, cur, gate);
++            cb(cur, "attn_gated", il);
++
++            cur = build_lora_mm(layer.wo, cur, layer.wo_s);
++            cb(cur, "attn_o_proj", il);
++        }
++
++        if (il == n_layer - 1 && inp_out_ids) {
++            cur   = ggml_get_rows(ctx0,   cur, inp_out_ids);
++            inpSA = ggml_get_rows(ctx0, inpSA, inp_out_ids);
++        }
++
++        cur = build_norm(cur, layer.attn_post_norm, NULL, LLM_NORM_RMS, il);
++        cb(cur, "attn_post_norm", il);
++
++        ggml_tensor * ffn_inp = ggml_add(ctx0, cur, inpSA);
++        cb(ffn_inp, "ffn_inp", il);
++
++        cur = build_norm(ffn_inp, layer.ffn_norm, NULL, LLM_NORM_RMS, il);
++        cb(cur, "ffn_norm", il);
++
++        {
++            ggml_tensor * g = build_lora_mm(layer.ffn_gate, cur, layer.ffn_gate_s);
++            ggml_tensor * u = build_lora_mm(layer.ffn_up,   cur, layer.ffn_up_s);
++            cb(g, "ffn_gate", il);
++            cb(u, "ffn_up", il);
++            if (hparams.f_swiglu_clamp > 0.0f) {
++                // gate clamped from above, up clamped on both sides
++                cur = ggml_swiglu_clamp(ctx0, g, u, hparams.f_swiglu_clamp);
++            } else {
++                cur = ggml_swiglu_split(ctx0, g, u);
++            }
++            cb(cur, "ffn_swiglu", il);
++            cur = build_lora_mm(layer.ffn_down, cur, layer.ffn_down_s);
++            cb(cur, "ffn_out", il);
++        }
++
++        cur = build_norm(cur, layer.ffn_post_norm, NULL, LLM_NORM_RMS, il);
++        cb(cur, "ffn_post_norm", il);
++
++        cur = ggml_add(ctx0, cur, ffn_inp);
++        cur = build_cvec(cur, il);
++        cb(cur, "l_out", il);
++
++        inpL = cur;
++    }
++
++    cur = build_norm(inpL, model.output_norm, NULL, LLM_NORM_RMS, -1);
++    cb(cur, "result_norm", -1);
++    res->t_embd = cur;
++
++    cur = build_lora_mm(model.output, cur);
++    cb(cur, "result_output", -1);
++    res->t_logits = cur;
++}

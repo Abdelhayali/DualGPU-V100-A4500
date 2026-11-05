@@ -12,12 +12,16 @@ $env:CUDA_VISIBLE_DEVICES = ($Gpus.uuid -join ',')
 function Get-ModelCfg($id) {
     $f = "$Root\configs\$id.json"
     if (-not (Test-Path $f)) { throw "no config file $f" }
-    return Get-Content $f -Raw | ConvertFrom-Json
+    $m = Get-Content $f -Raw | ConvertFrom-Json
+    # a model on an architecture the main kernel lacks names a variant build: "kernel": "ripple" -> kernel\bin-ripple
+    $script:Kd = if ($m.kernel) { "$Root\kernel\bin-$($m.kernel)" } else { "$Root\kernel\bin" }
+    return $m
 }
 
 # One config -> llama-server argument list. Fields (all optional except ctx):
 #   gguf (overrides the model default), ctx, kv (f16/q8_0/q4_0), b, ub, sm (layer/row/tensor/none), ts ("a,b"), mg,
-#   spec (mtp/dflash), n, mmgpu (vision projector on GPU, default true), extra (array of raw args)
+#   spec (mtp/dflash), n, mmgpu (vision projector on GPU, default true), cpumoe (experts of the first N layers stay in
+#   system RAM, for models bigger than both GPUs), fit (no -ngl: llama.cpp's --fit picks the GPU/RAM split), extra (array of raw args)
 function Get-SrvArgs($m, $c) {
     $md = "$Root\models\$($m.id)"
     $gguf = if ($c.gguf) { $c.gguf } else { $m.gguf }
@@ -27,18 +31,22 @@ function Get-SrvArgs($m, $c) {
     # old 500 W PSU that peak cut the power (4 hard resets on 2026-11-02); after the PSU swap it passes. Set b = ub to make
     # the cards take turns again on a weak PSU.
     $b = if ($c.b) { $c.b } else { 2048 }
-    $a = @('-m', "$md\$gguf", '-ngl', 'all', '-c', "$($c.ctx)", '-np', '1', '-fa', 'on', '-b', "$b", '-ub', "$ub",
+    $a = @('-m', "$md\$gguf", '-c', "$($c.ctx)", '-np', '1', '-fa', 'on', '-b', "$b", '-ub', "$ub",
            '--jinja', '--cache-ram', '2048', '--host', '127.0.0.1', '--port', "$Port")
+    if (-not $c.fit) { $a += @('-ngl', 'all') }
     if ($m.mmproj) { $a += @('--mmproj', "$md\$($m.mmproj)"); if ($c.mmgpu -eq $false) { $a += '--no-mmproj-offload' } }
     if ($m.sampling) { $a += @($m.sampling) }
     if ($kv -ne 'f16') { $a += @('-ctk', $kv, '-ctv', $kv) }
     if ($c.sm) { $a += @('-sm', $c.sm) }
     if ($c.ts) { $a += @('-ts', $c.ts) }
     if ($null -ne $c.mg) { $a += @('-mg', "$($c.mg)") }
+    if ($c.cpumoe) { $a += @('--n-cpu-moe', "$($c.cpumoe)") }
     if ($c.spec) {
         $type = @{ mtp = 'draft-mtp'; dflash = 'draft-dflash'; dspark = 'draft-dspark' }[$c.spec]
         $a += @('--spec-type', $type, '--spec-draft-n-max', "$($c.n)", '--spec-draft-p-min', '0')
+        # MTP heads normally sit in the model file; m.mtp names a separate head file (Qwen3.8-Flash-Next)
         if ($c.spec -ne 'mtp') { $a += @('--spec-draft-model', "$md\$($m.draft)", '--spec-draft-ngl', 'all') }
+        elseif ($m.mtp) { $a += @('--spec-draft-model', "$md\$($m.mtp)", '--spec-draft-ngl', 'all') }
         if ($c.devd) { $a += @('--spec-draft-device', $c.devd) }
         if ($kv -ne 'f16') { $a += @('--spec-draft-type-k', $kv, '--spec-draft-type-v', $kv) }
     }

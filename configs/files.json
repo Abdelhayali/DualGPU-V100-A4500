@@ -70,5 +70,47 @@
   "sha256": "cbb841a9ee0636b2ec172f5bb8df2ea8dfeb01e90fe7c6126581d662a0b4e43e",
   "size": 927607488,
   "url": "https://huggingface.co/unsloth/Qwen3.8-27B-GGUF/resolve/main/mmproj-F16.gguf"
+ },
+ "qwen3.8-flash-next/Qwen3.8-Flash-Next-UD-Q3_K_XL-00001-of-00004.gguf": {
+  "repo": "unsloth/Qwen3.8-Flash-Next-GGUF",
+  "sha256": "7666000ba91eb5527f8e12e0414de36766dc82a082876337f7827c2caa859143",
+  "size": 10946618,
+  "url": "https://huggingface.co/unsloth/Qwen3.8-Flash-Next-GGUF/resolve/main/UD-Q3_K_XL/Qwen3.8-Flash-Next-UD-Q3_K_XL-00001-of-00004.gguf"
+ },
+ "qwen3.8-flash-next/Qwen3.8-Flash-Next-UD-Q3_K_XL-00002-of-00004.gguf": {
+  "repo": "unsloth/Qwen3.8-Flash-Next-GGUF",
+  "sha256": "e954cb3044ae087a003ce8cc1631c9d40fe15ae64a8befcf4aa06457848c647c",
+  "size": 49742117248,
+  "url": "https://huggingface.co/unsloth/Qwen3.8-Flash-Next-GGUF/resolve/main/UD-Q3_K_XL/Qwen3.8-Flash-Next-UD-Q3_K_XL-00002-of-00004.gguf"
+ },
+ "qwen3.8-flash-next/Qwen3.8-Flash-Next-UD-Q3_K_XL-00003-of-00004.gguf": {
+  "repo": "unsloth/Qwen3.8-Flash-Next-GGUF",
+  "sha256": "fcce26b1e5e6e54559a7e7c2f8d6e37067ec695ff1f14bce662810bde78abe1f",
+  "size": 10911746208,
+  "url": "https://huggingface.co/unsloth/Qwen3.8-Flash-Next-GGUF/resolve/main/UD-Q3_K_XL/Qwen3.8-Flash-Next-UD-Q3_K_XL-00003-of-00004.gguf"
+ },
+ "qwen3.8-flash-next/Qwen3.8-Flash-Next-UD-Q3_K_XL-00004-of-00004.gguf": {
+  "repo": "unsloth/Qwen3.8-Flash-Next-GGUF",
+  "sha256": "5de8b5dbf89409acc39468decafd4a4a95b13c29d88a14b0356107897829ec36",
+  "size": 28800138432,
+  "url": "https://huggingface.co/unsloth/Qwen3.8-Flash-Next-GGUF/resolve/main/UD-Q3_K_XL/Qwen3.8-Flash-Next-UD-Q3_K_XL-00004-of-00004.gguf"
+ },
+ "qwen3.8-flash-next/mmproj-F16.gguf": {
+  "repo": "unsloth/Qwen3.8-Flash-Next-GGUF",
+  "sha256": "1f7b7f0b984cf065c604360c29c8098362ed61b290db0ff12c6f360bb1a8a980",
+  "size": 904004000,
+  "url": "https://huggingface.co/unsloth/Qwen3.8-Flash-Next-GGUF/resolve/main/mmproj-F16.gguf"
+ },
+ "qwen3.8-flash-next/mtp-Qwen3.8-Flash-Next-Q8_0.gguf": {
+  "repo": "unsloth/Qwen3.8-Flash-Next-GGUF",
+  "sha256": "58a47d6a216307e9b97172d5bfdc3436a8994b632f5e436b9bb6edf8951da8d1",
+  "size": 4137429120,
+  "url": "https://huggingface.co/unsloth/Qwen3.8-Flash-Next-GGUF/resolve/main/mtp-Qwen3.8-Flash-Next-Q8_0.gguf"
+ },
+ "ripple-65b/Ripple-65B-Preview-AD-IQ3_XXS.gguf": {
+  "repo": "AtomicChat/Ripple-65B-Preview-GGUF",
+  "sha256": "0aca90d6d3062dcadbc5f7988504c2b53588d99f648b4e0b09107a72e427401a",
+  "size": 27964982752,
+  "url": "https://huggingface.co/AtomicChat/Ripple-65B-Preview-GGUF/resolve/main/Ripple-65B-Preview-AD-IQ3_XXS.gguf"
  }
 }

@@ -69,7 +69,8 @@ def model_dir(mid):
 
 
 def kernel_dir(mid, k):
-    return ROOT / "kernel" / "bin"     # one shared engine for every model
+    # one shared engine (kernel/bin); a model on a new architecture names a variant build (kernel/bin-<x>) via "dir"
+    return ROOT / "kernel" / catalog()["kernels"][k].get("dir", "bin")
 
 
 def kernel_exe(mid, k):
@@ -274,6 +275,8 @@ def ensure_kernel(mid, k):
     if (kd / exe).exists():
         return
     store = kd                         # the engine is unpacked straight into kernel/bin
+    if not catalog()["kernels"][k].get("download"):
+        raise FileNotFoundError(f"kernel '{k}' has no download: build it with tools\\build-kernel.bat (kernel\\SOURCE.md)")
     if not (store / exe).exists():
         tmp = Path(tempfile.mkdtemp(prefix="v100llm-"))
         try:
@@ -447,7 +450,7 @@ def write_bat(mid, preset, k, params, name=None):
              f"rem {pre.get('bench', '') if pre else ''}".rstrip(),
              "rem Open http://127.0.0.1:%PORT% (default 8899). Extra arguments are passed to llama-server.",
              'if not defined PORT set "PORT=8899"', 'if not defined HOST set "HOST=127.0.0.1"',
-             'set "K=%~dp0..\\..\\kernel\\bin"', 'set "M=%~dp0."', 'set "PATH=%K%;%PATH%"',
+             f'set "K=%~dp0..\\..\\kernel\\{catalog()["kernels"][k].get("dir", "bin")}"', 'set "M=%~dp0."', 'set "PATH=%K%;%PATH%"',
              'set "CUDA_DEVICE_ORDER=PCI_BUS_ID"', f'set "CUDA_VISIBLE_DEVICES={",".join(g["uuid"] for g in gpus())}"',
              'rem CUDA0 = RTX A4500, CUDA1 = Tesla V100, pinned by UUID: save this file again after changing a card',
              f'if not exist "%K%\\{catalog()["kernels"][k]["exe"]}" ( echo Kernel {k} missing: open START-GUI.bat and press Download. & pause & exit /b 1 )',
