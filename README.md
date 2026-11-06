@@ -59,6 +59,9 @@ small-active MoE models one V100 with a 3-bit quant is faster (the whole model s
 | kimi-linear-48b-a3b | **262k** (default) | `auto-262k` | 262k | f16 | **104.8** | 1299 t/s |
 | | fast | `auto-32k` | 32k | f16 | 106.0 | 1276 t/s |
 | | 512k | `auto-512k` | 512k | f16 | 102.1 | 1259 t/s |
+| nanbeige4.3-33b | **64k** (default) | `auto-64k-q8` | 64k | q8_0 | **23.1** | 1045 t/s |
+| | fast | `l50-32k` | 32k | f16 | 23.8 | 1094 t/s |
+| | 128k | `auto-128k-q4` | 128k | q4_0 | 22.9 | 1035 t/s |
 | ripple-65b | **64k** (default) | `auto-64k` | 64k | f16 | **14.8** | 427 t/s |
 | | fast | `l50-32k` | 32k | f16 | 15.2 | 417 t/s |
 | | 128k | `auto-128k-q8` | 128k | q8_0 | 14.4 | 404 t/s |
@@ -78,6 +81,10 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
   accepted). 40/60 split and 262k f16 KV do not fit.
 - **Kimi-Linear**: 20 linear-attention (KDA) + 7 MLA layers, so 512k context costs little. 1M does not fit (needs a 4.6 GB
   more buffer on the A4500); q8_0 KV is impossible (V head dim 72), and mixed K/V types are not supported for this model.
+- **Nanbeige4.3-33B**: dense Llama (runs on the main kernel). ~23 tok/s whatever the split (50/50 23.8, auto 23.5,
+  60/40 23.0). Every one of its 52 layers keeps a full KV cache (~210 KB/token f16), so context is the limit: 64k needs q8
+  KV, 128k q4, 262k does not fit; with a 50/50 split the 64k/128k configs crash on the 7k prompt (V100 full).
+  Hard suite: only the coding category was run (stopped on request): **81.2** on `64k` (Ripple 75, the top models 94).
 - **Ripple-65B Preview**: 65B dense, so every token reads all 28 GB: ~15 tok/s whatever the split (auto 15.0, 50/50 15.2,
   60/40 14.5). Only 16 of 80 layers keep a full KV cache (the rest slide over 1024 tokens), so 262k fits with q4 KV at the
   same speed. New `ricursive` architecture: it runs on `kernel\bin-ripple`, the tested source plus AtomicChat's port

@@ -1,0 +1,41 @@
+[11-07 00:47:17] auto-32k : loading
+[11-07 00:48:11] auto-32k : loaded, vram 17553+13874 MiB; speed test
+[11-07 00:48:38] auto-32k : speed 23.5 tok/s; image test
+[11-07 00:48:38] auto-32k : image n/a; 7k prompt
+[11-07 00:48:51] auto-32k : MEAN 23.5 tok/s (code 23.5 / chat 23.4), vram 17566+14326 MiB, image n/a, 7k prompt True @ 1025 t/s -> pass
+[11-07 00:48:51] l50-32k : loading
+[11-07 00:49:34] l50-32k : loaded, vram 15970+15460 MiB; speed test
+[11-07 00:50:01] l50-32k : speed 23.8 tok/s; image test
+[11-07 00:50:01] l50-32k : image n/a; 7k prompt
+[11-07 00:50:13] l50-32k : MEAN 23.8 tok/s (code 23.9 / chat 23.7), vram 15987+15912 MiB, image n/a, 7k prompt True @ 1094 t/s -> pass
+[11-07 00:50:13] l60-32k : loading
+[11-07 00:51:02] l60-32k : loaded, vram 18609+12819 MiB; speed test
+[11-07 00:51:29] l60-32k : speed 23.0 tok/s; image test
+[11-07 00:51:29] l60-32k : image n/a; 7k prompt
+[11-07 00:51:42] l60-32k : MEAN 23.0 tok/s (code 23.1 / chat 23.0), vram 18624+13271 MiB, image n/a, 7k prompt True @ 1001 t/s -> pass
+[11-07 00:51:42] auto-64k : loading
+[11-07 00:52:48] auto-64k : does not start
+[11-07 00:52:48] auto-128k-q8 : loading
+[11-07 00:53:40] auto-128k-q8 : does not start
+[11-07 00:53:40] auto-262k-q4 : loading
+[11-07 00:54:46] auto-262k-q4 : does not start
+[11-07 00:55:09] l50-64k-q8 : loading
+[11-07 00:55:59] l50-64k-q8 : loaded, vram 16460+15930 MiB; speed test
+[11-07 00:56:26] l50-64k-q8 : speed 23.4 tok/s; image test
+[11-07 00:56:26] l50-64k-q8 : image n/a; 7k prompt
+[11-07 00:56:39] l50-64k-q8 : MEAN 23.4 tok/s (code 23.4 / chat 23.4), vram 443+10 MiB, image n/a, 7k prompt False @  t/s -> FAIL
+[11-07 00:56:39] l50-128k-q4 : loading
+[11-07 00:57:23] l50-128k-q4 : loaded, vram 16635+16202 MiB; speed test
+[11-07 00:57:50] l50-128k-q4 : speed 23.2 tok/s; image test
+[11-07 00:57:50] l50-128k-q4 : image n/a; 7k prompt
+[11-07 00:58:00] l50-128k-q4 : MEAN 23.2 tok/s (code 23.3 / chat 23.1), vram 442+10 MiB, image n/a, 7k prompt False @  t/s -> FAIL
+[11-07 00:58:00] auto-128k-q4 : loading
+[11-07 00:58:44] auto-128k-q4 : loaded, vram 18819+15010 MiB; speed test
+[11-07 00:59:11] auto-128k-q4 : speed 22.9 tok/s; image test
+[11-07 00:59:11] auto-128k-q4 : image n/a; 7k prompt
+[11-07 00:59:24] auto-128k-q4 : MEAN 22.9 tok/s (code 22.9 / chat 22.9), vram 18832+15462 MiB, image n/a, 7k prompt True @ 1035 t/s -> pass
+[11-07 00:59:49] auto-64k-q8 : loading
+[11-07 01:00:36] auto-64k-q8 : loaded, vram 18073+14322 MiB; speed test
+[11-07 01:01:03] auto-64k-q8 : speed 23.1 tok/s; image test
+[11-07 01:01:03] auto-64k-q8 : image n/a; 7k prompt
+[11-07 01:01:16] auto-64k-q8 : MEAN 23.1 tok/s (code 23.2 / chat 23.1), vram 18087+14774 MiB, image n/a, 7k prompt True @ 1045 t/s -> pass

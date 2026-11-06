@@ -23,6 +23,12 @@
   "size": 1119575840,
   "url": "https://huggingface.co/openbmb/MiniCPM-V-4.7-35B-A3B-gguf/resolve/main/mmproj-model-f16.gguf"
  },
+ "nanbeige4.3-33b/Nanbeige4.3-33B-AD-Q5_K_M.gguf": {
+  "repo": "AtomicChat/Nanbeige4.3-33B-GGUF",
+  "sha256": "059c79bf69cb6b2864899b89d272cfc923da35984b813c420ae35ef4a63bec8f",
+  "size": 24683801600,
+  "url": "https://huggingface.co/AtomicChat/Nanbeige4.3-33B-GGUF/resolve/main/Nanbeige4.3-33B-AD-Q5_K_M.gguf"
+ },
  "orcacyber-nano-27b/OrcaCyber-Nano-1.0-AI-Defense-DFlash2-Q8_0.gguf": {
   "repo": "orcarouter/OrcaCyber-Nano-1.0",
   "sha256": "1336ac755846f9be77abb9cca4de99f98bed05e98485cfa46affc4b789ab7f52",

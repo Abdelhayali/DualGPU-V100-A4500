@@ -32,6 +32,14 @@
         { "name": "262k", "config": "auto-mtp3-262k-q8", "summary": "full 262k ctx, q8 KV, MTP 3 - 86.0 tok/s (V100 nearly full)" }
       ]
     },
+    "nanbeige4.3-33b": {
+      "default": "64k",
+      "presets": [
+        { "name": "64k",  "config": "auto-64k-q8",  "summary": "default: 64k ctx, q8 KV - 23.1 tok/s, 7k prompt 1045 t/s (33B dense, text only)" },
+        { "name": "fast", "config": "l50-32k",      "summary": "fastest: 32k ctx, f16 KV, split 50/50 - 23.8 tok/s" },
+        { "name": "128k", "config": "auto-128k-q4", "summary": "128k ctx, q4 KV - 22.9 tok/s (both GPUs nearly full; 262k does not fit)" }
+      ]
+    },
     "ripple-65b": {
       "default": "64k",
       "presets": [

@@ -1,0 +1,28 @@
+{
+  "id": "nanbeige4.3-33b",
+  "name": "Nanbeige4.3-33B AD-Q5_K_M (33B dense, agentic coding, text only)",
+  "gguf": "Nanbeige4.3-33B-AD-Q5_K_M.gguf",
+  "files": [
+    { "repo": "AtomicChat/Nanbeige4.3-33B-GGUF", "file": "Nanbeige4.3-33B-AD-Q5_K_M.gguf", "gb": 24.68 }
+  ],
+  "sampling": ["--temp", "0.6", "--top-p", "0.95", "--min-p", "0"],
+  "notes": "Nanbeige's 33B dense Llama (52 layers, GQA 8 KV heads, 512k trained context). Every layer keeps a full KV cache (~210 KB/token f16), so 64k needs q8 KV and 128k q4; 262k does not fit. Thinking is on by default (enable_thinking). Sampling: the card's reasoning/chat settings (temp 0.6, top-p 0.95; agentic use: temp 1.0). No draft model. ts = A4500,V100.",
+  "configs": [
+    { "name": "auto-32k",      "ctx": 32768,  "sm": "layer" },
+    { "name": "l50-32k",       "ctx": 32768,  "sm": "layer", "ts": "50,50" },
+    { "name": "l60-32k",       "ctx": 32768,  "sm": "layer", "ts": "60,40" },
+
+    { "name": "auto-64k",      "ctx": 65536,  "sm": "layer", "note": "does not fit: f16 KV is 13.6 GB at 64k" },
+    { "name": "auto-128k-q8",  "ctx": 131072, "sm": "layer", "kv": "q8_0", "note": "does not fit: 14.5 GB KV" },
+    { "name": "auto-262k-q4",  "ctx": 262144, "sm": "layer", "kv": "q4_0", "note": "does not fit: 15.3 GB KV" },
+    { "name": "l50-64k-q8",    "ctx": 65536,  "sm": "layer", "ts": "50,50", "kv": "q8_0", "note": "CUDA error on the 7k prompt (V100 full)" },
+    { "name": "l50-128k-q4",   "ctx": 131072, "sm": "layer", "ts": "50,50", "kv": "q4_0", "note": "CUDA error on the 7k prompt (V100 full)" },
+    { "name": "auto-64k-q8",   "ctx": 65536,  "sm": "layer", "kv": "q8_0" },
+    { "name": "auto-128k-q4",  "ctx": 131072, "sm": "layer", "kv": "q4_0" }
+  ],
+  "sets": {
+    "split": ["auto-32k", "l50-32k", "l60-32k"],
+    "ctx": ["auto-64k", "auto-128k-q8", "auto-262k-q4"],
+    "ctx2": ["l50-64k-q8", "l50-128k-q4", "auto-128k-q4"]
+  }
+}
