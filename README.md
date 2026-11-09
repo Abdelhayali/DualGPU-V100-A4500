@@ -48,7 +48,7 @@ small-active MoE models one V100 with a 3-bit quant is faster (the whole model s
 | model | preset | config | ctx | KV | tok/s (mean of code + chat) | 7k prompt |
 |---|---|---|---|---|---|---|
 | orcacyber-nano-27b | **128k** (default) | `auto-mtp3-128k` | 128k | f16 | **58.2** | 974 t/s |
-| | code | `auto-mtp4-32k` | 32k | f16 | 57.9 (69.9 on code) | 970 t/s |
+| | code | `auto-dsp15-32k` (DSpine) | 32k | f16 | 52.1 (**78.2** on code) | 793 t/s |
 | | 262k | `l55-mtp3-262k-q8` | 262k | q8_0 | 56.5 | 958 t/s |
 | qwen3.6-35b-a3b | **128k** (default) | `auto-mtp3-128k` | 128k | f16 | **95.2** (109.7 on code) | 919 t/s |
 | | fast | `l60-mtp3-32k` | 32k | f16 | 96.6 (111.0 on code) | 989 t/s |
@@ -56,6 +56,9 @@ small-active MoE models one V100 with a 3-bit quant is faster (the whole model s
 | minicpm-v4.7-35b-a3b | **128k** (default) | `auto-nodraft-128k` | 128k | f16 | **87.0** | 1055 t/s |
 | | fast | `auto-nodraft-32k` | 32k | f16 | 91.6 | 1055 t/s |
 | | 262k | `auto-nodraft-262k-q8` | 262k | q8_0 | 82.3 | 1051 t/s |
+| huihui-qwen3.6-35b-a3b | **128k** (default) | `auto-mtp3-128k` | 128k | f16 | **97.0** (105.4 on code) | 931 t/s |
+| | fast | `auto-mtp4-32k` | 32k | f16 | 103.6 (120.9 on code) | 939 t/s |
+| | 262k | `auto-mtp3-262k` | 262k | f16 | 93.7 | 927 t/s |
 | kimi-linear-48b-a3b | **262k** (default) | `auto-262k` | 262k | f16 | **104.8** | 1299 t/s |
 | | fast | `auto-32k` | 32k | f16 | 106.0 | 1276 t/s |
 | | 512k | `auto-512k` | 512k | f16 | 102.1 | 1259 t/s |
@@ -68,15 +71,28 @@ small-active MoE models one V100 with a 3-bit quant is faster (the whole model s
 | | 262k | `auto-262k-q4` | 262k | q4_0 | 14.4 | 405 t/s |
 | qwen3.8-27b | **128k** (default) | `l60-mtp3-128k` | 128k | f16 | **48.3** | 917 t/s |
 | | fast | `layer-auto-mtp3-32k` | 32k | f16 | 50.2 | 952 t/s |
+| | code | `auto-dsp15-32k` (DSpine) | 32k | f16 | 49.2 (**71.3** on code) | 759 t/s |
 | | 262k | `l65-mtp3-262k-q4-ub256` | 262k | q4_0 | 46.0 | 846 t/s |
 
 All presets pass the image test (vision models) and a ~7k-token prompt. Per-model findings:
 
+- **DSpine** (tencent's 16-token drafter for Qwen3.8-27B, `Qwen3.8-27B-DSpine-b16-Q4_K_M.gguf`, kernel `bin-dspine` =
+  the tested source + the DSpine commit of Ajay9o9/llama.cpp `dspine`, `kernel/patches/0003`): best on code, worse on chat.
+
+  | target, 32k f16 | DSpine 15 drafted: code / chat / mean | DSpine 7 | MTP 3 mean |
+  |---|---|---|---|
+  | Qwen3.8-27B UD-Q5_K_XL | **71.3** / 27.2 / 49.2 (24% accepted) | 58.0 / 28.9 / 43.5 | 50.2 |
+  | OrcaCyber Mix-15.7G | **78.2** / 26.1 / 52.1 (23% accepted) | 66.2 / 29.0 / 47.6 | 57.3 |
+
+  It also works on OrcaCyber (a Qwen3.8-27B fine-tune), so both get a `code` preset with it. q8 KV is slower (47.1);
+  OrcaCyber runs it at 128k (52.1), Qwen3.8-27B Q5_K_XL does not fit the drafter at 128k.
 - **OrcaCyber**: same architecture as Qwen3.8-27B. MTP 3-4 beats its DFlash2 drafter (50.6-51.1). Both GPUs: 57.3 tok/s vs
   47.5 on the A4500 alone. 262k f16 KV does not fit; q8 does, with both cards nearly full.
 - **Qwen3.6-35B-A3B**: unsloth's MTP build (MTP head in the file). MTP 3 95 tok/s vs 88 without (MTP 4: 112 on code,
   78 on chat). Splits within 3 tok/s. 262k f16 KV runs text (93.6) but the vision encoder runs out of memory on the
   A4500, so the 262k preset uses q8 KV.
+- **Huihui Qwen3.6-35B-A3B abliterated** (Q4_K, 21.7 GB, MTP kept): as fast as the unsloth Q5 (MTP 3 102 tok/s at 32k,
+  MTP 4 104, no draft 96) and 3.6 GB smaller, so 262k f16 KV fits with the vision encoder (93.7). Not run on the hard suite.
 - **MiniCPM-V 4.7**: MoE with ~3B active, so the DSpark draft is a loss here (n8 66.0, n15 54.2 vs 91.6 without, 18-32%
   accepted). 40/60 split and 262k f16 KV do not fit.
 - **Kimi-Linear**: 20 linear-attention (KDA) + 7 MLA layers, so 512k context costs little. 1M does not fit (needs a 4.6 GB

@@ -20,9 +20,13 @@ function Get-ModelCfg($id) {
 
 # One config -> llama-server argument list. Fields (all optional except ctx):
 #   gguf (overrides the model default), ctx, kv (f16/q8_0/q4_0), b, ub, sm (layer/row/tensor/none), ts ("a,b"), mg,
-#   spec (mtp/dflash), n, mmgpu (vision projector on GPU, default true), cpumoe (experts of the first N layers stay in
+#   spec (mtp/dflash), n, draft (draft file, default the model's), kernel (variant build for this config, default the
+#   model's), mmgpu (vision projector on GPU, default true), cpumoe (experts of the first N layers stay in
 #   system RAM, for models bigger than both GPUs), fit (no -ngl: llama.cpp's --fit picks the GPU/RAM split), extra (array of raw args)
 function Get-SrvArgs($m, $c) {
+    $k = if ($c.kernel) { $c.kernel } else { $m.kernel }
+    $script:Kd = if ($k) { "$Root\kernel\bin-$k" } else { "$Root\kernel\bin" }
+    $draft = if ($c.draft) { $c.draft } else { $m.draft }
     $md = "$Root\models\$($m.id)"
     $gguf = if ($c.gguf) { $c.gguf } else { $m.gguf }
     $kv = if ($c.kv) { $c.kv } else { 'f16' }
@@ -45,7 +49,7 @@ function Get-SrvArgs($m, $c) {
         $type = @{ mtp = 'draft-mtp'; dflash = 'draft-dflash'; dspark = 'draft-dspark' }[$c.spec]
         $a += @('--spec-type', $type, '--spec-draft-n-max', "$($c.n)", '--spec-draft-p-min', '0')
         # MTP heads normally sit in the model file; m.mtp names a separate head file (Qwen3.8-Flash-Next)
-        if ($c.spec -ne 'mtp') { $a += @('--spec-draft-model', "$md\$($m.draft)", '--spec-draft-ngl', 'all') }
+        if ($c.spec -ne 'mtp') { $a += @('--spec-draft-model', "$md\$draft", '--spec-draft-ngl', 'all') }
         elseif ($m.mtp) { $a += @('--spec-draft-model', "$md\$($m.mtp)", '--spec-draft-ngl', 'all') }
         if ($c.devd) { $a += @('--spec-draft-device', $c.devd) }
         if ($kv -ne 'f16') { $a += @('--spec-draft-type-k', $kv, '--spec-draft-type-v', $kv) }

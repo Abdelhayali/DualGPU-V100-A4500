@@ -25,6 +25,11 @@ function Get-Params($m, $c) {   # llama-server args minus the parts the launcher
     return , $out
 }
 
+function Get-Kernel($m, $c) {   # catalog kernel id: dualgpu, or dualgpu-<variant> for a config/model on kernel\bin-<variant>
+    $v = if ($c.kernel) { $c.kernel } else { $m.kernel }
+    if ($v) { "dualgpu-$v" } else { 'dualgpu' }
+}
+
 function Get-Bench($r) {
     if (-not $r -or -not $r.mean) { return '' }
     $s = "$($r.mean) tok/s (code $($r.code) / chat $($r.chat))"
@@ -45,10 +50,10 @@ foreach ($f in Get-ChildItem "$Root\configs\*.json" -Exclude files.json) {
         [ordered]@{ name = $_.file; repo = $_.repo; size = $h.size; sha256 = $h.sha256; url = $h.url } })
     # files the configs never use (no draft config -> no draft file) are still listed, so "Download missing" gets them all
     $list = @()
-    $k = if ($m.kernel) { "dualgpu-$($m.kernel)" } else { 'dualgpu' }
     foreach ($p in @($pm.presets)) {
         if (-not $p) { continue }
         $c = @($m.configs) | Where-Object name -eq $p.config
+        $k = Get-Kernel $m $c
         $list += [ordered]@{ id = $p.name; name = "$($p.name): $($p.summary)"; kernel = $k; kernels = @($k)
                              bench = Get-Bench $res[$c.name]; params = Get-Params $m $c }
     }
@@ -56,6 +61,7 @@ foreach ($f in Get-ChildItem "$Root\configs\*.json" -Exclude files.json) {
     foreach ($c in @($m.configs)) {
         $r = $res[$c.name]
         if ($used -contains $c.name -or -not $r -or $r.status -ne 'pass') { continue }
+        $k = Get-Kernel $m $c
         $list += [ordered]@{ id = $c.name; name = "config $($c.name) (tested)"; kernel = $k; kernels = @($k)
                              bench = Get-Bench $r; params = Get-Params $m $c }
     }
@@ -76,7 +82,11 @@ $cat = [ordered]@{
       'dualgpu-ripple' = [ordered]@{
         name = 'llama.cpp da8fd08 + Ripple port (ricursive architecture)'
         desc = 'The same source plus AtomicChat ricursive-port.patch (kernel\patches), built by tools\build-kernel.bat <cuda> ripple. kernel\bin-ripple.'
-        exe = 'llama-server.exe'; dir = 'bin-ripple' } }
+        exe = 'llama-server.exe'; dir = 'bin-ripple' }
+      'dualgpu-dspine' = [ordered]@{
+        name = 'llama.cpp da8fd08 + DSpine drafter (Qwen3.8-27B)'
+        desc = 'The same source plus the DSpine commit of Ajay9o9/llama.cpp dspine (kernel\patches\0003), built by tools\build-kernel.bat <cuda> dspine. kernel\bin-dspine.'
+        exe = 'llama-server.exe'; dir = 'bin-dspine' } }
     models = $models
 }
 [IO.File]::WriteAllText("$Root\catalog.json", ($cat | ConvertTo-Json -Depth 10), [Text.UTF8Encoding]::new($false))

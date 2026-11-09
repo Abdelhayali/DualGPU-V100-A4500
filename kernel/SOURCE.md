@@ -35,4 +35,11 @@ git -C kernel\src-ripple apply ..\patches\0002-ricursive-port-applied.patch
 tools\build-kernel.bat D:\pxa\cuda-12.9 ripple      (-> kernel\bin-ripple)
 ```
 
-Models pick it with `"kernel": "ripple"` in `configs/<id>.json` (tools) and the catalog kernel `dualgpu-ripple` (GUI).
+## Variant: `bin-dspine` (DSpine drafter for Qwen3.8-27B)
+
+`kernel/src-dspine` = `da8fd08` plus `patches/0003-dspine-draft-applied.patch`: commit `d493f84` ("dflash : add DSpine
+draft model support") of https://github.com/Ajay9o9/llama.cpp/tree/dspine, without its `llama-quant.cpp` hunk (it only
+keeps DSpine tensors in BF16 when quantizing). Build: `tools\build-kernel.bat D:\pxa\cuda-12.9 dspine`. Configs pick it per
+config with `"kernel": "dspine"` (draft type `draft-dflash`, `--spec-draft-n-max 15`).
+
+Models pick the Ripple build with `"kernel": "ripple"` in `configs/<id>.json` (tools) and the catalog kernel `dualgpu-ripple` (GUI).

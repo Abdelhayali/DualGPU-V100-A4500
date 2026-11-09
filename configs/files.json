@@ -1,4 +1,16 @@
 {
+ "huihui-qwen3.6-35b-a3b/Huihui-Qwen3.6-35B-A3B-abliterated-ggml-model-Q4_K.gguf": {
+  "repo": "huihui-ai/Huihui-Qwen3.6-35B-A3B-abliterated-MTP-GGUF",
+  "sha256": "63b75afb4b68fc61059c78115b580037074de88146e0762f4a496081e410cf81",
+  "size": 21712409824,
+  "url": "https://huggingface.co/huihui-ai/Huihui-Qwen3.6-35B-A3B-abliterated-MTP-GGUF/resolve/main/Huihui-Qwen3.6-35B-A3B-abliterated-ggml-model-Q4_K.gguf"
+ },
+ "huihui-qwen3.6-35b-a3b/mmproj-model-f16.gguf": {
+  "repo": "huihui-ai/Huihui-Qwen3.6-35B-A3B-abliterated-MTP-GGUF",
+  "sha256": "41578def81dbfd5c193f3b4633f9ab45e3c85f116442d6b2025464082f201d6d",
+  "size": 899283104,
+  "url": "https://huggingface.co/huihui-ai/Huihui-Qwen3.6-35B-A3B-abliterated-MTP-GGUF/resolve/main/mmproj-model-f16.gguf"
+ },
  "kimi-linear-48b-a3b/Kimi-Linear-48B-A3B-Instruct-abliterated-bf16.i1-Q4_K_M.gguf": {
   "repo": "mradermacher/Kimi-Linear-48B-A3B-Instruct-abliterated-bf16-i1-GGUF",
   "sha256": "ad4eca4c37c688e9d03aaf4558ddb869bd7740bc02423451be6d33e9502cde80",
@@ -41,6 +53,12 @@
   "size": 15695148832,
   "url": "https://huggingface.co/orcarouter/OrcaCyber-Nano-1.0/resolve/1af1635aa22b97e965450c2d69525761d9bd463f/OrcaCyber-Nano-1.0-AI-Defense-Mix-15.7G.gguf"
  },
+ "orcacyber-nano-27b/Qwen3.8-27B-DSpine-b16-Q4_K_M.gguf": {
+  "repo": "aj9o9/Qwen3.8-27B-DSpine-b16-GGUF",
+  "sha256": "0c6c984ac18611288d7b8f497bc347c4921e8231b1b6abf28650481eaf35ff55",
+  "size": 1257892896,
+  "url": "https://huggingface.co/aj9o9/Qwen3.8-27B-DSpine-b16-GGUF/resolve/main/Qwen3.8-27B-DSpine-b16-Q4_K_M.gguf"
+ },
  "orcacyber-nano-27b/mmproj-OrcaCyber-Nano-1.0-AI-Defense-F16.gguf": {
   "repo": "orcarouter/OrcaCyber-Nano-1.0",
   "sha256": "f854eb8f1e4fdd133a7375b9aa78792548e561f6d8b95da7660e91db56f85382",
@@ -64,6 +82,12 @@
   "sha256": "1a25c56858e1ebe93f2718ac1d49d1151f9323325c1bbfd6209370f4db131ebd",
   "size": 1143006816,
   "url": "https://huggingface.co/z-lab/Qwen3.8-27B-DFlash2-GGUF/resolve/main/Qwen3.8-27B-DFlash2-Q4_K_M.gguf"
+ },
+ "qwen3.8-27b/Qwen3.8-27B-DSpine-b16-Q4_K_M.gguf": {
+  "repo": "aj9o9/Qwen3.8-27B-DSpine-b16-GGUF",
+  "sha256": "0c6c984ac18611288d7b8f497bc347c4921e8231b1b6abf28650481eaf35ff55",
+  "size": 1257892896,
+  "url": "https://huggingface.co/aj9o9/Qwen3.8-27B-DSpine-b16-GGUF/resolve/main/Qwen3.8-27B-DSpine-b16-Q4_K_M.gguf"
  },
  "qwen3.8-27b/Qwen3.8-27B-UD-Q5_K_XL.gguf": {
   "repo": "unsloth/Qwen3.8-27B-GGUF",

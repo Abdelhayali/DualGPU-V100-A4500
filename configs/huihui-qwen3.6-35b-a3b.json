@@ -1,0 +1,28 @@
+{
+  "id": "huihui-qwen3.6-35b-a3b",
+  "name": "Huihui Qwen3.6-35B-A3B abliterated Q4_K (MoE, MTP built in, vision)",
+  "gguf": "Huihui-Qwen3.6-35B-A3B-abliterated-ggml-model-Q4_K.gguf",
+  "mmproj": "mmproj-model-f16.gguf",
+  "files": [
+    { "repo": "huihui-ai/Huihui-Qwen3.6-35B-A3B-abliterated-MTP-GGUF", "file": "Huihui-Qwen3.6-35B-A3B-abliterated-ggml-model-Q4_K.gguf", "gb": 21.71, "note": "MTP head in the file" },
+    { "repo": "huihui-ai/Huihui-Qwen3.6-35B-A3B-abliterated-MTP-GGUF", "file": "mmproj-model-f16.gguf", "gb": 0.90 }
+  ],
+  "sampling": ["--temp", "0.7", "--top-k", "20", "--top-p", "0.8", "--min-p", "0"],
+  "notes": "huihui-ai's abliterated (refusals removed) Qwen3.6-35B-A3B, ~3B active, MTP head kept. Same architecture as qwen3.6-35b-a3b, so the same launch settings. Sampling: Qwen's non-thinking settings. ts = A4500,V100.",
+  "configs": [
+    { "name": "auto-mtp3-32k",     "ctx": 32768,  "sm": "layer", "spec": "mtp", "n": 3 },
+    { "name": "l60-mtp3-32k",      "ctx": 32768,  "sm": "layer", "ts": "60,40", "spec": "mtp", "n": 3 },
+    { "name": "auto-nodraft-32k",  "ctx": 32768,  "sm": "layer" },
+    { "name": "auto-mtp2-32k",     "ctx": 32768,  "sm": "layer", "spec": "mtp", "n": 2 },
+    { "name": "auto-mtp4-32k",     "ctx": 32768,  "sm": "layer", "spec": "mtp", "n": 4 },
+
+    { "name": "auto-mtp3-128k",    "ctx": 131072, "sm": "layer", "spec": "mtp", "n": 3 },
+    { "name": "auto-mtp3-262k",    "ctx": 262144, "sm": "layer", "spec": "mtp", "n": 3 },
+    { "name": "auto-mtp3-262k-q8", "ctx": 262144, "sm": "layer", "kv": "q8_0", "spec": "mtp", "n": 3 }
+  ],
+  "sets": {
+    "split": ["auto-mtp3-32k", "l60-mtp3-32k"],
+    "spec": ["auto-nodraft-32k", "auto-mtp2-32k", "auto-mtp4-32k"],
+    "ctx": ["auto-mtp3-128k", "auto-mtp3-262k", "auto-mtp3-262k-q8"]
+  }
+}

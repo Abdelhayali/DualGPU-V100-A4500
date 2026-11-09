@@ -55,3 +55,18 @@
 [11-03 20:55:20] l55-mtp3-262k-q8 : speed 56.5 tok/s; image test
 [11-03 20:55:23] l55-mtp3-262k-q8 : image True; 7k prompt
 [11-03 20:55:33] l55-mtp3-262k-q8 : MEAN 56.5 tok/s (code 63.7 / chat 49.2), accept 72%, vram 16548+16077 MiB, image True, 7k prompt True @ 958 t/s -> pass
+[11-09 07:52:16] auto-dsp15-32k : loading
+[11-09 07:54:15] auto-dsp15-32k : loaded, vram 13447+10624 MiB; speed test
+[11-09 07:54:33] auto-dsp15-32k : speed 52.1 tok/s; image test
+[11-09 07:54:36] auto-dsp15-32k : image True; 7k prompt
+[11-09 07:54:49] auto-dsp15-32k : MEAN 52.1 tok/s (code 78.2 / chat 26.1), accept 23%, vram 13545+11270 MiB, image True, 7k prompt True @ 793 t/s -> pass
+[11-09 07:54:49] auto-dsp7-32k : loading
+[11-09 07:55:30] auto-dsp7-32k : loaded, vram 12732+10108 MiB; speed test
+[11-09 07:55:46] auto-dsp7-32k : speed 47.6 tok/s; image test
+[11-09 07:55:49] auto-dsp7-32k : image True; 7k prompt
+[11-09 07:56:01] auto-dsp7-32k : MEAN 47.6 tok/s (code 66.2 / chat 29.0), accept 42%, vram 12826+10740 MiB, image True, 7k prompt True @ 813 t/s -> pass
+[11-09 07:56:01] auto-dsp15-128k : loading
+[11-09 07:56:42] auto-dsp15-128k : loaded, vram 17288+13697 MiB; speed test
+[11-09 07:57:00] auto-dsp15-128k : speed 52.1 tok/s; image test
+[11-09 07:57:03] auto-dsp15-128k : image True; 7k prompt
+[11-09 07:57:16] auto-dsp15-128k : MEAN 52.1 tok/s (code 78.0 / chat 26.1), accept 23%, vram 17386+14343 MiB, image True, 7k prompt True @ 795 t/s -> pass

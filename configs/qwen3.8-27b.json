@@ -7,7 +7,8 @@
   "files": [
     { "repo": "unsloth/Qwen3.8-27B-GGUF", "file": "Qwen3.8-27B-UD-Q5_K_XL.gguf", "gb": 20.88 },
     { "repo": "unsloth/Qwen3.8-27B-GGUF", "file": "mmproj-F16.gguf", "gb": 0.93 },
-    { "repo": "z-lab/Qwen3.8-27B-DFlash2-GGUF", "file": "Qwen3.8-27B-DFlash2-Q4_K_M.gguf", "gb": 1.14, "note": "only for spec=dflash" }
+    { "repo": "z-lab/Qwen3.8-27B-DFlash2-GGUF", "file": "Qwen3.8-27B-DFlash2-Q4_K_M.gguf", "gb": 1.14, "note": "only for spec=dflash" },
+    { "repo": "aj9o9/Qwen3.8-27B-DSpine-b16-GGUF", "file": "Qwen3.8-27B-DSpine-b16-Q4_K_M.gguf", "gb": 1.26, "note": "DSpine drafter (tencent), needs kernel bin-dspine" }
   ],
   "sampling": ["--temp", "0.7", "--top-k", "20", "--top-p", "0.8", "--min-p", "0"],
   "notes": "Defaults b 2048 / ub 512 (tools/common.ps1). With the old 500 W PSU b > ub cut the power; fine after the PSU swap (2026-11-03). ts = A4500,V100 (pinned by UUID).",
@@ -44,7 +45,13 @@
 
     { "name": "row-mg0-mtp3-32k",    "ctx": 32768, "sm": "row", "mg": 0, "spec": "mtp", "n": 3, "note": "does not start: CUDA0 does not support split buffers" },
     { "name": "row-mg1-mtp3-32k",    "ctx": 32768, "sm": "row", "mg": 1, "spec": "mtp", "n": 3, "note": "does not start: CUDA0 does not support split buffers" },
-    { "name": "tensor-mtp3-32k",     "ctx": 32768, "sm": "tensor", "spec": "mtp", "n": 3, "note": "CUT THE POWER on 2026-11-03 (new PSU, ~55 tok/s code before it): do not run" }
+    { "name": "tensor-mtp3-32k",     "ctx": 32768, "sm": "tensor", "spec": "mtp", "n": 3, "note": "CUT THE POWER on 2026-11-03 (new PSU, ~55 tok/s code before it): do not run" },
+
+    {"name": "auto-dsp15-32k", "ctx": 32768, "n": 15, "sm": "layer", "spec": "dflash", "draft": "Qwen3.8-27B-DSpine-b16-Q4_K_M.gguf", "kernel": "dspine"},
+    {"name": "auto-dsp7-32k", "ctx": 32768, "n": 7, "sm": "layer", "spec": "dflash", "draft": "Qwen3.8-27B-DSpine-b16-Q4_K_M.gguf", "kernel": "dspine"},
+    {"name": "auto-dsp15-32k-q8", "ctx": 32768, "n": 15, "kv": "q8_0", "sm": "layer", "spec": "dflash", "draft": "Qwen3.8-27B-DSpine-b16-Q4_K_M.gguf", "kernel": "dspine"},
+    {"name": "l60-dsp15-128k", "ctx": 131072, "ts": "60,40", "n": 15, "sm": "layer", "spec": "dflash", "draft": "Qwen3.8-27B-DSpine-b16-Q4_K_M.gguf", "kernel": "dspine", "note": "does not start: no room for the 16-token drafter at 128k"},
+    {"name": "auto-dsp15-128k", "ctx": 131072, "n": 15, "sm": "layer", "spec": "dflash", "draft": "Qwen3.8-27B-DSpine-b16-Q4_K_M.gguf", "kernel": "dspine", "note": "does not start: no room for the 16-token drafter at 128k"}
   ],
   "sets": {
     "split": ["l50-mtp3-32k", "l45-mtp3-32k", "l40-mtp3-32k", "l60-mtp3-32k"],
@@ -53,6 +60,7 @@
     "ctx": ["l45-mtp3-128k", "l45-mtp3-128k-q8", "l45-mtp3-262k-q8", "l45-mtp3-262k-q4"],
     "ctx60": ["l60-mtp3-128k", "l60-mtp3-128k-q8", "l60-mtp3-262k-q8", "l60-mtp3-262k-q4"],
     "ctx262": ["l60-mtp3-262k-q8-ub256", "l65-mtp3-262k-q8-ub256", "l65-mtp3-262k-q4-ub256"],
-    "parallel-risky": ["row-mg0-mtp3-32k", "row-mg1-mtp3-32k", "tensor-mtp3-32k"]
+    "parallel-risky": ["row-mg0-mtp3-32k", "row-mg1-mtp3-32k", "tensor-mtp3-32k"],
+    "dspine": ["auto-dsp15-32k", "auto-dsp7-32k", "auto-dsp15-32k-q8", "l60-dsp15-128k", "auto-dsp15-128k"]
   }
 }

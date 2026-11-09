@@ -7,7 +7,8 @@
   "files": [
     { "repo": "orcarouter/OrcaCyber-Nano-1.0", "revision": "1af1635aa22b97e965450c2d69525761d9bd463f", "file": "OrcaCyber-Nano-1.0-AI-Defense-Mix-15.7G.gguf", "gb": 15.70, "note": "gated repo (needs access on HF)" },
     { "repo": "orcarouter/OrcaCyber-Nano-1.0", "file": "mmproj-OrcaCyber-Nano-1.0-AI-Defense-F16.gguf", "gb": 0.93 },
-    { "repo": "orcarouter/OrcaCyber-Nano-1.0", "file": "OrcaCyber-Nano-1.0-AI-Defense-DFlash2-Q8_0.gguf", "gb": 2.06, "note": "only for spec=dflash" }
+    { "repo": "orcarouter/OrcaCyber-Nano-1.0", "file": "OrcaCyber-Nano-1.0-AI-Defense-DFlash2-Q8_0.gguf", "gb": 2.06, "note": "only for spec=dflash" },
+    { "repo": "aj9o9/Qwen3.8-27B-DSpine-b16-GGUF", "file": "Qwen3.8-27B-DSpine-b16-Q4_K_M.gguf", "gb": 1.26, "note": "DSpine drafter (tencent), needs kernel bin-dspine" }
   ],
   "sampling": ["--temp", "1.0", "--top-k", "20", "--top-p", "0.95", "--min-p", "0"],
   "notes": "Same architecture as qwen3.8-27b (64 layers, 16 full-attention). Sampling from the model card. ts = A4500,V100.",
@@ -25,11 +26,16 @@
     { "name": "auto-mtp3-128k",     "ctx": 131072, "sm": "layer", "spec": "mtp", "n": 3 },
     { "name": "auto-mtp3-262k",     "ctx": 262144, "sm": "layer", "spec": "mtp", "n": 3 },
     { "name": "auto-mtp3-262k-q8",  "ctx": 262144, "sm": "layer", "kv": "q8_0", "spec": "mtp", "n": 3, "note": "V100 at 16.1 GB: too tight" },
-    { "name": "l55-mtp3-262k-q8",   "ctx": 262144, "sm": "layer", "ts": "55,45", "kv": "q8_0", "spec": "mtp", "n": 3 }
+    { "name": "l55-mtp3-262k-q8",   "ctx": 262144, "sm": "layer", "ts": "55,45", "kv": "q8_0", "spec": "mtp", "n": 3 },
+
+    {"name": "auto-dsp15-32k", "ctx": 32768, "n": 15, "sm": "layer", "spec": "dflash", "draft": "Qwen3.8-27B-DSpine-b16-Q4_K_M.gguf", "kernel": "dspine", "note": "DSpine was trained on Qwen3.8-27B; the draft file is a hard link in this model folder"},
+    {"name": "auto-dsp7-32k", "ctx": 32768, "n": 7, "sm": "layer", "spec": "dflash", "draft": "Qwen3.8-27B-DSpine-b16-Q4_K_M.gguf", "kernel": "dspine", "note": "DSpine was trained on Qwen3.8-27B; the draft file is a hard link in this model folder"},
+    {"name": "auto-dsp15-128k", "ctx": 131072, "n": 15, "sm": "layer", "spec": "dflash", "draft": "Qwen3.8-27B-DSpine-b16-Q4_K_M.gguf", "kernel": "dspine", "note": "DSpine was trained on Qwen3.8-27B; the draft file is a hard link in this model folder"}
   ],
   "sets": {
     "split": ["auto-mtp3-32k", "l45-mtp3-32k", "l60-mtp3-32k", "a4500-mtp3-32k"],
     "spec": ["auto-mtp2-32k", "auto-mtp4-32k", "auto-dfl4-32k", "auto-dfl7-32k"],
-    "ctx": ["auto-mtp3-128k", "auto-mtp3-262k", "auto-mtp3-262k-q8", "l55-mtp3-262k-q8"]
+    "ctx": ["auto-mtp3-128k", "auto-mtp3-262k", "auto-mtp3-262k-q8", "l55-mtp3-262k-q8"],
+    "dspine": ["auto-dsp15-32k", "auto-dsp7-32k", "auto-dsp15-128k"]
   }
 }

@@ -16,9 +16,778 @@
                                            "desc":  "The same source plus AtomicChat ricursive-port.patch (kernel\\patches), built by tools\\build-kernel.bat \u003ccuda\u003e ripple. kernel\\bin-ripple.",
                                            "exe":  "llama-server.exe",
                                            "dir":  "bin-ripple"
+                                       },
+                    "dualgpu-dspine":  {
+                                           "name":  "llama.cpp da8fd08 + DSpine drafter (Qwen3.8-27B)",
+                                           "desc":  "The same source plus the DSpine commit of Ajay9o9/llama.cpp dspine (kernel\\patches\\0003), built by tools\\build-kernel.bat \u003ccuda\u003e dspine. kernel\\bin-dspine.",
+                                           "exe":  "llama-server.exe",
+                                           "dir":  "bin-dspine"
                                        }
                 },
     "models":  [
+                   {
+                       "id":  "huihui-qwen3.6-35b-a3b",
+                       "name":  "Huihui Qwen3.6-35B-A3B abliterated Q4_K (MoE, MTP built in, vision)",
+                       "desc":  "huihui-ai\u0027s abliterated (refusals removed) Qwen3.6-35B-A3B, ~3B active, MTP head kept. Same architecture as qwen3.6-35b-a3b, so the same launch settings. Sampling: Qwen\u0027s non-thinking settings. ts = A4500,V100.",
+                       "files":  [
+                                     {
+                                         "name":  "Huihui-Qwen3.6-35B-A3B-abliterated-ggml-model-Q4_K.gguf",
+                                         "repo":  "huihui-ai/Huihui-Qwen3.6-35B-A3B-abliterated-MTP-GGUF",
+                                         "size":  21712409824,
+                                         "sha256":  "63b75afb4b68fc61059c78115b580037074de88146e0762f4a496081e410cf81",
+                                         "url":  "https://huggingface.co/huihui-ai/Huihui-Qwen3.6-35B-A3B-abliterated-MTP-GGUF/resolve/main/Huihui-Qwen3.6-35B-A3B-abliterated-ggml-model-Q4_K.gguf"
+                                     },
+                                     {
+                                         "name":  "mmproj-model-f16.gguf",
+                                         "repo":  "huihui-ai/Huihui-Qwen3.6-35B-A3B-abliterated-MTP-GGUF",
+                                         "size":  899283104,
+                                         "sha256":  "41578def81dbfd5c193f3b4633f9ab45e3c85f116442d6b2025464082f201d6d",
+                                         "url":  "https://huggingface.co/huihui-ai/Huihui-Qwen3.6-35B-A3B-abliterated-MTP-GGUF/resolve/main/mmproj-model-f16.gguf"
+                                     }
+                                 ],
+                       "model":  "Huihui-Qwen3.6-35B-A3B-abliterated-ggml-model-Q4_K.gguf",
+                       "presets":  [
+                                       {
+                                           "id":  "128k",
+                                           "name":  "128k: default: 128k ctx, f16 KV, MTP 3 - 97.0 tok/s (code 105.4), 7k prompt 931 t/s, vision",
+                                           "kernel":  "dualgpu",
+                                           "kernels":  [
+                                                           "dualgpu"
+                                                       ],
+                                           "bench":  "97.0 tok/s (code 105.4 / chat 88.6), draft accept 75%, 7k prompt 931 t/s, VRAM 16028+11958 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "131072",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "512",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.7",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-k",
+                                                              "20",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.8",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "layer",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-type",
+                                                              "draft-mtp",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-n-max",
+                                                              "3",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-p-min",
+                                                              "0",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "fast",
+                                           "name":  "fast: fastest: 32k ctx, MTP 4 - 103.6 tok/s (code 120.9)",
+                                           "kernel":  "dualgpu",
+                                           "kernels":  [
+                                                           "dualgpu"
+                                                       ],
+                                           "bench":  "103.6 tok/s (code 120.9 / chat 86.2), draft accept 65%, 7k prompt 939 t/s, VRAM 14530+10253 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "32768",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "512",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.7",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-k",
+                                                              "20",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.8",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "layer",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-type",
+                                                              "draft-mtp",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-n-max",
+                                                              "4",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-p-min",
+                                                              "0",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "262k",
+                                           "name":  "262k: full 262k ctx, f16 KV, MTP 3 - 93.7 tok/s, vision works",
+                                           "kernel":  "dualgpu",
+                                           "kernels":  [
+                                                           "dualgpu"
+                                                       ],
+                                           "bench":  "93.7 tok/s (code 102.3 / chat 85.1), draft accept 75%, 7k prompt 927 t/s, VRAM 18076+14264 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "262144",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "512",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.7",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-k",
+                                                              "20",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.8",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "layer",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-type",
+                                                              "draft-mtp",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-n-max",
+                                                              "3",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-p-min",
+                                                              "0",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "auto-mtp3-32k",
+                                           "name":  "config auto-mtp3-32k (tested)",
+                                           "kernel":  "dualgpu",
+                                           "kernels":  [
+                                                           "dualgpu"
+                                                       ],
+                                           "bench":  "102.2 tok/s (code 112.4 / chat 91.9), draft accept 75%, 7k prompt 928 t/s, VRAM 14494+10229 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "32768",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "512",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.7",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-k",
+                                                              "20",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.8",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "layer",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-type",
+                                                              "draft-mtp",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-n-max",
+                                                              "3",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-p-min",
+                                                              "0",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "l60-mtp3-32k",
+                                           "name":  "config l60-mtp3-32k (tested)",
+                                           "kernel":  "dualgpu",
+                                           "kernels":  [
+                                                           "dualgpu"
+                                                       ],
+                                           "bench":  "99.5 tok/s (code 107.4 / chat 91.5), draft accept 74%, 7k prompt 974 t/s, VRAM 15488+9233 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "32768",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "512",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.7",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-k",
+                                                              "20",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.8",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "layer",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ts",
+                                                              "60,40",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-type",
+                                                              "draft-mtp",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-n-max",
+                                                              "3",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-p-min",
+                                                              "0",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "auto-nodraft-32k",
+                                           "name":  "config auto-nodraft-32k (tested)",
+                                           "kernel":  "dualgpu",
+                                           "kernels":  [
+                                                           "dualgpu"
+                                                       ],
+                                           "bench":  "96.4 tok/s (code 98.5 / chat 94.3), 7k prompt 1065 t/s, VRAM 14380+9250 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "32768",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "512",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.7",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-k",
+                                                              "20",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.8",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "layer",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "auto-mtp2-32k",
+                                           "name":  "config auto-mtp2-32k (tested)",
+                                           "kernel":  "dualgpu",
+                                           "kernels":  [
+                                                           "dualgpu"
+                                                       ],
+                                           "bench":  "94.6 tok/s (code 106.2 / chat 83.1), draft accept 77%, 7k prompt 930 t/s, VRAM 14456+10203 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "32768",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "512",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.7",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-k",
+                                                              "20",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.8",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "layer",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-type",
+                                                              "draft-mtp",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-n-max",
+                                                              "2",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-p-min",
+                                                              "0",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "auto-mtp3-262k-q8",
+                                           "name":  "config auto-mtp3-262k-q8 (tested)",
+                                           "kernel":  "dualgpu",
+                                           "kernels":  [
+                                                           "dualgpu"
+                                                       ],
+                                           "bench":  "87.3 tok/s (code 101.6 / chat 73.0), draft accept 68%, 7k prompt 928 t/s, VRAM 17102+13994 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "262144",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "512",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.7",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-k",
+                                                              "20",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.8",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctk",
+                                                              "q8_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctv",
+                                                              "q8_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "layer",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-type",
+                                                              "draft-mtp",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-n-max",
+                                                              "3",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-p-min",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-type-k",
+                                                              "q8_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-type-v",
+                                                              "q8_0",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       }
+                                   ],
+                       "mmproj":  "mmproj-model-f16.gguf"
+                   },
                    {
                        "id":  "kimi-linear-48b-a3b",
                        "name":  "Kimi-Linear 48B-A3B Instruct abliterated (MoE, KDA linear attention, text only)",
@@ -1558,6 +2327,13 @@
                                          "size":  2056414112,
                                          "sha256":  "1336ac755846f9be77abb9cca4de99f98bed05e98485cfa46affc4b789ab7f52",
                                          "url":  "https://huggingface.co/orcarouter/OrcaCyber-Nano-1.0/resolve/1af1635aa22b97e965450c2d69525761d9bd463f/OrcaCyber-Nano-1.0-AI-Defense-DFlash2-Q8_0.gguf"
+                                     },
+                                     {
+                                         "name":  "Qwen3.8-27B-DSpine-b16-Q4_K_M.gguf",
+                                         "repo":  "aj9o9/Qwen3.8-27B-DSpine-b16-GGUF",
+                                         "size":  1257892896,
+                                         "sha256":  "0c6c984ac18611288d7b8f497bc347c4921e8231b1b6abf28650481eaf35ff55",
+                                         "url":  "https://huggingface.co/aj9o9/Qwen3.8-27B-DSpine-b16-GGUF/resolve/main/Qwen3.8-27B-DSpine-b16-Q4_K_M.gguf"
                                      }
                                  ],
                        "model":  "OrcaCyber-Nano-1.0-AI-Defense-Mix-15.7G.gguf",
@@ -1655,12 +2431,12 @@
                                        },
                                        {
                                            "id":  "code",
-                                           "name":  "code: code: 32k ctx, MTP 4 - 57.9 tok/s mean, 69.9 on code",
-                                           "kernel":  "dualgpu",
+                                           "name":  "code: code: 32k ctx, DSpine drafter (15 tokens) - 78.2 tok/s on code, 26.1 on chat (kernel bin-dspine)",
+                                           "kernel":  "dualgpu-dspine",
                                            "kernels":  [
-                                                           "dualgpu"
+                                                           "dualgpu-dspine"
                                                        ],
-                                           "bench":  "57.9 tok/s (code 69.9 / chat 45.9), draft accept 63%, 7k prompt 970 t/s, VRAM 10988+10101 MiB (A4500+V100)",
+                                           "bench":  "52.1 tok/s (code 78.2 / chat 26.1), draft accept 23%, 7k prompt 793 t/s, VRAM 13545+11270 MiB (A4500+V100)",
                                            "params":  [
                                                           [
                                                               "-c",
@@ -1729,17 +2505,27 @@
                                                           ],
                                                           [
                                                               "--spec-type",
-                                                              "draft-mtp",
+                                                              "draft-dflash",
                                                               ""
                                                           ],
                                                           [
                                                               "--spec-draft-n-max",
-                                                              "4",
+                                                              "15",
                                                               ""
                                                           ],
                                                           [
                                                               "--spec-draft-p-min",
                                                               "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-model",
+                                                              "{model:Qwen3.8-27B-DSpine-b16-Q4_K_M.gguf}",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-ngl",
+                                                              "all",
                                                               ""
                                                           ]
                                                       ]
@@ -2331,6 +3117,97 @@
                                                       ]
                                        },
                                        {
+                                           "id":  "auto-mtp4-32k",
+                                           "name":  "config auto-mtp4-32k (tested)",
+                                           "kernel":  "dualgpu",
+                                           "kernels":  [
+                                                           "dualgpu"
+                                                       ],
+                                           "bench":  "57.9 tok/s (code 69.9 / chat 45.9), draft accept 63%, 7k prompt 970 t/s, VRAM 10988+10101 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "32768",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "512",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "1.0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-k",
+                                                              "20",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.95",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "layer",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-type",
+                                                              "draft-mtp",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-n-max",
+                                                              "4",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-p-min",
+                                                              "0",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
                                            "id":  "auto-dfl4-32k",
                                            "name":  "config auto-dfl4-32k (tested)",
                                            "kernel":  "dualgpu",
@@ -2639,6 +3516,208 @@
                                                           [
                                                               "--spec-draft-type-v",
                                                               "q8_0",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "auto-dsp7-32k",
+                                           "name":  "config auto-dsp7-32k (tested)",
+                                           "kernel":  "dualgpu-dspine",
+                                           "kernels":  [
+                                                           "dualgpu-dspine"
+                                                       ],
+                                           "bench":  "47.6 tok/s (code 66.2 / chat 29.0), draft accept 42%, 7k prompt 813 t/s, VRAM 12826+10740 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "32768",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "512",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "1.0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-k",
+                                                              "20",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.95",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "layer",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-type",
+                                                              "draft-dflash",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-n-max",
+                                                              "7",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-p-min",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-model",
+                                                              "{model:Qwen3.8-27B-DSpine-b16-Q4_K_M.gguf}",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-ngl",
+                                                              "all",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "auto-dsp15-128k",
+                                           "name":  "config auto-dsp15-128k (tested)",
+                                           "kernel":  "dualgpu-dspine",
+                                           "kernels":  [
+                                                           "dualgpu-dspine"
+                                                       ],
+                                           "bench":  "52.1 tok/s (code 78.0 / chat 26.1), draft accept 23%, 7k prompt 795 t/s, VRAM 17386+14343 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "131072",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "512",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "1.0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-k",
+                                                              "20",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.95",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "layer",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-type",
+                                                              "draft-dflash",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-n-max",
+                                                              "15",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-p-min",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-model",
+                                                              "{model:Qwen3.8-27B-DSpine-b16-Q4_K_M.gguf}",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-ngl",
+                                                              "all",
                                                               ""
                                                           ]
                                                       ]
@@ -3535,6 +4614,13 @@
                                          "size":  1143006816,
                                          "sha256":  "1a25c56858e1ebe93f2718ac1d49d1151f9323325c1bbfd6209370f4db131ebd",
                                          "url":  "https://huggingface.co/z-lab/Qwen3.8-27B-DFlash2-GGUF/resolve/main/Qwen3.8-27B-DFlash2-Q4_K_M.gguf"
+                                     },
+                                     {
+                                         "name":  "Qwen3.8-27B-DSpine-b16-Q4_K_M.gguf",
+                                         "repo":  "aj9o9/Qwen3.8-27B-DSpine-b16-GGUF",
+                                         "size":  1257892896,
+                                         "sha256":  "0c6c984ac18611288d7b8f497bc347c4921e8231b1b6abf28650481eaf35ff55",
+                                         "url":  "https://huggingface.co/aj9o9/Qwen3.8-27B-DSpine-b16-GGUF/resolve/main/Qwen3.8-27B-DSpine-b16-Q4_K_M.gguf"
                                      }
                                  ],
                        "model":  "Qwen3.8-27B-UD-Q5_K_XL.gguf",
@@ -3722,6 +4808,107 @@
                                                           [
                                                               "--spec-draft-p-min",
                                                               "0",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "code",
+                                           "name":  "code: code: 32k ctx, DSpine drafter (15 tokens) - 71.3 tok/s on code, 27.2 on chat (kernel bin-dspine)",
+                                           "kernel":  "dualgpu-dspine",
+                                           "kernels":  [
+                                                           "dualgpu-dspine"
+                                                       ],
+                                           "bench":  "49.2 tok/s (code 71.3 / chat 27.2), draft accept 24%, 7k prompt 759 t/s, VRAM 16474+13312 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "32768",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "512",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.7",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-k",
+                                                              "20",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.8",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "layer",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-type",
+                                                              "draft-dflash",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-n-max",
+                                                              "15",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-p-min",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-model",
+                                                              "{model:Qwen3.8-27B-DSpine-b16-Q4_K_M.gguf}",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-ngl",
+                                                              "all",
                                                               ""
                                                           ]
                                                       ]
@@ -5338,6 +6525,228 @@
                                                           [
                                                               "--spec-draft-type-v",
                                                               "q4_0",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "auto-dsp7-32k",
+                                           "name":  "config auto-dsp7-32k (tested)",
+                                           "kernel":  "dualgpu-dspine",
+                                           "kernels":  [
+                                                           "dualgpu-dspine"
+                                                       ],
+                                           "bench":  "43.5 tok/s (code 58.0 / chat 28.9), draft accept 44%, 7k prompt 774 t/s, VRAM 15753+12782 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "32768",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "512",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.7",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-k",
+                                                              "20",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.8",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "layer",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-type",
+                                                              "draft-dflash",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-n-max",
+                                                              "7",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-p-min",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-model",
+                                                              "{model:Qwen3.8-27B-DSpine-b16-Q4_K_M.gguf}",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-ngl",
+                                                              "all",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "auto-dsp15-32k-q8",
+                                           "name":  "config auto-dsp15-32k-q8 (tested)",
+                                           "kernel":  "dualgpu-dspine",
+                                           "kernels":  [
+                                                           "dualgpu-dspine"
+                                                       ],
+                                           "bench":  "47.1 tok/s (code 69.1 / chat 25.1), draft accept 22%, 7k prompt 762 t/s, VRAM 15935+12956 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "32768",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "512",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.7",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-k",
+                                                              "20",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.8",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctk",
+                                                              "q8_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctv",
+                                                              "q8_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "layer",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-type",
+                                                              "draft-dflash",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-n-max",
+                                                              "15",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-p-min",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-model",
+                                                              "{model:Qwen3.8-27B-DSpine-b16-Q4_K_M.gguf}",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-type-k",
+                                                              "q8_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-type-v",
+                                                              "q8_0",
                                                               ""
                                                           ]
                                                       ]
