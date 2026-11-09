@@ -28,12 +28,13 @@ start.bat minicpm-v4.7-35b-a3b fast       :: a named preset
 
 | # | model (quant, size) | preset | ctx | gen tok/s | coding | reasoning | instr | search | agent | vision | longctx | **overall** |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | OrcaCyber-Nano 1.0 27B Mix-15.7G (MTP), vision | `128k` | 128k | 61.6 | 94 | 100 | 50 | 100 | 100 | 88 | 100 | **90.2** |
-| 2 | Qwen3.6-35B-A3B UD-Q5_K_XL (25.3 GB, MoE, MTP), vision | `128k` | 128k | 99.6 | 94 | 100 | 50 | 88 | 100 | 88 | 100 | **88.4** |
-| 3 | MiniCPM-V 4.7 35B-A3B Q6_K (26.6 GB), vision | `128k` | 128k | 83.6 | 94 | 100 | 33 | 88 | 100 | 88 | 100 | **86.0** |
-| 4 | Qwen3.8-27B UD-Q5_K_XL (20.9 GB, MTP), vision | `128k` | 128k | 51.3 | 88 | 95 | 58 | 100 | 100 | 88 | 50 | **82.6** |
-| 5 | Ripple-65B Preview AD-IQ3_XXS (28.0 GB, dense), text only | `64k` | 64k | 13.9 | 75 | 100 | 83 | 100 | 100 | - | 100 | **79.8**\* |
-| 6 | Kimi-Linear 48B-A3B abliterated i1-Q4_K_M (27.7 GB), text only | `262k` | 262k | 100.9 | 56 | 60 | 50 | 88 | 100 | - | 50 | **57.7**\* |
+| 1 | Huihui Gemma-4-26B-A4B-it QAT abliterated Q4_K (16.8 GB, MoE), vision | `262k` | 262k | 86.5 | 88 | 100 | 83 | 88 | 100 | 75 | 100 | **90.5** |
+| 2 | OrcaCyber-Nano 1.0 27B Mix-15.7G (MTP), vision | `128k` | 128k | 61.6 | 94 | 100 | 50 | 100 | 100 | 88 | 100 | **90.2** |
+| 3 | Qwen3.6-35B-A3B UD-Q5_K_XL (25.3 GB, MoE, MTP), vision | `128k` | 128k | 99.6 | 94 | 100 | 50 | 88 | 100 | 88 | 100 | **88.4** |
+| 4 | MiniCPM-V 4.7 35B-A3B Q6_K (26.6 GB), vision | `128k` | 128k | 83.6 | 94 | 100 | 33 | 88 | 100 | 88 | 100 | **86.0** |
+| 5 | Qwen3.8-27B UD-Q5_K_XL (20.9 GB, MTP), vision | `128k` | 128k | 51.3 | 88 | 95 | 58 | 100 | 100 | 88 | 50 | **82.6** |
+| 6 | Ripple-65B Preview AD-IQ3_XXS (28.0 GB, dense), text only | `64k` | 64k | 13.9 | 75 | 100 | 83 | 100 | 100 | - | 100 | **79.8**\* |
+| 7 | Kimi-Linear 48B-A3B abliterated i1-Q4_K_M (27.7 GB), text only | `262k` | 262k | 100.9 | 56 | 60 | 50 | 88 | 100 | - | 50 | **57.7**\* |
 
 \* Text-only models: the suite scores the missing vision category as 0. Over the 6 text categories Ripple averages 93.1
 (the best instruction-following score here, 83) and Kimi 67.3. Many reasoning misses are
@@ -101,7 +102,7 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
   drafter barely pays off (no draft 86-89, MTP 1 84.2, MTP 2 86.8, MTP 4 82.6, MTP 6 74.4 at 32k): MTP 2 helps code
   (95-97) but costs chat (76-82 vs 86-89), so the default is no draft and `code` uses MTP 2. Most layers use sliding
   windows, so 262k f16 KV with vision costs nothing (87.5 vs 86.1 at 32k, 14.4 + 12.2 GB); q8 KV is slower (69.9).
-  Not run on the hard suite.
+  Hard suite on `262k`: **90.5**, the top score here (instruction following 83, tied best; vision 75).
 - **MiniCPM-V 4.7**: MoE with ~3B active, so the DSpark draft is a loss here (n8 66.0, n15 54.2 vs 91.6 without, 18-32%
   accepted). 40/60 split and 262k f16 KV do not fit.
 - **Kimi-Linear**: 20 linear-attention (KDA) + 7 MLA layers, so 512k context costs little. 1M does not fit (needs a 4.6 GB
