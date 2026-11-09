@@ -1,0 +1,40 @@
+{
+  "id": "huihui-gemma4-26b-a4b",
+  "name": "Huihui Gemma-4-26B-A4B-it QAT abliterated Q4_K (MoE, MTP drafter, vision)",
+  "gguf": "Huihui-gemma-4-26B-A4B-it-qat-q4_0-unquantized-abliterated-Q4_K.gguf",
+  "mmproj": "mmproj-model-bf16.gguf",
+  "mtp": "mtp-ggml-model-bf16.gguf",
+  "files": [
+    { "repo": "huihui-ai/Huihui-gemma-4-26B-A4B-it-qat-q4_0-unquantized-abliterated-GGUF", "file": "Huihui-gemma-4-26B-A4B-it-qat-q4_0-unquantized-abliterated-Q4_K.gguf", "gb": 16.80 },
+    { "repo": "huihui-ai/Huihui-gemma-4-26B-A4B-it-qat-q4_0-unquantized-abliterated-GGUF", "file": "mtp-ggml-model-bf16.gguf", "gb": 0.86, "note": "MTP drafter (gemma4-assistant)" },
+    { "repo": "huihui-ai/Huihui-gemma-4-26B-A4B-it-qat-q4_0-unquantized-abliterated-GGUF", "file": "mmproj-model-bf16.gguf", "gb": 1.19 }
+  ],
+  "sampling": ["--temp", "1.0", "--top-k", "64", "--top-p", "0.95", "--min-p", "0"],
+  "notes": "huihui-ai's abliterated (refusals removed) Gemma-4-26B-A4B-it, QAT q4_0 weights (Google's quantization-aware training), ~4B active. Separate MTP drafter file (gemma4-assistant). Sampling: Google's Gemma 4 defaults. ts = A4500,V100.",
+  "configs": [
+    { "name": "auto-mtp4-32k",     "ctx": 32768,  "sm": "layer", "spec": "mtp", "n": 4 },
+    { "name": "l60-mtp4-32k",      "ctx": 32768,  "sm": "layer", "ts": "60,40", "spec": "mtp", "n": 4 },
+    { "name": "auto-nodraft-32k",  "ctx": 32768,  "sm": "layer" },
+    { "name": "auto-mtp2-32k",     "ctx": 32768,  "sm": "layer", "spec": "mtp", "n": 2 },
+    { "name": "auto-mtp3-32k",     "ctx": 32768,  "sm": "layer", "spec": "mtp", "n": 3 },
+    { "name": "auto-mtp6-32k",     "ctx": 32768,  "sm": "layer", "spec": "mtp", "n": 6 },
+
+    { "name": "auto-mtp4-128k",    "ctx": 131072, "sm": "layer", "spec": "mtp", "n": 4 },
+    { "name": "auto-mtp4-262k",    "ctx": 262144, "sm": "layer", "spec": "mtp", "n": 4 },
+    { "name": "auto-mtp4-262k-q8", "ctx": 262144, "sm": "layer", "kv": "q8_0", "spec": "mtp", "n": 4 },
+
+    { "name": "auto-mtp1-32k",       "ctx": 32768,  "sm": "layer", "spec": "mtp", "n": 1 },
+    { "name": "l60-mtp2-32k",        "ctx": 32768,  "sm": "layer", "ts": "60,40", "spec": "mtp", "n": 2 },
+    { "name": "l60-nodraft-32k",     "ctx": 32768,  "sm": "layer", "ts": "60,40" },
+    { "name": "auto-mtp2-128k",      "ctx": 131072, "sm": "layer", "spec": "mtp", "n": 2 },
+    { "name": "auto-nodraft-128k",   "ctx": 131072, "sm": "layer" },
+    { "name": "auto-mtp2-262k",      "ctx": 262144, "sm": "layer", "spec": "mtp", "n": 2 },
+    { "name": "auto-nodraft-262k",   "ctx": 262144, "sm": "layer" }
+  ],
+  "sets": {
+    "split": ["auto-mtp4-32k", "l60-mtp4-32k"],
+    "spec": ["auto-nodraft-32k", "auto-mtp2-32k", "auto-mtp3-32k", "auto-mtp6-32k"],
+    "ctx": ["auto-mtp4-128k", "auto-mtp4-262k", "auto-mtp4-262k-q8"],
+    "round2": ["auto-mtp1-32k", "l60-mtp2-32k", "l60-nodraft-32k", "auto-mtp2-128k", "auto-nodraft-128k", "auto-mtp2-262k", "auto-nodraft-262k"]
+  }
+}

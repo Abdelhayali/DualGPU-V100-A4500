@@ -1,4 +1,22 @@
 {
+ "huihui-gemma4-26b-a4b/Huihui-gemma-4-26B-A4B-it-qat-q4_0-unquantized-abliterated-Q4_K.gguf": {
+  "repo": "huihui-ai/Huihui-gemma-4-26B-A4B-it-qat-q4_0-unquantized-abliterated-GGUF",
+  "sha256": "4b4f9d4b448fca16230f08d50c18a95c81ecfaefede95d3bdfcf1880b4b620f5",
+  "size": 16796015648,
+  "url": "https://huggingface.co/huihui-ai/Huihui-gemma-4-26B-A4B-it-qat-q4_0-unquantized-abliterated-GGUF/resolve/main/Huihui-gemma-4-26B-A4B-it-qat-q4_0-unquantized-abliterated-Q4_K.gguf"
+ },
+ "huihui-gemma4-26b-a4b/mmproj-model-bf16.gguf": {
+  "repo": "huihui-ai/Huihui-gemma-4-26B-A4B-it-qat-q4_0-unquantized-abliterated-GGUF",
+  "sha256": "966dbada52d2dd1ab1e3a6faa393ca6242df881bb404286a3c4619fd9c760212",
+  "size": 1194827872,
+  "url": "https://huggingface.co/huihui-ai/Huihui-gemma-4-26B-A4B-it-qat-q4_0-unquantized-abliterated-GGUF/resolve/main/mmproj-model-bf16.gguf"
+ },
+ "huihui-gemma4-26b-a4b/mtp-ggml-model-bf16.gguf": {
+  "repo": "huihui-ai/Huihui-gemma-4-26B-A4B-it-qat-q4_0-unquantized-abliterated-GGUF",
+  "sha256": "9c2424cef7469d01035a906e84f606d13fc44a5b48d54e4a8d1d30c2b19d2cb3",
+  "size": 855246336,
+  "url": "https://huggingface.co/huihui-ai/Huihui-gemma-4-26B-A4B-it-qat-q4_0-unquantized-abliterated-GGUF/resolve/main/mtp-ggml-model-bf16.gguf"
+ },
  "huihui-qwen3.6-35b-a3b/Huihui-Qwen3.6-35B-A3B-abliterated-ggml-model-Q4_K.gguf": {
   "repo": "huihui-ai/Huihui-Qwen3.6-35B-A3B-abliterated-MTP-GGUF",
   "sha256": "63b75afb4b68fc61059c78115b580037074de88146e0762f4a496081e410cf81",

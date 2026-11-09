@@ -56,6 +56,9 @@ small-active MoE models one V100 with a 3-bit quant is faster (the whole model s
 | minicpm-v4.7-35b-a3b | **128k** (default) | `auto-nodraft-128k` | 128k | f16 | **87.0** | 1055 t/s |
 | | fast | `auto-nodraft-32k` | 32k | f16 | 91.6 | 1055 t/s |
 | | 262k | `auto-nodraft-262k-q8` | 262k | q8_0 | 82.3 | 1051 t/s |
+| huihui-gemma4-26b-a4b | **262k** (default) | `auto-nodraft-262k` | 262k | f16 | **87.5** | 1808 t/s |
+| | fast | `l60-nodraft-32k` | 32k | f16 | 88.9 | 1904 t/s |
+| | code | `auto-mtp2-262k` | 262k | f16 | 88.4 (**96.6** on code) | 1699 t/s |
 | huihui-qwen3.6-35b-a3b | **128k** (default) | `auto-mtp3-128k` | 128k | f16 | **97.0** (105.4 on code) | 931 t/s |
 | | fast | `auto-mtp4-32k` | 32k | f16 | 103.6 (120.9 on code) | 939 t/s |
 | | 262k | `auto-mtp3-262k` | 262k | f16 | 93.7 | 927 t/s |
@@ -93,6 +96,12 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
   A4500, so the 262k preset uses q8 KV.
 - **Huihui Qwen3.6-35B-A3B abliterated** (Q4_K, 21.7 GB, MTP kept): as fast as the unsloth Q5 (MTP 3 102 tok/s at 32k,
   MTP 4 104, no draft 96) and 3.6 GB smaller, so 262k f16 KV fits with the vision encoder (93.7). Not run on the hard suite.
+- **Huihui Gemma-4-26B-A4B-it QAT abliterated** (Q4_K, 16.8 GB, separate MTP drafter `mtp-ggml-model-bf16.gguf`,
+  arch `gemma4-assistant`; runs on the main kernel): ~4B active, fastest prompt processing here (1700-1900 t/s). The MTP
+  drafter barely pays off (no draft 86-89, MTP 1 84.2, MTP 2 86.8, MTP 4 82.6, MTP 6 74.4 at 32k): MTP 2 helps code
+  (95-97) but costs chat (76-82 vs 86-89), so the default is no draft and `code` uses MTP 2. Most layers use sliding
+  windows, so 262k f16 KV with vision costs nothing (87.5 vs 86.1 at 32k, 14.4 + 12.2 GB); q8 KV is slower (69.9).
+  Not run on the hard suite.
 - **MiniCPM-V 4.7**: MoE with ~3B active, so the DSpark draft is a loss here (n8 66.0, n15 54.2 vs 91.6 without, 18-32%
   accepted). 40/60 split and 262k f16 KV do not fit.
 - **Kimi-Linear**: 20 linear-attention (KDA) + 7 MLA layers, so 512k context costs little. 1M does not fit (needs a 4.6 GB
