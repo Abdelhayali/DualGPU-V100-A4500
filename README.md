@@ -57,6 +57,12 @@ small-active MoE models one V100 with a 3-bit quant is faster (the whole model s
 | minicpm-v4.7-35b-a3b | **128k** (default) | `auto-nodraft-128k` | 128k | f16 | **87.0** | 1055 t/s |
 | | fast | `auto-nodraft-32k` | 32k | f16 | 91.6 | 1055 t/s |
 | | 262k | `auto-nodraft-262k-q8` | 262k | q8_0 | 82.3 | 1051 t/s |
+| gemma4-31b-ara-heretic | **64k** (default) | `auto-mtp4-64k` | 64k | f16 | **42.7** (48.5 on code) | 784 t/s |
+| | fast | `auto-mtp4-32k` | 32k | f16 | 43.8 (50.0 on code) | 831 t/s |
+| | 128k | `auto-mtp4-128k-q8` | 128k | q8_0 | 39.3 | 829 t/s |
+| muse-glimmer-30b | **128k** (default) | `auto-dfl15-128k` (DFlash) | 128k | f16 | **40.6** (45.5 on code) | 801 t/s |
+| | fast | `auto-dfl12-32k` (DFlash) | 32k | f16 | 41.3 (46.8 on code) | 810 t/s |
+| | nodraft | `auto-nodraft-128k` | 128k | f16 | 26.6 | 1165 t/s |
 | huihui-gemma4-26b-a4b | **262k** (default) | `auto-nodraft-262k` | 262k | f16 | **87.5** | 1808 t/s |
 | | fast | `l60-nodraft-32k` | 32k | f16 | 88.9 | 1904 t/s |
 | | code | `auto-mtp2-262k` | 262k | f16 | 88.4 (**96.6** on code) | 1699 t/s |
@@ -97,6 +103,22 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
   A4500, so the 262k preset uses q8 KV.
 - **Huihui Qwen3.6-35B-A3B abliterated** (Q4_K, 21.7 GB, MTP kept): as fast as the unsloth Q5 (MTP 3 102 tok/s at 32k,
   MTP 4 104, no draft 96) and 3.6 GB smaller, so 262k f16 KV fits with the vision encoder (93.7). Not run on the hard suite.
+- **Gemma-4-31B-it ARA heretic** (richardyoung's refusal-removed fine-tune, mradermacher i1-Q5_K_M 21.9 GB, dense,
+  vision; main kernel) with Google's MTP drafter for the base model (`gemma-4-31B-it-assistant.Q8_0.gguf` from
+  AtomicChat, 0.5 GB): the fine-tune still accepts 61-76% of its drafts, so MTP 4 gives 1.77x (43.8 vs 24.8 tok/s at 32k;
+  MTP 2 42.8, 3 42.7, 6 37.7). Splits within 1 tok/s (auto, 50/50, 60/40). Its global layers keep big KV: 64k f16 fits
+  (19.6 + 14.2 GB), 128k needs q8 (39.3) or q4 (38.6), 262k does not fit even with q4. GPU log of the whole tune (1 s):
+  both cards peak at 100% and average ~50% while busy (layer split = they take turns); V100 power spikes to 271 W over
+  its 230 W limit and 84 C, A4500 170 W / 66 C. No crash. Not run on the hard suite.
+- **Muse Glimmer 30B** (Meta, unsloth UD-Q5_K_XL 21.8 GB, dense, vision; runs on the main kernel): 52 layers, 39 of them
+  sliding (2048) and only 2 KV heads, so 128k f16 KV is cheap. Meta's DFlash drafter (`dflash-kquant.gguf`, 1.63 GB, block
+  16) gives 1.5x: no draft 26.6, DFlash 7 31.0, 10 40.1, 12 41.3, 15 40.9 at 32k (15-23% accepted), 128k 40.6; q8 KV is
+  slower (35.2); auto split beats 50/50 (36.5) and 60/40 (36.8). DFlash costs prompt speed (7k prompt 800 vs 1165 t/s).
+  It always reasons first (`reasoning_strength` low..xhigh, default high; `enable_thinking=false` has no effect), so the
+  tune image test now allows 1500 tokens (200 was used up by its reasoning; vision itself works).
+  Hard suite: the PC went down twice at the same point (the `search` category, ~5 min in, `128k` preset): first a
+  bugcheck 0x133 (DPC watchdog, corrected PCIe errors on the A4500's root port), then a freeze. Before that it had coding
+  87.5, reasoning 100, instruction following 91.7. Not rerun; every other model passes the suite.
 - **Huihui Gemma-4-26B-A4B-it QAT abliterated** (Q4_K, 16.8 GB, separate MTP drafter `mtp-ggml-model-bf16.gguf`,
   arch `gemma4-assistant`; runs on the main kernel): ~4B active, fastest prompt processing here (1700-1900 t/s). The MTP
   drafter barely pays off (no draft 86-89, MTP 1 84.2, MTP 2 86.8, MTP 4 82.6, MTP 6 74.4 at 32k): MTP 2 helps code

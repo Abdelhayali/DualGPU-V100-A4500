@@ -50,6 +50,22 @@
         { "name": "262k", "config": "auto-262k-q4", "summary": "262k ctx, q4 KV - 14.4 tok/s (both GPUs nearly full)" }
       ]
     },
+    "gemma4-31b-ara-heretic": {
+      "default": "64k",
+      "presets": [
+        { "name": "64k",  "config": "auto-mtp4-64k",     "summary": "default: 64k ctx, f16 KV, MTP 4 - 42.7 tok/s (code 48.5), 7k prompt 784 t/s, vision (31B dense)" },
+        { "name": "fast", "config": "auto-mtp4-32k",     "summary": "fastest: 32k ctx, f16 KV, MTP 4 - 43.8 tok/s (code 50.0)" },
+        { "name": "128k", "config": "auto-mtp4-128k-q8", "summary": "128k ctx, q8 KV, MTP 4 - 39.3 tok/s (both GPUs nearly full; f16 and 262k do not fit)" }
+      ]
+    },
+    "muse-glimmer-30b": {
+      "default": "128k",
+      "presets": [
+        { "name": "128k",    "config": "auto-dfl15-128k",   "summary": "default: 128k ctx (native max), f16 KV, DFlash 15 - 40.6 tok/s (code 45.5), 7k prompt 801 t/s, vision" },
+        { "name": "fast",    "config": "auto-dfl12-32k",    "summary": "fastest: 32k ctx, DFlash 12 - 41.3 tok/s (code 46.8)" },
+        { "name": "nodraft", "config": "auto-nodraft-128k", "summary": "128k ctx, no draft - 26.6 tok/s but 7k prompt 1165 t/s (long-document work)" }
+      ]
+    },
     "huihui-gemma4-26b-a4b": {
       "default": "262k",
       "presets": [

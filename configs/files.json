@@ -1,4 +1,22 @@
 {
+ "gemma4-31b-ara-heretic/gemma-4-31B-it-ARA-heretic.i1-Q5_K_M.gguf": {
+  "repo": "mradermacher/gemma-4-31B-it-ARA-heretic-i1-GGUF",
+  "sha256": "695ce9043b5d6427b968f3dfa23bf91ef9a0e2f0e35f190a19cfd3d33774d011",
+  "size": 21845572768,
+  "url": "https://huggingface.co/mradermacher/gemma-4-31B-it-ARA-heretic-i1-GGUF/resolve/main/gemma-4-31B-it-ARA-heretic.i1-Q5_K_M.gguf"
+ },
+ "gemma4-31b-ara-heretic/gemma-4-31B-it-ARA-heretic.mmproj-Q8_0.gguf": {
+  "repo": "mradermacher/gemma-4-31B-it-ARA-heretic-GGUF",
+  "sha256": "fd32d460b105e0a9188bfbb8352e47a4fdea99cec1712198babc7a86a0ed413e",
+  "size": 809541984,
+  "url": "https://huggingface.co/mradermacher/gemma-4-31B-it-ARA-heretic-GGUF/resolve/main/gemma-4-31B-it-ARA-heretic.mmproj-Q8_0.gguf"
+ },
+ "gemma4-31b-ara-heretic/gemma-4-31B-it-assistant.Q8_0.gguf": {
+  "repo": "AtomicChat/gemma-4-31B-it-assistant-GGUF",
+  "sha256": "f4f0edc6cca782520e256cf2d57f6dc4633d51881a65020f29c2326918d74cba",
+  "size": 514687200,
+  "url": "https://huggingface.co/AtomicChat/gemma-4-31B-it-assistant-GGUF/resolve/main/gemma-4-31B-it-assistant.Q8_0.gguf"
+ },
  "huihui-gemma4-26b-a4b/Huihui-gemma-4-26B-A4B-it-qat-q4_0-unquantized-abliterated-Q4_K.gguf": {
   "repo": "huihui-ai/Huihui-gemma-4-26B-A4B-it-qat-q4_0-unquantized-abliterated-GGUF",
   "sha256": "4b4f9d4b448fca16230f08d50c18a95c81ecfaefede95d3bdfcf1880b4b620f5",
@@ -52,6 +70,24 @@
   "sha256": "bff3b688e14c300eca273092c37c50a0ddfcc2054e079af1a0480edeed5d20f1",
   "size": 1119575840,
   "url": "https://huggingface.co/openbmb/MiniCPM-V-4.7-35B-A3B-gguf/resolve/main/mmproj-model-f16.gguf"
+ },
+ "muse-glimmer-30b/Muse-Glimmer-30B-UD-Q5_K_XL.gguf": {
+  "repo": "unsloth/Muse-Glimmer-30B-GGUF",
+  "sha256": "97a66c4b41d9e778af7cdfa43508e08dbf765fb5049b740c69ad815e5191c637",
+  "size": 21789618976,
+  "url": "https://huggingface.co/unsloth/Muse-Glimmer-30B-GGUF/resolve/main/Muse-Glimmer-30B-UD-Q5_K_XL.gguf"
+ },
+ "muse-glimmer-30b/dflash-kquant.gguf": {
+  "repo": "unsloth/Muse-Glimmer-30B-GGUF",
+  "sha256": "27d9a805fa29b943cfb6ad4843367cd4eaaaf06bd452d8cc3e00a2cd18a677bc",
+  "size": 1631205312,
+  "url": "https://huggingface.co/unsloth/Muse-Glimmer-30B-GGUF/resolve/main/dflash-kquant.gguf"
+ },
+ "muse-glimmer-30b/mmproj-Muse-Glimmer-30B-Q8_0.gguf": {
+  "repo": "unsloth/Muse-Glimmer-30B-GGUF",
+  "sha256": "01ff73c95108e1754a4c145176c6d3ba44338942285cb87dcac7f4f193192ea2",
+  "size": 2051685088,
+  "url": "https://huggingface.co/unsloth/Muse-Glimmer-30B-GGUF/resolve/main/mmproj-Muse-Glimmer-30B-Q8_0.gguf"
  },
  "nanbeige4.3-33b/Nanbeige4.3-33B-AD-Q5_K_M.gguf": {
   "repo": "AtomicChat/Nanbeige4.3-33B-GGUF",

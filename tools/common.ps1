@@ -102,7 +102,7 @@ function Test-Image {
     $b = @{ messages = @(@{ role = 'user'; content = @(
               @{ type = 'text'; text = 'Describe this image: list every shape with its colour, and read the text exactly.' },
               @{ type = 'image_url'; image_url = @{ url = "data:image/png;base64,$b64" } }) })
-            max_tokens = 200; temperature = 0; chat_template_kwargs = @{ enable_thinking = $false } } | ConvertTo-Json -Depth 8
+            max_tokens = 1500; temperature = 0; chat_template_kwargs = @{ enable_thinking = $false } } | ConvertTo-Json -Depth 8
     try { $r = Invoke-RestMethod "http://127.0.0.1:$Port/v1/chat/completions" -Method Post -ContentType 'application/json' -Body $b -TimeoutSec 300
           return [bool]($r.choices[0].message.content -match 'TESLA V100 = 16 GB') } catch { return $false }
 }

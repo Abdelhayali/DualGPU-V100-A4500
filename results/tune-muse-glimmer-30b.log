@@ -1,0 +1,50 @@
+[11-09 21:43:30] auto-dfl15-32k : loading
+[11-09 21:44:26] auto-dfl15-32k : loaded, vram 15842+11388 MiB; speed test
+[11-09 21:44:43] auto-dfl15-32k : speed 40.9 tok/s; image test
+[11-09 21:44:50] auto-dfl15-32k : image True; 7k prompt
+[11-09 21:45:01] auto-dfl15-32k : MEAN 40.9 tok/s (code 46.0 / chat 35.9), accept 17%, vram 15940+12292 MiB, image True, 7k prompt True @ 808 t/s -> pass
+[11-09 21:45:01] l50-dfl15-32k : loading
+[11-09 21:45:57] l50-dfl15-32k : loaded, vram 14456+12778 MiB; speed test
+[11-09 21:46:16] l50-dfl15-32k : speed 36.5 tok/s; image test
+[11-09 21:46:23] l50-dfl15-32k : image True; 7k prompt
+[11-09 21:46:34] l50-dfl15-32k : MEAN 36.5 tok/s (code 40.3 / chat 32.6), accept 15%, vram 14552+13682 MiB, image True, 7k prompt True @ 802 t/s -> pass
+[11-09 21:46:34] l60-dfl15-32k : loading
+[11-09 21:47:30] l60-dfl15-32k : loaded, vram 16584+10644 MiB; speed test
+[11-09 21:47:48] l60-dfl15-32k : speed 36.8 tok/s; image test
+[11-09 21:47:55] l60-dfl15-32k : image True; 7k prompt
+[11-09 21:48:06] l60-dfl15-32k : MEAN 36.8 tok/s (code 40.5 / chat 33.1), accept 15%, vram 16682+11548 MiB, image True, 7k prompt True @ 789 t/s -> pass
+[11-09 21:48:06] auto-nodraft-32k : loading
+[11-09 21:48:53] auto-nodraft-32k : loaded, vram 14456+10102 MiB; speed test
+[11-09 21:49:17] auto-nodraft-32k : speed 26.6 tok/s; image test
+[11-09 21:49:28] auto-nodraft-32k : image True; 7k prompt
+[11-09 21:49:38] auto-nodraft-32k : MEAN 26.6 tok/s (code 26.7 / chat 26.6), vram 14500+10454 MiB, image True, 7k prompt True @ 1158 t/s -> pass
+[11-09 21:49:38] auto-dfl7-32k : loading
+[11-09 21:50:34] auto-dfl7-32k : loaded, vram 15852+11388 MiB; speed test
+[11-09 21:50:56] auto-dfl7-32k : speed 31.0 tok/s; image test
+[11-09 21:51:04] auto-dfl7-32k : image True; 7k prompt
+[11-09 21:51:16] auto-dfl7-32k : MEAN 31.0 tok/s (code 32.8 / chat 29.2), accept 28%, vram 15948+12292 MiB, image True, 7k prompt True @ 797 t/s -> pass
+[11-09 21:51:16] auto-dfl10-32k : loading
+[11-09 21:52:11] auto-dfl10-32k : loaded, vram 15852+11388 MiB; speed test
+[11-09 21:52:29] auto-dfl10-32k : speed 40.1 tok/s; image test
+[11-09 21:52:37] auto-dfl10-32k : image True; 7k prompt
+[11-09 21:52:48] auto-dfl10-32k : MEAN 40.1 tok/s (code 46.1 / chat 34.1), accept 23%, vram 15950+12292 MiB, image True, 7k prompt True @ 800 t/s -> pass
+[11-09 21:52:48] auto-dfl12-32k : loading
+[11-09 21:53:43] auto-dfl12-32k : loaded, vram 15852+11388 MiB; speed test
+[11-09 21:54:00] auto-dfl12-32k : speed 41.3 tok/s; image test
+[11-09 21:54:08] auto-dfl12-32k : image True; 7k prompt
+[11-09 21:54:19] auto-dfl12-32k : MEAN 41.3 tok/s (code 46.8 / chat 35.8), accept 21%, vram 15950+12292 MiB, image True, 7k prompt True @ 810 t/s -> pass
+[11-09 21:54:19] auto-dfl15-128k : loading
+[11-09 21:55:15] auto-dfl15-128k : loaded, vram 16902+12343 MiB; speed test
+[11-09 21:55:32] auto-dfl15-128k : speed 40.6 tok/s; image test
+[11-09 21:55:39] auto-dfl15-128k : image True; 7k prompt
+[11-09 21:55:51] auto-dfl15-128k : MEAN 40.6 tok/s (code 45.5 / chat 35.7), accept 17%, vram 17000+13247 MiB, image True, 7k prompt True @ 801 t/s -> pass
+[11-09 21:55:51] auto-nodraft-128k : loading
+[11-09 21:56:40] auto-nodraft-128k : loaded, vram 15512+11062 MiB; speed test
+[11-09 21:57:04] auto-nodraft-128k : speed 26.6 tok/s; image test
+[11-09 21:57:16] auto-nodraft-128k : image True; 7k prompt
+[11-09 21:57:26] auto-nodraft-128k : MEAN 26.6 tok/s (code 26.7 / chat 26.6), vram 15556+11414 MiB, image True, 7k prompt True @ 1165 t/s -> pass
+[11-09 21:57:26] auto-dfl15-128k-q8 : loading
+[11-09 21:58:21] auto-dfl15-128k-q8 : loaded, vram 16466+11997 MiB; speed test
+[11-09 21:58:41] auto-dfl15-128k-q8 : speed 35.2 tok/s; image test
+[11-09 21:58:48] auto-dfl15-128k-q8 : image True; 7k prompt
+[11-09 21:58:59] auto-dfl15-128k-q8 : MEAN 35.2 tok/s (code 38.5 / chat 31.9), accept 15%, vram 16566+12901 MiB, image True, 7k prompt True @ 800 t/s -> pass

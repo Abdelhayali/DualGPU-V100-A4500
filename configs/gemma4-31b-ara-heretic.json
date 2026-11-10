@@ -1,0 +1,38 @@
+{
+  "id": "gemma4-31b-ara-heretic",
+  "name": "Gemma-4-31B-it ARA heretic i1-Q5_K_M (dense, MTP drafter, vision)",
+  "gguf": "gemma-4-31B-it-ARA-heretic.i1-Q5_K_M.gguf",
+  "mmproj": "gemma-4-31B-it-ARA-heretic.mmproj-Q8_0.gguf",
+  "mtp": "gemma-4-31B-it-assistant.Q8_0.gguf",
+  "files": [
+    { "repo": "mradermacher/gemma-4-31B-it-ARA-heretic-i1-GGUF", "file": "gemma-4-31B-it-ARA-heretic.i1-Q5_K_M.gguf", "gb": 21.85 },
+    { "repo": "mradermacher/gemma-4-31B-it-ARA-heretic-GGUF", "file": "gemma-4-31B-it-ARA-heretic.mmproj-Q8_0.gguf", "gb": 0.81 },
+    { "repo": "AtomicChat/gemma-4-31B-it-assistant-GGUF", "file": "gemma-4-31B-it-assistant.Q8_0.gguf", "gb": 0.51, "note": "Google's MTP drafter for Gemma-4-31B-it (gemma4-assistant), trained on the base model" }
+  ],
+  "sampling": ["--temp", "1.0", "--top-k", "64", "--top-p", "0.95", "--min-p", "0"],
+  "notes": "richardyoung's ARA heretic (refusals removed) Gemma-4-31B-it, mradermacher imatrix Q5_K_M. Dense. Drafter: Google's gemma-4-31B-it-assistant (MTP, made for the base model). Sampling: Google's Gemma 4 defaults. ts = A4500,V100.",
+  "configs": [
+    { "name": "auto-mtp4-32k",      "ctx": 32768,  "sm": "layer", "spec": "mtp", "n": 4 },
+    { "name": "l50-mtp4-32k",       "ctx": 32768,  "sm": "layer", "ts": "50,50", "spec": "mtp", "n": 4 },
+    { "name": "l60-mtp4-32k",       "ctx": 32768,  "sm": "layer", "ts": "60,40", "spec": "mtp", "n": 4 },
+    { "name": "auto-nodraft-32k",   "ctx": 32768,  "sm": "layer" },
+    { "name": "auto-mtp2-32k",      "ctx": 32768,  "sm": "layer", "spec": "mtp", "n": 2 },
+    { "name": "auto-mtp3-32k",      "ctx": 32768,  "sm": "layer", "spec": "mtp", "n": 3 },
+    { "name": "auto-mtp6-32k",      "ctx": 32768,  "sm": "layer", "spec": "mtp", "n": 6 },
+
+    { "name": "auto-mtp4-128k",     "ctx": 131072, "sm": "layer", "spec": "mtp", "n": 4 },
+    { "name": "auto-mtp4-128k-q8",  "ctx": 131072, "sm": "layer", "kv": "q8_0", "spec": "mtp", "n": 4 },
+    { "name": "auto-mtp4-262k",     "ctx": 262144, "sm": "layer", "spec": "mtp", "n": 4 },
+    { "name": "auto-mtp4-262k-q8",  "ctx": 262144, "sm": "layer", "kv": "q8_0", "spec": "mtp", "n": 4 },
+
+    { "name": "auto-mtp4-64k",      "ctx": 65536,  "sm": "layer", "spec": "mtp", "n": 4 },
+    { "name": "auto-mtp4-128k-q4",  "ctx": 131072, "sm": "layer", "kv": "q4_0", "spec": "mtp", "n": 4 },
+    { "name": "auto-mtp4-262k-q4",  "ctx": 262144, "sm": "layer", "kv": "q4_0", "spec": "mtp", "n": 4 }
+  ],
+  "sets": {
+    "split": ["auto-mtp4-32k", "l50-mtp4-32k", "l60-mtp4-32k"],
+    "spec": ["auto-nodraft-32k", "auto-mtp2-32k", "auto-mtp3-32k", "auto-mtp6-32k"],
+    "ctx": ["auto-mtp4-128k", "auto-mtp4-128k-q8", "auto-mtp4-262k", "auto-mtp4-262k-q8"],
+    "round2": ["auto-mtp4-64k", "auto-mtp4-128k-q4", "auto-mtp4-262k-q4"]
+  }
+}

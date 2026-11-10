@@ -1,0 +1,32 @@
+{
+  "id": "muse-glimmer-30b",
+  "name": "Muse Glimmer 30B UD-Q5_K_XL (dense, DFlash drafter, vision)",
+  "gguf": "Muse-Glimmer-30B-UD-Q5_K_XL.gguf",
+  "mmproj": "mmproj-Muse-Glimmer-30B-Q8_0.gguf",
+  "draft": "dflash-kquant.gguf",
+  "files": [
+    { "repo": "unsloth/Muse-Glimmer-30B-GGUF", "file": "Muse-Glimmer-30B-UD-Q5_K_XL.gguf", "gb": 21.79 },
+    { "repo": "unsloth/Muse-Glimmer-30B-GGUF", "file": "dflash-kquant.gguf", "gb": 1.63, "note": "DFlash block drafter (16 tokens), Meta's quantized release" },
+    { "repo": "unsloth/Muse-Glimmer-30B-GGUF", "file": "mmproj-Muse-Glimmer-30B-Q8_0.gguf", "gb": 2.05 }
+  ],
+  "sampling": ["--temp", "1.0", "--top-k", "64", "--top-p", "0.95", "--min-p", "0"],
+  "notes": "Meta's Muse Glimmer 30B: dense, 52 layers (13 full attention, 39 sliding 2048), 2 KV heads, 128k native context, ~1.8B vision encoder. Ships a DFlash drafter (block 16). Sampling: Meta's settings. ts = A4500,V100.",
+  "configs": [
+    { "name": "auto-dfl15-32k",     "ctx": 32768,  "sm": "layer", "spec": "dflash", "n": 15 },
+    { "name": "l50-dfl15-32k",      "ctx": 32768,  "sm": "layer", "ts": "50,50", "spec": "dflash", "n": 15 },
+    { "name": "l60-dfl15-32k",      "ctx": 32768,  "sm": "layer", "ts": "60,40", "spec": "dflash", "n": 15 },
+    { "name": "auto-nodraft-32k",   "ctx": 32768,  "sm": "layer" },
+    { "name": "auto-dfl7-32k",      "ctx": 32768,  "sm": "layer", "spec": "dflash", "n": 7 },
+    { "name": "auto-dfl10-32k",     "ctx": 32768,  "sm": "layer", "spec": "dflash", "n": 10 },
+    { "name": "auto-dfl12-32k",     "ctx": 32768,  "sm": "layer", "spec": "dflash", "n": 12 },
+
+    { "name": "auto-dfl15-128k",    "ctx": 131072, "sm": "layer", "spec": "dflash", "n": 15 },
+    { "name": "auto-nodraft-128k",  "ctx": 131072, "sm": "layer" },
+    { "name": "auto-dfl15-128k-q8", "ctx": 131072, "sm": "layer", "kv": "q8_0", "spec": "dflash", "n": 15 }
+  ],
+  "sets": {
+    "split": ["auto-dfl15-32k", "l50-dfl15-32k", "l60-dfl15-32k"],
+    "spec": ["auto-nodraft-32k", "auto-dfl7-32k", "auto-dfl10-32k"],
+    "ctx": ["auto-dfl15-128k", "auto-nodraft-128k", "auto-dfl15-128k-q8"]
+  }
+}
