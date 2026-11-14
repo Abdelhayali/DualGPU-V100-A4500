@@ -34,8 +34,9 @@ start.bat minicpm-v4.7-35b-a3b fast       :: a named preset
 | 4 | Qwen3.6-35B-A3B UD-Q5_K_XL (25.3 GB, MoE, MTP), vision | `128k` | 128k | 99.6 | 94 | 100 | 50 | 88 | 100 | 88 | 100 | **88.4** |
 | 5 | MiniCPM-V 4.7 35B-A3B Q6_K (26.6 GB), vision | `128k` | 128k | 83.6 | 94 | 100 | 33 | 88 | 100 | 88 | 100 | **86.0** |
 | 6 | Qwen3.8-27B UD-Q5_K_XL (20.9 GB, MTP), vision | `128k` | 128k | 51.3 | 88 | 95 | 58 | 100 | 100 | 88 | 50 | **82.6** |
-| 7 | Ripple-65B Preview AD-IQ3_XXS (28.0 GB, dense), text only | `64k` | 64k | 13.9 | 75 | 100 | 83 | 100 | 100 | - | 100 | **79.8**\* |
-| 8 | Kimi-Linear 48B-A3B abliterated i1-Q4_K_M (27.7 GB), text only | `262k` | 262k | 100.9 | 56 | 60 | 50 | 88 | 100 | - | 50 | **57.7**\* |
+| 7 | Qwen3.8-27B UD-Q5_K_XL (21.0 GB, unsloth update 2026-11-12, MTP), vision | `128k` | 128k | 51.3 | 75 | 100 | 50 | 100 | 100 | 88 | 50 | **80.4** |
+| 8 | Ripple-65B Preview AD-IQ3_XXS (28.0 GB, dense), text only | `64k` | 64k | 13.9 | 75 | 100 | 83 | 100 | 100 | - | 100 | **79.8**\* |
+| 9 | Kimi-Linear 48B-A3B abliterated i1-Q4_K_M (27.7 GB), text only | `262k` | 262k | 100.9 | 56 | 60 | 50 | 88 | 100 | - | 50 | **57.7**\* |
 
 \* Text-only models: the suite scores the missing vision category as 0. Over the 6 text categories Ripple averages 93.1
 (the best instruction-following score here, 83) and Kimi 67.3. Many reasoning misses are
