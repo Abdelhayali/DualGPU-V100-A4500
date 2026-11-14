@@ -60,6 +60,12 @@ small-active MoE models one V100 with a 3-bit quant is faster (the whole model s
 | gemma4-31b-ara-heretic | **64k** (default) | `auto-mtp4-64k` | 64k | f16 | **42.7** (48.5 on code) | 784 t/s |
 | | fast | `auto-mtp4-32k` | 32k | f16 | 43.8 (50.0 on code) | 831 t/s |
 | | 128k | `auto-mtp4-128k-q8` | 128k | q8_0 | 39.3 | 829 t/s |
+| qwen3.8-27b-nov12 | **128k** (default) | `l60-mtp3-128k` | 128k | f16 | **47.2** (53.6 on code) | 901 t/s |
+| | fast | `l45-mtp4-32k` | 32k | f16 | 48.9 (58.2 on code) | 866 t/s |
+| | 262k | `l65-mtp3-262k-q4-ub256` | 262k | q4_0 | 45.3 | 844 t/s |
+| qwen3.8-27b-q4km | **128k** (default) | `l60-mtp3-128k` | 128k | f16 | **53.5** (60.2 on code) | 961 t/s |
+| | fast | `l50-mtp3-32k` | 32k | f16 | 55.0 (62.0 on code) | 935 t/s |
+| | 262k | `l60-mtp3-262k-q8` | 262k | q8_0 | 51.7 | 942 t/s |
 | muse-glimmer-30b | **128k** (default) | `auto-dfl15-128k` (DFlash) | 128k | f16 | **40.6** (45.5 on code) | 801 t/s |
 | | fast | `auto-dfl12-32k` (DFlash) | 32k | f16 | 41.3 (46.8 on code) | 810 t/s |
 | | nodraft | `auto-nodraft-128k` | 128k | f16 | 26.6 | 1165 t/s |
@@ -110,6 +116,13 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
   (19.6 + 14.2 GB), 128k needs q8 (39.3) or q4 (38.6), 262k does not fit even with q4. GPU log of the whole tune (1 s):
   both cards peak at 100% and average ~50% while busy (layer split = they take turns); V100 power spikes to 271 W over
   its 230 W limit and 84 C, A4500 170 W / 66 C. No crash. Not run on the hard suite.
+- **Qwen3.8-27B, unsloth update of 2026-11-12** (`Qwen3.8-27B-UD-Q5_K_XL.gguf` changed in the repo; our old copy is
+  kept, so the older results stay valid): MTP built in (72-74% accepted). 45/55 split runs out of V100 memory at 128k and
+  262k, so the long-context presets use 60/40 and 65/35. 128k f16 60/40 47.2, 65/35 46.3; 262k q4 with ub 256 45.3; 262k q8
+  60/40 does not start. Not run on the hard suite yet.
+- **Qwen3.8-27B UD-Q4_K_M** (same repo, 16.6 GB): about 13% faster than Q5 (53.5 vs 47.2 at 128k). 262k q8 fits at 60/40
+  (51.7). Its 128k run with the 45/55 split crashed the CUDA process (the V100 was full); the 60/40 split works.
+  GPU log (1 s) for the Q5 tune: V100 peaks 265 W over its 230 W limit at 84 C; A4500 167 W / 66 C. No crash.
 - **Muse Glimmer 30B** (Meta, unsloth UD-Q5_K_XL 21.8 GB, dense, vision; runs on the main kernel): 52 layers, 39 of them
   sliding (2048) and only 2 KV heads, so 128k f16 KV is cheap. Meta's DFlash drafter (`dflash-kquant.gguf`, 1.63 GB, block
   16) gives 1.5x: no draft 26.6, DFlash 7 31.0, 10 40.1, 12 41.3, 15 40.9 at 32k (15-23% accepted), 128k 40.6; q8 KV is

@@ -1,0 +1,57 @@
+[11-14 11:24:06] l45-mtp3-32k : loading
+[11-14 11:24:55] l45-mtp3-32k : loaded, vram 10465+11447 MiB; speed test
+[11-14 11:25:08] l45-mtp3-32k : speed 54.4 tok/s; image test
+[11-14 11:25:11] l45-mtp3-32k : image True; 7k prompt
+[11-14 11:25:22] l45-mtp3-32k : MEAN 54.4 tok/s (code 62.0 / chat 46.8), accept 72%, vram 10523+12205 MiB, image True, 7k prompt True @ 926 t/s -> pass
+[11-14 11:25:22] l50-mtp3-32k : loading
+[11-14 11:25:59] l50-mtp3-32k : loaded, vram 11242+10671 MiB; speed test
+[11-14 11:26:12] l50-mtp3-32k : speed 55.0 tok/s; image test
+[11-14 11:26:15] l50-mtp3-32k : image True; 7k prompt
+[11-14 11:26:25] l50-mtp3-32k : MEAN 55.0 tok/s (code 62.0 / chat 48.0), accept 73%, vram 11300+11427 MiB, image True, 7k prompt True @ 935 t/s -> pass
+[11-14 11:26:25] l60-mtp3-32k : loading
+[11-14 11:27:03] l60-mtp3-32k : loaded, vram 13032+8883 MiB; speed test
+[11-14 11:27:16] l60-mtp3-32k : speed 53.2 tok/s; image test
+[11-14 11:27:19] l60-mtp3-32k : image True; 7k prompt
+[11-14 11:27:29] l60-mtp3-32k : MEAN 53.2 tok/s (code 59.8 / chat 46.7), accept 72%, vram 13091+9637 MiB, image True, 7k prompt True @ 974 t/s -> pass
+[11-14 11:27:29] l45-nodraft-32k : loading
+[11-14 11:28:07] l45-nodraft-32k : loaded, vram 10257+10445 MiB; speed test
+[11-14 11:28:26] l45-nodraft-32k : speed 32.3 tok/s; image test
+[11-14 11:28:30] l45-nodraft-32k : image True; 7k prompt
+[11-14 11:28:40] l45-nodraft-32k : MEAN 32.3 tok/s (code 32.5 / chat 32.1), vram 10307+10757 MiB, image True, 7k prompt True @ 1131 t/s -> pass
+[11-14 11:28:40] l45-mtp2-32k : loading
+[11-14 11:29:17] l45-mtp2-32k : loaded, vram 10393+11369 MiB; speed test
+[11-14 11:29:30] l45-mtp2-32k : speed 51.0 tok/s; image test
+[11-14 11:29:33] l45-mtp2-32k : image True; 7k prompt
+[11-14 11:29:44] l45-mtp2-32k : MEAN 51.0 tok/s (code 55.9 / chat 46.1), accept 81%, vram 10451+12125 MiB, image True, 7k prompt True @ 913 t/s -> pass
+[11-14 11:29:44] l45-mtp4-32k : loading
+[11-14 11:30:21] l45-mtp4-32k : loaded, vram 10537+11525 MiB; speed test
+[11-14 11:30:35] l45-mtp4-32k : speed 50.3 tok/s; image test
+[11-14 11:30:38] l45-mtp4-32k : image True; 7k prompt
+[11-14 11:30:49] l45-mtp4-32k : MEAN 50.3 tok/s (code 59.1 / chat 41.4), accept 62%, vram 10595+12283 MiB, image True, 7k prompt True @ 897 t/s -> pass
+[11-14 11:30:49] l45-mtp3-128k : loading
+[11-14 11:31:26] l45-mtp3-128k : loaded, vram 13537+16057 MiB; speed test
+[11-14 11:31:40] l45-mtp3-128k : speed 53.0 tok/s; image test
+[11-14 11:31:53] l45-mtp3-128k : image False; 7k prompt
+[11-14 11:31:58] l45-mtp3-128k : MEAN 53.0 tok/s (code 60.5 / chat 45.5), accept 72%, vram 1321+10 MiB, image False, 7k prompt False @  t/s -> FAIL
+[11-14 11:31:58] l45-mtp3-262k-q8 : loading
+[11-14 11:32:38] l45-mtp3-262k-q8 : does not start
+[11-14 11:37:55] l60-mtp3-128k : loading
+[11-14 11:38:36] l60-mtp3-128k : loaded, vram 16980+12341 MiB; speed test
+[11-14 11:38:49] l60-mtp3-128k : speed 53.5 tok/s; image test
+[11-14 11:38:52] l60-mtp3-128k : image True; 7k prompt
+[11-14 11:39:02] l60-mtp3-128k : MEAN 53.5 tok/s (code 60.2 / chat 46.7), accept 72%, vram 17040+13095 MiB, image True, 7k prompt True @ 961 t/s -> pass
+[11-14 11:39:02] l65-mtp3-128k : loading
+[11-14 11:39:42] l65-mtp3-128k : loaded, vram 17674+11647 MiB; speed test
+[11-14 11:39:56] l65-mtp3-128k : speed 52.0 tok/s; image test
+[11-14 11:39:59] l65-mtp3-128k : image True; 7k prompt
+[11-14 11:40:09] l65-mtp3-128k : MEAN 52.0 tok/s (code 58.8 / chat 45.2), accept 72%, vram 17736+12419 MiB, image True, 7k prompt True @ 950 t/s -> pass
+[11-14 11:40:09] l60-mtp3-262k-q8 : loading
+[11-14 11:40:49] l60-mtp3-262k-q8 : loaded, vram 18794+15557 MiB; speed test
+[11-14 11:41:03] l60-mtp3-262k-q8 : speed 51.7 tok/s; image test
+[11-14 11:41:06] l60-mtp3-262k-q8 : image True; 7k prompt
+[11-14 11:41:17] l60-mtp3-262k-q8 : MEAN 51.7 tok/s (code 58.5 / chat 45.0), accept 72%, vram 18854+16111 MiB, image True, 7k prompt True @ 942 t/s -> pass
+[11-14 11:41:17] l65-mtp3-262k-q4-ub256 : loading
+[11-14 11:41:57] l65-mtp3-262k-q4-ub256 : loaded, vram 16312+11904 MiB; speed test
+[11-14 11:42:12] l65-mtp3-262k-q4-ub256 : speed 51.1 tok/s; image test
+[11-14 11:42:15] l65-mtp3-262k-q4-ub256 : image True; 7k prompt
+[11-14 11:42:26] l65-mtp3-262k-q4-ub256 : MEAN 51.1 tok/s (code 57.6 / chat 44.6), accept 74%, vram 16374+12675 MiB, image True, 7k prompt True @ 897 t/s -> pass

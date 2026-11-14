@@ -131,6 +131,30 @@
   "size": 899283584,
   "url": "https://huggingface.co/unsloth/Qwen3.6-35B-A3B-MTP-GGUF/resolve/main/mmproj-F16.gguf"
  },
+ "qwen3.8-27b-nov12/Qwen3.8-27B-UD-Q5_K_XL.gguf": {
+  "repo": "unsloth/Qwen3.8-27B-GGUF",
+  "sha256": "a9c4a1d9f7298dfb00c95dd83241530bc07b141ee01ec6962cd31b39d746837c",
+  "size": 20976962464,
+  "url": "https://huggingface.co/unsloth/Qwen3.8-27B-GGUF/resolve/main/Qwen3.8-27B-UD-Q5_K_XL.gguf"
+ },
+ "qwen3.8-27b-nov12/mmproj-F16.gguf": {
+  "repo": "unsloth/Qwen3.8-27B-GGUF",
+  "sha256": "cbb841a9ee0636b2ec172f5bb8df2ea8dfeb01e90fe7c6126581d662a0b4e43e",
+  "size": 927607488,
+  "url": "https://huggingface.co/unsloth/Qwen3.8-27B-GGUF/resolve/main/mmproj-F16.gguf"
+ },
+ "qwen3.8-27b-q4km/Qwen3.8-27B-UD-Q4_K_M.gguf": {
+  "repo": "unsloth/Qwen3.8-27B-GGUF",
+  "sha256": "1bce504dfecd84153666928a41d8a66706f0158d3a317bc5196b72819d7dc529",
+  "size": 16564259744,
+  "url": "https://huggingface.co/unsloth/Qwen3.8-27B-GGUF/resolve/main/Qwen3.8-27B-UD-Q4_K_M.gguf"
+ },
+ "qwen3.8-27b-q4km/mmproj-F16.gguf": {
+  "repo": "unsloth/Qwen3.8-27B-GGUF",
+  "sha256": "cbb841a9ee0636b2ec172f5bb8df2ea8dfeb01e90fe7c6126581d662a0b4e43e",
+  "size": 927607488,
+  "url": "https://huggingface.co/unsloth/Qwen3.8-27B-GGUF/resolve/main/mmproj-F16.gguf"
+ },
  "qwen3.8-27b/Qwen3.8-27B-DFlash2-Q4_K_M.gguf": {
   "repo": "z-lab/Qwen3.8-27B-DFlash2-GGUF",
   "sha256": "1a25c56858e1ebe93f2718ac1d49d1151f9323325c1bbfd6209370f4db131ebd",

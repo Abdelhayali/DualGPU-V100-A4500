@@ -50,6 +50,22 @@
         { "name": "262k", "config": "auto-262k-q4", "summary": "262k ctx, q4 KV - 14.4 tok/s (both GPUs nearly full)" }
       ]
     },
+    "qwen3.8-27b-nov12": {
+      "default": "128k",
+      "presets": [
+        { "name": "128k", "config": "l60-mtp3-128k",          "summary": "default: 128k ctx, f16 KV, MTP 3, split 60/40 - 47.2 tok/s (code 53.6), 7k prompt 901 t/s, vision (unsloth update 2026-11-12)" },
+        { "name": "fast", "config": "l45-mtp4-32k",           "summary": "fastest: 32k ctx, f16 KV, MTP 4 - 48.9 tok/s (code 58.2)" },
+        { "name": "262k", "config": "l65-mtp3-262k-q4-ub256", "summary": "full 262k ctx, q4 KV, MTP 3, split 65/35, ub 256 - 45.3 tok/s (q8 KV at 262k does not fit)" }
+      ]
+    },
+    "qwen3.8-27b-q4km": {
+      "default": "128k",
+      "presets": [
+        { "name": "128k", "config": "l60-mtp3-128k",      "summary": "default: 128k ctx, f16 KV, MTP 3, split 60/40 - 53.5 tok/s (code 60.2), 7k prompt 961 t/s, vision (UD-Q4_K_M)" },
+        { "name": "fast", "config": "l50-mtp3-32k",       "summary": "fastest: 32k ctx, f16 KV, MTP 3, split 50/50 - 55.0 tok/s (code 62.0)" },
+        { "name": "262k", "config": "l60-mtp3-262k-q8",   "summary": "full 262k ctx, q8 KV, MTP 3, split 60/40 - 51.7 tok/s, vision" }
+      ]
+    },
     "gemma4-31b-ara-heretic": {
       "default": "64k",
       "presets": [
