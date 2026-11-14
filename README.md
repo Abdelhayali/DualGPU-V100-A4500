@@ -28,13 +28,14 @@ start.bat minicpm-v4.7-35b-a3b fast       :: a named preset
 
 | # | model (quant, size) | preset | ctx | gen tok/s | coding | reasoning | instr | search | agent | vision | longctx | **overall** |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | Huihui Gemma-4-26B-A4B-it QAT abliterated Q4_K (16.8 GB, MoE), vision | `262k` | 262k | 86.5 | 88 | 100 | 83 | 88 | 100 | 75 | 100 | **90.5** |
-| 2 | OrcaCyber-Nano 1.0 27B Mix-15.7G (MTP), vision | `128k` | 128k | 61.6 | 94 | 100 | 50 | 100 | 100 | 88 | 100 | **90.2** |
-| 3 | Qwen3.6-35B-A3B UD-Q5_K_XL (25.3 GB, MoE, MTP), vision | `128k` | 128k | 99.6 | 94 | 100 | 50 | 88 | 100 | 88 | 100 | **88.4** |
-| 4 | MiniCPM-V 4.7 35B-A3B Q6_K (26.6 GB), vision | `128k` | 128k | 83.6 | 94 | 100 | 33 | 88 | 100 | 88 | 100 | **86.0** |
-| 5 | Qwen3.8-27B UD-Q5_K_XL (20.9 GB, MTP), vision | `128k` | 128k | 51.3 | 88 | 95 | 58 | 100 | 100 | 88 | 50 | **82.6** |
-| 6 | Ripple-65B Preview AD-IQ3_XXS (28.0 GB, dense), text only | `64k` | 64k | 13.9 | 75 | 100 | 83 | 100 | 100 | - | 100 | **79.8**\* |
-| 7 | Kimi-Linear 48B-A3B abliterated i1-Q4_K_M (27.7 GB), text only | `262k` | 262k | 100.9 | 56 | 60 | 50 | 88 | 100 | - | 50 | **57.7**\* |
+| 1 | Qwen3.8-27B UD-Q4_K_M (16.6 GB, dense, MTP), vision | `128k` | 128k | 58.8 | 94 | 100 | 42 | 100 | 100 | 100 | 100 | **90.8** |
+| 2 | Huihui Gemma-4-26B-A4B-it QAT abliterated Q4_K (16.8 GB, MoE), vision | `262k` | 262k | 86.5 | 88 | 100 | 83 | 88 | 100 | 75 | 100 | **90.5** |
+| 3 | OrcaCyber-Nano 1.0 27B Mix-15.7G (MTP), vision | `128k` | 128k | 61.6 | 94 | 100 | 50 | 100 | 100 | 88 | 100 | **90.2** |
+| 4 | Qwen3.6-35B-A3B UD-Q5_K_XL (25.3 GB, MoE, MTP), vision | `128k` | 128k | 99.6 | 94 | 100 | 50 | 88 | 100 | 88 | 100 | **88.4** |
+| 5 | MiniCPM-V 4.7 35B-A3B Q6_K (26.6 GB), vision | `128k` | 128k | 83.6 | 94 | 100 | 33 | 88 | 100 | 88 | 100 | **86.0** |
+| 6 | Qwen3.8-27B UD-Q5_K_XL (20.9 GB, MTP), vision | `128k` | 128k | 51.3 | 88 | 95 | 58 | 100 | 100 | 88 | 50 | **82.6** |
+| 7 | Ripple-65B Preview AD-IQ3_XXS (28.0 GB, dense), text only | `64k` | 64k | 13.9 | 75 | 100 | 83 | 100 | 100 | - | 100 | **79.8**\* |
+| 8 | Kimi-Linear 48B-A3B abliterated i1-Q4_K_M (27.7 GB), text only | `262k` | 262k | 100.9 | 56 | 60 | 50 | 88 | 100 | - | 50 | **57.7**\* |
 
 \* Text-only models: the suite scores the missing vision category as 0. Over the 6 text categories Ripple averages 93.1
 (the best instruction-following score here, 83) and Kimi 67.3. Many reasoning misses are
@@ -120,7 +121,7 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
   kept, so the older results stay valid): MTP built in (72-74% accepted). 45/55 split runs out of V100 memory at 128k and
   262k, so the long-context presets use 60/40 and 65/35. 128k f16 60/40 47.2, 65/35 46.3; 262k q4 with ub 256 45.3; 262k q8
   60/40 does not start. Not run on the hard suite yet.
-- **Qwen3.8-27B UD-Q4_K_M** (same repo, 16.6 GB): about 13% faster than Q5 (53.5 vs 47.2 at 128k). 262k q8 fits at 60/40
+- **Qwen3.8-27B UD-Q4_K_M** (same repo, 16.6 GB; hard suite 90.8 on `128k`, the top of the leaderboard, with instruction following at 42, the lowest of the top models): about 13% faster than Q5 (53.5 vs 47.2 at 128k). 262k q8 fits at 60/40
   (51.7). Its 128k run with the 45/55 split crashed the CUDA process (the V100 was full); the 60/40 split works.
   GPU log (1 s) for the Q5 tune: V100 peaks 265 W over its 230 W limit at 84 C; A4500 167 W / 66 C. No crash.
 - **Muse Glimmer 30B** (Meta, unsloth UD-Q5_K_XL 21.8 GB, dense, vision; runs on the main kernel): 52 layers, 39 of them
