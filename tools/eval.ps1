@@ -9,5 +9,8 @@ if (-not $c) { throw "no config $Config in configs\$Model.json" }
 New-Item -ItemType Directory -Force "$Root\results\logs", "$Root\results\hard" | Out-Null
 if (-not (Start-Srv (Get-SrvArgs $m $c) "$Root\results\logs\$Model-$Config-eval.log")) { throw "server did not start" }
 $skip = if ($m.mmproj) { @() } else { @('--skip', 'vision') }
+# per-model eval switches from configs\<model>.json: "eval_thinking" (leave reasoning on), "eval_token_scale" (more tokens)
+$env:EVAL_THINKING = if ($m.eval_thinking) { '1' } else { '' }
+$env:EVAL_TOKEN_SCALE = if ($m.eval_token_scale) { [string]$m.eval_token_scale } else { '' }
 python -I "$Root\tools\eval\run_eval_hard.py" --label "$Model@$Config" --port $Port --out-dir "..\..\results\hard" @skip
 Stop-Srv

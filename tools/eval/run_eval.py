@@ -28,6 +28,10 @@ def chat(port, messages, max_tokens=512, tools=None, timeout=900):
     max_tokens = int(max_tokens * float(os.environ.get("EVAL_TOKEN_SCALE") or 1))
     body = {"messages": messages, "max_tokens": max_tokens, "temperature": 0,
             "chat_template_kwargs": {"enable_thinking": False, "reasoning_strength": "low"}}   # reasoning_strength: Muse Glimmer (no "off")
+    # models that ignore enable_thinking=false and write an unclosed <think> into the answer (DavidAU Qwen3.8-40B):
+    # "eval_thinking": true in configs/<model>.json leaves thinking on, so the server splits the reasoning off
+    if os.environ.get("EVAL_THINKING") == "1":
+        body["chat_template_kwargs"] = {}
     if tools:
         body["tools"] = tools
     req = urllib.request.Request(f"http://127.0.0.1:{port}/v1/chat/completions", data=json.dumps(body).encode(),

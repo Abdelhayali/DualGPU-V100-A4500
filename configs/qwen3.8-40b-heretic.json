@@ -25,7 +25,9 @@
     "--min-p",
     "0"
   ],
-  "notes": "DavidAU's Qwen3.8-27B heretic fine-tune expanded to 40B and trained again (Claude-Opus reasoning data). Dense. MTP built into the file. Sampling: Qwen3.8 defaults. ts = A4500,V100.",
+  "eval_thinking": true,
+  "eval_token_scale": 5,
+  "notes": "With enable_thinking=false it still reasons, into the answer, without closing </think>; leave thinking on (the server then splits the reasoning off). DavidAU's Qwen3.8-27B heretic fine-tune expanded to 40B and trained again (Claude-Opus reasoning data). Dense. MTP built into the file. Sampling: Qwen3.8 defaults. ts = A4500,V100.",
   "configs": [
     {
       "name": "auto-mtp3-32k",
