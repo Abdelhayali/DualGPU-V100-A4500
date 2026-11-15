@@ -179,6 +179,18 @@
   "size": 927607488,
   "url": "https://huggingface.co/unsloth/Qwen3.8-27B-GGUF/resolve/main/mmproj-F16.gguf"
  },
+ "qwen3.8-40b-heretic/Qwen3.8-40B-Ultimate-Heretic-Uncn-Turbo-Brilli-50x-AGI-NEO-MTP-Q4_K_M.gguf": {
+  "repo": "DavidAU/Qwen3.8-40B-Ultimate-Heretic-Uncensored-Turbo-Brilliance-50x-AGI-NEO-GGUF",
+  "sha256": "1fe4c162cfe0db1ee9c7261c965060548fea9856e597a0fac23aa7b07eeff096",
+  "size": 24200119232,
+  "url": "https://huggingface.co/DavidAU/Qwen3.8-40B-Ultimate-Heretic-Uncensored-Turbo-Brilliance-50x-AGI-NEO-GGUF/resolve/main/Qwen3.8-40B-Ultimate-Heretic-Uncn-Turbo-Brilli-50x-AGI-NEO-MTP-Q4_K_M.gguf"
+ },
+ "qwen3.8-40b-heretic/mmproj-F16.gguf": {
+  "repo": "DavidAU/Qwen3.8-40B-Ultimate-Heretic-Uncensored-Turbo-Brilliance-50x-AGI-NEO-GGUF",
+  "sha256": "9d176379bea780c5e74a941bb4266e257e9d0e2ebe2c71a8094f6b868f1f4414",
+  "size": 927606944,
+  "url": "https://huggingface.co/DavidAU/Qwen3.8-40B-Ultimate-Heretic-Uncensored-Turbo-Brilliance-50x-AGI-NEO-GGUF/resolve/main/mmproj-F16.gguf"
+ },
  "qwen3.8-flash-next/Qwen3.8-Flash-Next-UD-Q3_K_XL-00001-of-00004.gguf": {
   "repo": "unsloth/Qwen3.8-Flash-Next-GGUF",
   "sha256": "7666000ba91eb5527f8e12e0414de36766dc82a082876337f7827c2caa859143",

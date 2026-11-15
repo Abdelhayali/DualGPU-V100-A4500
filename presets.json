@@ -74,6 +74,14 @@
         { "name": "128k", "config": "auto-mtp4-128k-q8", "summary": "128k ctx, q8 KV, MTP 4 - 39.3 tok/s (both GPUs nearly full; f16 and 262k do not fit)" }
       ]
     },
+    "qwen3.8-40b-heretic": {
+      "default": "64k",
+      "presets": [
+        { "name": "64k",  "config": "auto-mtp2-64k",     "summary": "default: 64k ctx, f16 KV, MTP 2 - 35.7 tok/s (code 37.5), 7k prompt 580 t/s, vision (40B dense)" },
+        { "name": "code", "config": "auto-mtp4-32k",     "summary": "code: 32k ctx, MTP 4 - 38.8 tok/s on code, 31.0 on chat" },
+        { "name": "128k", "config": "l55-mtp3-128k-q4",  "summary": "128k ctx, q4 KV, MTP 3, split 55/45 - 34.5 tok/s (V100 nearly full; f16 and 262k do not fit)" }
+      ]
+    },
     "muse-glimmer-30b": {
       "default": "128k",
       "presets": [

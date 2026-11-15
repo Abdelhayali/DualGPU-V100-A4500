@@ -1,0 +1,204 @@
+{
+  "id": "qwen3.8-40b-heretic",
+  "name": "Qwen3.8-40B Ultimate Heretic Turbo-Brilliance (DavidAU) MTP-Q4_K_M (dense, MTP built in, vision)",
+  "gguf": "Qwen3.8-40B-Ultimate-Heretic-Uncn-Turbo-Brilli-50x-AGI-NEO-MTP-Q4_K_M.gguf",
+  "mmproj": "mmproj-F16.gguf",
+  "files": [
+    {
+      "repo": "DavidAU/Qwen3.8-40B-Ultimate-Heretic-Uncensored-Turbo-Brilliance-50x-AGI-NEO-GGUF",
+      "file": "Qwen3.8-40B-Ultimate-Heretic-Uncn-Turbo-Brilli-50x-AGI-NEO-MTP-Q4_K_M.gguf",
+      "gb": 24.2
+    },
+    {
+      "repo": "DavidAU/Qwen3.8-40B-Ultimate-Heretic-Uncensored-Turbo-Brilliance-50x-AGI-NEO-GGUF",
+      "file": "mmproj-F16.gguf",
+      "gb": 0.93
+    }
+  ],
+  "sampling": [
+    "--temp",
+    "0.7",
+    "--top-k",
+    "20",
+    "--top-p",
+    "0.8",
+    "--min-p",
+    "0"
+  ],
+  "notes": "DavidAU's Qwen3.8-27B heretic fine-tune expanded to 40B and trained again (Claude-Opus reasoning data). Dense. MTP built into the file. Sampling: Qwen3.8 defaults. ts = A4500,V100.",
+  "configs": [
+    {
+      "name": "auto-mtp3-32k",
+      "ctx": 32768,
+      "sm": "layer",
+      "spec": "mtp",
+      "n": 3
+    },
+    {
+      "name": "l50-mtp3-32k",
+      "ctx": 32768,
+      "sm": "layer",
+      "ts": "50,50",
+      "spec": "mtp",
+      "n": 3
+    },
+    {
+      "name": "l55-mtp3-32k",
+      "ctx": 32768,
+      "sm": "layer",
+      "ts": "55,45",
+      "spec": "mtp",
+      "n": 3
+    },
+    {
+      "name": "l60-mtp3-32k",
+      "ctx": 32768,
+      "sm": "layer",
+      "ts": "60,40",
+      "spec": "mtp",
+      "n": 3
+    },
+    {
+      "name": "auto-nodraft-32k",
+      "ctx": 32768,
+      "sm": "layer"
+    },
+    {
+      "name": "auto-mtp2-32k",
+      "ctx": 32768,
+      "sm": "layer",
+      "spec": "mtp",
+      "n": 2
+    },
+    {
+      "name": "auto-mtp4-32k",
+      "ctx": 32768,
+      "sm": "layer",
+      "spec": "mtp",
+      "n": 4
+    },
+    {
+      "name": "auto-mtp3-64k",
+      "ctx": 65536,
+      "sm": "layer",
+      "spec": "mtp",
+      "n": 3
+    },
+    {
+      "name": "auto-mtp3-128k",
+      "ctx": 131072,
+      "sm": "layer",
+      "spec": "mtp",
+      "n": 3
+    },
+    {
+      "name": "l60-mtp3-128k",
+      "ctx": 131072,
+      "sm": "layer",
+      "ts": "60,40",
+      "spec": "mtp",
+      "n": 3
+    },
+    {
+      "name": "auto-mtp3-128k-q8",
+      "ctx": 131072,
+      "sm": "layer",
+      "kv": "q8_0",
+      "spec": "mtp",
+      "n": 3
+    },
+    {
+      "name": "l60-mtp3-262k-q8",
+      "ctx": 262144,
+      "sm": "layer",
+      "ts": "60,40",
+      "kv": "q8_0",
+      "spec": "mtp",
+      "n": 3
+    },
+    {
+      "name": "l60-mtp3-262k-q4-ub256",
+      "ctx": 262144,
+      "sm": "layer",
+      "ts": "60,40",
+      "kv": "q4_0",
+      "ub": 256,
+      "spec": "mtp",
+      "n": 3
+    },
+    {
+      "name": "l55-mtp3-128k-q8-ub256",
+      "ctx": 131072,
+      "sm": "layer",
+      "ts": "55,45",
+      "kv": "q8_0",
+      "ub": 256,
+      "spec": "mtp",
+      "n": 3
+    },
+    {
+      "name": "l60-mtp3-128k-q8-ub256",
+      "ctx": 131072,
+      "sm": "layer",
+      "ts": "60,40",
+      "kv": "q8_0",
+      "ub": 256,
+      "spec": "mtp",
+      "n": 3
+    },
+    {
+      "name": "l55-mtp3-128k-q4",
+      "ctx": 131072,
+      "sm": "layer",
+      "ts": "55,45",
+      "kv": "q4_0",
+      "spec": "mtp",
+      "n": 3
+    },
+    {
+      "name": "l65-mtp3-262k-q4-ub256",
+      "ctx": 262144,
+      "sm": "layer",
+      "ts": "65,35",
+      "kv": "q4_0",
+      "ub": 256,
+      "spec": "mtp",
+      "n": 3
+    },
+    {
+      "name": "auto-mtp2-64k",
+      "ctx": 65536,
+      "sm": "layer",
+      "spec": "mtp",
+      "n": 2
+    }
+  ],
+  "sets": {
+    "split": [
+      "auto-mtp3-32k",
+      "l50-mtp3-32k",
+      "l55-mtp3-32k",
+      "l60-mtp3-32k"
+    ],
+    "spec": [
+      "auto-nodraft-32k",
+      "auto-mtp2-32k",
+      "auto-mtp4-32k"
+    ],
+    "ctx": [
+      "auto-mtp3-64k",
+      "auto-mtp3-128k",
+      "l60-mtp3-128k",
+      "auto-mtp3-128k-q8",
+      "l60-mtp3-262k-q8",
+      "l60-mtp3-262k-q4-ub256"
+    ],
+    "round2": [
+      "l55-mtp3-128k-q8-ub256",
+      "l60-mtp3-128k-q8-ub256",
+      "l55-mtp3-128k-q4",
+      "l65-mtp3-262k-q4-ub256",
+      "auto-mtp2-64k"
+    ]
+  }
+}

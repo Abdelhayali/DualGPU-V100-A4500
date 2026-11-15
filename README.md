@@ -68,6 +68,9 @@ small-active MoE models one V100 with a 3-bit quant is faster (the whole model s
 | qwen3.8-27b-q4km | **128k** (default) | `l60-mtp3-128k` | 128k | f16 | **53.5** (60.2 on code) | 961 t/s |
 | | fast | `l50-mtp3-32k` | 32k | f16 | 55.0 (62.0 on code) | 935 t/s |
 | | 262k | `l60-mtp3-262k-q8` | 262k | q8_0 | 51.7 | 942 t/s |
+| qwen3.8-40b-heretic | **64k** (default) | `auto-mtp2-64k` | 64k | f16 | **35.7** (37.5 on code) | 580 t/s |
+| | code | `auto-mtp4-32k` | 32k | f16 | 34.9 (**38.8** on code) | 586 t/s |
+| | 128k | `l55-mtp3-128k-q4` | 128k | q4_0 | 34.5 | 578 t/s |
 | muse-glimmer-30b | **128k** (default) | `auto-dfl15-128k` (DFlash) | 128k | f16 | **40.6** (45.5 on code) | 801 t/s |
 | | fast | `auto-dfl12-32k` (DFlash) | 32k | f16 | 41.3 (46.8 on code) | 810 t/s |
 | | nodraft | `auto-nodraft-128k` | 128k | f16 | 26.6 | 1165 t/s |
@@ -125,6 +128,11 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
 - **Qwen3.8-27B UD-Q4_K_M** (same repo, 16.6 GB; hard suite 90.8 on `128k`, the top of the leaderboard, with instruction following at 42, the lowest of the top models): about 13% faster than Q5 (53.5 vs 47.2 at 128k). 262k q8 fits at 60/40
   (51.7). Its 128k run with the 45/55 split crashed the CUDA process (the V100 was full); the 60/40 split works.
   GPU log (1 s) for the Q5 tune: V100 peaks 265 W over its 230 W limit at 84 C; A4500 167 W / 66 C. No crash.
+- **Qwen3.8-40B Ultimate Heretic Turbo-Brilliance** (DavidAU: Qwen3.8-27B heretic fine-tune expanded to 40B and trained
+  again; `MTP-Q4_K_M` 24.2 GB, dense, MTP built in, vision; main kernel): MTP gives 1.65x (MTP 2 35.6, 3 35.3, 4 34.9 tok/s
+  vs 21.5 without, 58-74% accepted). Splits within 0.3 tok/s (auto, 50/50, 55/45, 60/40). Its KV is large (128k f16 needs
+  ~14 GB), so 64k f16 is the default; 128k runs with q4 KV (34.5) or q8 KV at 60/40 (32.3, A4500 full at 20.2 GB);
+  128k q8 at 55/45 crashed on the image test; 262k does not fit even with q4. Not run on the hard suite.
 - **Muse Glimmer 30B** (Meta, unsloth UD-Q5_K_XL 21.8 GB, dense, vision; runs on the main kernel): 52 layers, 39 of them
   sliding (2048) and only 2 KV heads, so 128k f16 KV is cheap. Meta's DFlash drafter (`dflash-kquant.gguf`, 1.63 GB, block
   16) gives 1.5x: no draft 26.6, DFlash 7 31.0, 10 40.1, 12 41.3, 15 40.9 at 32k (15-23% accepted), 128k 40.6; q8 KV is
