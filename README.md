@@ -37,13 +37,14 @@ start.bat minicpm-v4.7-35b-a3b fast       :: a named preset
 | 7 | Qwen3.8-27B UD-Q5_K_XL (20.9 GB, MTP), vision | `128k` | 128k | 51.3 | 88 | 95 | 58 | 100 | 100 | 88 | 50 | **82.6** |
 | 8 | Qwen3.8-27B UD-Q5_K_XL (21.0 GB, unsloth update 2026-11-12, MTP), vision | `128k` | 128k | 51.3 | 75 | 100 | 50 | 100 | 100 | 88 | 50 | **80.4** |
 | 9 | Ripple-65B Preview AD-IQ3_XXS (28.0 GB, dense), text only | `64k` | 64k | 13.9 | 75 | 100 | 83 | 100 | 100 | - | 100 | **79.8**\* |
-| 10 | Kimi-Linear 48B-A3B abliterated i1-Q4_K_M (27.7 GB), text only | `262k` | 262k | 100.9 | 56 | 60 | 50 | 88 | 100 | - | 50 | **57.7**\* |
+| {n} | Apex-35B-V1.0 Q4_K_M (21.7 GB, MoE, fine-tune of Qwen3.6-35B-A3B), text only | `262k` | 262k | 100.2 | 50 | 85 | 25 | 63 | 100 | - | 100 | **60.4**\* |
+| 11 | Kimi-Linear 48B-A3B abliterated i1-Q4_K_M (27.7 GB), text only | `262k` | 262k | 100.9 | 56 | 60 | 50 | 88 | 100 | - | 50 | **57.7**\* |
 
 † Run with reasoning on (`eval_thinking`, 5x token budget): with `enable_thinking=false` this model still reasons, into
 the answer, without closing `</think>`, which scored 80.7 (instruction following 8.3, coding 68.8). All other rows ran
 with reasoning off, so its rank is not a like-for-like comparison: thinking on usually helps instruction following and coding.
 
-\* Text-only models: the suite scores the missing vision category as 0. Over the 6 text categories Ripple averages 93.1
+\* Text-only models: the suite scores the missing vision category as 0. Over the 6 text categories Ripple averages 93.1, Apex 70.4
 (the best instruction-following score here, 83) and Kimi 67.3. Many reasoning misses are
 format (it ends with a LaTeX `\[ ... \]` block, so the graded last line is `\]`), but the coding misses are real bugs.
 
@@ -140,6 +141,10 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
   21.7 GB, MoE, text only - the GGUF repo has no vision projector; main kernel): no draft is fastest, ~100 tok/s on the
   60/40 split at every context (32k 99.3, 128k 100.4, 262k f16 100.6; auto split 93-96, 50/50 95.5). The GGUF keeps the MTP
   head: MTP 3 gives 110.8 on code but 74.3 on chat (60% accepted), MTP 2 85.8 mean, so MTP is only the `code` preset.
+  Hard suite 60.4 on `262k` (70.4 over the 6 text categories), far below its base Qwen3.6-35B-A3B (88.4): real misses
+  (code missing `import re` / `import heapq`, wrong arithmetic, wrong word counts, failed search lookups). With reasoning on
+  (`eval_thinking`, 5x tokens) 67.4: reasoning 95, instructions 58, search 88, but coding 31 (it reasons until the token
+  budget runs out and never writes the function). Both runs in `results/hard/`.
 - **Qwen3.8-40B Ultimate Heretic Turbo-Brilliance** (DavidAU: Qwen3.8-27B heretic fine-tune expanded to 40B and trained
   again; `MTP-Q4_K_M` 24.2 GB, dense, MTP built in, vision; main kernel): MTP gives 1.65x (MTP 2 35.6, 3 35.3, 4 34.9 tok/s
   vs 21.5 without, 58-74% accepted). Splits within 0.3 tok/s (auto, 50/50, 55/45, 60/40). Its KV is large (128k f16 needs
