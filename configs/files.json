@@ -1,4 +1,10 @@
 {
+ "apex-35b-v1/Apex-35B-V1.0-Q4_K_M.gguf": {
+  "repo": "Apexintelligence-AI/Apex-35B-V1.0-GGUF",
+  "sha256": "c3b92d94cd03a7730ad45cc45de8c753e369e0228b2f5d83d819ce2ea6ab3355",
+  "size": 21713463136,
+  "url": "https://huggingface.co/Apexintelligence-AI/Apex-35B-V1.0-GGUF/resolve/main/Apex-35B-V1.0-Q4_K_M.gguf"
+ },
  "gemma4-31b-ara-heretic/gemma-4-31B-it-ARA-heretic.i1-Q5_K_M.gguf": {
   "repo": "mradermacher/gemma-4-31B-it-ARA-heretic-i1-GGUF",
   "sha256": "695ce9043b5d6427b968f3dfa23bf91ef9a0e2f0e35f190a19cfd3d33774d011",

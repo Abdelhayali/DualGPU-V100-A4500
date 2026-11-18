@@ -73,6 +73,9 @@ small-active MoE models one V100 with a 3-bit quant is faster (the whole model s
 | qwen3.8-27b-q4km | **128k** (default) | `l60-mtp3-128k` | 128k | f16 | **53.5** (60.2 on code) | 961 t/s |
 | | fast | `l50-mtp3-32k` | 32k | f16 | 55.0 (62.0 on code) | 935 t/s |
 | | 262k | `l60-mtp3-262k-q8` | 262k | q8_0 | 51.7 | 942 t/s |
+| apex-35b-v1 | **262k** (default) | `l60-nodraft-262k` | 262k | f16 | **100.6** | 1133 t/s |
+| | 128k | `l60-nodraft-128k` | 128k | f16 | 100.4 | 1127 t/s |
+| | code | `auto-mtp3-32k` | 32k | f16 | 92.5 (**110.8** on code) | 923 t/s |
 | qwen3.8-40b-heretic | **64k** (default) | `auto-mtp2-64k` | 64k | f16 | **35.7** (37.5 on code) | 580 t/s |
 | | code | `auto-mtp4-32k` | 32k | f16 | 34.9 (**38.8** on code) | 586 t/s |
 | | 128k | `l55-mtp3-128k-q4` | 128k | q4_0 | 34.5 | 578 t/s |
@@ -133,6 +136,10 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
 - **Qwen3.8-27B UD-Q4_K_M** (same repo, 16.6 GB; hard suite 90.8 on `128k`, the top of the leaderboard, with instruction following at 42, the lowest of the top models): about 13% faster than Q5 (53.5 vs 47.2 at 128k). 262k q8 fits at 60/40
   (51.7). Its 128k run with the 45/55 split crashed the CUDA process (the V100 was full); the 60/40 split works.
   GPU log (1 s) for the Q5 tune: V100 peaks 265 W over its 230 W limit at 84 C; A4500 167 W / 66 C. No crash.
+- **Apex-35B-V1.0** (Apex Intelligence fine-tune of Qwen3.6-35B-A3B for coding, tools and agent work; their GGUF Q4_K_M
+  21.7 GB, MoE, text only - the GGUF repo has no vision projector; main kernel): no draft is fastest, ~100 tok/s on the
+  60/40 split at every context (32k 99.3, 128k 100.4, 262k f16 100.6; auto split 93-96, 50/50 95.5). The GGUF keeps the MTP
+  head: MTP 3 gives 110.8 on code but 74.3 on chat (60% accepted), MTP 2 85.8 mean, so MTP is only the `code` preset.
 - **Qwen3.8-40B Ultimate Heretic Turbo-Brilliance** (DavidAU: Qwen3.8-27B heretic fine-tune expanded to 40B and trained
   again; `MTP-Q4_K_M` 24.2 GB, dense, MTP built in, vision; main kernel): MTP gives 1.65x (MTP 2 35.6, 3 35.3, 4 34.9 tok/s
   vs 21.5 without, 58-74% accepted). Splits within 0.3 tok/s (auto, 50/50, 55/45, 60/40). Its KV is large (128k f16 needs

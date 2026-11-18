@@ -74,6 +74,14 @@
         { "name": "128k", "config": "auto-mtp4-128k-q8", "summary": "128k ctx, q8 KV, MTP 4 - 39.3 tok/s (both GPUs nearly full; f16 and 262k do not fit)" }
       ]
     },
+    "apex-35b-v1": {
+      "default": "262k",
+      "presets": [
+        { "name": "262k", "config": "l60-nodraft-262k", "summary": "default: full 262k ctx, f16 KV, no draft, split 60/40 - 100.6 tok/s, 7k prompt 1133 t/s (text only)" },
+        { "name": "128k", "config": "l60-nodraft-128k", "summary": "128k ctx, f16 KV, split 60/40 - 100.4 tok/s, less VRAM" },
+        { "name": "code", "config": "auto-mtp3-32k",    "summary": "code: 32k ctx, MTP 3 - 110.8 tok/s on code, 74.3 on chat" }
+      ]
+    },
     "qwen3.8-40b-heretic": {
       "default": "64k",
       "presets": [
