@@ -71,6 +71,9 @@ small-active MoE models one V100 with a 3-bit quant is faster (the whole model s
 | qwen3.8-27b-nov12 | **128k** (default) | `l60-mtp3-128k` | 128k | f16 | **47.2** (53.6 on code) | 901 t/s |
 | | fast | `l45-mtp4-32k` | 32k | f16 | 48.9 (58.2 on code) | 866 t/s |
 | | 262k | `l65-mtp3-262k-q4-ub256` | 262k | q4_0 | 45.3 | 844 t/s |
+| qwen3.8-27b-pi | **128k** (default) | `l60-mtp3-128k` | 128k | f16 | **40.3** (46.6 on code) | 730 t/s |
+| | fast | `l45-mtp4-32k` | 32k | f16 | 43.6 (49.9 on code) | 738 t/s |
+| | 262k | `l65-mtp3-262k-q4-ub256` | 262k | q4_0 | 40.4 | 655 t/s |
 | qwen3.8-27b-q4km | **128k** (default) | `l60-mtp3-128k` | 128k | f16 | **53.5** (60.2 on code) | 961 t/s |
 | | fast | `l50-mtp3-32k` | 32k | f16 | 55.0 (62.0 on code) | 935 t/s |
 | | 262k | `l60-mtp3-262k-q8` | 262k | q8_0 | 51.7 | 942 t/s |
@@ -134,6 +137,12 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
   kept, so the older results stay valid): MTP built in (72-74% accepted). 45/55 split runs out of V100 memory at 128k and
   262k, so the long-context presets use 60/40 and 65/35. 128k f16 60/40 47.2, 65/35 46.3; 262k q4 with ub 256 45.3; 262k q8
   60/40 does not start. Not run on the hard suite yet.
+- **Qwen3.8-27B pi-adapted** (harness-hub: a LoRA adapter, RL-trained with GRPO, that tunes Qwen3.8-27B for the pi
+  coding agent; their numbers on BF16, thinking off: Terminal-Bench 2.1 39.5 -> 55.8, SWE-bench Pro hard-51 29.4 -> 62.7).
+  Their 319 MB `Qwen3.8-27B-pi-lora-F16.gguf` is loaded with `--lora` (new `"lora"` field in the model config) on the
+  2026-11-12 UD-Q5_K_XL base (hardlinked, no second copy; the authors suggest a Q8_0 base). The LoRA costs ~15% speed
+  against the plain Q5 (128k 40.3 vs 47.2, MTP 4 32k 43.6 vs 48.9); MTP still 1.9x (23.0 without), 67-77% accepted, so
+  the untouched MTP head still matches. All 7 configs pass, including 262k with q4 KV (40.4).
 - **Qwen3.8-27B UD-Q4_K_M** (same repo, 16.6 GB; hard suite 90.8 on `128k`, the top of the leaderboard, with instruction following at 42, the lowest of the top models): about 13% faster than Q5 (53.5 vs 47.2 at 128k). 262k q8 fits at 60/40
   (51.7). Its 128k run with the 45/55 split crashed the CUDA process (the V100 was full); the 60/40 split works.
   GPU log (1 s) for the Q5 tune: V100 peaks 265 W over its 230 W limit at 84 C; A4500 167 W / 66 C. No crash.

@@ -39,6 +39,8 @@ function Get-SrvArgs($m, $c) {
            '--jinja', '--cache-ram', '2048', '--host', '127.0.0.1', '--port', "$Port")
     if (-not $c.fit) { $a += @('-ngl', 'all') }
     if ($m.mmproj) { $a += @('--mmproj', "$md\$($m.mmproj)"); if ($c.mmgpu -eq $false) { $a += '--no-mmproj-offload' } }
+    # m.lora: a LoRA adapter GGUF in the model folder, applied on top of the base gguf
+    if ($m.lora) { $a += @('--lora', "$md\$($m.lora)") }
     if ($m.sampling) { $a += @($m.sampling) }
     if ($kv -ne 'f16') { $a += @('-ctk', $kv, '-ctv', $kv) }
     if ($c.sm) { $a += @('-sm', $c.sm) }

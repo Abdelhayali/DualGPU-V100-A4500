@@ -1,0 +1,51 @@
+{
+  "id": "qwen3.8-27b-pi",
+  "name": "Qwen3.8-27B pi-adapted (harness-hub LoRA on unsloth UD-Q5_K_XL, dense, MTP built in, vision)",
+  "gguf": "Qwen3.8-27B-UD-Q5_K_XL.gguf",
+  "mmproj": "mmproj-F16.gguf",
+  "lora": "Qwen3.8-27B-pi-lora-F16.gguf",
+  "files": [
+    {
+      "repo": "unsloth/Qwen3.8-27B-GGUF",
+      "file": "Qwen3.8-27B-UD-Q5_K_XL.gguf",
+      "gb": 20.98,
+      "note": "same file as models/qwen3.8-27b-nov12 (hardlinked there, no second copy)"
+    },
+    {
+      "repo": "unsloth/Qwen3.8-27B-GGUF",
+      "file": "mmproj-F16.gguf",
+      "gb": 0.93
+    },
+    {
+      "repo": "harness-hub/Qwen3.8-27B-pi-adapted-GGUF",
+      "file": "Qwen3.8-27B-pi-lora-F16.gguf",
+      "gb": 0.32,
+      "sha256": "a64f91844f19e67da500d8628bdf9383aa334e61b7ab687805802e7d272d7b67"
+    }
+  ],
+  "sampling": [
+    "--temp",
+    "0.7",
+    "--top-k",
+    "20",
+    "--top-p",
+    "0.8",
+    "--min-p",
+    "0"
+  ],
+  "notes": "harness-hub LoRA (RL-trained, GRPO) that tunes Qwen3.8-27B for the pi coding agent: Terminal-Bench 2.1 39.5 -> 55.8, SWE-bench Pro hard-51 29.4 -> 62.7 (their numbers, BF16, thinking off). Served as --lora on the base GGUF. The authors suggest a Q8_0 base; this uses the Q5_K_XL base already on disk. The MTP head is not touched by the LoRA. ts = A4500,V100.",
+  "configs": [
+    { "name": "l45-mtp3-32k", "ctx": 32768, "sm": "layer", "ts": "45,55", "spec": "mtp", "n": 3 },
+    { "name": "l60-mtp3-32k", "ctx": 32768, "sm": "layer", "ts": "60,40", "spec": "mtp", "n": 3 },
+    { "name": "l45-nodraft-32k", "ctx": 32768, "sm": "layer", "ts": "45,55" },
+    { "name": "l45-mtp4-32k", "ctx": 32768, "sm": "layer", "ts": "45,55", "spec": "mtp", "n": 4 },
+    { "name": "l60-mtp3-128k", "ctx": 131072, "sm": "layer", "ts": "60,40", "spec": "mtp", "n": 3 },
+    { "name": "l65-mtp3-128k", "ctx": 131072, "sm": "layer", "ts": "65,35", "spec": "mtp", "n": 3 },
+    { "name": "l65-mtp3-262k-q4-ub256", "ctx": 262144, "sm": "layer", "ts": "65,35", "kv": "q4_0", "ub": 256, "spec": "mtp", "n": 3 }
+  ],
+  "sets": {
+    "split": ["l45-mtp3-32k", "l60-mtp3-32k"],
+    "spec": ["l45-nodraft-32k", "l45-mtp4-32k"],
+    "ctx": ["l60-mtp3-128k", "l65-mtp3-128k", "l65-mtp3-262k-q4-ub256"]
+  }
+}
