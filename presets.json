@@ -82,6 +82,14 @@
         { "name": "code", "config": "auto-mtp3-32k",    "summary": "code: 32k ctx, MTP 3 - 110.8 tok/s on code, 74.3 on chat" }
       ]
     },
+    "qwen2.5-coder-32b-pcb": {
+      "default": "32k",
+      "presets": [
+        { "name": "32k",  "config": "auto-nodraft-32k",         "summary": "default: 32k ctx (native), f16 KV, no drafting - 20.9 tok/s, 7k prompt 684 t/s, text only (Simonssb KiCad PCB LoRA on Qwen2.5-Coder-32B Q4_K_M)" },
+        { "name": "code", "config": "auto-draft16-32k",         "summary": "code/JSON: 32k ctx, 0.5B coder draft, 16 tokens - 30.6 tok/s on code, but 8.6 on chat" },
+        { "name": "128k", "config": "l55-nodraft-128k-q4-yarn", "summary": "128k ctx with YaRN (native 32k), q4 KV, split 55/45, ub 256 - 20.4 tok/s" }
+      ]
+    },
     "qwen3.8-27b-pi": {
       "default": "128k",
       "presets": [

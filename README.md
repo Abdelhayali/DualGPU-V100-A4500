@@ -72,6 +72,9 @@ small-active MoE models one V100 with a 3-bit quant is faster (the whole model s
 | qwen3.8-27b-nov12 | **128k** (default) | `l60-mtp3-128k` | 128k | f16 | **47.2** (53.6 on code) | 901 t/s |
 | | fast | `l45-mtp4-32k` | 32k | f16 | 48.9 (58.2 on code) | 866 t/s |
 | | 262k | `l65-mtp3-262k-q4-ub256` | 262k | q4_0 | 45.3 | 844 t/s |
+| qwen2.5-coder-32b-pcb | **32k** (default) | `auto-nodraft-32k` | 32k | f16 | **20.9** | 684 t/s |
+| | code | `auto-draft16-32k` (0.5B draft) | 32k | f16 | 19.6 (**30.6** on code, 8.6 on chat) | 629 t/s |
+| | 128k | `l55-nodraft-128k-q4-yarn` | 128k | q4_0 | 20.4 | 549 t/s |
 | qwen3.8-27b-pi | **128k** (default) | `l60-mtp3-128k` | 128k | f16 | **40.3** (46.6 on code) | 730 t/s |
 | | fast | `l45-mtp4-32k` | 32k | f16 | 43.6 (49.9 on code) | 738 t/s |
 | | 262k | `l65-mtp3-262k-q4-ub256` | 262k | q4_0 | 40.4 | 655 t/s |
@@ -138,6 +141,14 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
   kept, so the older results stay valid): MTP built in (72-74% accepted). 45/55 split runs out of V100 memory at 128k and
   262k, so the long-context presets use 60/40 and 65/35. 128k f16 60/40 47.2, 65/35 46.3; 262k q4 with ub 256 45.3; 262k q8
   60/40 does not start. Not run on the hard suite yet.
+- **Qwen2.5-Coder-32B PCB GRPO** (Simonssb: LoRA r=32, QLoRA SFT + GRPO on 254 KiCad boards; from a netlist/footprint
+  summary it writes `groups.json` + `routing_strategy.json` for drandyhaas/KiCadRoutingTools). The HF repo only has the PEFT
+  adapter, so it was converted here (llama.cpp `convert_lora_to_gguf.py --outtype f16`, 537 MB, in the repo release
+  `lora-qwen2.5-coder-32b-pcb`) and runs with `--lora` on Qwen's official Q4_K_M (it was trained on a 4-bit base). Dense
+  32B, no MTP: 20.9 tok/s, all splits within 0.2. Speculative decoding with Qwen2.5-Coder-0.5B as draft (new `spec: draft`)
+  helps code (27.9 at 8 tokens, 30.6 at 16) but halves chat (8.6-12.7; only 14-26% accepted with p-min 0, 73-88% with
+  p-min 0.6-0.8 but still slower), so the default runs without it; n-gram lookup (new `spec: ngram`) changes nothing.
+  Native context 32k; f16 KV does not fit 64k, 64k q8 (20.4) and 128k q4 (20.4) run with YaRN.
 - **Qwen3.8-27B pi-adapted** (harness-hub: a LoRA adapter, RL-trained with GRPO, that tunes Qwen3.8-27B for the pi
   coding agent; their numbers on BF16, thinking off: Terminal-Bench 2.1 39.5 -> 55.8, SWE-bench Pro hard-51 29.4 -> 62.7).
   Their 319 MB `Qwen3.8-27B-pi-lora-F16.gguf` is loaded with `--lora` (new `"lora"` field in the model config) on the

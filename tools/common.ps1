@@ -48,10 +48,12 @@ function Get-SrvArgs($m, $c) {
     if ($null -ne $c.mg) { $a += @('-mg', "$($c.mg)") }
     if ($c.cpumoe) { $a += @('--n-cpu-moe', "$($c.cpumoe)") }
     if ($c.spec) {
-        $type = @{ mtp = 'draft-mtp'; dflash = 'draft-dflash'; dspark = 'draft-dspark' }[$c.spec]
+        # draft = a small model of the same family (m.draft), ngram = lookup in the context so far (no extra model)
+        $type = @{ mtp = 'draft-mtp'; dflash = 'draft-dflash'; dspark = 'draft-dspark'; draft = 'draft-simple'; ngram = 'ngram-simple' }[$c.spec]
         $a += @('--spec-type', $type, '--spec-draft-n-max', "$($c.n)", '--spec-draft-p-min', '0')
         # MTP heads normally sit in the model file; m.mtp names a separate head file (Qwen3.8-Flash-Next)
-        if ($c.spec -ne 'mtp') { $a += @('--spec-draft-model', "$md\$draft", '--spec-draft-ngl', 'all') }
+        if ($c.spec -eq 'ngram') { }
+        elseif ($c.spec -ne 'mtp') { $a += @('--spec-draft-model', "$md\$draft", '--spec-draft-ngl', 'all') }
         elseif ($m.mtp) { $a += @('--spec-draft-model', "$md\$($m.mtp)", '--spec-draft-ngl', 'all') }
         if ($c.devd) { $a += @('--spec-draft-device', $c.devd) }
         if ($kv -ne 'f16') { $a += @('--spec-draft-type-k', $kv, '--spec-draft-type-v', $kv) }

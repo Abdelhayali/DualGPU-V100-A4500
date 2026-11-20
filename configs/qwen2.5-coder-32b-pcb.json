@@ -1,0 +1,185 @@
+{
+  "id": "qwen2.5-coder-32b-pcb",
+  "name": "Qwen2.5-Coder-32B PCB GRPO (Simonssb LoRA on Qwen Q4_K_M, dense, text only)",
+  "gguf": "qwen2.5-coder-32b-instruct-q4_k_m.gguf",
+  "lora": "qwen2.5-coder-32b-pcb-grpo-lora-F16.gguf",
+  "draft": "qwen2.5-coder-0.5b-instruct-q8_0.gguf",
+  "files": [
+    {
+      "repo": "Qwen/Qwen2.5-Coder-32B-Instruct-GGUF",
+      "file": "qwen2.5-coder-32b-instruct-q4_k_m.gguf",
+      "gb": 19.85
+    },
+    {
+      "repo": "Simonssb/qwen2.5-coder-32b-pcb-grpo",
+      "file": "qwen2.5-coder-32b-pcb-grpo-lora-F16.gguf",
+      "gb": 0.54,
+      "note": "not in the repo: made here from its PEFT adapter (adapter_model.safetensors, r=32) with llama.cpp convert_lora_to_gguf.py --outtype f16 --base-model-id Qwen/Qwen2.5-Coder-32B-Instruct"
+    },
+    {
+      "repo": "Qwen/Qwen2.5-Coder-0.5B-Instruct-GGUF",
+      "file": "qwen2.5-coder-0.5b-instruct-q8_0.gguf",
+      "gb": 0.68,
+      "note": "only for spec=draft"
+    }
+  ],
+  "sampling": [
+    "--temp",
+    "0.7",
+    "--top-k",
+    "20",
+    "--top-p",
+    "0.8",
+    "--min-p",
+    "0",
+    "--repeat-penalty",
+    "1.05"
+  ],
+  "notes": "Simonssb LoRA (QLoRA SFT + GRPO on 254 KiCad boards) that turns Qwen2.5-Coder-32B-Instruct into a KiCad PCB planner: from a netlist/footprint summary (board_context.md) it writes groups.json and routing_strategy.json for drandyhaas/KiCadRoutingTools. Trained on a 4-bit base, so the Q4_K_M base is a close match. No MTP head: speculative decoding with the 0.5B coder as draft, or n-gram lookup. Native context 32k; 64k/128k use YaRN. Sampling: Qwen2.5-Coder defaults. ts = A4500,V100.",
+  "configs": [
+    {
+      "name": "auto-nodraft-32k",
+      "ctx": 32768,
+      "sm": "layer"
+    },
+    {
+      "name": "l55-nodraft-32k",
+      "ctx": 32768,
+      "sm": "layer",
+      "ts": "55,45"
+    },
+    {
+      "name": "l60-nodraft-32k",
+      "ctx": 32768,
+      "sm": "layer",
+      "ts": "60,40"
+    },
+    {
+      "name": "auto-draft8-32k",
+      "ctx": 32768,
+      "sm": "layer",
+      "spec": "draft",
+      "n": 8
+    },
+    {
+      "name": "auto-draft16-32k",
+      "ctx": 32768,
+      "sm": "layer",
+      "spec": "draft",
+      "n": 16
+    },
+    {
+      "name": "auto-ngram8-32k",
+      "ctx": 32768,
+      "sm": "layer",
+      "spec": "ngram",
+      "n": 8
+    },
+    {
+      "name": "auto-draft8-64k-yarn",
+      "ctx": 65536,
+      "sm": "layer",
+      "spec": "draft",
+      "n": 8,
+      "extra": [
+        "--rope-scaling",
+        "yarn",
+        "--rope-scale",
+        "2",
+        "--yarn-orig-ctx",
+        "32768"
+      ]
+    },
+    {
+      "name": "auto-draft8-128k-q8-yarn",
+      "ctx": 131072,
+      "sm": "layer",
+      "kv": "q8_0",
+      "spec": "draft",
+      "n": 8,
+      "extra": [
+        "--rope-scaling",
+        "yarn",
+        "--rope-scale",
+        "4",
+        "--yarn-orig-ctx",
+        "32768"
+      ]
+    },
+    {
+      "name": "auto-draft4-32k-p06",
+      "ctx": 32768,
+      "sm": "layer",
+      "spec": "draft",
+      "n": 4,
+      "extra": [
+        "--spec-draft-p-min",
+        "0.6"
+      ]
+    },
+    {
+      "name": "auto-draft8-32k-p08",
+      "ctx": 32768,
+      "sm": "layer",
+      "spec": "draft",
+      "n": 8,
+      "extra": [
+        "--spec-draft-p-min",
+        "0.8"
+      ]
+    },
+    {
+      "name": "l55-nodraft-64k-q8-yarn",
+      "ctx": 65536,
+      "sm": "layer",
+      "ts": "55,45",
+      "kv": "q8_0",
+      "extra": [
+        "--rope-scaling",
+        "yarn",
+        "--rope-scale",
+        "2",
+        "--yarn-orig-ctx",
+        "32768"
+      ]
+    },
+    {
+      "name": "l55-nodraft-128k-q4-yarn",
+      "ctx": 131072,
+      "sm": "layer",
+      "ts": "55,45",
+      "kv": "q4_0",
+      "ub": 256,
+      "extra": [
+        "--rope-scaling",
+        "yarn",
+        "--rope-scale",
+        "4",
+        "--yarn-orig-ctx",
+        "32768"
+      ]
+    }
+  ],
+  "sets": {
+    "split": [
+      "auto-nodraft-32k",
+      "l55-nodraft-32k",
+      "l60-nodraft-32k"
+    ],
+    "spec": [
+      "auto-draft8-32k",
+      "auto-draft16-32k",
+      "auto-ngram8-32k"
+    ],
+    "round2": [
+      "auto-draft4-32k-p06",
+      "auto-draft8-32k-p08",
+      "l55-nodraft-64k-q8-yarn",
+      "l55-nodraft-128k-q4-yarn"
+    ],
+    "ctx-failed-vram": [
+      "auto-draft8-64k-yarn",
+      "auto-draft8-128k-q8-yarn"
+    ]
+  }
+}

@@ -125,6 +125,24 @@
   "size": 927606848,
   "url": "https://huggingface.co/orcarouter/OrcaCyber-Nano-1.0/resolve/1af1635aa22b97e965450c2d69525761d9bd463f/mmproj-OrcaCyber-Nano-1.0-AI-Defense-F16.gguf"
  },
+ "qwen2.5-coder-32b-pcb/qwen2.5-coder-0.5b-instruct-q8_0.gguf": {
+  "repo": "Qwen/Qwen2.5-Coder-0.5B-Instruct-GGUF",
+  "sha256": "e1a77721fa97d412f121878223eec81fb4ae6f271e18f922d746711f67b344d1",
+  "size": 675710848,
+  "url": "https://huggingface.co/Qwen/Qwen2.5-Coder-0.5B-Instruct-GGUF/resolve/main/qwen2.5-coder-0.5b-instruct-q8_0.gguf"
+ },
+ "qwen2.5-coder-32b-pcb/qwen2.5-coder-32b-instruct-q4_k_m.gguf": {
+  "repo": "Qwen/Qwen2.5-Coder-32B-Instruct-GGUF",
+  "sha256": "4d64b316b5e6319d9613e0d97935d9ebd631fc7e334da400d00085eca749d085",
+  "size": 19851335872,
+  "url": "https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct-GGUF/resolve/main/qwen2.5-coder-32b-instruct-q4_k_m.gguf"
+ },
+ "qwen2.5-coder-32b-pcb/qwen2.5-coder-32b-pcb-grpo-lora-F16.gguf": {
+  "repo": "Abdelhayali/DualGPU-V100-A4500 (release)",
+  "sha256": "d932092a66a9d28c1e72eae597ad24408772433b80082c365bf0ac194f72f8bb",
+  "size": 536932928,
+  "url": "https://github.com/Abdelhayali/DualGPU-V100-A4500/releases/download/lora-qwen2.5-coder-32b-pcb/qwen2.5-coder-32b-pcb-grpo-lora-F16.gguf"
+ },
  "qwen3.6-35b-a3b/Qwen3.6-35B-A3B-UD-Q5_K_XL.gguf": {
   "repo": "unsloth/Qwen3.6-35B-A3B-MTP-GGUF",
   "sha256": "9de9a9420f61a0bb59bb2ca1ea170a6a57f6821fa1deec915bcaef523730a919",
