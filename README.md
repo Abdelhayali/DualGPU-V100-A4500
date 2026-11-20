@@ -40,6 +40,7 @@ start.bat minicpm-v4.7-35b-a3b fast       :: a named preset
 | 10 | Ripple-65B Preview AD-IQ3_XXS (28.0 GB, dense), text only | `64k` | 64k | 13.9 | 75 | 100 | 83 | 100 | 100 | - | 100 | **79.8**\* |
 | 11 | Apex-35B-V1.0 Q4_K_M (21.7 GB, MoE, fine-tune of Qwen3.6-35B-A3B), text only | `262k` | 262k | 100.2 | 50 | 85 | 25 | 63 | 100 | - | 100 | **60.4**\* |
 | 12 | Kimi-Linear 48B-A3B abliterated i1-Q4_K_M (27.7 GB), text only | `262k` | 262k | 100.9 | 56 | 60 | 50 | 88 | 100 | - | 50 | **57.7**\* |
+| 13 | Qwen2.5-Coder-32B PCB GRPO (Simonssb LoRA on Q4_K_M 19.9 GB + 0.5 GB, dense), text only | `32k` | 32k | 20.0 | 63 | 60 | 42 | 75 | 50 | - | 50 | **48.5**\* |
 
 † Run with reasoning on (`eval_thinking`, 5x token budget): with `enable_thinking=false` this model still reasons, into
 the answer, without closing `</think>`, which scored 80.7 (instruction following 8.3, coding 68.8). All other rows ran
@@ -149,6 +150,9 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
   helps code (27.9 at 8 tokens, 30.6 at 16) but halves chat (8.6-12.7; only 14-26% accepted with p-min 0, 73-88% with
   p-min 0.6-0.8 but still slower), so the default runs without it; n-gram lookup (new `spec: ngram`) changes nothing.
   Native context 32k; f16 KV does not fit 64k, 64k q8 (20.4) and 128k q4 (20.4) run with YaRN.
+  Hard suite 48.5 on `32k` (text 6 average 56.5): the PCB training shows - it answers reasoning questions with a bare
+  number at once, no working (60), and does not finish the agent tasks with tool calls (50). Not a general model; use it
+  for its KiCad planning prompts.
 - **Qwen3.8-27B pi-adapted** (harness-hub: a LoRA adapter, RL-trained with GRPO, that tunes Qwen3.8-27B for the pi
   coding agent; their numbers on BF16, thinking off: Terminal-Bench 2.1 39.5 -> 55.8, SWE-bench Pro hard-51 29.4 -> 62.7).
   Their 319 MB `Qwen3.8-27B-pi-lora-F16.gguf` is loaded with `--lora` (new `"lora"` field in the model config) on the
