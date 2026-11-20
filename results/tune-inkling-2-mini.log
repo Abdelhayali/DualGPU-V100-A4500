@@ -1,0 +1,24 @@
+[11-21 01:43:10] a4500-32k-min : loading
+[11-21 01:43:47] a4500-32k-min : loaded, vram 19699+318 MiB; speed test
+[11-21 01:44:11] a4500-32k-min : speed 29.7 tok/s; image test
+[11-21 01:44:17] a4500-32k-min : image True; 7k prompt
+[11-21 01:44:40] a4500-32k-min : MEAN 29.7 tok/s (code 29.7 / chat 29.7), vram 19805+318 MiB, image True, 7k prompt True @ 418 t/s -> pass
+[11-21 01:44:40] a4500-dspark8-32k-min : loading
+[11-21 01:45:26] a4500-dspark8-32k-min : does not start
+[11-21 01:45:26] a4500-dspark4-32k-min : loading
+[11-21 01:46:11] a4500-dspark4-32k-min : does not start
+[11-21 01:46:11] a4500-64k-q8-ub128-min : loading
+[11-21 01:46:48] a4500-64k-q8-ub128-min : loaded, vram 19629+318 MiB; speed test
+[11-21 01:47:13] a4500-64k-q8-ub128-min : speed 29.6 tok/s; image test
+[11-21 01:47:19] a4500-64k-q8-ub128-min : image True; 7k prompt
+[11-21 01:47:47] a4500-64k-q8-ub128-min : MEAN 29.6 tok/s (code 29.5 / chat 29.7), vram 19872+318 MiB, image True, 7k prompt True @ 332 t/s -> pass
+[11-21 01:47:47] a4500-128k-q4-ub64-min : loading
+[11-21 01:48:25] a4500-128k-q4-ub64-min : loaded, vram 18951+318 MiB; speed test
+[11-21 01:48:49] a4500-128k-q4-ub64-min : speed 29.2 tok/s; image test
+[11-21 01:48:59] a4500-128k-q4-ub64-min : image True; 7k prompt
+[11-21 01:49:34] a4500-128k-q4-ub64-min : MEAN 29.2 tok/s (code 29.2 / chat 29.1), vram 19226+318 MiB, image True, 7k prompt True @ 266 t/s -> pass
+[11-21 01:49:34] a4500-32k-high : loading
+[11-21 01:50:11] a4500-32k-high : loaded, vram 19738+318 MiB; speed test
+[11-21 01:50:35] a4500-32k-high : speed 29.7 tok/s; image test
+[11-21 01:50:43] a4500-32k-high : image True; 7k prompt
+[11-21 01:51:07] a4500-32k-high : MEAN 29.7 tok/s (code 29.4 / chat 29.9), vram 19846+318 MiB, image True, 7k prompt True @ 409 t/s -> pass

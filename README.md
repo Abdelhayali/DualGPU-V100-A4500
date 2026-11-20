@@ -73,6 +73,10 @@ small-active MoE models one V100 with a 3-bit quant is faster (the whole model s
 | qwen3.8-27b-nov12 | **128k** (default) | `l60-mtp3-128k` | 128k | f16 | **47.2** (53.6 on code) | 901 t/s |
 | | fast | `l45-mtp4-32k` | 32k | f16 | 48.9 (58.2 on code) | 866 t/s |
 | | 262k | `l65-mtp3-262k-q4-ub256` | 262k | q4_0 | 45.3 | 844 t/s |
+| inkling-2-mini | **32k** (default) | `a4500-32k-min` (A4500 only) | 32k | f16 | **29.7** | 418 t/s |
+| | think | `a4500-32k-high` (reasoning high) | 32k | f16 | 29.7 | 409 t/s |
+| | 64k | `a4500-64k-q8-ub128-min` | 64k | q8_0 | 29.6 | 332 t/s |
+| | 128k | `a4500-128k-q4-ub64-min` | 128k | q4_0 | 29.2 | 266 t/s |
 | qwen2.5-coder-32b-pcb | **32k** (default) | `auto-nodraft-32k` | 32k | f16 | **20.9** | 684 t/s |
 | | code | `auto-draft16-32k` (0.5B draft) | 32k | f16 | 19.6 (**30.6** on code, 8.6 on chat) | 629 t/s |
 | | 128k | `l55-nodraft-128k-q4-yarn` | 128k | q4_0 | 20.4 | 549 t/s |
@@ -142,6 +146,17 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
   kept, so the older results stay valid): MTP built in (72-74% accepted). 45/55 split runs out of V100 memory at 128k and
   262k, so the long-context presets use 60/40 and 65/35. 128k f16 60/40 47.2, 65/35 46.3; 262k q4 with ub 256 45.3; 262k q8
   60/40 does not start. Not run on the hard suite yet.
+- **Inkling-2-Mini** (Thinking Machines; new looped architecture: 24 layers of weights, the middle 12 run three times = 48
+  layer passes per token, MoE 8 of 128 experts, local + global attention, vision; unsloth `UD-Q4_K_M` 16.6 GB). Needs its own
+  kernel `bin-inkling` (upstream llama.cpp `91979450` + the unmerged looped-Inkling PR #32695, see `kernel/SOURCE.md`).
+  It runs on the **A4500 alone**: over both cards (`UD-Q8_K_XL`, every split tried) it made only 4.7-5.6 tok/s, since each
+  looped layer's weights sit on the card of its first pass and the later passes hop cards (~400 graph splits per token;
+  `-sm row` / `-sm tensor` are not supported for it). On one A4500: 29.7 tok/s (35 at 8k with ub 512). Its compute buffer
+  grows with context x ubatch (3.3 GB at 32k x 512), so 32k uses ub 256, 64k ub 128 + q8 KV (29.6), 128k ub 64 + q4 KV (29.2,
+  slower prompts: 266 t/s). The chat template ignores `enable_thinking` and defaults to reasoning effort 0.9 (high); the `-min`
+  configs set `reasoning_effort: minimal` as the server default (`--chat-template-kwargs`; `Start-Srv` now quotes arguments
+  so JSON values survive). Its DSpark drafter does not load in this build (vocabulary padding; DSpark for Inkling is the
+  unmerged PR #32218).
 - **Qwen2.5-Coder-32B PCB GRPO** (Simonssb: LoRA r=32, QLoRA SFT + GRPO on 254 KiCad boards; from a netlist/footprint
   summary it writes `groups.json` + `routing_strategy.json` for drandyhaas/KiCadRoutingTools). The HF repo only has the PEFT
   adapter, so it was converted here (llama.cpp `convert_lora_to_gguf.py --outtype f16`, 537 MB, in the repo release

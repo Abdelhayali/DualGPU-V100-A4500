@@ -66,7 +66,10 @@ function Stop-Srv { Get-Process llama-server -EA SilentlyContinue | Stop-Process
 
 function Start-Srv($a, $errlog) {
     Stop-Srv
-    $p = Start-Process "$Kd\llama-server.exe" -PassThru -WindowStyle Hidden -RedirectStandardError $errlog -ArgumentList $a
+    # Start-Process joins the list with spaces and no quoting: quote arguments with spaces or quotes (JSON values such as
+    # --chat-template-kwargs) the way the Windows command line parser expects
+    $q = @($a | ForEach-Object { $s = [string]$_; if ($s -match '[\s"]') { '"' + ($s -replace '"', '\"') + '"' } else { $s } })
+    $p = Start-Process "$Kd\llama-server.exe" -PassThru -WindowStyle Hidden -RedirectStandardError $errlog -ArgumentList $q
     for ($i = 0; $i -lt 200; $i++) {
         try { if ((Invoke-RestMethod "http://127.0.0.1:$Port/health" -TimeoutSec 3).status -eq 'ok') { return $true } } catch {}
         if ($p.HasExited) { return $false }; Start-Sleep 3

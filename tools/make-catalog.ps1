@@ -86,7 +86,11 @@ $cat = [ordered]@{
       'dualgpu-dspine' = [ordered]@{
         name = 'llama.cpp da8fd08 + DSpine drafter (Qwen3.8-27B)'
         desc = 'The same source plus the DSpine commit of Ajay9o9/llama.cpp dspine (kernel\patches\0003), built by tools\build-kernel.bat <cuda> dspine. kernel\bin-dspine.'
-        exe = 'llama-server.exe'; dir = 'bin-dspine' } }
+        exe = 'llama-server.exe'; dir = 'bin-dspine' }
+      'dualgpu-inkling' = [ordered]@{
+        name = 'llama.cpp 91979450 + looped Inkling-2-Mini (PR #32695)'
+        desc = 'Upstream llama.cpp 91979450 (2026-11-20, Inkling 2 support) plus kernel\patches\0004 (PR #32695, looped Inkling-2-Mini), no V100 MMVQ patch; built by tools\build-kernel.bat <cuda> inkling. kernel\bin-inkling.'
+        exe = 'llama-server.exe'; dir = 'bin-inkling' } }
     models = $models
 }
 [IO.File]::WriteAllText("$Root\catalog.json", ($cat | ConvertTo-Json -Depth 10), [Text.UTF8Encoding]::new($false))

@@ -82,6 +82,15 @@
         { "name": "code", "config": "auto-mtp3-32k",    "summary": "code: 32k ctx, MTP 3 - 110.8 tok/s on code, 74.3 on chat" }
       ]
     },
+    "inkling-2-mini": {
+      "default": "32k",
+      "presets": [
+        { "name": "32k",   "config": "a4500-32k-min",          "summary": "default: 32k ctx, f16 KV, A4500 only, reasoning effort minimal - 29.7 tok/s, 7k prompt 418 t/s, vision (looped MoE, kernel bin-inkling)" },
+        { "name": "think", "config": "a4500-32k-high",         "summary": "32k ctx, reasoning effort high (the model's default) - 29.7 tok/s, long answers" },
+        { "name": "64k",   "config": "a4500-64k-q8-ub128-min", "summary": "64k ctx, q8 KV, ubatch 128 - 29.6 tok/s, 7k prompt 332 t/s" },
+        { "name": "128k",  "config": "a4500-128k-q4-ub64-min", "summary": "128k ctx, q4 KV, ubatch 64, vision projector on CPU - 29.2 tok/s, 7k prompt 266 t/s" }
+      ]
+    },
     "qwen2.5-coder-32b-pcb": {
       "default": "32k",
       "presets": [

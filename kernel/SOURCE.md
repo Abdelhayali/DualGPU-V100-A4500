@@ -43,3 +43,18 @@ keeps DSpine tensors in BF16 when quantizing). Build: `tools\build-kernel.bat D:
 config with `"kernel": "dspine"` (draft type `draft-dflash`, `--spec-draft-n-max 15`).
 
 Models pick the Ripple build with `"kernel": "ripple"` in `configs/<id>.json` (tools) and the catalog kernel `dualgpu-ripple` (GUI).
+
+## Variant: `bin-inkling` (Inkling-2-Mini, looped `inkling2` architecture)
+
+`kernel/src-inkling` = upstream llama.cpp `91979450` (2026-11-20, 904 commits after `f336359`; has Inkling 2 text + vision,
+the Inkling chat parser and the attention-mask fixes) plus `patches/0004-inkling2-mini-loop-pr32695-applied.patch`:
+PR #32695 (Daniel Han, "Inkling-2-Mini - looped arch", 2 commits, not merged), which matches unsloth's GGUFs. The V100
+MMVQ patch does not apply to this tree, so it is left out (it only tuned i-quants on the V100).
+
+```bat
+git -C kernel\src worktree add --detach ..\src-inkling 91979450      (fetch https://github.com/ggml-org/llama.cpp first)
+git -C kernel\src-inkling apply ..\patches\0004-inkling2-mini-loop-pr32695-applied.patch
+tools\build-kernel.bat D:\pxa\cuda-12.9 inkling      (-> kernel\bin-inkling)
+```
+
+Note: in this build CUDA device 0 is the V100 (PCI order) when CUDA_VISIBLE_DEVICES is not set; the tools set it, A4500 first.
