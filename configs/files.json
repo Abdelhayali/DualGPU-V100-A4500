@@ -53,6 +53,12 @@
   "size": 899283104,
   "url": "https://huggingface.co/huihui-ai/Huihui-Qwen3.6-35B-A3B-abliterated-MTP-GGUF/resolve/main/mmproj-model-f16.gguf"
  },
+ "inkling-2-mini-uncensored/Inkling-2-Mini-Uncensored-AD-IQ3_S.gguf": {
+  "repo": "AtomicChat/Inkling-2-Mini-Uncensored-GGUF",
+  "sha256": "23a8e6792481b6f1d0ebad51399e9ee2a2c2be8525b09ed1ae6737811159f892",
+  "size": 13340510176,
+  "url": "https://huggingface.co/AtomicChat/Inkling-2-Mini-Uncensored-GGUF/resolve/main/Inkling-2-Mini-Uncensored-AD-IQ3_S.gguf"
+ },
  "inkling-2-mini-uncensored/Inkling-2-Mini-Uncensored-AD-Q4_K.gguf": {
   "repo": "AtomicChat/Inkling-2-Mini-Uncensored-GGUF",
   "sha256": "36e99f1f56ca33cb356f19d7e3822938f65af1cde978ad13170238928d4c955f",

@@ -97,7 +97,10 @@
         { "name": "32k",   "config": "a4500-32k-min",          "summary": "default: 32k ctx, f16 KV, A4500 only, reasoning effort minimal - 37.5 tok/s, 7k prompt 468 t/s, vision (AtomicChat uncensored AD-Q4_K, kernel bin-inklingm)" },
         { "name": "think", "config": "a4500-32k-high",         "summary": "32k ctx, reasoning effort high - 37.5 tok/s" },
         { "name": "64k",   "config": "a4500-64k-q8-ub128-min", "summary": "64k ctx, q8 KV, ubatch 128 - 35.7 tok/s" },
-        { "name": "128k",  "config": "a4500-128k-q4-ub64-min", "summary": "128k ctx, q4 KV, ubatch 64, vision projector on CPU - 36.9 tok/s, 7k prompt 296 t/s" }
+        { "name": "128k",  "config": "a4500-128k-q4-ub64-min", "summary": "128k ctx, q4 KV, ubatch 64, vision projector on CPU - 36.9 tok/s, 7k prompt 296 t/s" },
+        { "name": "v100",      "config": "v100-32k-q8-ub128-min",  "summary": "Tesla V100 ONLY (A4500 stays free): AD-IQ3_S 13.3 GB, 32k ctx, q8 KV - 33.0 tok/s, 7k prompt 377 t/s; next to another model: start.bat inkling-2-mini-uncensored v100 8900" },
+        { "name": "v100-64k",  "config": "v100-64k-q8-ub64-min",   "summary": "V100 only, 64k ctx, q8 KV, ubatch 64 - 33.0 tok/s" },
+        { "name": "v100-128k", "config": "v100-128k-q4-ub32-min",  "summary": "V100 only, 128k ctx, q4 KV, ubatch 32, vision projector on CPU - 32.8 tok/s, 7k prompt 234 t/s" }
       ]
     },
     "qwen2.5-coder-32b-pcb": {

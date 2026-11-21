@@ -22,7 +22,8 @@ function Get-ModelCfg($id) {
 #   gguf (overrides the model default), ctx, kv (f16/q8_0/q4_0), b, ub, sm (layer/row/tensor/none), ts ("a,b"), mg,
 #   spec (mtp/dflash), n, draft (draft file, default the model's), kernel (variant build for this config, default the
 #   model's), mmgpu (vision projector on GPU, default true), cpumoe (experts of the first N layers stay in
-#   system RAM, for models bigger than both GPUs), fit (no -ngl: llama.cpp's --fit picks the GPU/RAM split), extra (array of raw args)
+#   system RAM, for models bigger than both GPUs), fit (no -ngl: llama.cpp's --fit picks the GPU/RAM split), extra (array of raw args),
+#   gpu ("V100" / "A4500": that card only, the other one stays free for a second server; see Use-SrvGpu)
 function Get-SrvArgs($m, $c) {
     $k = if ($c.kernel) { $c.kernel } else { $m.kernel }
     $script:Kd = if ($k) { "$Root\kernel\bin-$k" } else { "$Root\kernel\bin" }
@@ -45,7 +46,16 @@ function Get-SrvArgs($m, $c) {
     if ($kv -ne 'f16') { $a += @('-ctk', $kv, '-ctv', $kv) }
     if ($c.sm) { $a += @('-sm', $c.sm) }
     if ($c.ts) { $a += @('-ts', $c.ts) }
-    if ($null -ne $c.mg) { $a += @('-mg', "$($c.mg)") }
+    # gpu: run on that one card only ("V100" / "A4500"). The args keep its index in the full order (what the GUI sees,
+    # both cards visible); Start-Srv / serve.ps1 then hide the other card (Use-SrvGpu), so it stays free for a second server
+    $script:SrvGpu = $null
+    if ($c.gpu) {
+        $gi = [array]::FindIndex([object[]]$Gpus, [Predicate[object]] { param($g) $g.name -match $c.gpu })
+        if ($gi -lt 0) { throw "no GPU matching $($c.gpu)" }
+        $script:SrvGpu = $Gpus[$gi].uuid
+        $a += @('-sm', 'none', '-mg', "$gi")
+    }
+    if ($null -ne $c.mg -and -not $c.gpu) { $a += @('-mg', "$($c.mg)") }
     if ($c.cpumoe) { $a += @('--n-cpu-moe', "$($c.cpumoe)") }
     if ($c.spec) {
         # draft = a small model of the same family (m.draft), ngram = lookup in the context so far (no extra model)
@@ -64,12 +74,24 @@ function Get-SrvArgs($m, $c) {
 
 function Stop-Srv { Get-Process llama-server -EA SilentlyContinue | Stop-Process -Force; Start-Sleep 3 }
 
+# For a config with "gpu": show llama-server only that card (CUDA_VISIBLE_DEVICES), which then is device 0. Returns the
+# args to use; Restore-SrvGpu puts the two-card list back.
+function Use-SrvGpu($a) {
+    if (-not $script:SrvGpu) { return , $a }
+    $env:CUDA_VISIBLE_DEVICES = $script:SrvGpu
+    $o = @($a); $i = [array]::IndexOf($o, '-mg'); if ($i -ge 0) { $o[$i + 1] = '0' }
+    return , $o
+}
+# Start-Process (and & in Windows PowerShell 5.1) joins the list with spaces and no quoting: quote arguments with spaces
+# or quotes (JSON values such as --chat-template-kwargs) the way the Windows command line parser expects
+function Get-QuotedArgs($a) { return , @($a | ForEach-Object { $s = [string]$_; if ($s -match '[\s"]') { '"' + ($s -replace '"', '\"') + '"' } else { $s } }) }
+function Restore-SrvGpu { $env:CUDA_VISIBLE_DEVICES = ($Gpus.uuid -join ',') }
+
 function Start-Srv($a, $errlog) {
     Stop-Srv
-    # Start-Process joins the list with spaces and no quoting: quote arguments with spaces or quotes (JSON values such as
-    # --chat-template-kwargs) the way the Windows command line parser expects
-    $q = @($a | ForEach-Object { $s = [string]$_; if ($s -match '[\s"]') { '"' + ($s -replace '"', '\"') + '"' } else { $s } })
-    $p = Start-Process "$Kd\llama-server.exe" -PassThru -WindowStyle Hidden -RedirectStandardError $errlog -ArgumentList $q
+    $a = Use-SrvGpu $a
+    $p = Start-Process "$Kd\llama-server.exe" -PassThru -WindowStyle Hidden -RedirectStandardError $errlog -ArgumentList (Get-QuotedArgs $a)
+    Restore-SrvGpu
     for ($i = 0; $i -lt 200; $i++) {
         try { if ((Invoke-RestMethod "http://127.0.0.1:$Port/health" -TimeoutSec 3).status -eq 'ok') { return $true } } catch {}
         if ($p.HasExited) { return $false }; Start-Sleep 3

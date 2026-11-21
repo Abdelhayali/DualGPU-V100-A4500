@@ -4385,7 +4385,7 @@
                    {
                        "id":  "inkling-2-mini-uncensored",
                        "name":  "Inkling-2-Mini Uncensored AD-Q4_K (AtomicChat, looped MoE 26B, vision; A4500 only)",
-                       "desc":  "AtomicChat\u0027s uncensored Inkling-2-Mini: a rank-1 LoRA (refusal direction removed per layer, all 24 layers + embedding) baked into their AD-Q4_K (their numbers: 0 refusals on the harmful test sets, MMLU 79.15 vs 80.65). Files in the merged llama.cpp layout (arch inkling2_loop, PR #32694), so it needs kernel bin-inklingm = llama.cpp master e50c254a (2026-11-21); it does not load on bin-inkling. Same runtime rules as inkling-2-mini: A4500 alone (split over both cards ~9 tok/s), compute buffer grows with context x ubatch, reasoning_effort minimal as the server default in the -min configs. ts = A4500,V100.",
+                       "desc":  "AtomicChat\u0027s uncensored Inkling-2-Mini: a rank-1 LoRA (refusal direction removed per layer, all 24 layers + embedding) baked into their AD-Q4_K (their numbers: 0 refusals on the harmful test sets, MMLU 79.15 vs 80.65). Files in the merged llama.cpp layout (arch inkling2_loop, PR #32694), so it needs kernel bin-inklingm = llama.cpp master e50c254a (2026-11-21); it does not load on bin-inkling. Same runtime rules as inkling-2-mini: A4500 alone (split over both cards ~9 tok/s), compute buffer grows with context x ubatch, reasoning_effort minimal as the server default in the -min configs. ts = A4500,V100. The v100-* configs run AD-IQ3_S (13.3 GB) on the Tesla V100 alone (config gpu: V100, the A4500 stays free for a second server, e.g. start.bat \u003cmodel\u003e v100 8900). Q4_K split with most layers on the V100 (ts over the 48 looped layer slots, A4500 first): 2/46 and 3/45 run the V100 out of memory, 4/44 18.2 tok/s (A4500 4.9 GB, V100 15.6 GB), 5/43 14.9, 6/42 12.7, 8/40 9.8, 12/36 9.7: every split is about half the speed of one card or worse.",
                        "files":  [
                                      {
                                          "name":  "Inkling-2-Mini-Uncensored-AD-Q4_K.gguf",
@@ -4400,6 +4400,13 @@
                                          "size":  639348448,
                                          "sha256":  "5a72e0b6e2bef13c3f455f4edb85df0c752b92ff76ab46af879eae088163efe6",
                                          "url":  "https://huggingface.co/AtomicChat/Inkling-2-Mini-Uncensored-GGUF/resolve/main/mmproj-Inkling-2-Mini-Uncensored-F16.gguf"
+                                     },
+                                     {
+                                         "name":  "Inkling-2-Mini-Uncensored-AD-IQ3_S.gguf",
+                                         "repo":  "AtomicChat/Inkling-2-Mini-Uncensored-GGUF",
+                                         "size":  13340510176,
+                                         "sha256":  "23a8e6792481b6f1d0ebad51399e9ee2a2c2be8525b09ed1ae6737811159f892",
+                                         "url":  "https://huggingface.co/AtomicChat/Inkling-2-Mini-Uncensored-GGUF/resolve/main/Inkling-2-Mini-Uncensored-AD-IQ3_S.gguf"
                                      }
                                  ],
                        "model":  "Inkling-2-Mini-Uncensored-AD-Q4_K.gguf",
@@ -4739,6 +4746,471 @@
                                                           [
                                                               "-mg",
                                                               "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--chat-template-kwargs",
+                                                              "{\"reasoning_effort\":\"minimal\"}",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "v100",
+                                           "name":  "v100: Tesla V100 ONLY (A4500 stays free): AD-IQ3_S 13.3 GB, 32k ctx, q8 KV - 33.0 tok/s, 7k prompt 377 t/s; next to another model: start.bat inkling-2-mini-uncensored v100 8900",
+                                           "kernel":  "dualgpu-inklingm",
+                                           "kernels":  [
+                                                           "dualgpu-inklingm"
+                                                       ],
+                                           "bench":  "33.0 tok/s (code 33.0 / chat 33.0), 7k prompt 377 t/s, VRAM 735+15060 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-m",
+                                                              "{model:Inkling-2-Mini-Uncensored-AD-IQ3_S.gguf}",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-c",
+                                                              "32768",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "128",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "128",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "1.0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.95",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctk",
+                                                              "q8_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctv",
+                                                              "q8_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "none",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-mg",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--chat-template-kwargs",
+                                                              "{\"reasoning_effort\":\"minimal\"}",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "v100-64k",
+                                           "name":  "v100-64k: V100 only, 64k ctx, q8 KV, ubatch 64 - 33.0 tok/s",
+                                           "kernel":  "dualgpu-inklingm",
+                                           "kernels":  [
+                                                           "dualgpu-inklingm"
+                                                       ],
+                                           "bench":  "33.0 tok/s (code 33.0 / chat 33.0), 7k prompt 311 t/s, VRAM 735+15682 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-m",
+                                                              "{model:Inkling-2-Mini-Uncensored-AD-IQ3_S.gguf}",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-c",
+                                                              "65536",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "64",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "64",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "1.0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.95",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctk",
+                                                              "q8_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctv",
+                                                              "q8_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "none",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-mg",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--chat-template-kwargs",
+                                                              "{\"reasoning_effort\":\"minimal\"}",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "v100-128k",
+                                           "name":  "v100-128k: V100 only, 128k ctx, q4 KV, ubatch 32, vision projector on CPU - 32.8 tok/s, 7k prompt 234 t/s",
+                                           "kernel":  "dualgpu-inklingm",
+                                           "kernels":  [
+                                                           "dualgpu-inklingm"
+                                                       ],
+                                           "bench":  "32.8 tok/s (code 32.8 / chat 32.8), 7k prompt 234 t/s, VRAM 735+14930 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-m",
+                                                              "{model:Inkling-2-Mini-Uncensored-AD-IQ3_S.gguf}",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-c",
+                                                              "131072",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "32",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "32",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--no-mmproj-offload",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "1.0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.95",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctk",
+                                                              "q4_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctv",
+                                                              "q4_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "none",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-mg",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--chat-template-kwargs",
+                                                              "{\"reasoning_effort\":\"minimal\"}",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "v100-32k-q8-ub128-high",
+                                           "name":  "config v100-32k-q8-ub128-high (tested)",
+                                           "kernel":  "dualgpu-inklingm",
+                                           "kernels":  [
+                                                           "dualgpu-inklingm"
+                                                       ],
+                                           "bench":  "33.0 tok/s (code 33.0 / chat 33.0), 7k prompt 362 t/s, VRAM 735+15060 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-m",
+                                                              "{model:Inkling-2-Mini-Uncensored-AD-IQ3_S.gguf}",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-c",
+                                                              "32768",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "128",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "128",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "1.0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.95",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctk",
+                                                              "q8_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctv",
+                                                              "q8_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "none",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-mg",
+                                                              "1",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "l4-32k-min",
+                                           "name":  "config l4-32k-min (tested)",
+                                           "kernel":  "dualgpu-inklingm",
+                                           "kernels":  [
+                                                           "dualgpu-inklingm"
+                                                       ],
+                                           "bench":  "18.3 tok/s (code 18.3 / chat 18.2), 7k prompt 450 t/s, VRAM 4906+15730 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "32768",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "256",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "256",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "1.0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.95",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "layer",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ts",
+                                                              "4,44",
                                                               ""
                                                           ],
                                                           [

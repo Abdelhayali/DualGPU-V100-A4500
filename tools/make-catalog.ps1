@@ -14,7 +14,9 @@ function Get-Results($id) {   # latest tune run per config
 }
 
 function Get-Params($m, $c) {   # llama-server args minus the parts the launcher adds itself (-m, --mmproj, --host, --port)
-    $a = @(Get-SrvArgs $m $c); $md = "$Root\models\$($m.id)\"; $out = @(); $skip = @('-m', '--mmproj', '--host', '--port')
+    # a config with its own gguf keeps its -m: the launcher puts the model's default -m first, llama.cpp takes the last one
+    $a = @(Get-SrvArgs $m $c); $md = "$Root\models\$($m.id)\"; $out = @(); $skip = @('--mmproj', '--host', '--port')
+    if (-not $c.gguf) { $skip += '-m' }
     for ($i = 0; $i -lt $a.Count; $i++) {
         $flag = $a[$i]; $val = ''
         if ($i + 1 -lt $a.Count -and $a[$i + 1] -notmatch '^--?[a-z]') { $val = $a[$i + 1]; $i++ }
