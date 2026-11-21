@@ -35,15 +35,16 @@ start.bat minicpm-v4.7-35b-a3b fast       :: a named preset
 | 5 | Qwen3.8-27B UD-Q4_K_M (16.6 GB, dense, MTP), vision | `128k` | 128k | 58.8 | 94 | 100 | 42 | 100 | 100 | 100 | 100 | **90.8** |
 | 6 | Huihui Gemma-4-26B-A4B-it QAT abliterated Q4_K (16.8 GB, MoE), vision | `262k` | 262k | 86.5 | 88 | 100 | 83 | 88 | 100 | 75 | 100 | **90.5** |
 | 7 | OrcaCyber-Nano 1.0 27B Mix-15.7G (MTP), vision | `128k` | 128k | 61.6 | 94 | 100 | 50 | 100 | 100 | 88 | 100 | **90.2** |
-| 8 | Qwen3.6-35B-A3B UD-Q5_K_XL (25.3 GB, MoE, MTP), vision | `128k` | 128k | 99.6 | 94 | 100 | 50 | 88 | 100 | 88 | 100 | **88.4** |
-| 9 | MiniCPM-V 4.7 35B-A3B Q6_K (26.6 GB), vision | `128k` | 128k | 83.6 | 94 | 100 | 33 | 88 | 100 | 88 | 100 | **86.0** |
-| 10 | Qwen3.8-27B UD-Q5_K_XL (20.9 GB, MTP), vision | `128k` | 128k | 51.3 | 88 | 95 | 58 | 100 | 100 | 88 | 50 | **82.6** |
-| 11 | Qwen3.8-27B pi-adapted (harness-hub LoRA on UD-Q5_K_XL 21.0 GB + 0.3 GB, MTP), vision | `128k` | 128k | 43.8 | 81 | 100 | 50 | 100 | 100 | 88 | 50 | **81.2** |
-| 12 | Qwen3.8-27B UD-Q5_K_XL (21.0 GB, unsloth update 2026-11-12, MTP), vision | `128k` | 128k | 51.3 | 75 | 100 | 50 | 100 | 100 | 88 | 50 | **80.4** |
-| 13 | Ripple-65B Preview AD-IQ3_XXS (28.0 GB, dense), text only | `64k` | 64k | 13.9 | 75 | 100 | 83 | 100 | 100 | - | 100 | **79.8**\* |
-| 14 | Apex-35B-V1.0 Q4_K_M (21.7 GB, MoE, fine-tune of Qwen3.6-35B-A3B), text only | `262k` | 262k | 100.2 | 50 | 85 | 25 | 63 | 100 | - | 100 | **60.4**\* |
-| 15 | Kimi-Linear 48B-A3B abliterated i1-Q4_K_M (27.7 GB), text only | `262k` | 262k | 100.9 | 56 | 60 | 50 | 88 | 100 | - | 50 | **57.7**\* |
-| 16 | Qwen2.5-Coder-32B PCB GRPO (Simonssb LoRA on Q4_K_M 19.9 GB + 0.5 GB, dense), text only | `32k` | 32k | 20.0 | 63 | 60 | 42 | 75 | 50 | - | 50 | **48.5**\* |
+| 8 | Inkling-2-Mini UD-Q4_K_XL on the **Maya engine** (17.6 GB, A4500 only, reasoning effort low), vision | `start-maya.bat` | 64k | 90.0 | 81 | 100 | 75 | 100 | 83 | 88 | 100 | **89.6** |
+| 9 | Qwen3.6-35B-A3B UD-Q5_K_XL (25.3 GB, MoE, MTP), vision | `128k` | 128k | 99.6 | 94 | 100 | 50 | 88 | 100 | 88 | 100 | **88.4** |
+| 10 | MiniCPM-V 4.7 35B-A3B Q6_K (26.6 GB), vision | `128k` | 128k | 83.6 | 94 | 100 | 33 | 88 | 100 | 88 | 100 | **86.0** |
+| 11 | Qwen3.8-27B UD-Q5_K_XL (20.9 GB, MTP), vision | `128k` | 128k | 51.3 | 88 | 95 | 58 | 100 | 100 | 88 | 50 | **82.6** |
+| 12 | Qwen3.8-27B pi-adapted (harness-hub LoRA on UD-Q5_K_XL 21.0 GB + 0.3 GB, MTP), vision | `128k` | 128k | 43.8 | 81 | 100 | 50 | 100 | 100 | 88 | 50 | **81.2** |
+| 13 | Qwen3.8-27B UD-Q5_K_XL (21.0 GB, unsloth update 2026-11-12, MTP), vision | `128k` | 128k | 51.3 | 75 | 100 | 50 | 100 | 100 | 88 | 50 | **80.4** |
+| 14 | Ripple-65B Preview AD-IQ3_XXS (28.0 GB, dense), text only | `64k` | 64k | 13.9 | 75 | 100 | 83 | 100 | 100 | - | 100 | **79.8**\* |
+| 15 | Apex-35B-V1.0 Q4_K_M (21.7 GB, MoE, fine-tune of Qwen3.6-35B-A3B), text only | `262k` | 262k | 100.2 | 50 | 85 | 25 | 63 | 100 | - | 100 | **60.4**\* |
+| 16 | Kimi-Linear 48B-A3B abliterated i1-Q4_K_M (27.7 GB), text only | `262k` | 262k | 100.9 | 56 | 60 | 50 | 88 | 100 | - | 50 | **57.7**\* |
+| 17 | Qwen2.5-Coder-32B PCB GRPO (Simonssb LoRA on Q4_K_M 19.9 GB + 0.5 GB, dense), text only | `32k` | 32k | 20.0 | 63 | 60 | 42 | 75 | 50 | - | 50 | **48.5**\* |
 
 † Run with reasoning on (`eval_thinking`, 5x token budget): with `enable_thinking=false` this model still reasons, into
 the answer, without closing `</think>`, which scored 80.7 (instruction following 8.3, coding 68.8). All other rows ran
@@ -87,6 +88,8 @@ small-active MoE models one V100 with a 3-bit quant is faster (the whole model s
 | | v100 | `v100-32k-q8-ub128-min-s` (**V100 only**, AD-IQ3_S) | 32k | q8_0 | **48.3** | 597 t/s |
 | | v100-64k | `v100-64k-q8-ub64-min-s` (V100 only) | 64k | q8_0 | 47.9 | 457 t/s |
 | | v100-128k | `v100-128k-q4-ub32-min-s` (V100 only) | 128k | q4_0 | 47.8 | 320 t/s |
+| inkling-2-mini (Maya engine) | **64k** (`start-maya.bat`) | `configs/maya/inkling-2-mini-64k.json` (A4500 only, effort low) | 64k | fp8 | **86-92** | - |
+| | code | `configs/maya/inkling-2-mini-code.json` (DSpark drafter) | 24k | fp8 | 76 prose, **97-134** code | - |
 | qwen2.5-coder-32b-pcb | **32k** (default) | `auto-nodraft-32k` | 32k | f16 | **20.9** | 684 t/s |
 | | code | `auto-draft16-32k` (0.5B draft) | 32k | f16 | 19.6 (**30.6** on code, 8.6 on chat) | 629 t/s |
 | | 128k | `l55-nodraft-128k-q4-yarn` | 128k | q4_0 | 20.4 | 549 t/s |
@@ -156,6 +159,18 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
   kept, so the older results stay valid): MTP built in (72-74% accepted). 45/55 split runs out of V100 memory at 128k and
   262k, so the long-context presets use 60/40 and 65/35. 128k f16 60/40 47.2, 65/35 46.3; 262k q4 with ub 256 45.3; 262k q8
   60/40 does not start. Not run on the hard suite yet.
+- **Maya engine for Inkling-2-Mini** (`maya-ik2` from alesha-pro/maya-inkling-mini, built from source with CUDA 13.4 for
+  the A4500; not llama.cpp, see `kernel/SOURCE.md`): every one of the 3,072 experts stays in VRAM and a token is one CUDA
+  graph (~780 launches against ~7,350 in llama.cpp). On the A4500 with unsloth's `UD-Q4_K_XL`: **86-92 tok/s** at 64k
+  (against 58.1 for `bin-inklings`, 36 for upstream llama.cpp). The A4500's 20 GB holds 64k with every expert resident;
+  81,920 and up fall back to an expert cache in system RAM (12-17 tok/s). The official DSpark drafter (0.76 GiB) fits
+  with 24k context: 134 tok/s on a code answer, 97 on another, prose 76 (drafting does not pay on free text). Hard suite
+  **89.6** at 64k with reasoning effort low, images on the CPU encoder (coding 81, instructions 75, vision 88, long context
+  100). Effort: Maya's server does not open the reasoning block itself, so at `minimal` the model does not reason at all
+  (hard suite 63.6 text only: instructions 42, long context 50); llama.cpp's Inkling parser opens it, which is why its
+  `minimal` runs score like Maya's `low`. Start: `start-maya.bat` (64k) or `start-maya.bat code`, port 8899, A4500 only;
+  it can run next to `start.bat inkling-2-mini-uncensored v100 8900` on the V100. No tune.ps1 / GUI support (its own
+  Python server, venv `D:envs\maya`).
 - **Inkling kernel `bin-inklings`** (realugbun's `inkling2-speed` fork of llama.cpp: upstream `e50c254a` + fused CUDA
   kernels for Inkling 2's small op chains): every Inkling preset runs on it. Against `bin-inklingm` with the same files and
   settings: A4500 base 36.3 -> 58.1 tok/s, uncensored 37.5 -> 54.6, V100 IQ3_S 33.0 -> 48.3, 128k 36.9 -> 52.8; 7k prompts

@@ -83,3 +83,29 @@ tools\build-kernel.bat D:\pxa\cuda-12.9 inkling      (-> kernel\bin-inkling)
 ```
 
 Note: in this build CUDA device 0 is the V100 (PCI order) when CUDA_VISIBLE_DEVICES is not set; the tools set it, A4500 first.
+
+## Engine: `build-maya` (Maya `maya-ik2`, Inkling-2-Mini only, not llama.cpp)
+
+`kernel/src-maya` = https://github.com/alesha-pro/maya-inkling-mini at `c520fd1` (Project Maya v1.1.70 with the Inkling-2-Mini
+engine: all 3,072 experts resident in VRAM, a token = one CUDA graph of ~780 launches, NVFP4 experts decoded in registers
+for the tensor cores, FP8 KV, the official DSpark drafter). Reads unsloth's `UD-Q4_K_XL` only. Built with CUDA 13.4 for
+sm_86 (the A4500; the V100 is not supported). Its image encoder `maya-vision` links llama.cpp `b12590`
+(`kernel/src-maya/third_party/llama.cpp-b12590`, a worktree of `kernel/src`).
+
+```bat
+git clone https://github.com/alesha-pro/maya-inkling-mini kernel\src-maya     (c520fd1)
+rem in a VS 2022 x64 prompt with CUDA 13.4 on PATH:
+cmake -S kernel\src-maya -B kernel\build-maya -G Ninja -DCMAKE_BUILD_TYPE=Release -DSTRATA_ENABLE_CUDA=ON ^
+  -DCMAKE_CUDA_ARCHITECTURES=86 -DSTRATA_BUILD_TESTS=OFF
+cmake --build kernel\build-maya --target maya-ik2
+git -C kernel\src worktree add --detach ..\src-maya\third_party\llama.cpp-b12590 b12590
+cmake -S kernel\src-maya\tools\vision -B kernel\build-maya-vision -G Ninja -DCMAKE_BUILD_TYPE=Release ^
+  -DLLAMA_DIR=kernel/src-maya/third_party/llama.cpp-b12590 -DSTRATA_VISION_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=86
+cmake --build kernel\build-maya-vision --target maya-vision
+python -m venv D:\venvs\maya  &&  D:\venvs\maya\Scripts\pip install numpy jinja2 regex pyyaml tqdm requests pillow psutil "jsonschema>=4.18,<5" huggingface_hub
+D:\venvs\maya\Scripts\python kernel\src-maya\tools\strata_tokenizer.py --gguf models\inkling-2-mini-maya\Inkling-2-Mini-UD-Q4_K_XL.gguf ^
+  --out models\inkling-2-mini-maya\ik2 --chat-template kernel\src-maya\tools\ik2\chat_template.jinja --check
+```
+
+Files in `models\inkling-2-mini-maya`: unsloth `Inkling-2-Mini-UD-Q4_K_XL.gguf` (sha256 e62d463c...) and `mmproj-BF16.gguf`
+(2c165c78...), Thinking Machines' `mtp.safetensors` (the drafter, 7c3b6513...). Start: `start-maya.bat [64k|code] [port]`.
