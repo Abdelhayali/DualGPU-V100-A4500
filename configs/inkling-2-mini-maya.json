@@ -1,0 +1,41 @@
+{
+  "id": "inkling-2-mini-maya",
+  "engine": "maya",
+  "name": "Inkling-2-Mini UD-Q4_K_XL on the Maya engine (maya-ik2, RTX A4500 only, vision)",
+  "gguf": "Inkling-2-Mini-UD-Q4_K_XL.gguf",
+  "mmproj": "mmproj-BF16.gguf",
+  "files": [
+    {
+      "repo": "unsloth/Inkling-2-Mini-GGUF",
+      "file": "Inkling-2-Mini-UD-Q4_K_XL.gguf",
+      "gb": 17.63
+    },
+    {
+      "repo": "unsloth/Inkling-2-Mini-GGUF",
+      "file": "mmproj-BF16.gguf",
+      "gb": 0.64
+    },
+    {
+      "repo": "thinkingmachines/Inkling-2-Mini",
+      "file": "mtp.safetensors",
+      "gb": 0.64,
+      "note": "the official DSpark drafter, code preset only"
+    }
+  ],
+  "notes": "Maya's own engine for Inkling-2-Mini (alesha-pro/maya-inkling-mini, built here with CUDA 13.4 for sm_86; not llama.cpp): every one of the 3,072 experts stays in VRAM and a token is one CUDA graph. RTX A4500 only (the V100 is not supported; the GUI shows Maya the A4500 alone). 86-92 tok/s at 64k; 64k is the most that keeps every expert resident on 20 GB. Hard suite 89.6 (reasoning effort low, images on the CPU encoder). Needs the tokenizer folder ik2\tokenizer, made once with Maya's tools/strata_tokenizer.py (kernel\\SOURCE.md). Reasoning: Maya does not open the reasoning block itself, so its presets default to effort low (minimal does not reason at all here).",
+  "maya": {
+    "template": "inkling-2-mini",
+    "presets": [
+      {
+        "name": "64k",
+        "summary": "default: 64k ctx, FP8 KV, every expert in VRAM, A4500 only, reasoning effort low, images on the CPU - 86-92 tok/s",
+        "bench": "86-92 tok/s; hard suite 89.6"
+      },
+      {
+        "name": "code",
+        "summary": "code / edits: official DSpark drafter, 24k ctx - 97-134 tok/s on code, prose ~76",
+        "bench": "97-134 tok/s on code, 76 on prose"
+      }
+    ]
+  }
+}

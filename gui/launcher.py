@@ -157,6 +157,38 @@ def strata_config(mid, k, params, port):
     return [sys.executable, str(kd / "serve" / "server.py"), "--engine", "strata", "--config", str(out)]
 
 
+def is_maya(k):
+    return catalog()["kernels"][k].get("type") == "maya"
+
+
+def maya_cmd(mid, k, params, port):
+    """Maya (maya-ik2, Inkling-2-Mini only) runs behind its own Python server: the preset names a template in
+    configs/maya/ ("--preset" param); write it out with this folder's paths and start the server on it."""
+    kern = catalog()["kernels"][k]
+    m = model_entry(mid)
+    preset = next((str(p.get("value", "")).strip() for p in params if p.get("flag") == "--preset" and p.get("on", True)), "")
+    src = ROOT / "configs" / "maya" / f'{m["maya"]["template"]}-{preset}.json'
+    if not src.exists():
+        raise FileNotFoundError(f"no Maya preset {src.name} in configs/maya")
+    cfg = src.read_text(encoding="utf-8").replace("{root}", str(ROOT).replace("\\", "/"))
+    out = model_dir(mid) / f"maya-{preset}.json"
+    out.write_text(cfg, encoding="utf-8")
+    py = Path(kern["python"])
+    if not py.exists():
+        raise FileNotFoundError(f"Maya's Python venv is missing ({py}); see kernel/SOURCE.md")
+    return [str(py), str(ROOT / "kernel" / kern["src"] / "serve" / "server.py"), "--engine", "maya",
+            "--config", str(out), "--host", HOST, "--port", str(port)]
+
+
+def maya_env(env):
+    """Maya keeps every expert in VRAM on one sm_86 card: show it the RTX A4500 alone."""
+    try:
+        env["CUDA_VISIBLE_DEVICES"] = next(g["uuid"] for g in gpus() if "A4500" in g["name"])
+    except Exception as e:
+        log.append(f"[launcher] could not find the RTX A4500 ({e}); Maya sees every GPU")
+    return env
+
+
 def is_tabby(k):
     return catalog()["kernels"][k].get("type") == "tabby"
 
@@ -391,7 +423,8 @@ def stop_server():
         state["want"] = None   # an intentional stop: no crash recovery
         p = state["proc"]
         if p and p.poll() is None:
-            p.terminate()
+            # the whole tree: Python servers (Strata, Maya, TabbyAPI) start the engine as a child process
+            subprocess.run(["taskkill", "/F", "/T", "/PID", str(p.pid)], capture_output=True)
             try:
                 p.wait(10)
             except subprocess.TimeoutExpired:
@@ -408,10 +441,13 @@ def start_server(mid, preset, k, params, recovering=False):
         if not kernel_exe(mid, k).exists():
             raise FileNotFoundError(f"kernel '{k}' not installed - press Download")
     stop_server()
-    subprocess.run(["taskkill", "/F", "/IM", "llama-server.exe"], capture_output=True)
+    for exe in ("llama-server.exe", "maya-ik2.exe", "maya-vision.exe"):
+        subprocess.run(["taskkill", "/F", "/IM", exe], capture_output=True)
     time.sleep(2)
     port = catalog().get("server_port", 8899)
-    if is_strata(k):
+    if is_maya(k):
+        cmd = maya_cmd(mid, k, params, port)
+    elif is_strata(k):
         cmd = strata_config(mid, k, params, port) + ["--port", str(port)]
     elif is_tabby(k):
         cmd = tabby_config(mid, k, params, port)
@@ -419,9 +455,14 @@ def start_server(mid, preset, k, params, recovering=False):
         cmd = build_cmd(mid, k, params) + ["--host", HOST, "--port", str(port)]
     env = gpu_env(dict(os.environ))
     env["PATH"] = str(kernel_dir(mid, k)) + os.pathsep + env.get("PATH", "")
+    cwd = kernel_dir(mid, k) / "tabbyAPI" if is_tabby(k) else kernel_dir(mid, k)
+    if is_maya(k):
+        env = maya_env(env)
+        env["PYTHONIOENCODING"] = "utf-8"
+        cwd = ROOT / "kernel" / catalog()["kernels"][k]["src"]
     log.clear()
     log.append("[launcher] " + subprocess.list2cmdline(cmd))
-    proc = subprocess.Popen(cmd, cwd=kernel_dir(mid, k) / "tabbyAPI" if is_tabby(k) else kernel_dir(mid, k), stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True,
+    proc = subprocess.Popen(cmd, cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True,
                             encoding="utf-8", errors="replace", env=env,
                             creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
     threading.Thread(target=reader, args=(proc,), daemon=True).start()
@@ -472,6 +513,11 @@ def write_bat(mid, preset, k, params, name=None):
                  "rem Open http://127.0.0.1:%PORT% (default 8899).",
                  f'"%~dp0..\\..\\runtime\\python\\python.exe" "%~dp0..\\..\\gui\\launcher.py" --serve {mid}:{preset}',
                  "if errorlevel 1 pause"]
+    if is_maya(k):
+        # Maya: the same preset through start-maya.bat (its Python server, the RTX A4500 alone)
+        mp = next((str(p.get("value", "")).strip() for p in params if p.get("flag") == "--preset"), "64k")
+        lines = ["@echo off", f"rem {m['name']} - {pre['name'] if pre else preset} (engine: Maya maya-ik2)",
+                 f'call "%~dp0..\\..\\start-maya.bat" {mp} %*', "if errorlevel 1 pause"]
     out = model_dir(mid) / (name or f"run-{preset}.bat")
     with open(out, "w", encoding="ascii", errors="replace", newline="\r\n") as f:
         f.write("\n".join(lines) + "\n")

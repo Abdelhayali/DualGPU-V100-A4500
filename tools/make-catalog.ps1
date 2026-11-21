@@ -52,6 +52,17 @@ foreach ($f in Get-ChildItem "$Root\configs\*.json" -Exclude files.json) {
         [ordered]@{ name = $_.file; repo = $_.repo; size = $h.size; sha256 = $h.sha256; url = $h.url } })
     # files the configs never use (no draft config -> no draft file) are still listed, so "Download missing" gets them all
     $list = @()
+    if ($m.engine -eq 'maya') {
+        # Maya (its own engine + Python server): each preset is a template in configs\maya, started by name
+        foreach ($p in @($m.maya.presets)) {
+            $list += [ordered]@{ id = $p.name; name = "$($p.name): $($p.summary)"; kernel = 'maya'; kernels = @('maya')
+                                 bench = $p.bench; params = @(, @('--preset', $p.name, '')) }
+        }
+        $models += [ordered]@{ id = $m.id; name = $m.name; desc = $m.notes; files = $files; model = $m.gguf
+                               mmproj = $m.mmproj; maya = [ordered]@{ template = $m.maya.template }; presets = $list }
+        "$($m.id): $($list.Count) presets (Maya)"
+        continue
+    }
     foreach ($p in @($pm.presets)) {
         if (-not $p) { continue }
         $c = @($m.configs) | Where-Object name -eq $p.config
@@ -89,6 +100,10 @@ $cat = [ordered]@{
         name = 'llama.cpp da8fd08 + DSpine drafter (Qwen3.8-27B)'
         desc = 'The same source plus the DSpine commit of Ajay9o9/llama.cpp dspine (kernel\patches\0003), built by tools\build-kernel.bat <cuda> dspine. kernel\bin-dspine.'
         exe = 'llama-server.exe'; dir = 'bin-dspine' }
+      'maya' = [ordered]@{
+        name = 'Maya maya-ik2 (Inkling-2-Mini engine, RTX A4500 only)'
+        desc = 'alesha-pro/maya-inkling-mini c520fd1 built with CUDA 13.4 for sm_86 (kernel\build-maya), its Python server in kernel\src-maya, venv D:\venvs\maya; see kernel\SOURCE.md. Every expert in VRAM, one CUDA graph per token.'
+        type = 'maya'; exe = 'maya-ik2.exe'; dir = 'build-maya'; src = 'src-maya'; python = 'D:/venvs/maya/Scripts/python.exe' }
       'dualgpu-inklings' = [ordered]@{
         name = 'llama.cpp e50c254a + realugbun inkling2-speed (fused Inkling 2 CUDA kernels)'
         desc = 'https://github.com/realugbun/llama.cpp inkling2-speed 7669d899: upstream e50c254a plus 4 commits with fused CUDA kernels for Inkling 2; built by tools\build-kernel.bat <cuda> inklings. kernel\bin-inklings.'
