@@ -76,17 +76,17 @@ small-active MoE models one V100 with a 3-bit quant is faster (the whole model s
 | qwen3.8-27b-nov12 | **128k** (default) | `l60-mtp3-128k` | 128k | f16 | **47.2** (53.6 on code) | 901 t/s |
 | | fast | `l45-mtp4-32k` | 32k | f16 | 48.9 (58.2 on code) | 866 t/s |
 | | 262k | `l65-mtp3-262k-q4-ub256` | 262k | q4_0 | 45.3 | 844 t/s |
-| inkling-2-mini | **32k** (default) | `a4500-32k-q8-min` (A4500 only) | 32k | q8_0 | **36.3** | 464 t/s |
-| | think | `a4500-32k-q8-high` (reasoning high) | 32k | q8_0 | 37.9 | 468 t/s |
-| | 64k | `a4500-64k-q8-ub128-min` | 64k | q8_0 | 36.3 | 361 t/s |
-| | 128k | `a4500-128k-q4-ub64-min` | 128k | q4_0 | 37.2 | 294 t/s |
-| inkling-2-mini-uncensored | **32k** (default) | `a4500-32k-min` (A4500 only) | 32k | f16 | **37.5** | 468 t/s |
-| | think | `a4500-32k-high` | 32k | f16 | 37.5 | 467 t/s |
-| | 64k | `a4500-64k-q8-ub128-min` | 64k | q8_0 | 35.7 | 376 t/s |
-| | 128k | `a4500-128k-q4-ub64-min` | 128k | q4_0 | 36.9 | 296 t/s |
-| | v100 | `v100-32k-q8-ub128-min` (**V100 only**, AD-IQ3_S) | 32k | q8_0 | **33.0** | 377 t/s |
-| | v100-64k | `v100-64k-q8-ub64-min` (V100 only) | 64k | q8_0 | 33.0 | 311 t/s |
-| | v100-128k | `v100-128k-q4-ub32-min` (V100 only) | 128k | q4_0 | 32.8 | 234 t/s |
+| inkling-2-mini | **32k** (default) | `a4500-32k-q8-min-s` (A4500 only) | 32k | q8_0 | **58.1** | 853 t/s |
+| | think | `a4500-32k-q8-high-s` (reasoning high) | 32k | q8_0 | 57.8 | 809 t/s |
+| | 64k | `a4500-64k-q8-ub128-min-s` | 64k | q8_0 | 57.2 | 611 t/s |
+| | 128k | `a4500-128k-q4-ub64-min-s` | 128k | q4_0 | 57.7 | 498 t/s |
+| inkling-2-mini-uncensored | **32k** (default) | `a4500-32k-min-s` (A4500 only) | 32k | f16 | **54.6** | 887 t/s |
+| | think | `a4500-32k-high-s` | 32k | f16 | 53.8 | 816 t/s |
+| | 64k | `a4500-64k-q8-ub128-min-s` | 64k | q8_0 | 52.5 | 586 t/s |
+| | 128k | `a4500-128k-q4-ub64-min-s` | 128k | q4_0 | 52.8 | 498 t/s |
+| | v100 | `v100-32k-q8-ub128-min-s` (**V100 only**, AD-IQ3_S) | 32k | q8_0 | **48.3** | 597 t/s |
+| | v100-64k | `v100-64k-q8-ub64-min-s` (V100 only) | 64k | q8_0 | 47.9 | 457 t/s |
+| | v100-128k | `v100-128k-q4-ub32-min-s` (V100 only) | 128k | q4_0 | 47.8 | 320 t/s |
 | qwen2.5-coder-32b-pcb | **32k** (default) | `auto-nodraft-32k` | 32k | f16 | **20.9** | 684 t/s |
 | | code | `auto-draft16-32k` (0.5B draft) | 32k | f16 | 19.6 (**30.6** on code, 8.6 on chat) | 629 t/s |
 | | 128k | `l55-nodraft-128k-q4-yarn` | 128k | q4_0 | 20.4 | 549 t/s |
@@ -156,6 +156,11 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
   kept, so the older results stay valid): MTP built in (72-74% accepted). 45/55 split runs out of V100 memory at 128k and
   262k, so the long-context presets use 60/40 and 65/35. 128k f16 60/40 47.2, 65/35 46.3; 262k q4 with ub 256 45.3; 262k q8
   60/40 does not start. Not run on the hard suite yet.
+- **Inkling kernel `bin-inklings`** (realugbun's `inkling2-speed` fork of llama.cpp: upstream `e50c254a` + fused CUDA
+  kernels for Inkling 2's small op chains): every Inkling preset runs on it. Against `bin-inklingm` with the same files and
+  settings: A4500 base 36.3 -> 58.1 tok/s, uncensored 37.5 -> 54.6, V100 IQ3_S 33.0 -> 48.3, 128k 36.9 -> 52.8; 7k prompts
+  1.4-1.9x. Q4_K split 4/44 18.3 -> 34.3 (still below one card). Hard suite on the fork: base 90.8 (92.0 upstream),
+  uncensored 91.7 (93.4): one or two tasks apart, inside the 89.9-94.9 spread of the Inkling runs.
 - **Inkling-2-Mini** (Thinking Machines; new looped architecture: 24 layers of weights, the middle 12 run three times = 48
   layer passes per token, MoE 8 of 128 experts, local + global attention, vision). Kernel `bin-inklingm` = llama.cpp master
   `e50c254a` (2026-11-21, Inkling-2-Mini merged in #32694 + #32704) with ggml-org's `IQ4_NL` (17.6 GB, merged layout): 36-38

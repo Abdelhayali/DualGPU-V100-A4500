@@ -44,7 +44,20 @@ config with `"kernel": "dspine"` (draft type `draft-dflash`, `--spec-draft-n-max
 
 Models pick the Ripple build with `"kernel": "ripple"` in `configs/<id>.json` (tools) and the catalog kernel `dualgpu-ripple` (GUI).
 
-## Variant: `bin-inklingm` (Inkling-2-Mini, merged `inkling2_loop`) - used by the Inkling configs
+## Variant: `bin-inklings` (Inkling-2-Mini, realugbun's inkling2-speed fork) - used by the Inkling presets
+
+`kernel/src-inklings` = https://github.com/realugbun/llama.cpp branch `inkling2-speed` at `7669d899`: upstream `e50c254a`
+(the `bin-inklingm` source) plus 4 commits - the depth states normalized once per block, each glue op chain kept together
+in the graph and run as one fused CUDA kernel (`ggml/src/ggml-cuda/inkling2.cu`), a faster pad for narrow rows. Other
+models are unaffected. Here: A4500 36-37 -> 53-58 tok/s, V100 33 -> 48, prompts about 1.4-1.9x.
+
+```bat
+git -C kernel\src fetch https://github.com/realugbun/llama.cpp inkling2-speed
+git -C kernel\src worktree add --detach ..\src-inklings 7669d899
+tools\build-kernel.bat D:\pxa\cuda-12.9 inklings      (-> kernel\bin-inklings)
+```
+
+## Variant: `bin-inklingm` (Inkling-2-Mini, merged `inkling2_loop`, upstream e50c254a)
 
 `kernel/src-inklingm` = upstream llama.cpp `e50c254a` (2026-11-21) with Inkling-2-Mini merged (#32694, plus #32704 "share
 the loop slots after the scale pass"); no V100 MMVQ patch. Loads GGUFs in the merged layout (arch `inkling2_loop`:

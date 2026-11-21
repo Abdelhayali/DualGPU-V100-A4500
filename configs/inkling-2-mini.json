@@ -106,6 +106,59 @@
       "b": 256,
       "ub": 256,
       "kv": "q8_0"
+    },
+    {
+      "name": "a4500-32k-q8-min-s",
+      "ctx": 32768,
+      "sm": "none",
+      "mg": 0,
+      "b": 256,
+      "ub": 256,
+      "kv": "q8_0",
+      "extra": [
+        "--chat-template-kwargs",
+        "{\"reasoning_effort\":\"minimal\"}"
+      ],
+      "kernel": "inklings"
+    },
+    {
+      "name": "a4500-128k-q4-ub64-min-s",
+      "ctx": 131072,
+      "sm": "none",
+      "mg": 0,
+      "b": 64,
+      "ub": 64,
+      "kv": "q4_0",
+      "mmgpu": false,
+      "extra": [
+        "--chat-template-kwargs",
+        "{\"reasoning_effort\":\"minimal\"}"
+      ],
+      "kernel": "inklings"
+    },
+    {
+      "name": "a4500-32k-q8-high-s",
+      "ctx": 32768,
+      "sm": "none",
+      "mg": 0,
+      "b": 256,
+      "ub": 256,
+      "kv": "q8_0",
+      "kernel": "inklings"
+    },
+    {
+      "name": "a4500-64k-q8-ub128-min-s",
+      "ctx": 65536,
+      "sm": "none",
+      "mg": 0,
+      "b": 128,
+      "ub": 128,
+      "kv": "q8_0",
+      "extra": [
+        "--chat-template-kwargs",
+        "{\"reasoning_effort\":\"minimal\"}"
+      ],
+      "kernel": "inklings"
     }
   ],
   "sets": {
@@ -123,6 +176,14 @@
       "a4500-32k-q8-min",
       "a4500-32k-ub128-min",
       "a4500-32k-q8-high"
+    ],
+    "fork": [
+      "a4500-32k-q8-min-s",
+      "a4500-128k-q4-ub64-min-s"
+    ],
+    "fork2": [
+      "a4500-32k-q8-high-s",
+      "a4500-64k-q8-ub128-min-s"
     ]
   }
 }

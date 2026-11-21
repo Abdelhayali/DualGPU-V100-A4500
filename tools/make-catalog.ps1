@@ -89,6 +89,10 @@ $cat = [ordered]@{
         name = 'llama.cpp da8fd08 + DSpine drafter (Qwen3.8-27B)'
         desc = 'The same source plus the DSpine commit of Ajay9o9/llama.cpp dspine (kernel\patches\0003), built by tools\build-kernel.bat <cuda> dspine. kernel\bin-dspine.'
         exe = 'llama-server.exe'; dir = 'bin-dspine' }
+      'dualgpu-inklings' = [ordered]@{
+        name = 'llama.cpp e50c254a + realugbun inkling2-speed (fused Inkling 2 CUDA kernels)'
+        desc = 'https://github.com/realugbun/llama.cpp inkling2-speed 7669d899: upstream e50c254a plus 4 commits with fused CUDA kernels for Inkling 2; built by tools\build-kernel.bat <cuda> inklings. kernel\bin-inklings.'
+        exe = 'llama-server.exe'; dir = 'bin-inklings' }
       'dualgpu-inklingm' = [ordered]@{
         name = 'llama.cpp master e50c254a (Inkling-2-Mini, merged #32694)'
         desc = 'Upstream llama.cpp e50c254a (2026-11-21) with the merged looped Inkling-2-Mini support, no V100 MMVQ patch; built by tools\build-kernel.bat <cuda> inklingm. kernel\bin-inklingm.'
