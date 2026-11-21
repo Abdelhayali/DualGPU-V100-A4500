@@ -169,8 +169,11 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
   100). Effort: Maya's server does not open the reasoning block itself, so at `minimal` the model does not reason at all
   (hard suite 63.6 text only: instructions 42, long context 50); llama.cpp's Inkling parser opens it, which is why its
   `minimal` runs score like Maya's `low`. Start: `start-maya.bat` (64k) or `start-maya.bat code`, port 8899, A4500 only;
-  it can run next to `start.bat inkling-2-mini-uncensored v100 8900` on the V100. No tune.ps1 / GUI support (its own
-  Python server, venv `D:\venvs\maya`).
+  it can run next to `start.bat inkling-2-mini-uncensored v100 8900` on the V100. **In the GUI** (and so in the phone /
+  desktop app) it is the model `inkling-2-mini-maya` with presets `64k` and `code` (engine type `maya`: the launcher fills
+  in the `configs/maya` template, starts Maya's Python server from venv `D:\venvs\maya` with only the A4500 visible, and
+  stops the whole process tree). `64k` takes ~140 s to load (14.7 GiB of experts copied to VRAM), `code` ~40 s. No
+  tune.ps1 support.
 - **Inkling kernel `bin-inklings`** (realugbun's `inkling2-speed` fork of llama.cpp: upstream `e50c254a` + fused CUDA
   kernels for Inkling 2's small op chains): every Inkling preset runs on it. Against `bin-inklingm` with the same files and
   settings: A4500 base 36.3 -> 58.1 tok/s, uncensored 37.5 -> 54.6, V100 IQ3_S 33.0 -> 48.3, 128k 36.9 -> 52.8; 7k prompts
