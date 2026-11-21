@@ -1,0 +1,102 @@
+{
+  "id": "inkling-2-mini-uncensored",
+  "name": "Inkling-2-Mini Uncensored AD-Q4_K (AtomicChat, looped MoE 26B, vision; A4500 only)",
+  "gguf": "Inkling-2-Mini-Uncensored-AD-Q4_K.gguf",
+  "mmproj": "mmproj-Inkling-2-Mini-Uncensored-F16.gguf",
+  "kernel": "inklingm",
+  "files": [
+    {
+      "repo": "AtomicChat/Inkling-2-Mini-Uncensored-GGUF",
+      "file": "Inkling-2-Mini-Uncensored-AD-Q4_K.gguf",
+      "gb": 16.53
+    },
+    {
+      "repo": "AtomicChat/Inkling-2-Mini-Uncensored-GGUF",
+      "file": "mmproj-Inkling-2-Mini-Uncensored-F16.gguf",
+      "gb": 0.64
+    }
+  ],
+  "sampling": [
+    "--temp",
+    "1.0",
+    "--top-p",
+    "0.95",
+    "--min-p",
+    "0"
+  ],
+  "notes": "AtomicChat's uncensored Inkling-2-Mini: a rank-1 LoRA (refusal direction removed per layer, all 24 layers + embedding) baked into their AD-Q4_K (their numbers: 0 refusals on the harmful test sets, MMLU 79.15 vs 80.65). Files in the merged llama.cpp layout (arch inkling2_loop, PR #32694), so it needs kernel bin-inklingm = llama.cpp master e50c254a (2026-11-21); it does not load on bin-inkling. Same runtime rules as inkling-2-mini: A4500 alone (split over both cards ~9 tok/s), compute buffer grows with context x ubatch, reasoning_effort minimal as the server default in the -min configs. ts = A4500,V100.",
+  "configs": [
+    {
+      "name": "a4500-32k-min",
+      "ctx": 32768,
+      "sm": "none",
+      "mg": 0,
+      "b": 256,
+      "ub": 256,
+      "extra": [
+        "--chat-template-kwargs",
+        "{\"reasoning_effort\":\"minimal\"}"
+      ]
+    },
+    {
+      "name": "a4500-32k-ub512-min",
+      "ctx": 32768,
+      "sm": "none",
+      "mg": 0,
+      "b": 512,
+      "ub": 512,
+      "extra": [
+        "--chat-template-kwargs",
+        "{\"reasoning_effort\":\"minimal\"}"
+      ]
+    },
+    {
+      "name": "a4500-64k-q8-ub128-min",
+      "ctx": 65536,
+      "sm": "none",
+      "mg": 0,
+      "b": 128,
+      "ub": 128,
+      "kv": "q8_0",
+      "extra": [
+        "--chat-template-kwargs",
+        "{\"reasoning_effort\":\"minimal\"}"
+      ]
+    },
+    {
+      "name": "a4500-128k-q4-ub64-min",
+      "ctx": 131072,
+      "sm": "none",
+      "mg": 0,
+      "b": 64,
+      "ub": 64,
+      "kv": "q4_0",
+      "mmgpu": false,
+      "extra": [
+        "--chat-template-kwargs",
+        "{\"reasoning_effort\":\"minimal\"}"
+      ]
+    },
+    {
+      "name": "a4500-32k-high",
+      "ctx": 32768,
+      "sm": "none",
+      "mg": 0,
+      "b": 256,
+      "ub": 256
+    }
+  ],
+  "sets": {
+    "ub": [
+      "a4500-32k-min",
+      "a4500-32k-ub512-min"
+    ],
+    "ctx": [
+      "a4500-64k-q8-ub128-min",
+      "a4500-128k-q4-ub64-min"
+    ],
+    "thinking": [
+      "a4500-32k-high"
+    ]
+  }
+}

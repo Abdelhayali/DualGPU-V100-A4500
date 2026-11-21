@@ -28,20 +28,21 @@ start.bat minicpm-v4.7-35b-a3b fast       :: a named preset
 
 | # | model (quant, size) | preset | ctx | gen tok/s | coding | reasoning | instr | search | agent | vision | longctx | **overall** |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | Qwen3.8-40B Ultimate Heretic (DavidAU) MTP-Q4_K_M (24.2 GB, dense, MTP), vision, **thinking on**† | `64k` | 64k | 37.3 | 81 | 100 | 83 | 100 | 100 | 88 | 100 | **93.1**† |
-| 2 | Qwen3.8-27B UD-Q4_K_M (16.6 GB, dense, MTP), vision | `128k` | 128k | 58.8 | 94 | 100 | 42 | 100 | 100 | 100 | 100 | **90.8** |
-| 3 | Huihui Gemma-4-26B-A4B-it QAT abliterated Q4_K (16.8 GB, MoE), vision | `262k` | 262k | 86.5 | 88 | 100 | 83 | 88 | 100 | 75 | 100 | **90.5** |
-| 4 | OrcaCyber-Nano 1.0 27B Mix-15.7G (MTP), vision | `128k` | 128k | 61.6 | 94 | 100 | 50 | 100 | 100 | 88 | 100 | **90.2** |
-| 5 | Inkling-2-Mini UD-Q4_K_M (16.6 GB, looped MoE, A4500 only, reasoning effort minimal), vision | `32k` | 32k | 28.2 | 75 | 100 | 83 | 100 | 83 | 88 | 100 | **89.9** |
-| 6 | Qwen3.6-35B-A3B UD-Q5_K_XL (25.3 GB, MoE, MTP), vision | `128k` | 128k | 99.6 | 94 | 100 | 50 | 88 | 100 | 88 | 100 | **88.4** |
-| 7 | MiniCPM-V 4.7 35B-A3B Q6_K (26.6 GB), vision | `128k` | 128k | 83.6 | 94 | 100 | 33 | 88 | 100 | 88 | 100 | **86.0** |
-| 8 | Qwen3.8-27B UD-Q5_K_XL (20.9 GB, MTP), vision | `128k` | 128k | 51.3 | 88 | 95 | 58 | 100 | 100 | 88 | 50 | **82.6** |
-| 9 | Qwen3.8-27B pi-adapted (harness-hub LoRA on UD-Q5_K_XL 21.0 GB + 0.3 GB, MTP), vision | `128k` | 128k | 43.8 | 81 | 100 | 50 | 100 | 100 | 88 | 50 | **81.2** |
-| 10 | Qwen3.8-27B UD-Q5_K_XL (21.0 GB, unsloth update 2026-11-12, MTP), vision | `128k` | 128k | 51.3 | 75 | 100 | 50 | 100 | 100 | 88 | 50 | **80.4** |
-| 11 | Ripple-65B Preview AD-IQ3_XXS (28.0 GB, dense), text only | `64k` | 64k | 13.9 | 75 | 100 | 83 | 100 | 100 | - | 100 | **79.8**\* |
-| 12 | Apex-35B-V1.0 Q4_K_M (21.7 GB, MoE, fine-tune of Qwen3.6-35B-A3B), text only | `262k` | 262k | 100.2 | 50 | 85 | 25 | 63 | 100 | - | 100 | **60.4**\* |
-| 13 | Kimi-Linear 48B-A3B abliterated i1-Q4_K_M (27.7 GB), text only | `262k` | 262k | 100.9 | 56 | 60 | 50 | 88 | 100 | - | 50 | **57.7**\* |
-| 14 | Qwen2.5-Coder-32B PCB GRPO (Simonssb LoRA on Q4_K_M 19.9 GB + 0.5 GB, dense), text only | `32k` | 32k | 20.0 | 63 | 60 | 42 | 75 | 50 | - | 50 | **48.5**\* |
+| 1 | Inkling-2-Mini Uncensored AD-Q4_K (16.5 GB, AtomicChat, looped MoE, A4500 only, reasoning effort minimal), vision | `32k` | 32k | 34.9 | 88 | 100 | 83 | 100 | 83 | 100 | 100 | **93.4** |
+| 2 | Qwen3.8-40B Ultimate Heretic (DavidAU) MTP-Q4_K_M (24.2 GB, dense, MTP), vision, **thinking on**† | `64k` | 64k | 37.3 | 81 | 100 | 83 | 100 | 100 | 88 | 100 | **93.1**† |
+| 3 | Inkling-2-Mini IQ4_NL (17.6 GB, looped MoE, A4500 only, reasoning effort minimal), vision | `32k` | 32k | 35.1 | 81 | 100 | 92 | 100 | 83 | 88 | 100 | **92.0** |
+| 4 | Qwen3.8-27B UD-Q4_K_M (16.6 GB, dense, MTP), vision | `128k` | 128k | 58.8 | 94 | 100 | 42 | 100 | 100 | 100 | 100 | **90.8** |
+| 5 | Huihui Gemma-4-26B-A4B-it QAT abliterated Q4_K (16.8 GB, MoE), vision | `262k` | 262k | 86.5 | 88 | 100 | 83 | 88 | 100 | 75 | 100 | **90.5** |
+| 6 | OrcaCyber-Nano 1.0 27B Mix-15.7G (MTP), vision | `128k` | 128k | 61.6 | 94 | 100 | 50 | 100 | 100 | 88 | 100 | **90.2** |
+| 7 | Qwen3.6-35B-A3B UD-Q5_K_XL (25.3 GB, MoE, MTP), vision | `128k` | 128k | 99.6 | 94 | 100 | 50 | 88 | 100 | 88 | 100 | **88.4** |
+| 8 | MiniCPM-V 4.7 35B-A3B Q6_K (26.6 GB), vision | `128k` | 128k | 83.6 | 94 | 100 | 33 | 88 | 100 | 88 | 100 | **86.0** |
+| 9 | Qwen3.8-27B UD-Q5_K_XL (20.9 GB, MTP), vision | `128k` | 128k | 51.3 | 88 | 95 | 58 | 100 | 100 | 88 | 50 | **82.6** |
+| 10 | Qwen3.8-27B pi-adapted (harness-hub LoRA on UD-Q5_K_XL 21.0 GB + 0.3 GB, MTP), vision | `128k` | 128k | 43.8 | 81 | 100 | 50 | 100 | 100 | 88 | 50 | **81.2** |
+| 11 | Qwen3.8-27B UD-Q5_K_XL (21.0 GB, unsloth update 2026-11-12, MTP), vision | `128k` | 128k | 51.3 | 75 | 100 | 50 | 100 | 100 | 88 | 50 | **80.4** |
+| 12 | Ripple-65B Preview AD-IQ3_XXS (28.0 GB, dense), text only | `64k` | 64k | 13.9 | 75 | 100 | 83 | 100 | 100 | - | 100 | **79.8**\* |
+| 13 | Apex-35B-V1.0 Q4_K_M (21.7 GB, MoE, fine-tune of Qwen3.6-35B-A3B), text only | `262k` | 262k | 100.2 | 50 | 85 | 25 | 63 | 100 | - | 100 | **60.4**\* |
+| 14 | Kimi-Linear 48B-A3B abliterated i1-Q4_K_M (27.7 GB), text only | `262k` | 262k | 100.9 | 56 | 60 | 50 | 88 | 100 | - | 50 | **57.7**\* |
+| 15 | Qwen2.5-Coder-32B PCB GRPO (Simonssb LoRA on Q4_K_M 19.9 GB + 0.5 GB, dense), text only | `32k` | 32k | 20.0 | 63 | 60 | 42 | 75 | 50 | - | 50 | **48.5**\* |
 
 † Run with reasoning on (`eval_thinking`, 5x token budget): with `enable_thinking=false` this model still reasons, into
 the answer, without closing `</think>`, which scored 80.7 (instruction following 8.3, coding 68.8). All other rows ran
@@ -74,10 +75,14 @@ small-active MoE models one V100 with a 3-bit quant is faster (the whole model s
 | qwen3.8-27b-nov12 | **128k** (default) | `l60-mtp3-128k` | 128k | f16 | **47.2** (53.6 on code) | 901 t/s |
 | | fast | `l45-mtp4-32k` | 32k | f16 | 48.9 (58.2 on code) | 866 t/s |
 | | 262k | `l65-mtp3-262k-q4-ub256` | 262k | q4_0 | 45.3 | 844 t/s |
-| inkling-2-mini | **32k** (default) | `a4500-32k-min` (A4500 only) | 32k | f16 | **29.7** | 418 t/s |
-| | think | `a4500-32k-high` (reasoning high) | 32k | f16 | 29.7 | 409 t/s |
-| | 64k | `a4500-64k-q8-ub128-min` | 64k | q8_0 | 29.6 | 332 t/s |
-| | 128k | `a4500-128k-q4-ub64-min` | 128k | q4_0 | 29.2 | 266 t/s |
+| inkling-2-mini | **32k** (default) | `a4500-32k-q8-min` (A4500 only) | 32k | q8_0 | **36.3** | 464 t/s |
+| | think | `a4500-32k-q8-high` (reasoning high) | 32k | q8_0 | 37.9 | 468 t/s |
+| | 64k | `a4500-64k-q8-ub128-min` | 64k | q8_0 | 36.3 | 361 t/s |
+| | 128k | `a4500-128k-q4-ub64-min` | 128k | q4_0 | 37.2 | 294 t/s |
+| inkling-2-mini-uncensored | **32k** (default) | `a4500-32k-min` (A4500 only) | 32k | f16 | **37.5** | 468 t/s |
+| | think | `a4500-32k-high` | 32k | f16 | 37.5 | 467 t/s |
+| | 64k | `a4500-64k-q8-ub128-min` | 64k | q8_0 | 35.7 | 376 t/s |
+| | 128k | `a4500-128k-q4-ub64-min` | 128k | q4_0 | 36.9 | 296 t/s |
 | qwen2.5-coder-32b-pcb | **32k** (default) | `auto-nodraft-32k` | 32k | f16 | **20.9** | 684 t/s |
 | | code | `auto-draft16-32k` (0.5B draft) | 32k | f16 | 19.6 (**30.6** on code, 8.6 on chat) | 629 t/s |
 | | 128k | `l55-nodraft-128k-q4-yarn` | 128k | q4_0 | 20.4 | 549 t/s |
@@ -148,19 +153,25 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
   262k, so the long-context presets use 60/40 and 65/35. 128k f16 60/40 47.2, 65/35 46.3; 262k q4 with ub 256 45.3; 262k q8
   60/40 does not start. Not run on the hard suite yet.
 - **Inkling-2-Mini** (Thinking Machines; new looped architecture: 24 layers of weights, the middle 12 run three times = 48
-  layer passes per token, MoE 8 of 128 experts, local + global attention, vision; unsloth `UD-Q4_K_M` 16.6 GB). Needs its own
-  kernel `bin-inkling` (upstream llama.cpp `91979450` + the unmerged looped-Inkling PR #32695, see `kernel/SOURCE.md`).
-  It runs on the **A4500 alone**: over both cards (`UD-Q8_K_XL`, every split tried) it made only 4.7-5.6 tok/s, since each
-  looped layer's weights sit on the card of its first pass and the later passes hop cards (~400 graph splits per token;
-  `-sm row` / `-sm tensor` are not supported for it). On one A4500: 29.7 tok/s (35 at 8k with ub 512). Its compute buffer
-  grows with context x ubatch (3.3 GB at 32k x 512), so 32k uses ub 256, 64k ub 128 + q8 KV (29.6), 128k ub 64 + q4 KV (29.2,
-  slower prompts: 266 t/s). The chat template ignores `enable_thinking` and defaults to reasoning effort 0.9 (high); the `-min`
-  configs set `reasoning_effort: minimal` as the server default (`--chat-template-kwargs`; `Start-Srv` now quotes arguments
-  so JSON values survive). Its DSpark drafter does not load in this build (vocabulary padding; DSpark for Inkling is the
-  unmerged PR #32218).
-  Hard suite 89.9 on `32k` (effort minimal; instructions 83, long context 100, coding 75). With effort high (the model's
-  default, 5x token budget) 83.0: instructions 92, but coding 56 and search 63 (long reasoning, a coding task took 48 min).
-  Both runs in `results/hard/`.
+  layer passes per token, MoE 8 of 128 experts, local + global attention, vision). Kernel `bin-inklingm` = llama.cpp master
+  `e50c254a` (2026-11-21, Inkling-2-Mini merged in #32694 + #32704) with ggml-org's `IQ4_NL` (17.6 GB, merged layout): 36-38
+  tok/s on **one A4500**. First run (2026-11-21 night): unsloth's `UD-Q4_K_M` on `bin-inkling` (master `91979450` + the then
+  unmerged PR #32695, whose GGUF layout master does not load) made 29.7; its results are kept as `*-unsloth-pr32695`.
+  Over both cards it stays slow on either kernel (4.7-9.4 tok/s): each looped layer's weights sit on the card of its first
+  pass and the later passes hop cards (~400 graph splits per token); `-sm row` / `-sm tensor` are not supported for it. Its
+  compute buffer grows with context x ubatch (3.3 GB at 32k x 512), and the IQ4_NL fills the A4500 at 32k f16 / ub 256
+  (20.2 GB, 30.7 tok/s), so 32k runs with q8 KV, 64k with ub 128 + q8 KV, 128k with ub 64 + q4 KV (slower prompts, ~295
+  t/s). The chat template ignores `enable_thinking` and defaults to reasoning effort 0.9 (high); the `-min` configs set
+  `reasoning_effort: minimal` as the server default (`--chat-template-kwargs`; `Start-Srv` now quotes arguments so JSON
+  values survive). DSpark (unsloth's drafter) did not load (vocabulary padding; DSpark for Inkling is PR #32218, open).
+  unsloth UD-Q4_K_M, first run: hard suite 89.9 (effort minimal) / 83.0 (effort high: coding 56, search 63, a coding task
+  took 48 min).
+  IQ4_NL on `bin-inklingm`: hard suite **92.0** on `32k` (effort minimal; instructions 92, the best on the board, coding 81).
+- **Inkling-2-Mini Uncensored** (AtomicChat: rank-1 LoRA removing each layer's refusal direction, baked into their AD-Q4_K
+  16.5 GB; their numbers: 0 refusals on the harmful test sets, XSTest over-refusal 0, MMLU 79.15 vs 80.65). Merged layout,
+  kernel `bin-inklingm`, A4500 only: 37.5 tok/s at 32k f16 (fits at 19.8 GB), 128k q4 36.9. Hard suite **93.4** on `32k`
+  (effort minimal; coding 88, vision 100), the top of the board without reasoning on; one run each, so the 1.4 points over
+  the base model are within run-to-run noise (temperature 0, but a few tasks flip).
 - **Qwen2.5-Coder-32B PCB GRPO** (Simonssb: LoRA r=32, QLoRA SFT + GRPO on 254 KiCad boards; from a netlist/footprint
   summary it writes `groups.json` + `routing_strategy.json` for drandyhaas/KiCadRoutingTools). The HF repo only has the PEFT
   adapter, so it was converted here (llama.cpp `convert_lora_to_gguf.py --outtype f16`, 537 MB, in the repo release

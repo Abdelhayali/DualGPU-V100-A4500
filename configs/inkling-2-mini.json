@@ -1,26 +1,19 @@
 {
   "id": "inkling-2-mini",
-  "name": "Inkling-2-Mini UD-Q4_K_M (Thinking Machines, looped MoE 26B, 8 of 128 experts, vision; A4500 only)",
-  "gguf": "Inkling-2-Mini-UD-Q4_K_M.gguf",
-  "mmproj": "mmproj-F16.gguf",
-  "kernel": "inkling",
-  "draft": "dspark-Inkling-2-Mini-Q8_0.gguf",
+  "name": "Inkling-2-Mini IQ4_NL (Thinking Machines, looped MoE 26B, 8 of 128 experts, vision; A4500 only)",
+  "gguf": "Inkling-2-Mini-IQ4_NL.gguf",
+  "mmproj": "mmproj-Inkling-2-Mini-Q8_0.gguf",
+  "kernel": "inklingm",
   "files": [
     {
-      "repo": "unsloth/Inkling-2-Mini-GGUF",
-      "file": "Inkling-2-Mini-UD-Q4_K_M.gguf",
-      "gb": 16.61
+      "repo": "ggml-org/Inkling-2-Mini-GGUF",
+      "file": "Inkling-2-Mini-IQ4_NL.gguf",
+      "gb": 17.63
     },
     {
-      "repo": "unsloth/Inkling-2-Mini-GGUF",
-      "file": "mmproj-F16.gguf",
-      "gb": 0.64
-    },
-    {
-      "repo": "unsloth/Inkling-2-Mini-GGUF",
-      "file": "dspark-Inkling-2-Mini-Q8_0.gguf",
-      "gb": 0.4,
-      "note": "DSpark drafter, only for spec=dspark"
+      "repo": "ggml-org/Inkling-2-Mini-GGUF",
+      "file": "mmproj-Inkling-2-Mini-Q8_0.gguf",
+      "gb": 0.35
     }
   ],
   "sampling": [
@@ -31,7 +24,7 @@
     "--min-p",
     "0"
   ],
-  "notes": "New architecture (inkling2_loop): 24 layers, the middle 12 run three times (48 layer passes per token), MoE 8 of 128 experts, hybrid local (1024 window) + global attention, vision. Needs llama.cpp newer than the main kernel: kernel bin-inkling = upstream 91979450 + PR #32695 (Daniel Han, looped Inkling-2-Mini, not merged yet; no V100 MMVQ patch, it does not apply). Runs on the A4500 alone: split over both cards (UD-Q8_K_XL, any -ts) it made only ~5 tok/s (12.7k graph nodes and ~400 GPU-to-GPU splits per token: each looped layer's weights sit on the card of its first pass, the later passes run wherever -ts puts them; -sm row and -sm tensor are not supported for it), the Q4_K_M on one A4500 makes ~35. The GGUF counts 48 layers (looped) for 24 layers of weights. The chat template ignores enable_thinking; reasoning is set with reasoning_effort (none/minimal/low/medium/high, default 0.9 = high). Configs ending in -min set the server default to minimal (closest to thinking off); requests can still override it. Sampling: temperature 1.0 (generation_config). ts = A4500,V100. Its compute buffer grows with context x ubatch (about 3.3 GB at 32k x 512), so the A4500 takes 32k at ub 256, 64k at ub 128 (q8 KV), 128k at ub 64 (q4 KV, vision projector on the CPU). DSpark: unsloth's drafter does not load in this build (markov_w1 expects the unpadded 200058 vocabulary, the file has 201024; DSpark for Inkling is PR #32218, not merged).",
+  "notes": "New architecture (inkling2_loop): 24 layers, the middle 12 run three times (48 layer passes per token), MoE 8 of 128 experts, hybrid local (1024 window) + global attention, vision. Kernel bin-inklingm = llama.cpp master e50c254a (2026-11-21: merged Inkling-2-Mini support #32694 + #32704), with ggml-org's IQ4_NL in the merged layout: 37.4 tok/s on one A4500. Before, unsloth's UD-Q4_K_M (layout of the unmerged PR #32695, kernel bin-inkling) made 29.7 and scored 89.9; those results are kept as *-unsloth-pr32695. Runs on the A4500 alone: split over both cards it makes 5-9 tok/s (looped layers' later passes hop cards; -sm row / tensor not supported). Compute buffer grows with context x ubatch (about 3.3 GB at 32k x 512): 32k at ub 256, 64k at ub 128 (q8 KV), 128k at ub 64 (q4 KV, vision projector on the CPU). The chat template ignores enable_thinking; reasoning is set with reasoning_effort (none/minimal/low/medium/high, default 0.9 = high). Configs ending in -min set the server default to minimal; requests can still override it. Sampling: temperature 1.0 (generation_config). ts = A4500,V100.",
   "configs": [
     {
       "name": "a4500-32k-min",
@@ -40,34 +33,6 @@
       "mg": 0,
       "b": 256,
       "ub": 256,
-      "extra": [
-        "--chat-template-kwargs",
-        "{\"reasoning_effort\":\"minimal\"}"
-      ]
-    },
-    {
-      "name": "a4500-dspark8-32k-min",
-      "ctx": 32768,
-      "sm": "none",
-      "mg": 0,
-      "b": 256,
-      "ub": 256,
-      "spec": "dspark",
-      "n": 8,
-      "extra": [
-        "--chat-template-kwargs",
-        "{\"reasoning_effort\":\"minimal\"}"
-      ]
-    },
-    {
-      "name": "a4500-dspark4-32k-min",
-      "ctx": 32768,
-      "sm": "none",
-      "mg": 0,
-      "b": 256,
-      "ub": 256,
-      "spec": "dspark",
-      "n": 4,
       "extra": [
         "--chat-template-kwargs",
         "{\"reasoning_effort\":\"minimal\"}"
@@ -107,6 +72,40 @@
       "mg": 0,
       "b": 256,
       "ub": 256
+    },
+    {
+      "name": "a4500-32k-q8-min",
+      "ctx": 32768,
+      "sm": "none",
+      "mg": 0,
+      "b": 256,
+      "ub": 256,
+      "kv": "q8_0",
+      "extra": [
+        "--chat-template-kwargs",
+        "{\"reasoning_effort\":\"minimal\"}"
+      ]
+    },
+    {
+      "name": "a4500-32k-ub128-min",
+      "ctx": 32768,
+      "sm": "none",
+      "mg": 0,
+      "b": 128,
+      "ub": 128,
+      "extra": [
+        "--chat-template-kwargs",
+        "{\"reasoning_effort\":\"minimal\"}"
+      ]
+    },
+    {
+      "name": "a4500-32k-q8-high",
+      "ctx": 32768,
+      "sm": "none",
+      "mg": 0,
+      "b": 256,
+      "ub": 256,
+      "kv": "q8_0"
     }
   ],
   "sets": {
@@ -120,9 +119,10 @@
     "thinking": [
       "a4500-32k-high"
     ],
-    "spec-failed": [
-      "a4500-dspark8-32k-min",
-      "a4500-dspark4-32k-min"
+    "fit32k": [
+      "a4500-32k-q8-min",
+      "a4500-32k-ub128-min",
+      "a4500-32k-q8-high"
     ]
   }
 }

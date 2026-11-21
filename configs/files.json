@@ -53,23 +53,29 @@
   "size": 899283104,
   "url": "https://huggingface.co/huihui-ai/Huihui-Qwen3.6-35B-A3B-abliterated-MTP-GGUF/resolve/main/mmproj-model-f16.gguf"
  },
- "inkling-2-mini/Inkling-2-Mini-UD-Q4_K_M.gguf": {
-  "repo": "unsloth/Inkling-2-Mini-GGUF",
-  "sha256": "f90c5a4df44d335ac9f9eea2a15c31d6c5a377b1b3cd9ff7fc2cf123f3cdf7e1",
-  "size": 16610543328,
-  "url": "https://huggingface.co/unsloth/Inkling-2-Mini-GGUF/resolve/main/Inkling-2-Mini-UD-Q4_K_M.gguf"
+ "inkling-2-mini-uncensored/Inkling-2-Mini-Uncensored-AD-Q4_K.gguf": {
+  "repo": "AtomicChat/Inkling-2-Mini-Uncensored-GGUF",
+  "sha256": "36e99f1f56ca33cb356f19d7e3822938f65af1cde978ad13170238928d4c955f",
+  "size": 16525559776,
+  "url": "https://huggingface.co/AtomicChat/Inkling-2-Mini-Uncensored-GGUF/resolve/main/Inkling-2-Mini-Uncensored-AD-Q4_K.gguf"
  },
- "inkling-2-mini/dspark-Inkling-2-Mini-Q8_0.gguf": {
-  "repo": "unsloth/Inkling-2-Mini-GGUF",
-  "sha256": "2ec78510da837e8fc3be54a14757a0c5fbd2d8d9e85a0d92853fafdf674f3773",
-  "size": 402278560,
-  "url": "https://huggingface.co/unsloth/Inkling-2-Mini-GGUF/resolve/main/dspark-Inkling-2-Mini-Q8_0.gguf"
+ "inkling-2-mini-uncensored/mmproj-Inkling-2-Mini-Uncensored-F16.gguf": {
+  "repo": "AtomicChat/Inkling-2-Mini-Uncensored-GGUF",
+  "sha256": "5a72e0b6e2bef13c3f455f4edb85df0c752b92ff76ab46af879eae088163efe6",
+  "size": 639348448,
+  "url": "https://huggingface.co/AtomicChat/Inkling-2-Mini-Uncensored-GGUF/resolve/main/mmproj-Inkling-2-Mini-Uncensored-F16.gguf"
  },
- "inkling-2-mini/mmproj-F16.gguf": {
-  "repo": "unsloth/Inkling-2-Mini-GGUF",
-  "sha256": "3bff75ffeb2d6e0371ba7bd42e30d26a7d98aea681fa44b03b5a20891cfa2c5f",
-  "size": 639348160,
-  "url": "https://huggingface.co/unsloth/Inkling-2-Mini-GGUF/resolve/main/mmproj-F16.gguf"
+ "inkling-2-mini/Inkling-2-Mini-IQ4_NL.gguf": {
+  "repo": "ggml-org/Inkling-2-Mini-GGUF",
+  "sha256": "cbdf3fa9dc50a4124977980f37da4f1fa764b0cfe800d275cd43d26ce2a81af4",
+  "size": 17627940768,
+  "url": "https://huggingface.co/ggml-org/Inkling-2-Mini-GGUF/resolve/main/Inkling-2-Mini-IQ4_NL.gguf"
+ },
+ "inkling-2-mini/mmproj-Inkling-2-Mini-Q8_0.gguf": {
+  "repo": "ggml-org/Inkling-2-Mini-GGUF",
+  "sha256": "233287272ec5ac39b4168677aba54a4c024f202410f5629fac1830e1059f8abb",
+  "size": 345910944,
+  "url": "https://huggingface.co/ggml-org/Inkling-2-Mini-GGUF/resolve/main/mmproj-Inkling-2-Mini-Q8_0.gguf"
  },
  "kimi-linear-48b-a3b/Kimi-Linear-48B-A3B-Instruct-abliterated-bf16.i1-Q4_K_M.gguf": {
   "repo": "mradermacher/Kimi-Linear-48B-A3B-Instruct-abliterated-bf16-i1-GGUF",

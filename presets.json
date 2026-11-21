@@ -85,10 +85,19 @@
     "inkling-2-mini": {
       "default": "32k",
       "presets": [
-        { "name": "32k",   "config": "a4500-32k-min",          "summary": "default: 32k ctx, f16 KV, A4500 only, reasoning effort minimal - 29.7 tok/s, 7k prompt 418 t/s, vision (looped MoE, kernel bin-inkling)" },
-        { "name": "think", "config": "a4500-32k-high",         "summary": "32k ctx, reasoning effort high (the model's default) - 29.7 tok/s, long answers" },
-        { "name": "64k",   "config": "a4500-64k-q8-ub128-min", "summary": "64k ctx, q8 KV, ubatch 128 - 29.6 tok/s, 7k prompt 332 t/s" },
-        { "name": "128k",  "config": "a4500-128k-q4-ub64-min", "summary": "128k ctx, q4 KV, ubatch 64, vision projector on CPU - 29.2 tok/s, 7k prompt 266 t/s" }
+        { "name": "32k",   "config": "a4500-32k-q8-min",       "summary": "default: 32k ctx, q8 KV, A4500 only, reasoning effort minimal - 36.3 tok/s, 7k prompt 464 t/s, vision (looped MoE, IQ4_NL, kernel bin-inklingm)" },
+        { "name": "think", "config": "a4500-32k-q8-high",      "summary": "32k ctx, q8 KV, reasoning effort high (the model's default) - 37.9 tok/s, long answers" },
+        { "name": "64k",   "config": "a4500-64k-q8-ub128-min", "summary": "64k ctx, q8 KV, ubatch 128 - 36.3 tok/s, 7k prompt 361 t/s" },
+        { "name": "128k",  "config": "a4500-128k-q4-ub64-min", "summary": "128k ctx, q4 KV, ubatch 64, vision projector on CPU - 37.2 tok/s, 7k prompt 294 t/s" }
+      ]
+    },
+    "inkling-2-mini-uncensored": {
+      "default": "32k",
+      "presets": [
+        { "name": "32k",   "config": "a4500-32k-min",          "summary": "default: 32k ctx, f16 KV, A4500 only, reasoning effort minimal - 37.5 tok/s, 7k prompt 468 t/s, vision (AtomicChat uncensored AD-Q4_K, kernel bin-inklingm)" },
+        { "name": "think", "config": "a4500-32k-high",         "summary": "32k ctx, reasoning effort high - 37.5 tok/s" },
+        { "name": "64k",   "config": "a4500-64k-q8-ub128-min", "summary": "64k ctx, q8 KV, ubatch 128 - 35.7 tok/s" },
+        { "name": "128k",  "config": "a4500-128k-q4-ub64-min", "summary": "128k ctx, q4 KV, ubatch 64, vision projector on CPU - 36.9 tok/s, 7k prompt 296 t/s" }
       ]
     },
     "qwen2.5-coder-32b-pcb": {

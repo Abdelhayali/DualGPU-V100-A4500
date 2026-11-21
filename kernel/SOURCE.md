@@ -19,8 +19,8 @@ tools\build-kernel.bat
 `patches/0001-cuda-mmvq-v100-tuning-applied.patch` is the one commit on top of `f336359` in the tested build;
 `patches/llamacpp-f336359-v100-mmvq.patch` is the original 2-patch file from the V100-only setup (patch 2 is not applied).
 
-Prebuilt binaries (Windows x64, the exact `kernelin` used for every result here: llama-server/bench/cli + CUDA 12.9 runtime
-and cuBLAS DLLs + MSVC runtime) are attached to the GitHub release `kernel-da8fd08`. Unzip into `kernelin`.
+Prebuilt binaries (Windows x64, the exact `kernel\bin` used for every result here: llama-server/bench/cli + CUDA 12.9 runtime
+and cuBLAS DLLs + MSVC runtime) are attached to the GitHub release `kernel-da8fd08`. Unzip into `kernel\bin`.
 
 ## Variant: `bin-ripple` (Ripple-65B Preview, `ricursive` architecture)
 
@@ -44,7 +44,19 @@ config with `"kernel": "dspine"` (draft type `draft-dflash`, `--spec-draft-n-max
 
 Models pick the Ripple build with `"kernel": "ripple"` in `configs/<id>.json` (tools) and the catalog kernel `dualgpu-ripple` (GUI).
 
-## Variant: `bin-inkling` (Inkling-2-Mini, looped `inkling2` architecture)
+## Variant: `bin-inklingm` (Inkling-2-Mini, merged `inkling2_loop`) - used by the Inkling configs
+
+`kernel/src-inklingm` = upstream llama.cpp `e50c254a` (2026-11-21) with Inkling-2-Mini merged (#32694, plus #32704 "share
+the loop slots after the scale pass"); no V100 MMVQ patch. Loads GGUFs in the merged layout (arch `inkling2_loop`:
+ggml-org/Inkling-2-Mini-GGUF, AtomicChat's files after their 2026-11-21 conversion). 37.4 tok/s on one A4500 vs 29.7 for
+`bin-inkling` below.
+
+```bat
+git -C kernel\src worktree add --detach ..\src-inklingm e50c254a      (fetch https://github.com/ggml-org/llama.cpp first)
+tools\build-kernel.bat D:\pxa\cuda-12.9 inklingm      (-> kernel\bin-inklingm)
+```
+
+## Variant: `bin-inkling` (superseded: Inkling-2-Mini via the unmerged PR #32695, unsloth's first GGUF layout)
 
 `kernel/src-inkling` = upstream llama.cpp `91979450` (2026-11-20, 904 commits after `f336359`; has Inkling 2 text + vision,
 the Inkling chat parser and the attention-mask fixes) plus `patches/0004-inkling2-mini-loop-pr32695-applied.patch`:
