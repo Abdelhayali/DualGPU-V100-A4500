@@ -60,6 +60,30 @@ The V100-only references on the same suite: OrcaCyber Mix-13G 89.8 at 60 tok/s (
 93 tok/s, Qwen3.6-35B-A3B UD-IQ3_XXS 88.4 at 119 tok/s (64k). Two GPUs give the bigger quants and 2-8x the context; for the
 small-active MoE models one V100 with a 3-bit quant is faster (the whole model sits on the faster card, no hand-over).
 
+## Leaderboard with reasoning on (hard suite, same 72 tasks)
+
+Same presets as above with reasoning on (`EVAL_THINKING=1`, 5x token budget). Inkling-2-Mini uses reasoning effort high
+(`a4500-32k-q8-high`). gen tok/s is the mean over the run. Regenerate the chart and table with `python tools/reasoning_chart.py`.
+
+![Hard suite, reasoning on vs off](docs/reasoning-on.png)
+
+| # | model | gen tok/s | coding | reasoning | instr | search | agent | vision | longctx | **overall on** | off | change |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | Surogate3.7-35B-A3B Q5_K_M | 101.6 | 81 | 100 | 92 | 88 | 100 | 100 | 100 | **94.3** | 88.1 | +6.2 |
+| 2 | Qwen3.8-40B Ultimate Heretic | 37.3 | 81 | 100 | 83 | 100 | 100 | 88 | 100 | **93.1** | 80.7 | +12.4 |
+| 3 | Qwen3.8-27B UD-Q5_K_XL | 46.1 | 50 | 100 | 100 | 100 | 100 | 88 | 100 | **91.1** | 82.6 | +8.5 |
+| 4 | Qwen3.6-35B-A3B UD-Q5_K_XL | 95.3 | 81 | 100 | 92 | 75 | 100 | 88 | 100 | **90.8** | 88.4 | +2.4 |
+| 5 | Inkling-2-Mini IQ4_NL | 36.2 | 56 | 100 | 83 | 62 | 83 | 100 | 100 | **83.6** | 92.0 | -8.4 |
+| 6 | Apex-35B-V1.0 Q4_K_M (text only) | 101.0 | 31 | 95 | 58 | 88 | 100 | 0 | 100 | **67.4** | 60.4 | +7.0 |
+
+- Reasoning raises instruction following on every Qwen model (Qwen3.8-27B 58 -> 100, Qwen3.6 50 -> 92) and fixes
+  Qwen3.8-27B's long-context misses (50 -> 100). It costs coding: Qwen3.8-27B drops 88 -> 50 and Inkling 81 -> 56, mostly
+  tasks where the model is still reasoning when the token budget ends and never writes the code.
+- Inkling-2-Mini is the only model that loses overall (92.0 -> 83.6; search 100 -> 62 too). Keep it on effort minimal.
+  The same run on the unsloth PR build scored 83.0.
+- For coding keep reasoning off; for instruction-heavy or long-document work Surogate (94.3, 102 tok/s) or Qwen3.8-27B
+  (91.1, 46 tok/s) with reasoning on are the strongest here.
+
 ## Presets
 
 | model | preset | config | ctx | KV | tok/s (mean of code + chat) | 7k prompt |
