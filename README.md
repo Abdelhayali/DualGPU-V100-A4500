@@ -228,10 +228,11 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
   as the chat grows. Presets `64k-new`, `128k` and `262k` moved to it (A4500 alone, code / prose tok/s): `64k-new` 88 / 87
   -> **92 / 92**, `128k` 80 / 37 -> **90 / 90**, `262k` 58 / 22 -> **90 / 90**; 8k prompts ~1,140 tok/s on all three, images
   work. Deep in a chat at 262k (one prompt, then a 300-token answer): 29k tokens read at 1,019 tok/s then 57 tok/s, 71k at
-  1,116 then 70, 143k at 1,017 then 56, each answer right. Same answers as v1.1.73: hard suite 76.1 for both at 64k
-  (75.4 at 262k). A rerun of the first build's `64k` today also gives 76.1 (instructions 42, long context 50), not the
-  89.6 from 21 November, so that score did not reproduce. The `v100` preset stays on v1.1.73 until it is tested on the
-  V100 (busy). Two GPUs for Inkling are Linux only in v1.1.74.
+  1,116 then 70, 143k at 1,017 then 56, each answer right. Hard suite with reasoning on (effort low, as the 89.6 run):
+  **90.2** at 64k (coding 69, reasoning 100, instructions 92, search 100, agent 83, vision 88, long context 100). With
+  the suite's default `enable_thinking: false` Maya does not reason at all: 76.1 for v1.1.73, v1.1.74 and the first
+  build alike (instructions 42, long context 50; 75.4 at 262k), so v1.1.74 gives the same answers as v1.1.73. The
+  `v100` preset stays on v1.1.73 until it is tested on the V100 (busy). Two GPUs for Inkling are Linux only in v1.1.74.
 - **Strata 0.2.19 for Inkling-2-Mini** (Niko1221/Strata, its prebuilt `strata-inkling` 0.1.65 CUDA 12 engine in
   `kernel/strata-inkling`, and the `SQ-15` pack from `strata-engine/Inkling-2-Mini-Strata`, 14.35 GB, checksums verified).
   The engine speaks Maya's line protocol, so Maya's server runs it: preset `strata` (`start-maya.bat strata`, the GUI),
@@ -239,7 +240,8 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
   with DSpark, 43.1 without), 8k prompt ~650 tok/s, load ~2 min. Slower than Maya's `64k-new` (88 / 87) on the same card:
   Strata's fast kernels target RTX 40 / 50 (sm_89 / sm_120). Hard suite **65.6**, text only (Maya's image-encoder command
   is "unknown" to it, and its own vision pack only works inside the Strata app): coding 81, reasoning 95, instructions 50,
-  search 100, agent 83, long context 50; 76.6 over the 6 text categories against Maya's 89.6 (with vision); in today's reruns Maya scores 74.2 over the same 6. The V100 was
+  search 100, agent 83, long context 50; 76.6 over the 6 text categories. That run had reasoning off (the suite's default); Maya with reasoning off scores 74.2
+  over the same 6, with reasoning on (its 89.6 / 90.2) 90.6. The V100 was
   not tested (it was busy with another server). `--bench` reads only `.strata` packs, not GGUF.
 - **Inkling kernel `bin-inklings`** (realugbun's `inkling2-speed` fork of llama.cpp: upstream `e50c254a` + fused CUDA
   kernels for Inkling 2's small op chains): every Inkling preset runs on it. Against `bin-inklingm` with the same files and
