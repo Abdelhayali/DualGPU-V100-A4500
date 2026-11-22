@@ -1,7 +1,7 @@
 {
   "id": "inkling-2-mini-maya",
   "engine": "maya",
-  "name": "Inkling-2-Mini UD-Q4_K_XL on the Maya engine (maya-ik2, RTX A4500 only, vision)",
+  "name": "Inkling-2-Mini UD-Q4_K_XL on the Maya engine (maya-ik2, one card: A4500, or the V100 with Maya v1.1.73, vision)",
   "gguf": "Inkling-2-Mini-UD-Q4_K_XL.gguf",
   "mmproj": "mmproj-BF16.gguf",
   "files": [
@@ -22,7 +22,7 @@
       "note": "the official DSpark drafter, code preset only"
     }
   ],
-  "notes": "Maya's own engine for Inkling-2-Mini (alesha-pro/maya-inkling-mini, built here with CUDA 13.4 for sm_86; not llama.cpp): every one of the 3,072 experts stays in VRAM and a token is one CUDA graph. RTX A4500 only (the V100 is not supported; the GUI shows Maya the A4500 alone). 86-92 tok/s at 64k; 64k is the most that keeps every expert resident on 20 GB. Hard suite 89.6 (reasoning effort low, images on the CPU encoder). Needs the tokenizer folder ik2\tokenizer, made once with Maya's tools/strata_tokenizer.py (kernel\\SOURCE.md). Reasoning: Maya does not open the reasoning block itself, so its presets default to effort low (minimal does not reason at all here).",
+  "notes": "Maya's own engine for Inkling-2-Mini (alesha-pro/maya-inkling-mini, built here with CUDA 13.4 for sm_86; not llama.cpp): every one of the 3,072 experts stays in VRAM and a token is one CUDA graph. Presets 64k / code: the first build, RTX A4500 alone. Presets v100 / 128k / 262k: Maya v1.1.73 (mw00/project-maya, built with CUDA 12.9 for sm_70 + sm_86 in kernel\build-maya2), which keeps the experts that do not fit in pinned RAM and the most-picked ones (its profile) in VRAM: the V100 alone at 52 tok/s on code (20-27 on prose: Maya's expert profile favours code), the A4500 at 64k 88, 128k 80 / 37 and 262k 58 / 22 (code / prose). Two cards (layer split, expert parallel) were slower than one card here: the cards copy through RAM. 86-92 tok/s at 64k; 64k is the most that keeps every expert resident on 20 GB. Hard suite 89.6 (reasoning effort low, images on the CPU encoder). Needs the tokenizer folder ik2\tokenizer, made once with Maya's tools/strata_tokenizer.py (kernel\\SOURCE.md). Reasoning: Maya does not open the reasoning block itself, so its presets default to effort low (minimal does not reason at all here).",
   "maya": {
     "template": "inkling-2-mini",
     "presets": [
@@ -35,6 +35,26 @@
         "name": "code",
         "summary": "code / edits: official DSpark drafter, 24k ctx - 97-134 tok/s on code, prose ~76",
         "bench": "97-134 tok/s on code, 76 on prose"
+      },
+      {
+        "name": "64k-new",
+        "summary": "A4500 alone (Maya v1.1.73): 64k ctx, FP8 KV, every expert in VRAM - 88 tok/s code and prose",
+        "bench": "88.4 code / 87.3 prose tok/s"
+      },
+      {
+        "name": "128k",
+        "summary": "A4500 alone (Maya v1.1.73): 128k ctx, FP8 KV, most experts in VRAM, the rest from RAM - 80 tok/s code, 37 prose",
+        "bench": "79.7 code / 36.8 prose tok/s"
+      },
+      {
+        "name": "262k",
+        "summary": "A4500 alone (Maya v1.1.73): 262k ctx, FP8 KV, ~11 GiB of experts in VRAM, the rest from RAM - 58 tok/s code, 22 prose",
+        "bench": "57.7 code / 21.7 prose tok/s"
+      },
+      {
+        "name": "v100",
+        "summary": "Tesla V100 alone (Maya v1.1.73): 32k ctx, FP8 KV, 11 GiB of experts in VRAM + the rest from RAM - 52 tok/s code, 20-27 prose; the A4500 stays free",
+        "bench": "52 code / 20-27 prose tok/s; coding 87.5, reasoning 90 (partial hard suite)"
       }
     ]
   }

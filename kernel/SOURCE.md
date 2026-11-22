@@ -110,6 +110,25 @@ D:\venvs\maya\Scripts\python kernel\src-maya\tools\strata_tokenizer.py --gguf mo
 Files in `models\inkling-2-mini-maya`: unsloth `Inkling-2-Mini-UD-Q4_K_XL.gguf` (sha256 e62d463c...) and `mmproj-BF16.gguf`
 (2c165c78...), Thinking Machines' `mtp.safetensors` (the drafter, 7c3b6513...). Start: `start-maya.bat [64k|code] [port]`.
 
+## Engine: `build-maya2` (Maya v1.1.73 `maya-ik2`: the V100, experts past VRAM in RAM)
+
+`kernel/src-maya2` = https://github.com/mw00/project-maya tag `v1.1.73` (commit `f9a053d`), unchanged. Volta kernels
+(`mma.m8n8k4`) and the offload path (pinned RAM, a VRAM tier from `data/expert-profile-ik2mini.bin` via `IK2_WARM`).
+Inkling 2 on Windows is outside Maya's preview: `-DSTRATA_IK2_WINDOWS=ON` and `IK2_UNSUPPORTED=1` at run time. CUDA 12.9
+(CUDA 13 has no sm_70); its `cudart64_12` / `cublas64_12` / `cublasLt64_12` DLLs are copied beside the exe. Uses the
+templates' own server (`"src": "src-maya2"`) and the same venv, tokenizer folder and `maya-vision` as `build-maya`.
+
+```bat
+git clone --depth 1 --branch v1.1.73 https://github.com/mw00/project-maya kernel\src-maya2
+rem in a VS 2022 x64 prompt with CUDA 12.9 on PATH:
+cmake -S kernel\src-maya2 -B kernel\build-maya2 -G Ninja -DCMAKE_BUILD_TYPE=Release -DSTRATA_ENABLE_CUDA=ON ^
+  -DCMAKE_CUDA_ARCHITECTURES="70;86" -DSTRATA_IK2_WINDOWS=ON -DSTRATA_BUILD_TESTS=OFF
+cmake --build kernel\build-maya2 --target maya-ik2
+copy %CUDA%\bin\cudart64_12.dll kernel\build-maya2 & copy %CUDA%\bin\cublas64_12.dll kernel\build-maya2 & copy %CUDA%\bin\cublasLt64_12.dll kernel\build-maya2
+```
+
+Presets `configs\maya\inkling-2-mini-{v100,64k-new,128k,262k}.json` ("card": the GPU it gets alone).
+
 ## Variant: `bin-kintsugi` (Kintsugi-27B: Escha W2 / EXL3 trellis weights)
 
 `kernel/src-kintsugi/kintsugi-engine-5f393adb5` = the release source `Kintsugi-27B-v1.1-engine-src-5f393adb5.tar.gz` of

@@ -1,0 +1,30 @@
+{
+ "exe": "{root}/kernel/build-maya2/maya-ik2.exe",
+ "src": "src-maya2",
+ "card": "A4500",
+ "tokenizer": "{root}/models/inkling-2-mini-maya/ik2/tokenizer",
+ "model_name": "inkling-2-mini",
+ "reasoning_effort": "low",
+ "args": [
+  "--model",
+  "{root}/models/inkling-2-mini-maya/Inkling-2-Mini-UD-Q4_K_XL.gguf",
+  "--max-context",
+  "65536"
+ ],
+ "env": {
+  "IK2_KV": "fp8",
+  "IK2_UNSUPPORTED": "1",
+  "IK2_WARM": "{root}/kernel/src-maya2/data/expert-profile-ik2mini.bin",
+  "IK2_GATE_TILE": "64",
+  "IK2_GATE_BF16": "1",
+  "IK2_Q8_UNROLL": "1"
+ },
+ "vision": {
+  "exe": "{root}/kernel/build-maya-vision/bin/maya-vision.exe",
+  "mmproj": "{root}/models/inkling-2-mini-maya/mmproj-BF16.gguf",
+  "model": "{root}/models/inkling-2-mini-maya/Inkling-2-Mini-UD-Q4_K_XL.gguf",
+  "gpu": false,
+  "resident": true
+ },
+ "note": "Maya v1.1.73: RTX A4500 alone, 64k, FP8 KV, every expert in VRAM - 88 tok/s"
+}

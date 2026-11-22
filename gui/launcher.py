@@ -176,16 +176,33 @@ def maya_cmd(mid, k, params, port):
     py = Path(kern["python"])
     if not py.exists():
         raise FileNotFoundError(f"Maya's Python venv is missing ({py}); see kernel/SOURCE.md")
-    return [str(py), str(ROOT / "kernel" / kern["src"] / "serve" / "server.py"), "--engine", "maya",
+    return [str(py), str(ROOT / "kernel" / maya_src(mid, k, params) / "serve" / "server.py"), "--engine", "maya",
             "--config", str(out), "--host", HOST, "--port", str(port)]
 
 
-def maya_env(env):
-    """Maya keeps every expert in VRAM on one sm_86 card: show it the RTX A4500 alone."""
+def maya_template(mid, params):
+    """The preset's template in configs/maya as a dict ({} if it is missing)."""
+    preset = next((str(p.get("value", "")).strip() for p in params if p.get("flag") == "--preset" and p.get("on", True)), "")
+    src = ROOT / "configs" / "maya" / f'{model_entry(mid)["maya"]["template"]}-{preset}.json'
     try:
-        env["CUDA_VISIBLE_DEVICES"] = next(g["uuid"] for g in gpus() if "A4500" in g["name"])
+        return json.loads(src.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+
+def maya_src(mid, k, params):
+    """The Maya source folder (its Python server) for this preset: the template's "src" (Maya v1.1.73 presets:
+    src-maya2), else the kernel's."""
+    return maya_template(mid, params).get("src") or catalog()["kernels"][k]["src"]
+
+
+def maya_env(env, mid, params):
+    """One card for Maya: the template's "card" (V100 / A4500; the v1.1.73 build has V100 kernels), else the RTX A4500."""
+    card = maya_template(mid, params).get("card") or "A4500"
+    try:
+        env["CUDA_VISIBLE_DEVICES"] = next(g["uuid"] for g in gpus() if card in g["name"])
     except Exception as e:
-        log.append(f"[launcher] could not find the RTX A4500 ({e}); Maya sees every GPU")
+        log.append(f"[launcher] could not find the {card} ({e}); Maya sees every GPU")
     return env
 
 
@@ -486,9 +503,11 @@ def start_server(mid, preset, k, params, recovering=False):
         except StopIteration:
             log.append(f"[launcher] no GPU matching {pre['gpu']}; the engine sees every GPU")
     if is_maya(k):
-        env = maya_env(env)
+        env = maya_env(env, mid, params)
         env["PYTHONIOENCODING"] = "utf-8"
-        cwd = ROOT / "kernel" / catalog()["kernels"][k]["src"]
+        cwd = ROOT / "kernel" / maya_src(mid, k, params)
+        exe_dir = Path(maya_template(mid, params).get("exe", "").replace("{root}", str(ROOT))).parent
+        env["PATH"] = str(exe_dir) + os.pathsep + env["PATH"]   # (the engine's CUDA runtime DLLs sit beside it)
     log.clear()
     log.append("[launcher] " + subprocess.list2cmdline(cmd))
     proc = subprocess.Popen(cmd, cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True,

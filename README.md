@@ -92,6 +92,10 @@ small-active MoE models one V100 with a 3-bit quant is faster (the whole model s
 | | v100-128k | `v100-128k-q4-ub32-min-s` (V100 only) | 128k | q4_0 | 47.8 | 320 t/s |
 | inkling-2-mini (Maya engine) | **64k** (`start-maya.bat`) | `configs/maya/inkling-2-mini-64k.json` (A4500 only, effort low) | 64k | fp8 | **86-92** | - |
 | | code | `configs/maya/inkling-2-mini-code.json` (DSpark drafter) | 24k | fp8 | 76 prose, **97-134** code | - |
+| | 64k-new | `configs/maya/inkling-2-mini-64k-new.json` (Maya v1.1.73, A4500) | 64k | fp8 | 88 code, 87 prose | - |
+| | 128k | `configs/maya/inkling-2-mini-128k.json` (Maya v1.1.73, A4500, experts partly in RAM) | 128k | fp8 | 80 code, 37 prose | - |
+| | 262k | `configs/maya/inkling-2-mini-262k.json` (Maya v1.1.73, A4500, experts partly in RAM) | 262k | fp8 | 58 code, 22 prose | - |
+| | v100 | `configs/maya/inkling-2-mini-v100.json` (Maya v1.1.73, **V100 alone**) | 32k | fp8 | 52 code, 20-27 prose | - |
 | kintsugi-27b | **128k** (default) | `a4500-mtp3-128k-q8` (A4500 only, MTP 3 + lookup) | 128k | q8_0 | **91.8** | 1450 t/s |
 | | fast | `a4500-dfl7-32k` (DFlash2 drafter) | 32k | f16 | 92.2 | 1395 t/s |
 | | 262k | `a4500-mtp3-262k-q4` | 262k | q4_0 | 91.0 | 1449 t/s |
@@ -182,6 +186,17 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
   in the `configs/maya` template, starts Maya's Python server from venv `D:\venvs\maya` with only the A4500 visible, and
   stops the whole process tree). `64k` takes ~140 s to load (14.7 GiB of experts copied to VRAM), `code` ~40 s. No
   tune.ps1 support.
+- **Maya v1.1.73 for Inkling-2-Mini: the V100 and longer context** (mw00/project-maya, built from source with CUDA 12.9
+  for sm_70 + sm_86 in `kernel/build-maya2`; CUDA 13 has no sm_70). It keeps the experts that do not fit in pinned RAM,
+  the most-picked ones (its profile `data/expert-profile-ik2mini.bin`, `IK2_WARM`) in VRAM, and runs on the V100 with its
+  own `mma.m8n8k4` kernels. Presets (`start-maya.bat <preset> [port]` and the GUI), code / prose tok/s:
+  `v100` (V100 alone, 32k) **52** / 20-27, the A4500 stays free (coding 87.5, reasoning 90 on a partial hard suite, vision
+  passes); `64k-new` (A4500, every expert resident) **88** / 87; `128k` 80 / 37; `262k` 58 / 22. Prose is slower once
+  experts come from RAM: the profile favours the experts code uses. unsloth's `UD-Q3_K_XL` does not load (IQ2_XS experts).
+  **Two cards are slower than one** (262k, synthetic decode): A4500 alone with RAM offload 39.9 tok/s, layer split 25.8,
+  expert parallel (`IK2_EP=1`) 14.5, and an uneven split tried here (layers 0-5 / 6-23: 34.8; 0-17 / 18-23: 19.3); the
+  A4500 and V100 have no peer access, so every hop goes through RAM, which costs more than fetching experts. Maya has no
+  option to put only the KV cache on the second card.
 - **Inkling kernel `bin-inklings`** (realugbun's `inkling2-speed` fork of llama.cpp: upstream `e50c254a` + fused CUDA
   kernels for Inkling 2's small op chains): every Inkling preset runs on it. Against `bin-inklingm` with the same files and
   settings: A4500 base 36.3 -> 58.1 tok/s, uncensored 37.5 -> 54.6, V100 IQ3_S 33.0 -> 48.3, 128k 36.9 -> 52.8; 7k prompts
