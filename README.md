@@ -224,7 +224,9 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
   architecture and settings as Qwen3.6-35B-A3B: 98.6 tok/s at 32k (60/40, MTP 3), 94.9 at 128k, 90.6 at 262k q8; MTP
   accepts 59-75%. Hard suite **88.1** on `128k` with thinking off (coding 100, agent 100, long context 100, instructions
   42); with reasoning on (`eval_thinking`, 5x tokens) **94.3** (instructions 92, vision 100, coding 81). Both runs in
-  `results/hard/`. Its files are made locally, so the GUI's Download has nothing to fetch for it.
+  `results/hard/`. The GGUF and mmproj are uploaded to
+  [abdelhayali91/Surogate3.7-35B-A3B-GGUF](https://huggingface.co/abdelhayali91/Surogate3.7-35B-A3B-GGUF), where the GUI's
+  Download fetches them.
 - **Kintsugi-27B** (CaryPalmer / professorpalmer: Qwen3.8-27B at 2.47 bits per weight, 10.5 GB, Escha W2 / EXL3 trellis
   weights; only its own engine loads it: kernel `bin-kintsugi`, their llama.cpp fork built from the release source for
   sm_86, see `kernel/SOURCE.md`). RTX A4500 only (no V100 kernels). Engine switches from their `start-server.ps1` as the

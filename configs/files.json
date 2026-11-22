@@ -348,15 +348,15 @@
   "url": "https://huggingface.co/AtomicChat/Ripple-65B-Preview-GGUF/resolve/main/Ripple-65B-Preview-AD-IQ3_XXS.gguf"
  },
  "surogate-3.7-35b/Surogate3.7-35B-A3B-Q5_K_M.gguf": {
-  "repo": "surogate/Surogate3.7-35B-A3B (converted here, no download)",
+  "repo": "abdelhayali91/Surogate3.7-35B-A3B-GGUF",
   "sha256": "5ca65c84aa595ea9d34b01fcdfc87575cc1c7e74fcab86489af9dca6eff40725",
   "size": 25347532032,
-  "url": ""
+  "url": "https://huggingface.co/abdelhayali91/Surogate3.7-35B-A3B-GGUF/resolve/main/Surogate3.7-35B-A3B-Q5_K_M.gguf"
  },
  "surogate-3.7-35b/mmproj-Surogate3.7-35B-A3B-F16.gguf": {
-  "repo": "surogate/Surogate3.7-35B-A3B (converted here, no download)",
+  "repo": "abdelhayali91/Surogate3.7-35B-A3B-GGUF",
   "sha256": "6786aa6bcfce1da6d4d233d4b24bbb473608d8b6c487b9af3989af02cc4d1ccd",
   "size": 899282976,
-  "url": ""
+  "url": "https://huggingface.co/abdelhayali91/Surogate3.7-35B-A3B-GGUF/resolve/main/mmproj-Surogate3.7-35B-A3B-F16.gguf"
  }
 }

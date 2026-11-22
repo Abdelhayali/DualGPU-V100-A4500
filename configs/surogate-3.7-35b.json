@@ -5,16 +5,16 @@
   "mmproj": "mmproj-Surogate3.7-35B-A3B-F16.gguf",
   "files": [
     {
-      "repo": "surogate/Surogate3.7-35B-A3B",
+      "repo": "abdelhayali91/Surogate3.7-35B-A3B-GGUF",
       "file": "Surogate3.7-35B-A3B-Q5_K_M.gguf",
       "gb": 25.35,
-      "note": "not in the repo (no GGUF published): converted here from the BF16 safetensors with kernel/src convert_hf_to_gguf.py --outtype bf16 (MTP head kept as nextn), then llama-quantize Q5_K_M"
+      "note": "our upload (surogate published no GGUF): converted here from the BF16 safetensors with kernel/src convert_hf_to_gguf.py --outtype bf16 (MTP head kept as nextn), then llama-quantize Q5_K_M"
     },
     {
-      "repo": "surogate/Surogate3.7-35B-A3B",
+      "repo": "abdelhayali91/Surogate3.7-35B-A3B-GGUF",
       "file": "mmproj-Surogate3.7-35B-A3B-F16.gguf",
       "gb": 0.9,
-      "note": "converted here: convert_hf_to_gguf.py --mmproj --outtype f16"
+      "note": "our upload, converted here: convert_hf_to_gguf.py --mmproj --outtype f16"
     }
   ],
   "sampling": [

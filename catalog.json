@@ -20423,17 +20423,17 @@
                        "files":  [
                                      {
                                          "name":  "Surogate3.7-35B-A3B-Q5_K_M.gguf",
-                                         "repo":  "surogate/Surogate3.7-35B-A3B",
+                                         "repo":  "abdelhayali91/Surogate3.7-35B-A3B-GGUF",
                                          "size":  25347532032,
                                          "sha256":  "5ca65c84aa595ea9d34b01fcdfc87575cc1c7e74fcab86489af9dca6eff40725",
-                                         "url":  ""
+                                         "url":  "https://huggingface.co/abdelhayali91/Surogate3.7-35B-A3B-GGUF/resolve/main/Surogate3.7-35B-A3B-Q5_K_M.gguf"
                                      },
                                      {
                                          "name":  "mmproj-Surogate3.7-35B-A3B-F16.gguf",
-                                         "repo":  "surogate/Surogate3.7-35B-A3B",
+                                         "repo":  "abdelhayali91/Surogate3.7-35B-A3B-GGUF",
                                          "size":  899282976,
                                          "sha256":  "6786aa6bcfce1da6d4d233d4b24bbb473608d8b6c487b9af3989af02cc4d1ccd",
-                                         "url":  ""
+                                         "url":  "https://huggingface.co/abdelhayali91/Surogate3.7-35B-A3B-GGUF/resolve/main/mmproj-Surogate3.7-35B-A3B-F16.gguf"
                                      }
                                  ],
                        "model":  "Surogate3.7-35B-A3B-Q5_K_M.gguf",
