@@ -1,0 +1,50 @@
+[11-22 03:55:32] auto-mtp3-32k : loading
+[11-22 03:58:19] auto-mtp3-32k : loaded, vram 16272+11447 MiB; speed test
+[11-22 03:58:28] auto-mtp3-32k : speed 96.1 tok/s; image test
+[11-22 03:58:31] auto-mtp3-32k : image True; 7k prompt
+[11-22 03:58:41] auto-mtp3-32k : MEAN 96.1 tok/s (code 109.4 / chat 82.8), accept 67%, vram 16338+11599 MiB, image True, 7k prompt True @ 881 t/s -> pass
+[11-22 03:58:41] l50-mtp3-32k : loading
+[11-22 03:59:30] l50-mtp3-32k : loaded, vram 14496+13223 MiB; speed test
+[11-22 03:59:39] l50-mtp3-32k : speed 94.0 tok/s; image test
+[11-22 03:59:42] l50-mtp3-32k : image True; 7k prompt
+[11-22 03:59:52] l50-mtp3-32k : MEAN 94.0 tok/s (code 106.1 / chat 82.0), accept 71%, vram 14560+13375 MiB, image True, 7k prompt True @ 808 t/s -> pass
+[11-22 03:59:52] l60-mtp3-32k : loading
+[11-22 04:00:45] l60-mtp3-32k : loaded, vram 17434+10285 MiB; speed test
+[11-22 04:00:53] l60-mtp3-32k : speed 98.6 tok/s; image test
+[11-22 04:00:56] l60-mtp3-32k : image True; 7k prompt
+[11-22 04:01:05] l60-mtp3-32k : MEAN 98.6 tok/s (code 115.8 / chat 81.5), accept 68%, vram 17500+10437 MiB, image True, 7k prompt True @ 961 t/s -> pass
+[11-22 04:01:05] auto-nodraft-32k : loading
+[11-22 04:01:54] auto-nodraft-32k : loaded, vram 16166+10483 MiB; speed test
+[11-22 04:02:02] auto-nodraft-32k : speed 95.2 tok/s; image test
+[11-22 04:02:05] auto-nodraft-32k : image True; 7k prompt
+[11-22 04:02:13] auto-nodraft-32k : MEAN 95.2 tok/s (code 95.1 / chat 95.3), vram 16224+10555 MiB, image True, 7k prompt True @ 1024 t/s -> pass
+[11-22 04:02:13] auto-mtp2-32k : loading
+[11-22 04:03:06] auto-mtp2-32k : loaded, vram 16234+11421 MiB; speed test
+[11-22 04:03:14] auto-mtp2-32k : speed 93.9 tok/s; image test
+[11-22 04:03:17] auto-mtp2-32k : image True; 7k prompt
+[11-22 04:03:26] auto-mtp2-32k : MEAN 93.9 tok/s (code 104.4 / chat 83.3), accept 75%, vram 16300+11573 MiB, image True, 7k prompt True @ 894 t/s -> pass
+[11-22 04:03:26] auto-mtp4-32k : loading
+[11-22 04:04:19] auto-mtp4-32k : loaded, vram 16310+11471 MiB; speed test
+[11-22 04:04:27] auto-mtp4-32k : speed 93.8 tok/s; image test
+[11-22 04:04:30] auto-mtp4-32k : image True; 7k prompt
+[11-22 04:04:39] auto-mtp4-32k : MEAN 93.8 tok/s (code 110.7 / chat 77.0), accept 59%, vram 16376+11623 MiB, image True, 7k prompt True @ 893 t/s -> pass
+[11-22 04:04:39] auto-mtp3-128k : loading
+[11-22 04:05:32] auto-mtp3-128k : loaded, vram 17808+13176 MiB; speed test
+[11-22 04:05:41] auto-mtp3-128k : speed 93.2 tok/s; image test
+[11-22 04:05:44] auto-mtp3-128k : image True; 7k prompt
+[11-22 04:05:53] auto-mtp3-128k : MEAN 93.2 tok/s (code 107.5 / chat 78.8), accept 67%, vram 17874+13328 MiB, image True, 7k prompt True @ 893 t/s -> pass
+[11-22 04:05:53] auto-mtp3-262k : loading
+[11-22 04:06:46] auto-mtp3-262k : loaded, vram 19824+15482 MiB; speed test
+[11-22 04:06:55] auto-mtp3-262k : speed 87.2 tok/s; image test
+[11-22 04:06:58] auto-mtp3-262k : image True; 7k prompt
+[11-22 04:07:08] auto-mtp3-262k : MEAN 87.2 tok/s (code 99.0 / chat 75.4), accept 67%, vram 19890+15634 MiB, image True, 7k prompt True @ 893 t/s -> pass
+[11-22 04:07:08] auto-mtp3-262k-q8 : loading
+[11-22 04:08:03] auto-mtp3-262k-q8 : loaded, vram 18850+15213 MiB; speed test
+[11-22 04:08:12] auto-mtp3-262k-q8 : speed 90.6 tok/s; image test
+[11-22 04:08:15] auto-mtp3-262k-q8 : image True; 7k prompt
+[11-22 04:08:25] auto-mtp3-262k-q8 : MEAN 90.6 tok/s (code 103.4 / chat 77.9), accept 71%, vram 18916+15364 MiB, image True, 7k prompt True @ 886 t/s -> pass
+[11-22 04:08:25] l60-mtp3-128k : loading
+[11-22 04:09:17] l60-mtp3-128k : loaded, vram 18938+12014 MiB; speed test
+[11-22 04:09:26] l60-mtp3-128k : speed 94.9 tok/s; image test
+[11-22 04:09:28] l60-mtp3-128k : image True; 7k prompt
+[11-22 04:09:37] l60-mtp3-128k : MEAN 94.9 tok/s (code 111.0 / chat 78.9), accept 68%, vram 19004+12166 MiB, image True, 7k prompt True @ 961 t/s -> pass

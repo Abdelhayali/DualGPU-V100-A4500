@@ -1,0 +1,125 @@
+{
+  "id": "surogate-3.7-35b",
+  "name": "Surogate3.7-35B-A3B Q5_K_M (surogate, agentic fine-tune of Qwen3.5-35B-A3B, MoE, MTP built in, vision)",
+  "gguf": "Surogate3.7-35B-A3B-Q5_K_M.gguf",
+  "mmproj": "mmproj-Surogate3.7-35B-A3B-F16.gguf",
+  "files": [
+    {
+      "repo": "surogate/Surogate3.7-35B-A3B",
+      "file": "Surogate3.7-35B-A3B-Q5_K_M.gguf",
+      "gb": 25.35,
+      "note": "not in the repo (no GGUF published): converted here from the BF16 safetensors with kernel/src convert_hf_to_gguf.py --outtype bf16 (MTP head kept as nextn), then llama-quantize Q5_K_M"
+    },
+    {
+      "repo": "surogate/Surogate3.7-35B-A3B",
+      "file": "mmproj-Surogate3.7-35B-A3B-F16.gguf",
+      "gb": 0.9,
+      "note": "converted here: convert_hf_to_gguf.py --mmproj --outtype f16"
+    }
+  ],
+  "sampling": [
+    "--temp",
+    "0.7",
+    "--top-k",
+    "20",
+    "--top-p",
+    "0.95",
+    "--min-p",
+    "0"
+  ],
+  "notes": "surogate's Surogate 3.7: Qwen3.5-35B-A3B-Base with agentic post-training (tool use, multi-step work; their numbers: SWE-bench Verified 78.0, Terminal-Bench 2.1 76.4 with a retry / 61.8 single attempt, IFEval 94.1, GPQA 91.4). ~3B active, MTP head, vision, 1M context claimed. No GGUF was published: converted here from the BF16 weights (all 13 shards sha256-checked) and quantized to Q5_K_M without an imatrix. Same architecture as qwen3.6-35b-a3b, so the same launch settings. Sampling: generation_config (top_k 20, top_p 0.95) with temperature 0.7. ts = A4500,V100.",
+  "configs": [
+    {
+      "name": "auto-mtp3-32k",
+      "ctx": 32768,
+      "sm": "layer",
+      "spec": "mtp",
+      "n": 3
+    },
+    {
+      "name": "l50-mtp3-32k",
+      "ctx": 32768,
+      "sm": "layer",
+      "ts": "50,50",
+      "spec": "mtp",
+      "n": 3
+    },
+    {
+      "name": "l60-mtp3-32k",
+      "ctx": 32768,
+      "sm": "layer",
+      "ts": "60,40",
+      "spec": "mtp",
+      "n": 3
+    },
+    {
+      "name": "auto-nodraft-32k",
+      "ctx": 32768,
+      "sm": "layer"
+    },
+    {
+      "name": "auto-mtp2-32k",
+      "ctx": 32768,
+      "sm": "layer",
+      "spec": "mtp",
+      "n": 2
+    },
+    {
+      "name": "auto-mtp4-32k",
+      "ctx": 32768,
+      "sm": "layer",
+      "spec": "mtp",
+      "n": 4
+    },
+    {
+      "name": "auto-mtp3-128k",
+      "ctx": 131072,
+      "sm": "layer",
+      "spec": "mtp",
+      "n": 3
+    },
+    {
+      "name": "auto-mtp3-262k",
+      "ctx": 262144,
+      "sm": "layer",
+      "spec": "mtp",
+      "n": 3,
+      "note": "text ok (93.6), but the vision encoder runs out of memory on the A4500"
+    },
+    {
+      "name": "auto-mtp3-262k-q8",
+      "ctx": 262144,
+      "sm": "layer",
+      "kv": "q8_0",
+      "spec": "mtp",
+      "n": 3,
+      "note": "V100 at 16.2 GB"
+    },
+    {
+      "name": "l60-mtp3-128k",
+      "ctx": 131072,
+      "sm": "layer",
+      "ts": "60,40",
+      "spec": "mtp",
+      "n": 3
+    }
+  ],
+  "sets": {
+    "split": [
+      "auto-mtp3-32k",
+      "l50-mtp3-32k",
+      "l60-mtp3-32k"
+    ],
+    "spec": [
+      "auto-nodraft-32k",
+      "auto-mtp2-32k",
+      "auto-mtp4-32k"
+    ],
+    "ctx": [
+      "auto-mtp3-128k",
+      "auto-mtp3-262k",
+      "auto-mtp3-262k-q8",
+      "l60-mtp3-128k"
+    ]
+  }
+}

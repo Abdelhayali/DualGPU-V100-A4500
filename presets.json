@@ -111,6 +111,14 @@
         { "name": "262k", "config": "a4500-mtp3-262k-q4", "summary": "full 262k ctx, q4 KV, MTP 3 + lookup - 91.0 tok/s, 7k prompt 1449 t/s" }
       ]
     },
+    "surogate-3.7-35b": {
+      "default": "128k",
+      "presets": [
+        { "name": "128k", "config": "l60-mtp3-128k",     "summary": "default: 128k ctx, f16 KV, MTP 3, split 60/40 - 94.9 tok/s (code 111.0), 7k prompt 961 t/s, vision (agentic Qwen3.5-35B-A3B fine-tune, converted here)" },
+        { "name": "fast", "config": "l60-mtp3-32k",      "summary": "fastest: 32k ctx, MTP 3, split 60/40 - 98.6 tok/s (code 115.8)" },
+        { "name": "262k", "config": "auto-mtp3-262k-q8", "summary": "full 262k ctx, q8 KV, MTP 3 - 90.6 tok/s (code 103.4)" }
+      ]
+    },
     "qwen2.5-coder-32b-pcb": {
       "default": "32k",
       "presets": [
