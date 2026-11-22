@@ -67,16 +67,22 @@ foreach ($f in Get-ChildItem "$Root\configs\*.json" -Exclude files.json) {
         if (-not $p) { continue }
         $c = @($m.configs) | Where-Object name -eq $p.config
         $k = Get-Kernel $m $c
-        $list += [ordered]@{ id = $p.name; name = "$($p.name): $($p.summary)"; kernel = $k; kernels = @($k)
-                             bench = Get-Bench $res[$c.name]; params = Get-Params $m $c }
+        $e1 = [ordered]@{ id = $p.name; name = "$($p.name): $($p.summary)"; kernel = $k; kernels = @($k)
+                          bench = Get-Bench $res[$c.name]; params = Get-Params $m $c }
+        if ($script:SrvEnv.Count) { $e1.env = $script:SrvEnv }   # (set by Get-SrvArgs: the model's and the config's env)
+        if ($c.gpu) { $e1.gpu = $c.gpu }                          # one card only: the launcher hides the other
+        $list += $e1
     }
     $used = @($pm.presets | ForEach-Object { $_.config })
     foreach ($c in @($m.configs)) {
         $r = $res[$c.name]
         if ($used -contains $c.name -or -not $r -or $r.status -ne 'pass') { continue }
         $k = Get-Kernel $m $c
-        $list += [ordered]@{ id = $c.name; name = "config $($c.name) (tested)"; kernel = $k; kernels = @($k)
-                             bench = Get-Bench $r; params = Get-Params $m $c }
+        $e1 = [ordered]@{ id = $c.name; name = "config $($c.name) (tested)"; kernel = $k; kernels = @($k)
+                          bench = Get-Bench $r; params = Get-Params $m $c }
+        if ($script:SrvEnv.Count) { $e1.env = $script:SrvEnv }
+        if ($c.gpu) { $e1.gpu = $c.gpu }
+        $list += $e1
     }
     if (-not $list) { Write-Warning "$($m.id): no tested presets yet, skipped"; continue }
     $e = [ordered]@{ id = $m.id; name = $m.name; desc = $m.notes; files = $files; model = $m.gguf; presets = $list }
@@ -100,6 +106,10 @@ $cat = [ordered]@{
         name = 'llama.cpp da8fd08 + DSpine drafter (Qwen3.8-27B)'
         desc = 'The same source plus the DSpine commit of Ajay9o9/llama.cpp dspine (kernel\patches\0003), built by tools\build-kernel.bat <cuda> dspine. kernel\bin-dspine.'
         exe = 'llama-server.exe'; dir = 'bin-dspine' }
+      'dualgpu-kintsugi' = [ordered]@{
+        name = 'Kintsugi engine 5f393adb5 (llama.cpp fork with EXL3 trellis kernels, RTX A4500 only)'
+        desc = 'professorpalmer/Kintsugi-27B release source Kintsugi-27B-v1.1-engine-src-5f393adb5.tar.gz (sha256 ded8fd4e...), built with CUDA 12.9 for sm_86 (kernel\build-kintsugi). kernel\bin-kintsugi.'
+        exe = 'llama-server.exe'; dir = 'bin-kintsugi' }
       'maya' = [ordered]@{
         name = 'Maya maya-ik2 (Inkling-2-Mini engine, RTX A4500 only)'
         desc = 'alesha-pro/maya-inkling-mini c520fd1 built with CUDA 13.4 for sm_86 (kernel\build-maya), its Python server in kernel\src-maya, venv D:\venvs\maya; see kernel\SOURCE.md. Every expert in VRAM, one CUDA graph per token.'

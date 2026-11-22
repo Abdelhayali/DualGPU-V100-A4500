@@ -107,6 +107,30 @@
   "size": 29702759968,
   "url": "https://huggingface.co/mradermacher/Kimi-Linear-48B-A3B-Instruct-abliterated-bf16-i1-GGUF/resolve/main/Kimi-Linear-48B-A3B-Instruct-abliterated-bf16.i1-Q4_K_M.gguf"
  },
+ "kintsugi-27b/Kintsugi-27B-12G.gguf": {
+  "repo": "CaryPalmer/Kintsugi-27B",
+  "sha256": "0510bae82445dc53dbc7d0d842d8b7e146b8eafce0837e39b157d411e48c8a74",
+  "size": 10546687168,
+  "url": "https://huggingface.co/CaryPalmer/Kintsugi-27B/resolve/main/Kintsugi-27B-12G.gguf"
+ },
+ "kintsugi-27b/dflash-Qwen3.8-27B-Q4_0.gguf": {
+  "repo": "CaryPalmer/Kintsugi-27B",
+  "sha256": "0a994382adf17c720c9e5d4292f57344f3b445f058d3e9d5b0f601ae7d6ca3c4",
+  "size": 1094346080,
+  "url": "https://huggingface.co/CaryPalmer/Kintsugi-27B/resolve/main/dflash-Qwen3.8-27B-Q4_0.gguf"
+ },
+ "kintsugi-27b/kintsugi.jinja": {
+  "repo": "professorpalmer/Kintsugi-27B",
+  "sha256": "b0cde16a96898957e1129aa9ac110d1e742598a77c555b07dc714a6735cde396",
+  "size": 9184,
+  "url": "https://raw.githubusercontent.com/professorpalmer/Kintsugi-27B/main/bundle/templates/kintsugi.jinja"
+ },
+ "kintsugi-27b/mmproj-F16.gguf": {
+  "repo": "unsloth/Qwen3.8-27B-GGUF",
+  "sha256": "cbb841a9ee0636b2ec172f5bb8df2ea8dfeb01e90fe7c6126581d662a0b4e43e",
+  "size": 927607488,
+  "url": "https://huggingface.co/unsloth/Qwen3.8-27B-GGUF/resolve/main/mmproj-F16.gguf"
+ },
  "minicpm-v4.7-35b-a3b/MiniCPM-V-4_7-35B-A3B-Q6_K.gguf": {
   "repo": "openbmb/MiniCPM-V-4.7-35B-A3B-gguf",
   "sha256": "b6eaa3a564235c72d251c033554fcd260a6035111246429793f6063eee516c73",

@@ -23,6 +23,12 @@
                                            "exe":  "llama-server.exe",
                                            "dir":  "bin-dspine"
                                        },
+                    "dualgpu-kintsugi":  {
+                                             "name":  "Kintsugi engine 5f393adb5 (llama.cpp fork with EXL3 trellis kernels, RTX A4500 only)",
+                                             "desc":  "professorpalmer/Kintsugi-27B release source Kintsugi-27B-v1.1-engine-src-5f393adb5.tar.gz (sha256 ded8fd4e...), built with CUDA 12.9 for sm_86 (kernel\\build-kintsugi). kernel\\bin-kintsugi.",
+                                             "exe":  "llama-server.exe",
+                                             "dir":  "bin-kintsugi"
+                                         },
                     "maya":  {
                                  "name":  "Maya maya-ik2 (Inkling-2-Mini engine, RTX A4500 only)",
                                  "desc":  "alesha-pro/maya-inkling-mini c520fd1 built with CUDA 13.4 for sm_86 (kernel\\build-maya), its Python server in kernel\\src-maya, venv D:\\venvs\\maya; see kernel\\SOURCE.md. Every expert in VRAM, one CUDA graph per token.",
@@ -4931,7 +4937,8 @@
                                                               "{\"reasoning_effort\":\"minimal\"}",
                                                               ""
                                                           ]
-                                                      ]
+                                                      ],
+                                           "gpu":  "V100"
                                        },
                                        {
                                            "id":  "v100-64k",
@@ -5027,7 +5034,8 @@
                                                               "{\"reasoning_effort\":\"minimal\"}",
                                                               ""
                                                           ]
-                                                      ]
+                                                      ],
+                                           "gpu":  "V100"
                                        },
                                        {
                                            "id":  "v100-128k",
@@ -5128,7 +5136,8 @@
                                                               "{\"reasoning_effort\":\"minimal\"}",
                                                               ""
                                                           ]
-                                                      ]
+                                                      ],
+                                           "gpu":  "V100"
                                        },
                                        {
                                            "id":  "a4500-32k-min",
@@ -5568,7 +5577,8 @@
                                                               "{\"reasoning_effort\":\"minimal\"}",
                                                               ""
                                                           ]
-                                                      ]
+                                                      ],
+                                           "gpu":  "V100"
                                        },
                                        {
                                            "id":  "v100-64k-q8-ub64-min",
@@ -5664,7 +5674,8 @@
                                                               "{\"reasoning_effort\":\"minimal\"}",
                                                               ""
                                                           ]
-                                                      ]
+                                                      ],
+                                           "gpu":  "V100"
                                        },
                                        {
                                            "id":  "v100-128k-q4-ub32-min",
@@ -5765,7 +5776,8 @@
                                                               "{\"reasoning_effort\":\"minimal\"}",
                                                               ""
                                                           ]
-                                                      ]
+                                                      ],
+                                           "gpu":  "V100"
                                        },
                                        {
                                            "id":  "v100-32k-q8-ub128-high",
@@ -5856,7 +5868,8 @@
                                                               "1",
                                                               ""
                                                           ]
-                                                      ]
+                                                      ],
+                                           "gpu":  "V100"
                                        },
                                        {
                                            "id":  "l4-32k-min",
@@ -6109,7 +6122,8 @@
                                                               "1",
                                                               ""
                                                           ]
-                                                      ]
+                                                      ],
+                                           "gpu":  "V100"
                                        }
                                    ],
                        "mmproj":  "mmproj-Inkling-2-Mini-Uncensored-F16.gguf"
@@ -7557,6 +7571,1032 @@
                                                       ]
                                        }
                                    ]
+                   },
+                   {
+                       "id":  "kintsugi-27b",
+                       "name":  "Kintsugi-27B (Qwen3.8-27B at 2.47 bpw, EXL3 trellis, 10.5 GB; vision; RTX A4500 only)",
+                       "desc":  "CaryPalmer / professorpalmer\u0027s Qwen3.8-27B at 2.47 bits per weight (L0xRE-V2 bit allocation, Escha W2 format, EXL3 trellis codec). Only its own engine loads it: kernel bin-kintsugi = their llama.cpp fork 5f393adb5 (release source, MIT), built for sm_86 (the A4500; their kernels target RTX 20/30/40, not the V100). Settings from their start-server.ps1 (engine switches as env); on 20 GB the whole K/V cache fits in VRAM, so their tiered RAM cache is not used. Chat template: the bundle\u0027s kintsugi.jinja. ts = A4500 only.",
+                       "files":  [
+                                     {
+                                         "name":  "Kintsugi-27B-12G.gguf",
+                                         "repo":  "CaryPalmer/Kintsugi-27B",
+                                         "size":  10546687168,
+                                         "sha256":  "0510bae82445dc53dbc7d0d842d8b7e146b8eafce0837e39b157d411e48c8a74",
+                                         "url":  "https://huggingface.co/CaryPalmer/Kintsugi-27B/resolve/main/Kintsugi-27B-12G.gguf"
+                                     },
+                                     {
+                                         "name":  "dflash-Qwen3.8-27B-Q4_0.gguf",
+                                         "repo":  "CaryPalmer/Kintsugi-27B",
+                                         "size":  1094346080,
+                                         "sha256":  "0a994382adf17c720c9e5d4292f57344f3b445f058d3e9d5b0f601ae7d6ca3c4",
+                                         "url":  "https://huggingface.co/CaryPalmer/Kintsugi-27B/resolve/main/dflash-Qwen3.8-27B-Q4_0.gguf"
+                                     },
+                                     {
+                                         "name":  "kintsugi.jinja",
+                                         "repo":  "professorpalmer/Kintsugi-27B (GitHub, bundle/templates)",
+                                         "size":  9184,
+                                         "sha256":  "b0cde16a96898957e1129aa9ac110d1e742598a77c555b07dc714a6735cde396",
+                                         "url":  "https://raw.githubusercontent.com/professorpalmer/Kintsugi-27B/main/bundle/templates/kintsugi.jinja"
+                                     },
+                                     {
+                                         "name":  "mmproj-F16.gguf",
+                                         "repo":  "unsloth/Qwen3.8-27B-GGUF",
+                                         "size":  927607488,
+                                         "sha256":  "cbb841a9ee0636b2ec172f5bb8df2ea8dfeb01e90fe7c6126581d662a0b4e43e",
+                                         "url":  "https://huggingface.co/unsloth/Qwen3.8-27B-GGUF/resolve/main/mmproj-F16.gguf"
+                                     }
+                                 ],
+                       "model":  "Kintsugi-27B-12G.gguf",
+                       "presets":  [
+                                       {
+                                           "id":  "128k",
+                                           "name":  "128k: default: 128k ctx, q8 KV, MTP 3 + lookup, A4500 only - 91.8 tok/s, 7k prompt 1450 t/s, vision (Qwen3.8-27B at 2.47 bpw, kernel bin-kintsugi)",
+                                           "kernel":  "dualgpu-kintsugi",
+                                           "kernels":  [
+                                                           "dualgpu-kintsugi"
+                                                       ],
+                                           "bench":  "91.8 tok/s (code 91.8 / chat 91.7), 7k prompt 1450 t/s, VRAM 19860+10 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "131072",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "1024",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "1024",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--chat-template-file",
+                                                              "{model:kintsugi.jinja}",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.6",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-k",
+                                                              "20",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.95",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctk",
+                                                              "q8_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctv",
+                                                              "q8_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "none",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-mg",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--kq-mask-packed",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-type",
+                                                              "ngram-mod,draft-mtp",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-n-max",
+                                                              "3",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-n-max-tail",
+                                                              "4",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctkd",
+                                                              "q8_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctvd",
+                                                              "q8_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-lookup-n-max",
+                                                              "32",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-window",
+                                                              "16384",
+                                                              ""
+                                                          ]
+                                                      ],
+                                           "env":  {
+                                                       "GGML_CUDA_BATCH_INVARIANT":  "1",
+                                                       "LLAMA_RS_REPLAY":  "1",
+                                                       "GGML_CUDA_SHARED_POOL":  "1",
+                                                       "LLAMA_MTP_DRAFT_UBATCH":  "256",
+                                                       "LLAMA_ARG_CHECKPOINT_EVERY_NT":  "8192",
+                                                       "GGML_CUDA_POOL_RESERVE_MIB":  "96",
+                                                       "GGML_ESCHA_PREFILL":  "i8",
+                                                       "GGML_ESCHA_I8_MIN_ROWS":  "256"
+                                                   },
+                                           "gpu":  "A4500"
+                                       },
+                                       {
+                                           "id":  "fast",
+                                           "name":  "fast: 32k ctx, DFlash2 drafter (draft 7) - 92.2 tok/s",
+                                           "kernel":  "dualgpu-kintsugi",
+                                           "kernels":  [
+                                                           "dualgpu-kintsugi"
+                                                       ],
+                                           "bench":  "92.2 tok/s (code 92.2 / chat 92.2), 7k prompt 1395 t/s, VRAM 19860+10 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "32768",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "1024",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "1024",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--chat-template-file",
+                                                              "{model:kintsugi.jinja}",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.6",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-k",
+                                                              "20",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.95",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "none",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-mg",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-type",
+                                                              "draft-dflash",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-n-max",
+                                                              "7",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-p-min",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-model",
+                                                              "{model:dflash-Qwen3.8-27B-Q4_0.gguf}",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--kq-mask-packed",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctkd",
+                                                              "q4_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctvd",
+                                                              "q4_0",
+                                                              ""
+                                                          ]
+                                                      ],
+                                           "env":  {
+                                                       "GGML_CUDA_BATCH_INVARIANT":  "1",
+                                                       "LLAMA_RS_REPLAY":  "1",
+                                                       "GGML_CUDA_SHARED_POOL":  "1",
+                                                       "LLAMA_MTP_DRAFT_UBATCH":  "256",
+                                                       "LLAMA_ARG_CHECKPOINT_EVERY_NT":  "8192",
+                                                       "GGML_CUDA_POOL_RESERVE_MIB":  "96",
+                                                       "GGML_ESCHA_PREFILL":  "i8",
+                                                       "GGML_ESCHA_I8_MIN_ROWS":  "256",
+                                                       "LLAMA_DFLASH_DRAFT_UBATCH":  "64"
+                                                   },
+                                           "gpu":  "A4500"
+                                       },
+                                       {
+                                           "id":  "262k",
+                                           "name":  "262k: full 262k ctx, q4 KV, MTP 3 + lookup - 91.0 tok/s, 7k prompt 1449 t/s",
+                                           "kernel":  "dualgpu-kintsugi",
+                                           "kernels":  [
+                                                           "dualgpu-kintsugi"
+                                                       ],
+                                           "bench":  "91.0 tok/s (code 91.0 / chat 91.1), 7k prompt 1449 t/s, VRAM 19860+10 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "262144",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "1024",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "1024",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--chat-template-file",
+                                                              "{model:kintsugi.jinja}",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.6",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-k",
+                                                              "20",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.95",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctk",
+                                                              "q4_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctv",
+                                                              "q4_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "none",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-mg",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--kq-mask-packed",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-type",
+                                                              "ngram-mod,draft-mtp",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-n-max",
+                                                              "3",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-n-max-tail",
+                                                              "4",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctkd",
+                                                              "q8_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctvd",
+                                                              "q8_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-lookup-n-max",
+                                                              "32",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-window",
+                                                              "16384",
+                                                              ""
+                                                          ]
+                                                      ],
+                                           "env":  {
+                                                       "GGML_CUDA_BATCH_INVARIANT":  "1",
+                                                       "LLAMA_RS_REPLAY":  "1",
+                                                       "GGML_CUDA_SHARED_POOL":  "1",
+                                                       "LLAMA_MTP_DRAFT_UBATCH":  "256",
+                                                       "LLAMA_ARG_CHECKPOINT_EVERY_NT":  "8192",
+                                                       "GGML_CUDA_POOL_RESERVE_MIB":  "96",
+                                                       "GGML_ESCHA_PREFILL":  "i8",
+                                                       "GGML_ESCHA_I8_MIN_ROWS":  "256"
+                                                   },
+                                           "gpu":  "A4500"
+                                       },
+                                       {
+                                           "id":  "a4500-mtp3-32k",
+                                           "name":  "config a4500-mtp3-32k (tested)",
+                                           "kernel":  "dualgpu-kintsugi",
+                                           "kernels":  [
+                                                           "dualgpu-kintsugi"
+                                                       ],
+                                           "bench":  "55.0 tok/s (code 35.8 / chat 74.1), 7k prompt 1416 t/s, VRAM 19860+10 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "32768",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "1024",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "1024",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--chat-template-file",
+                                                              "{model:kintsugi.jinja}",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.6",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-k",
+                                                              "20",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.95",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "none",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-mg",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--kq-mask-packed",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-type",
+                                                              "ngram-mod,draft-mtp",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-n-max",
+                                                              "3",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-n-max-tail",
+                                                              "4",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctkd",
+                                                              "q8_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctvd",
+                                                              "q8_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-lookup-n-max",
+                                                              "32",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-window",
+                                                              "16384",
+                                                              ""
+                                                          ]
+                                                      ],
+                                           "env":  {
+                                                       "GGML_CUDA_BATCH_INVARIANT":  "1",
+                                                       "LLAMA_RS_REPLAY":  "1",
+                                                       "GGML_CUDA_SHARED_POOL":  "1",
+                                                       "LLAMA_MTP_DRAFT_UBATCH":  "256",
+                                                       "LLAMA_ARG_CHECKPOINT_EVERY_NT":  "8192",
+                                                       "GGML_CUDA_POOL_RESERVE_MIB":  "96",
+                                                       "GGML_ESCHA_PREFILL":  "i8",
+                                                       "GGML_ESCHA_I8_MIN_ROWS":  "256"
+                                                   },
+                                           "gpu":  "A4500"
+                                       },
+                                       {
+                                           "id":  "a4500-nodraft-32k",
+                                           "name":  "config a4500-nodraft-32k (tested)",
+                                           "kernel":  "dualgpu-kintsugi",
+                                           "kernels":  [
+                                                           "dualgpu-kintsugi"
+                                                       ],
+                                           "bench":  "92.8 tok/s (code 92.8 / chat 92.9), 7k prompt 1440 t/s, VRAM 19860+10 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "32768",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "1024",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "1024",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--chat-template-file",
+                                                              "{model:kintsugi.jinja}",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.6",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-k",
+                                                              "20",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.95",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "none",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-mg",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--kq-mask-packed",
+                                                              "",
+                                                              ""
+                                                          ]
+                                                      ],
+                                           "env":  {
+                                                       "GGML_CUDA_BATCH_INVARIANT":  "1",
+                                                       "LLAMA_RS_REPLAY":  "1",
+                                                       "GGML_CUDA_SHARED_POOL":  "1",
+                                                       "LLAMA_MTP_DRAFT_UBATCH":  "256",
+                                                       "LLAMA_ARG_CHECKPOINT_EVERY_NT":  "8192",
+                                                       "GGML_CUDA_POOL_RESERVE_MIB":  "96",
+                                                       "GGML_ESCHA_PREFILL":  "i8",
+                                                       "GGML_ESCHA_I8_MIN_ROWS":  "256"
+                                                   },
+                                           "gpu":  "A4500"
+                                       },
+                                       {
+                                           "id":  "a4500-dfl7-128k-q8",
+                                           "name":  "config a4500-dfl7-128k-q8 (tested)",
+                                           "kernel":  "dualgpu-kintsugi",
+                                           "kernels":  [
+                                                           "dualgpu-kintsugi"
+                                                       ],
+                                           "bench":  "91.4 tok/s (code 91.4 / chat 91.5), 7k prompt 1435 t/s, VRAM 19860+10 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "131072",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "1024",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "1024",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--chat-template-file",
+                                                              "{model:kintsugi.jinja}",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.6",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-k",
+                                                              "20",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.95",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctk",
+                                                              "q8_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctv",
+                                                              "q8_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "none",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-mg",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-type",
+                                                              "draft-dflash",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-n-max",
+                                                              "7",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-p-min",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-model",
+                                                              "{model:dflash-Qwen3.8-27B-Q4_0.gguf}",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-type-k",
+                                                              "q8_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-type-v",
+                                                              "q8_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--kq-mask-packed",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctkd",
+                                                              "q4_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctvd",
+                                                              "q4_0",
+                                                              ""
+                                                          ]
+                                                      ],
+                                           "env":  {
+                                                       "GGML_CUDA_BATCH_INVARIANT":  "1",
+                                                       "LLAMA_RS_REPLAY":  "1",
+                                                       "GGML_CUDA_SHARED_POOL":  "1",
+                                                       "LLAMA_MTP_DRAFT_UBATCH":  "256",
+                                                       "LLAMA_ARG_CHECKPOINT_EVERY_NT":  "8192",
+                                                       "GGML_CUDA_POOL_RESERVE_MIB":  "96",
+                                                       "GGML_ESCHA_PREFILL":  "i8",
+                                                       "GGML_ESCHA_I8_MIN_ROWS":  "256",
+                                                       "LLAMA_DFLASH_DRAFT_UBATCH":  "64"
+                                                   },
+                                           "gpu":  "A4500"
+                                       },
+                                       {
+                                           "id":  "a4500-dfl7-262k-q4",
+                                           "name":  "config a4500-dfl7-262k-q4 (tested)",
+                                           "kernel":  "dualgpu-kintsugi",
+                                           "kernels":  [
+                                                           "dualgpu-kintsugi"
+                                                       ],
+                                           "bench":  "91.4 tok/s (code 91.3 / chat 91.5), 7k prompt 1420 t/s, VRAM 19860+10 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "262144",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "1024",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "1024",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--chat-template-file",
+                                                              "{model:kintsugi.jinja}",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.6",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-k",
+                                                              "20",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.95",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctk",
+                                                              "q4_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctv",
+                                                              "q4_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "none",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-mg",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-type",
+                                                              "draft-dflash",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-n-max",
+                                                              "7",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-p-min",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-model",
+                                                              "{model:dflash-Qwen3.8-27B-Q4_0.gguf}",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-type-k",
+                                                              "q4_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-type-v",
+                                                              "q4_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--kq-mask-packed",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctkd",
+                                                              "q4_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctvd",
+                                                              "q4_0",
+                                                              ""
+                                                          ]
+                                                      ],
+                                           "env":  {
+                                                       "GGML_CUDA_BATCH_INVARIANT":  "1",
+                                                       "LLAMA_RS_REPLAY":  "1",
+                                                       "GGML_CUDA_SHARED_POOL":  "1",
+                                                       "LLAMA_MTP_DRAFT_UBATCH":  "256",
+                                                       "LLAMA_ARG_CHECKPOINT_EVERY_NT":  "8192",
+                                                       "GGML_CUDA_POOL_RESERVE_MIB":  "96",
+                                                       "GGML_ESCHA_PREFILL":  "i8",
+                                                       "GGML_ESCHA_I8_MIN_ROWS":  "256",
+                                                       "LLAMA_DFLASH_DRAFT_UBATCH":  "64"
+                                                   },
+                                           "gpu":  "A4500"
+                                       }
+                                   ],
+                       "mmproj":  "mmproj-F16.gguf"
                    },
                    {
                        "id":  "minicpm-v4.7-35b-a3b",

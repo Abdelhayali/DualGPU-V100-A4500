@@ -42,9 +42,10 @@ start.bat minicpm-v4.7-35b-a3b fast       :: a named preset
 | 12 | Qwen3.8-27B pi-adapted (harness-hub LoRA on UD-Q5_K_XL 21.0 GB + 0.3 GB, MTP), vision | `128k` | 128k | 43.8 | 81 | 100 | 50 | 100 | 100 | 88 | 50 | **81.2** |
 | 13 | Qwen3.8-27B UD-Q5_K_XL (21.0 GB, unsloth update 2026-11-12, MTP), vision | `128k` | 128k | 51.3 | 75 | 100 | 50 | 100 | 100 | 88 | 50 | **80.4** |
 | 14 | Ripple-65B Preview AD-IQ3_XXS (28.0 GB, dense), text only | `64k` | 64k | 13.9 | 75 | 100 | 83 | 100 | 100 | - | 100 | **79.8**\* |
-| 15 | Apex-35B-V1.0 Q4_K_M (21.7 GB, MoE, fine-tune of Qwen3.6-35B-A3B), text only | `262k` | 262k | 100.2 | 50 | 85 | 25 | 63 | 100 | - | 100 | **60.4**\* |
-| 16 | Kimi-Linear 48B-A3B abliterated i1-Q4_K_M (27.7 GB), text only | `262k` | 262k | 100.9 | 56 | 60 | 50 | 88 | 100 | - | 50 | **57.7**\* |
-| 17 | Qwen2.5-Coder-32B PCB GRPO (Simonssb LoRA on Q4_K_M 19.9 GB + 0.5 GB, dense), text only | `32k` | 32k | 20.0 | 63 | 60 | 42 | 75 | 50 | - | 50 | **48.5**\* |
+| 15 | Kintsugi-27B (Qwen3.8-27B at 2.47 bpw, 10.5 GB, EXL3 trellis, A4500 only, MTP), vision | `128k` | 128k | 89.6 | 88 | 95 | 42 | 88 | 83 | 88 | 50 | **76.1** |
+| 16 | Apex-35B-V1.0 Q4_K_M (21.7 GB, MoE, fine-tune of Qwen3.6-35B-A3B), text only | `262k` | 262k | 100.2 | 50 | 85 | 25 | 63 | 100 | - | 100 | **60.4**\* |
+| 17 | Kimi-Linear 48B-A3B abliterated i1-Q4_K_M (27.7 GB), text only | `262k` | 262k | 100.9 | 56 | 60 | 50 | 88 | 100 | - | 50 | **57.7**\* |
+| 18 | Qwen2.5-Coder-32B PCB GRPO (Simonssb LoRA on Q4_K_M 19.9 GB + 0.5 GB, dense), text only | `32k` | 32k | 20.0 | 63 | 60 | 42 | 75 | 50 | - | 50 | **48.5**\* |
 
 † Run with reasoning on (`eval_thinking`, 5x token budget): with `enable_thinking=false` this model still reasons, into
 the answer, without closing `</think>`, which scored 80.7 (instruction following 8.3, coding 68.8). All other rows ran
@@ -90,6 +91,9 @@ small-active MoE models one V100 with a 3-bit quant is faster (the whole model s
 | | v100-128k | `v100-128k-q4-ub32-min-s` (V100 only) | 128k | q4_0 | 47.8 | 320 t/s |
 | inkling-2-mini (Maya engine) | **64k** (`start-maya.bat`) | `configs/maya/inkling-2-mini-64k.json` (A4500 only, effort low) | 64k | fp8 | **86-92** | - |
 | | code | `configs/maya/inkling-2-mini-code.json` (DSpark drafter) | 24k | fp8 | 76 prose, **97-134** code | - |
+| kintsugi-27b | **128k** (default) | `a4500-mtp3-128k-q8` (A4500 only, MTP 3 + lookup) | 128k | q8_0 | **91.8** | 1450 t/s |
+| | fast | `a4500-dfl7-32k` (DFlash2 drafter) | 32k | f16 | 92.2 | 1395 t/s |
+| | 262k | `a4500-mtp3-262k-q4` | 262k | q4_0 | 91.0 | 1449 t/s |
 | qwen2.5-coder-32b-pcb | **32k** (default) | `auto-nodraft-32k` | 32k | f16 | **20.9** | 684 t/s |
 | | code | `auto-draft16-32k` (0.5B draft) | 32k | f16 | 19.6 (**30.6** on code, 8.6 on chat) | 629 t/s |
 | | 128k | `l55-nodraft-128k-q4-yarn` | 128k | q4_0 | 20.4 | 549 t/s |
@@ -209,6 +213,15 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
   (93.4), so the difference between these runs is noise, not the quant. Q4_K split with most layers on the V100 (`-ts`
   over the 48 looped slots): 4/44 18.3 tok/s (A4500 4.9 GB, V100 15.7 GB), 5/43 14.9, 6/42 12.7, 8/40 9.8; 2/46 and 3/45
   run the V100 out of memory. Half the speed of one card at best, so the one-card presets stay.
+- **Kintsugi-27B** (CaryPalmer / professorpalmer: Qwen3.8-27B at 2.47 bits per weight, 10.5 GB, Escha W2 / EXL3 trellis
+  weights; only its own engine loads it: kernel `bin-kintsugi`, their llama.cpp fork built from the release source for
+  sm_86, see `kernel/SOURCE.md`). RTX A4500 only (no V100 kernels). Engine switches from their `start-server.ps1` as the
+  config's `env` (new: per-model environment variables in configs, tools and the GUI), their fixed chat template
+  (new config field `chat_template`), and Qwen3.8-27B's own vision projector (the Kintsugi repo has none). On 20 GB the
+  whole K/V cache fits in VRAM up to 262k (q4 KV), so their RAM-tiered cache is not needed: 91-92 tok/s at 32k, 128k and
+  262k with MTP 3 + lookup or the DFlash2 drafter (the same here), 1,400-1,450 t/s on the 7k prompt. Drafting matters: a
+  600-token code answer without it 31 tok/s, with it 91. Hard suite **76.1** on `128k` (coding 88, reasoning 95, vision
+  88, search 88, but instructions 42 and long context 50, like the Qwen3.8-27B Q5 runs).
 - **Qwen2.5-Coder-32B PCB GRPO** (Simonssb: LoRA r=32, QLoRA SFT + GRPO on 254 KiCad boards; from a netlist/footprint
   summary it writes `groups.json` + `routing_strategy.json` for drandyhaas/KiCadRoutingTools). The HF repo only has the PEFT
   adapter, so it was converted here (llama.cpp `convert_lora_to_gguf.py --outtype f16`, 537 MB, in the repo release

@@ -42,12 +42,17 @@ function Get-SrvArgs($m, $c) {
     if ($m.mmproj) { $a += @('--mmproj', "$md\$($m.mmproj)"); if ($c.mmgpu -eq $false) { $a += '--no-mmproj-offload' } }
     # m.lora: a LoRA adapter GGUF in the model folder, applied on top of the base gguf
     if ($m.lora) { $a += @('--lora', "$md\$($m.lora)") }
+    # m.chat_template: a chat template file in the model folder in place of the GGUF's own
+    if ($m.chat_template) { $a += @('--chat-template-file', "$md\$($m.chat_template)") }
     if ($m.sampling) { $a += @($m.sampling) }
     if ($kv -ne 'f16') { $a += @('-ctk', $kv, '-ctv', $kv) }
     if ($c.sm) { $a += @('-sm', $c.sm) }
     if ($c.ts) { $a += @('-ts', $c.ts) }
     # gpu: run on that one card only ("V100" / "A4500"). The args keep its index in the full order (what the GUI sees,
     # both cards visible); Start-Srv / serve.ps1 then hide the other card (Use-SrvGpu), so it stays free for a second server
+    # env: environment variables for llama-server (model-level, then config-level), set around the launch (Use-SrvGpu)
+    $script:SrvEnv = [ordered]@{}
+    foreach ($src in @($m.env, $c.env)) { if ($src) { foreach ($p in $src.PSObject.Properties) { $script:SrvEnv[$p.Name] = [string]$p.Value } } }
     $script:SrvGpu = $null
     if ($c.gpu) {
         $gi = [array]::FindIndex([object[]]$Gpus, [Predicate[object]] { param($g) $g.name -match $c.gpu })
@@ -77,6 +82,13 @@ function Stop-Srv { Get-Process llama-server -EA SilentlyContinue | Stop-Process
 # For a config with "gpu": show llama-server only that card (CUDA_VISIBLE_DEVICES), which then is device 0. Returns the
 # args to use; Restore-SrvGpu puts the two-card list back.
 function Use-SrvGpu($a) {
+    $script:SrvEnvOld = @{}
+    if ($script:SrvEnv) {
+        foreach ($k in $script:SrvEnv.Keys) {
+            $script:SrvEnvOld[$k] = [Environment]::GetEnvironmentVariable($k)
+            [Environment]::SetEnvironmentVariable($k, $script:SrvEnv[$k])
+        }
+    }
     if (-not $script:SrvGpu) { return , $a }
     $env:CUDA_VISIBLE_DEVICES = $script:SrvGpu
     $o = @($a); $i = [array]::IndexOf($o, '-mg'); if ($i -ge 0) { $o[$i + 1] = '0' }
@@ -85,7 +97,10 @@ function Use-SrvGpu($a) {
 # Start-Process (and & in Windows PowerShell 5.1) joins the list with spaces and no quoting: quote arguments with spaces
 # or quotes (JSON values such as --chat-template-kwargs) the way the Windows command line parser expects
 function Get-QuotedArgs($a) { return , @($a | ForEach-Object { $s = [string]$_; if ($s -match '[\s"]') { '"' + ($s -replace '"', '\"') + '"' } else { $s } }) }
-function Restore-SrvGpu { $env:CUDA_VISIBLE_DEVICES = ($Gpus.uuid -join ',') }
+function Restore-SrvGpu {
+    $env:CUDA_VISIBLE_DEVICES = ($Gpus.uuid -join ',')
+    if ($script:SrvEnvOld) { foreach ($k in $script:SrvEnvOld.Keys) { [Environment]::SetEnvironmentVariable($k, $script:SrvEnvOld[$k]) } }
+}
 
 function Start-Srv($a, $errlog) {
     Stop-Srv

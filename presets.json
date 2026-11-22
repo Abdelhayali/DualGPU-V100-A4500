@@ -103,6 +103,14 @@
         { "name": "v100-128k", "config": "v100-128k-q4-ub32-min-s",  "summary": "V100 only, 128k ctx, q4 KV, ubatch 32, vision projector on CPU - 47.8 tok/s, 7k prompt 320 t/s" }
       ]
     },
+    "kintsugi-27b": {
+      "default": "128k",
+      "presets": [
+        { "name": "128k", "config": "a4500-mtp3-128k-q8", "summary": "default: 128k ctx, q8 KV, MTP 3 + lookup, A4500 only - 91.8 tok/s, 7k prompt 1450 t/s, vision (Qwen3.8-27B at 2.47 bpw, kernel bin-kintsugi)" },
+        { "name": "fast", "config": "a4500-dfl7-32k",     "summary": "32k ctx, DFlash2 drafter (draft 7) - 92.2 tok/s" },
+        { "name": "262k", "config": "a4500-mtp3-262k-q4", "summary": "full 262k ctx, q4 KV, MTP 3 + lookup - 91.0 tok/s, 7k prompt 1449 t/s" }
+      ]
+    },
     "qwen2.5-coder-32b-pcb": {
       "default": "32k",
       "presets": [

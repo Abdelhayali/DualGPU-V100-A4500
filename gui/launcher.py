@@ -418,6 +418,22 @@ def reader(proc):
     threading.Thread(target=again, daemon=True).start()
 
 
+def free_port(port):
+    """End a leftover server of ours on the model port (a Python server - Maya, Strata - whose real interpreter outlived
+    its venv launcher). Only python.exe / llama-server.exe / maya-*.exe are touched, never another program."""
+    try:
+        out = subprocess.run(["netstat", "-ano", "-p", "TCP"], capture_output=True, text=True, timeout=10).stdout
+    except Exception:
+        return
+    pids = {l.split()[-1] for l in out.splitlines() if f":{port} " in l and "LISTENING" in l}
+    for pid in pids:
+        name = subprocess.run(["tasklist", "/FI", f"PID eq {pid}", "/FO", "CSV", "/NH"], capture_output=True,
+                              text=True).stdout.split(",")[0].strip('"').lower()
+        if name in ("python.exe", "pythonw.exe", "llama-server.exe", "maya-ik2.exe"):
+            subprocess.run(["taskkill", "/F", "/T", "/PID", pid], capture_output=True)
+            log.append(f"[launcher] ended a leftover {name} (pid {pid}) on port {port}")
+
+
 def stop_server():
     with lock:
         state["want"] = None   # an intentional stop: no crash recovery
@@ -429,6 +445,8 @@ def stop_server():
                 p.wait(10)
             except subprocess.TimeoutExpired:
                 p.kill()
+        if state.get("port"):
+            free_port(state["port"])   # (a venv launcher's real interpreter can outlive the tree kill)
         state.update(proc=None, model=None, preset=None, kernel=None, started=None, cmd=None)
 
 
@@ -443,8 +461,9 @@ def start_server(mid, preset, k, params, recovering=False):
     stop_server()
     for exe in ("llama-server.exe", "maya-ik2.exe", "maya-vision.exe"):
         subprocess.run(["taskkill", "/F", "/IM", exe], capture_output=True)
-    time.sleep(2)
     port = catalog().get("server_port", 8899)
+    free_port(port)
+    time.sleep(2)
     if is_maya(k):
         cmd = maya_cmd(mid, k, params, port)
     elif is_strata(k):
@@ -456,6 +475,16 @@ def start_server(mid, preset, k, params, recovering=False):
     env = gpu_env(dict(os.environ))
     env["PATH"] = str(kernel_dir(mid, k)) + os.pathsep + env.get("PATH", "")
     cwd = kernel_dir(mid, k) / "tabbyAPI" if is_tabby(k) else kernel_dir(mid, k)
+    pre = next((x for x in m.get("presets", []) if x["id"] == preset), None)
+    for key, val in ((pre or {}).get("env") or {}).items():   # a preset's environment (configs/<model>.json "env")
+        env[key] = str(val)
+    if (pre or {}).get("gpu"):   # a one-card preset (config "gpu"): show the engine that card alone, as device 0
+        try:
+            env["CUDA_VISIBLE_DEVICES"] = next(g["uuid"] for g in gpus() if pre["gpu"] in g["name"])
+            if "-mg" in cmd:
+                cmd[cmd.index("-mg") + 1] = "0"
+        except StopIteration:
+            log.append(f"[launcher] no GPU matching {pre['gpu']}; the engine sees every GPU")
     if is_maya(k):
         env = maya_env(env)
         env["PYTHONIOENCODING"] = "utf-8"

@@ -1,0 +1,55 @@
+[11-22 02:30:15] a4500-mtp3-32k : loading
+[11-22 02:30:20] a4500-mtp3-32k : loaded, vram 19848+10 MiB; speed test
+[11-22 02:30:36] a4500-mtp3-32k : speed 55.0 tok/s; image test
+[11-22 02:30:36] a4500-mtp3-32k : image n/a; 7k prompt
+[11-22 02:30:44] a4500-mtp3-32k : MEAN 55.0 tok/s (code 35.8 / chat 74.1), vram 19860+10 MiB, image n/a, 7k prompt True @ 1416 t/s -> pass
+[11-22 02:30:44] a4500-dfl7-32k : loading
+[11-22 02:30:47] a4500-dfl7-32k : loaded, vram 19862+10 MiB; speed test
+[11-22 02:30:54] a4500-dfl7-32k : speed 92.8 tok/s; image test
+[11-22 02:30:54] a4500-dfl7-32k : image n/a; 7k prompt
+[11-22 02:31:01] a4500-dfl7-32k : MEAN 92.8 tok/s (code 92.7 / chat 92.9), vram 19860+10 MiB, image n/a, 7k prompt True @ 1406 t/s -> pass
+[11-22 02:31:01] a4500-nodraft-32k : loading
+[11-22 02:31:04] a4500-nodraft-32k : loaded, vram 19862+10 MiB; speed test
+[11-22 02:31:11] a4500-nodraft-32k : speed 92.8 tok/s; image test
+[11-22 02:31:11] a4500-nodraft-32k : image n/a; 7k prompt
+[11-22 02:31:18] a4500-nodraft-32k : MEAN 92.8 tok/s (code 92.8 / chat 92.9), vram 19860+10 MiB, image n/a, 7k prompt True @ 1440 t/s -> pass
+[11-22 02:31:18] a4500-mtp3-128k-q8 : loading
+[11-22 02:31:21] a4500-mtp3-128k-q8 : loaded, vram 19862+10 MiB; speed test
+[11-22 02:31:27] a4500-mtp3-128k-q8 : speed 92.4 tok/s; image test
+[11-22 02:31:27] a4500-mtp3-128k-q8 : image n/a; 7k prompt
+[11-22 02:31:34] a4500-mtp3-128k-q8 : MEAN 92.4 tok/s (code 92.4 / chat 92.5), vram 19860+10 MiB, image n/a, 7k prompt True @ 1443 t/s -> pass
+[11-22 02:31:34] a4500-dfl7-128k-q8 : loading
+[11-22 02:31:38] a4500-dfl7-128k-q8 : loaded, vram 19862+10 MiB; speed test
+[11-22 02:31:44] a4500-dfl7-128k-q8 : speed 92.0 tok/s; image test
+[11-22 02:31:44] a4500-dfl7-128k-q8 : image n/a; 7k prompt
+[11-22 02:31:51] a4500-dfl7-128k-q8 : MEAN 92.0 tok/s (code 91.9 / chat 92.0), vram 19860+10 MiB, image n/a, 7k prompt True @ 1445 t/s -> pass
+[11-22 02:31:51] a4500-mtp3-262k-q4 : loading
+[11-22 02:31:55] a4500-mtp3-262k-q4 : loaded, vram 19862+10 MiB; speed test
+[11-22 02:32:01] a4500-mtp3-262k-q4 : speed 91.6 tok/s; image test
+[11-22 02:32:01] a4500-mtp3-262k-q4 : image n/a; 7k prompt
+[11-22 02:32:08] a4500-mtp3-262k-q4 : MEAN 91.6 tok/s (code 91.6 / chat 91.7), vram 19860+10 MiB, image n/a, 7k prompt True @ 1441 t/s -> pass
+[11-22 02:32:08] a4500-dfl7-262k-q4 : loading
+[11-22 02:32:12] a4500-dfl7-262k-q4 : loaded, vram 19860+10 MiB; speed test
+[11-22 02:32:18] a4500-dfl7-262k-q4 : speed 91.4 tok/s; image test
+[11-22 02:32:18] a4500-dfl7-262k-q4 : image n/a; 7k prompt
+[11-22 02:32:25] a4500-dfl7-262k-q4 : MEAN 91.4 tok/s (code 91.3 / chat 91.5), vram 19860+10 MiB, image n/a, 7k prompt True @ 1420 t/s -> pass
+[11-22 02:48:27] a4500-dfl7-32k : loading
+[11-22 02:48:30] a4500-dfl7-32k : loaded, vram 19860+10 MiB; speed test
+[11-22 02:48:37] a4500-dfl7-32k : speed 92.2 tok/s; image test
+[11-22 02:48:51] a4500-dfl7-32k : image True; 7k prompt
+[11-22 02:48:58] a4500-dfl7-32k : MEAN 92.2 tok/s (code 92.2 / chat 92.2), vram 19860+10 MiB, image True, 7k prompt True @ 1395 t/s -> pass
+[11-22 02:48:59] a4500-mtp3-128k-q8 : loading
+[11-22 02:49:02] a4500-mtp3-128k-q8 : loaded, vram 19860+10 MiB; speed test
+[11-22 02:49:09] a4500-mtp3-128k-q8 : speed 91.8 tok/s; image test
+[11-22 02:49:10] a4500-mtp3-128k-q8 : image True; 7k prompt
+[11-22 02:49:17] a4500-mtp3-128k-q8 : MEAN 91.8 tok/s (code 91.8 / chat 91.7), vram 19860+10 MiB, image True, 7k prompt True @ 1450 t/s -> pass
+[11-22 02:49:17] a4500-dfl7-128k-q8 : loading
+[11-22 02:49:20] a4500-dfl7-128k-q8 : loaded, vram 19862+10 MiB; speed test
+[11-22 02:49:27] a4500-dfl7-128k-q8 : speed 91.4 tok/s; image test
+[11-22 02:49:29] a4500-dfl7-128k-q8 : image True; 7k prompt
+[11-22 02:49:36] a4500-dfl7-128k-q8 : MEAN 91.4 tok/s (code 91.4 / chat 91.5), vram 19860+10 MiB, image True, 7k prompt True @ 1435 t/s -> pass
+[11-22 02:49:36] a4500-mtp3-262k-q4 : loading
+[11-22 02:49:39] a4500-mtp3-262k-q4 : loaded, vram 19862+10 MiB; speed test
+[11-22 02:49:46] a4500-mtp3-262k-q4 : speed 91.0 tok/s; image test
+[11-22 02:49:47] a4500-mtp3-262k-q4 : image True; 7k prompt
+[11-22 02:49:54] a4500-mtp3-262k-q4 : MEAN 91.0 tok/s (code 91.0 / chat 91.1), vram 19860+10 MiB, image True, 7k prompt True @ 1449 t/s -> pass

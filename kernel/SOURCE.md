@@ -109,3 +109,21 @@ D:\venvs\maya\Scripts\python kernel\src-maya\tools\strata_tokenizer.py --gguf mo
 
 Files in `models\inkling-2-mini-maya`: unsloth `Inkling-2-Mini-UD-Q4_K_XL.gguf` (sha256 e62d463c...) and `mmproj-BF16.gguf`
 (2c165c78...), Thinking Machines' `mtp.safetensors` (the drafter, 7c3b6513...). Start: `start-maya.bat [64k|code] [port]`.
+
+## Variant: `bin-kintsugi` (Kintsugi-27B: Escha W2 / EXL3 trellis weights)
+
+`kernel/src-kintsugi/kintsugi-engine-5f393adb5` = the release source `Kintsugi-27B-v1.1-engine-src-5f393adb5.tar.gz` of
+https://github.com/professorpalmer/Kintsugi-27B (release v1.1.1, 37,360,262 bytes, sha256 `ded8fd4e...caf4a6`, MIT): a
+llama.cpp fork with the Escha op, exllamav3 trellis GEMV kernels, a tiered K/V cache, a two-stage head and MTP / DFlash2
+drafting. Built with their release flags for sm_86 only (their kernels target RTX 20/30/40; the V100 has no kernel
+image, so the configs use `gpu: A4500` and the GUI hides the V100 from it):
+
+```bat
+tar -xzf Kintsugi-27B-v1.1-engine-src-5f393adb5.tar.gz -C kernel\src-kintsugi
+rem in a VS 2022 x64 prompt with CUDA 12.9 on PATH:
+cmake -S kernel\src-kintsugi\kintsugi-engine-5f393adb5 -B kernel\build-kintsugi -G Ninja -DCMAKE_BUILD_TYPE=Release ^
+  -DGGML_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES=86-real -DGGML_CUDA_MIRAI=OFF -DLLAMA_BUILD_UI=OFF -DLLAMA_USE_PREBUILT_UI=OFF ^
+  -DGGML_CUDA_GRAPHS=ON -DLLAMA_BUILD_SERVER=ON -DLLAMA_BUILD_TESTS=OFF -DLLAMA_BUILD_EXAMPLES=OFF -DLLAMA_CURL=OFF ^
+  -DGGML_RPC=OFF -DGGML_BLAS=OFF -DGGML_NATIVE=OFF -DGGML_CCACHE=OFF -DGGML_CUDA_NCCL=OFF -DBUILD_SHARED_LIBS=OFF
+cmake --build kernel\build-kintsugi --target llama-server      (copy bin\llama-*.exe + the CUDA 12 DLLs to kernel\bin-kintsugi)
+```

@@ -1,0 +1,213 @@
+{
+  "id": "kintsugi-27b",
+  "name": "Kintsugi-27B (Qwen3.8-27B at 2.47 bpw, EXL3 trellis, 10.5 GB; vision; RTX A4500 only)",
+  "gguf": "Kintsugi-27B-12G.gguf",
+  "kernel": "kintsugi",
+  "draft": "dflash-Qwen3.8-27B-Q4_0.gguf",
+  "files": [
+    {
+      "repo": "CaryPalmer/Kintsugi-27B",
+      "file": "Kintsugi-27B-12G.gguf",
+      "gb": 10.55
+    },
+    {
+      "repo": "CaryPalmer/Kintsugi-27B",
+      "file": "dflash-Qwen3.8-27B-Q4_0.gguf",
+      "gb": 1.09,
+      "note": "DFlash2 drafter (Inco AI, ggml-org Q4_0 rev cc54a8a3), dfl configs only"
+    },
+    {
+      "repo": "professorpalmer/Kintsugi-27B (GitHub, bundle/templates)",
+      "file": "kintsugi.jinja",
+      "gb": 0.0,
+      "note": "the bundle's fixed chat template (the GGUF's own refuses a system message after the first turn)"
+    },
+    {
+      "repo": "unsloth/Qwen3.8-27B-GGUF",
+      "file": "mmproj-F16.gguf",
+      "gb": 0.93,
+      "note": "Qwen3.8-27B's vision projector (the Kintsugi repo has none; same base model). Hardlinked from models/qwen3.8-27b-nov12"
+    }
+  ],
+  "sampling": [
+    "--temp",
+    "0.6",
+    "--top-k",
+    "20",
+    "--top-p",
+    "0.95",
+    "--min-p",
+    "0"
+  ],
+  "env": {
+    "GGML_CUDA_BATCH_INVARIANT": "1",
+    "LLAMA_RS_REPLAY": "1",
+    "GGML_CUDA_SHARED_POOL": "1",
+    "LLAMA_MTP_DRAFT_UBATCH": "256",
+    "LLAMA_ARG_CHECKPOINT_EVERY_NT": "8192",
+    "GGML_CUDA_POOL_RESERVE_MIB": "96",
+    "GGML_ESCHA_PREFILL": "i8",
+    "GGML_ESCHA_I8_MIN_ROWS": "256"
+  },
+  "notes": "CaryPalmer / professorpalmer's Qwen3.8-27B at 2.47 bits per weight (L0xRE-V2 bit allocation, Escha W2 format, EXL3 trellis codec). Only its own engine loads it: kernel bin-kintsugi = their llama.cpp fork 5f393adb5 (release source, MIT), built for sm_86 (the A4500; their kernels target RTX 20/30/40, not the V100). Settings from their start-server.ps1 (engine switches as env); on 20 GB the whole K/V cache fits in VRAM, so their tiered RAM cache is not used. Chat template: the bundle's kintsugi.jinja. ts = A4500 only.",
+  "configs": [
+    {
+      "name": "a4500-mtp3-32k",
+      "ctx": 32768,
+      "gpu": "A4500",
+      "ub": 1024,
+      "b": 1024,
+      "extra": [
+        "--kq-mask-packed",
+        "--spec-type",
+        "ngram-mod,draft-mtp",
+        "--spec-draft-n-max",
+        "3",
+        "--spec-draft-n-max-tail",
+        "4",
+        "-ctkd",
+        "q8_0",
+        "-ctvd",
+        "q8_0",
+        "--spec-lookup-n-max",
+        "32",
+        "--spec-draft-window",
+        "16384"
+      ]
+    },
+    {
+      "name": "a4500-dfl7-32k",
+      "ctx": 32768,
+      "gpu": "A4500",
+      "ub": 1024,
+      "b": 1024,
+      "spec": "dflash",
+      "n": 7,
+      "env": {
+        "LLAMA_DFLASH_DRAFT_UBATCH": "64"
+      },
+      "extra": [
+        "--kq-mask-packed",
+        "-ctkd",
+        "q4_0",
+        "-ctvd",
+        "q4_0"
+      ]
+    },
+    {
+      "name": "a4500-nodraft-32k",
+      "ctx": 32768,
+      "gpu": "A4500",
+      "ub": 1024,
+      "b": 1024,
+      "extra": [
+        "--kq-mask-packed"
+      ]
+    },
+    {
+      "name": "a4500-mtp3-128k-q8",
+      "ctx": 131072,
+      "gpu": "A4500",
+      "ub": 1024,
+      "b": 1024,
+      "kv": "q8_0",
+      "extra": [
+        "--kq-mask-packed",
+        "--spec-type",
+        "ngram-mod,draft-mtp",
+        "--spec-draft-n-max",
+        "3",
+        "--spec-draft-n-max-tail",
+        "4",
+        "-ctkd",
+        "q8_0",
+        "-ctvd",
+        "q8_0",
+        "--spec-lookup-n-max",
+        "32",
+        "--spec-draft-window",
+        "16384"
+      ]
+    },
+    {
+      "name": "a4500-dfl7-128k-q8",
+      "ctx": 131072,
+      "gpu": "A4500",
+      "ub": 1024,
+      "b": 1024,
+      "kv": "q8_0",
+      "spec": "dflash",
+      "n": 7,
+      "env": {
+        "LLAMA_DFLASH_DRAFT_UBATCH": "64"
+      },
+      "extra": [
+        "--kq-mask-packed",
+        "-ctkd",
+        "q4_0",
+        "-ctvd",
+        "q4_0"
+      ]
+    },
+    {
+      "name": "a4500-mtp3-262k-q4",
+      "ctx": 262144,
+      "gpu": "A4500",
+      "ub": 1024,
+      "b": 1024,
+      "kv": "q4_0",
+      "extra": [
+        "--kq-mask-packed",
+        "--spec-type",
+        "ngram-mod,draft-mtp",
+        "--spec-draft-n-max",
+        "3",
+        "--spec-draft-n-max-tail",
+        "4",
+        "-ctkd",
+        "q8_0",
+        "-ctvd",
+        "q8_0",
+        "--spec-lookup-n-max",
+        "32",
+        "--spec-draft-window",
+        "16384"
+      ]
+    },
+    {
+      "name": "a4500-dfl7-262k-q4",
+      "ctx": 262144,
+      "gpu": "A4500",
+      "ub": 1024,
+      "b": 1024,
+      "kv": "q4_0",
+      "spec": "dflash",
+      "n": 7,
+      "env": {
+        "LLAMA_DFLASH_DRAFT_UBATCH": "64"
+      },
+      "extra": [
+        "--kq-mask-packed",
+        "-ctkd",
+        "q4_0",
+        "-ctvd",
+        "q4_0"
+      ]
+    }
+  ],
+  "sets": {
+    "spec": [
+      "a4500-mtp3-32k",
+      "a4500-dfl7-32k",
+      "a4500-nodraft-32k"
+    ],
+    "ctx": [
+      "a4500-mtp3-128k-q8",
+      "a4500-dfl7-128k-q8",
+      "a4500-mtp3-262k-q4",
+      "a4500-dfl7-262k-q4"
+    ]
+  },
+  "chat_template": "kintsugi.jinja",
+  "mmproj": "mmproj-F16.gguf"
+}
