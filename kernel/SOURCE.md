@@ -127,7 +127,14 @@ cmake --build kernel\build-maya2 --target maya-ik2
 copy %CUDA%\bin\cudart64_12.dll kernel\build-maya2 & copy %CUDA%\bin\cublas64_12.dll kernel\build-maya2 & copy %CUDA%\bin\cublasLt64_12.dll kernel\build-maya2
 ```
 
-Presets `configs\maya\inkling-2-mini-{v100,64k-new,128k,262k}.json` ("card": the GPU it gets alone).
+Preset `configs\maya\inkling-2-mini-v100.json` ("card": the GPU it gets alone).
+
+## Engine: `build-maya3` (Maya v1.1.74 `maya-ik2`: expert lending, 128k / 262k at full speed)
+
+`kernel/src-maya3` = https://github.com/mw00/project-maya tag `v1.1.74` (commit `e8d4f29`), unchanged. Built exactly as
+`build-maya2` above with `src-maya3` / `build-maya3` (CUDA 12.9, `-DCMAKE_CUDA_ARCHITECTURES="70;86"`; `STRATA_IK2_WINDOWS`
+is on by default since v1.1.74), the three CUDA DLLs copied beside the exe. Presets
+`configs\maya\inkling-2-mini-{64k-new,128k,262k}.json` (`"src": "src-maya3"`).
 
 ## Variant: `bin-kintsugi` (Kintsugi-27B: Escha W2 / EXL3 trellis weights)
 

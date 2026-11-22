@@ -117,9 +117,9 @@ Same presets as above with reasoning on (`EVAL_THINKING=1`, 5x token budget). In
 | | v100-128k | `v100-128k-q4-ub32-min-s` (V100 only) | 128k | q4_0 | 47.8 | 320 t/s |
 | inkling-2-mini (Maya engine) | **64k** (`start-maya.bat`) | `configs/maya/inkling-2-mini-64k.json` (A4500 only, effort low) | 64k | fp8 | **86-92** | - |
 | | code | `configs/maya/inkling-2-mini-code.json` (DSpark drafter) | 24k | fp8 | 76 prose, **97-134** code | - |
-| | 64k-new | `configs/maya/inkling-2-mini-64k-new.json` (Maya v1.1.73, A4500) | 64k | fp8 | 88 code, 87 prose | - |
-| | 128k | `configs/maya/inkling-2-mini-128k.json` (Maya v1.1.73, A4500, experts partly in RAM) | 128k | fp8 | 80 code, 37 prose | - |
-| | 262k | `configs/maya/inkling-2-mini-262k.json` (Maya v1.1.73, A4500, experts partly in RAM) | 262k | fp8 | 58 code, 22 prose | - |
+| | 64k-new | `configs/maya/inkling-2-mini-64k-new.json` (Maya v1.1.74, A4500) | 64k | fp8 | **92** code, **92** prose | - |
+| | 128k | `configs/maya/inkling-2-mini-128k.json` (Maya v1.1.74, A4500, expert lending) | 128k | fp8 | 90 code, 90 prose | - |
+| | 262k | `configs/maya/inkling-2-mini-262k.json` (Maya v1.1.74, A4500, expert lending) | 262k | fp8 | 90 code, 90 prose (56-70 deep) | - |
 | | v100 | `configs/maya/inkling-2-mini-v100.json` (Maya v1.1.73, **V100 alone**) | 32k | fp8 | 52 code, 20-27 prose | - |
 | | strata | `configs/maya/inkling-2-mini-strata.json` (Strata 0.2.19 engine, SQ-15 pack, A4500, text only) | 64k | fp8 | 64.4 code, 44.2 prose | ~650 t/s |
 | kintsugi-27b | **128k** (default) | `a4500-mtp3-128k-q8` (A4500 only, MTP 3 + lookup) | 128k | q8_0 | **91.8** | 1450 t/s |
@@ -223,6 +223,15 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
   expert parallel (`IK2_EP=1`) 14.5, and an uneven split tried here (layers 0-5 / 6-23: 34.8; 0-17 / 18-23: 19.3); the
   A4500 and V100 have no peer access, so every hop goes through RAM, which costs more than fetching experts. Maya has no
   option to put only the KV cache on the second card.
+- **Maya v1.1.74 for Inkling-2-Mini: full speed at 128k and 262k** (same build steps, `kernel/build-maya3`). The part of
+  the KV cache a chat has not reached yet now holds the experts that used to come from RAM (expert lending), handed back
+  as the chat grows. Presets `64k-new`, `128k` and `262k` moved to it (A4500 alone, code / prose tok/s): `64k-new` 88 / 87
+  -> **92 / 92**, `128k` 80 / 37 -> **90 / 90**, `262k` 58 / 22 -> **90 / 90**; 8k prompts ~1,140 tok/s on all three, images
+  work. Deep in a chat at 262k (one prompt, then a 300-token answer): 29k tokens read at 1,019 tok/s then 57 tok/s, 71k at
+  1,116 then 70, 143k at 1,017 then 56, each answer right. Same answers as v1.1.73: hard suite 76.1 for both at 64k
+  (75.4 at 262k). A rerun of the first build's `64k` today also gives 76.1 (instructions 42, long context 50), not the
+  89.6 from 21 November, so that score did not reproduce. The `v100` preset stays on v1.1.73 until it is tested on the
+  V100 (busy). Two GPUs for Inkling are Linux only in v1.1.74.
 - **Strata 0.2.19 for Inkling-2-Mini** (Niko1221/Strata, its prebuilt `strata-inkling` 0.1.65 CUDA 12 engine in
   `kernel/strata-inkling`, and the `SQ-15` pack from `strata-engine/Inkling-2-Mini-Strata`, 14.35 GB, checksums verified).
   The engine speaks Maya's line protocol, so Maya's server runs it: preset `strata` (`start-maya.bat strata`, the GUI),
@@ -230,7 +239,7 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
   with DSpark, 43.1 without), 8k prompt ~650 tok/s, load ~2 min. Slower than Maya's `64k-new` (88 / 87) on the same card:
   Strata's fast kernels target RTX 40 / 50 (sm_89 / sm_120). Hard suite **65.6**, text only (Maya's image-encoder command
   is "unknown" to it, and its own vision pack only works inside the Strata app): coding 81, reasoning 95, instructions 50,
-  search 100, agent 83, long context 50; 76.6 over the 6 text categories against Maya's 89.6 (with vision). The V100 was
+  search 100, agent 83, long context 50; 76.6 over the 6 text categories against Maya's 89.6 (with vision); in today's reruns Maya scores 74.2 over the same 6. The V100 was
   not tested (it was busy with another server). `--bench` reads only `.strata` packs, not GGUF.
 - **Inkling kernel `bin-inklings`** (realugbun's `inkling2-speed` fork of llama.cpp: upstream `e50c254a` + fused CUDA
   kernels for Inkling 2's small op chains): every Inkling preset runs on it. Against `bin-inklingm` with the same files and

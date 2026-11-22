@@ -1,6 +1,6 @@
 {
- "exe": "{root}/kernel/build-maya2/maya-ik2.exe",
- "src": "src-maya2",
+ "exe": "{root}/kernel/build-maya3/maya-ik2.exe",
+ "src": "src-maya3",
  "card": "A4500",
  "tokenizer": "{root}/models/inkling-2-mini-maya/ik2/tokenizer",
  "model_name": "inkling-2-mini",
@@ -14,7 +14,7 @@
  "env": {
   "IK2_KV": "fp8",
   "IK2_UNSUPPORTED": "1",
-  "IK2_WARM": "{root}/kernel/src-maya2/data/expert-profile-ik2mini.bin",
+  "IK2_WARM": "{root}/kernel/src-maya3/data/expert-profile-ik2mini.bin",
   "IK2_GATE_TILE": "64",
   "IK2_GATE_BF16": "1",
   "IK2_Q8_UNROLL": "1"
@@ -26,5 +26,5 @@
   "gpu": false,
   "resident": true
  },
- "note": "Maya v1.1.73: RTX A4500 alone, 64k, FP8 KV, every expert in VRAM - 88 tok/s"
+ "note": "Maya v1.1.74: RTX A4500 alone, 64k, FP8 KV, every expert in VRAM - 92 tok/s code and prose"
 }
