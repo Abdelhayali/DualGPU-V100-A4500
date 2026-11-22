@@ -44,15 +44,16 @@ start.bat minicpm-v4.7-35b-a3b fast       :: a named preset
 | 14 | Qwen3.8-27B UD-Q5_K_XL (21.0 GB, unsloth update 2026-11-12, MTP), vision | `128k` | 128k | 51.3 | 75 | 100 | 50 | 100 | 100 | 88 | 50 | **80.4** |
 | 15 | Ripple-65B Preview AD-IQ3_XXS (28.0 GB, dense), text only | `64k` | 64k | 13.9 | 75 | 100 | 83 | 100 | 100 | - | 100 | **79.8**\* |
 | 16 | Kintsugi-27B (Qwen3.8-27B at 2.47 bpw, 10.5 GB, EXL3 trellis, A4500 only, MTP), vision | `128k` | 128k | 89.6 | 88 | 95 | 42 | 88 | 83 | 88 | 50 | **76.1** |
-| 17 | Apex-35B-V1.0 Q4_K_M (21.7 GB, MoE, fine-tune of Qwen3.6-35B-A3B), text only | `262k` | 262k | 100.2 | 50 | 85 | 25 | 63 | 100 | - | 100 | **60.4**\* |
-| 18 | Kimi-Linear 48B-A3B abliterated i1-Q4_K_M (27.7 GB), text only | `262k` | 262k | 100.9 | 56 | 60 | 50 | 88 | 100 | - | 50 | **57.7**\* |
-| 19 | Qwen2.5-Coder-32B PCB GRPO (Simonssb LoRA on Q4_K_M 19.9 GB + 0.5 GB, dense), text only | `32k` | 32k | 20.0 | 63 | 60 | 42 | 75 | 50 | - | 50 | **48.5**\* |
+| 17 | Inkling-2-Mini SQ-15 on the **Strata 0.2.19 engine** (14.35 GB, A4500 only, reasoning effort low), text only here | `start-maya.bat strata` | 64k | 74.3 | 81 | 95 | 50 | 100 | 83 | - | 50 | **65.6**\* |
+| 18 | Apex-35B-V1.0 Q4_K_M (21.7 GB, MoE, fine-tune of Qwen3.6-35B-A3B), text only | `262k` | 262k | 100.2 | 50 | 85 | 25 | 63 | 100 | - | 100 | **60.4**\* |
+| 19 | Kimi-Linear 48B-A3B abliterated i1-Q4_K_M (27.7 GB), text only | `262k` | 262k | 100.9 | 56 | 60 | 50 | 88 | 100 | - | 50 | **57.7**\* |
+| 20 | Qwen2.5-Coder-32B PCB GRPO (Simonssb LoRA on Q4_K_M 19.9 GB + 0.5 GB, dense), text only | `32k` | 32k | 20.0 | 63 | 60 | 42 | 75 | 50 | - | 50 | **48.5**\* |
 
 † Run with reasoning on (`eval_thinking`, 5x token budget): with `enable_thinking=false` this model still reasons, into
 the answer, without closing `</think>`, which scored 80.7 (instruction following 8.3, coding 68.8). All other rows ran
 with reasoning off, so its rank is not a like-for-like comparison: thinking on usually helps instruction following and coding.
 
-\* Text-only models: the suite scores the missing vision category as 0. Over the 6 text categories Ripple averages 93.1, Apex 70.4
+\* Text-only models: the suite scores the missing vision category as 0. Over the 6 text categories Ripple averages 93.1, Inkling on Strata 76.6, Apex 70.4
 (the best instruction-following score here, 83) and Kimi 67.3. Many reasoning misses are
 format (it ends with a LaTeX `\[ ... \]` block, so the graded last line is `\]`), but the coding misses are real bugs.
 
@@ -120,6 +121,7 @@ Same presets as above with reasoning on (`EVAL_THINKING=1`, 5x token budget). In
 | | 128k | `configs/maya/inkling-2-mini-128k.json` (Maya v1.1.73, A4500, experts partly in RAM) | 128k | fp8 | 80 code, 37 prose | - |
 | | 262k | `configs/maya/inkling-2-mini-262k.json` (Maya v1.1.73, A4500, experts partly in RAM) | 262k | fp8 | 58 code, 22 prose | - |
 | | v100 | `configs/maya/inkling-2-mini-v100.json` (Maya v1.1.73, **V100 alone**) | 32k | fp8 | 52 code, 20-27 prose | - |
+| | strata | `configs/maya/inkling-2-mini-strata.json` (Strata 0.2.19 engine, SQ-15 pack, A4500, text only) | 64k | fp8 | 64.4 code, 44.2 prose | ~650 t/s |
 | kintsugi-27b | **128k** (default) | `a4500-mtp3-128k-q8` (A4500 only, MTP 3 + lookup) | 128k | q8_0 | **91.8** | 1450 t/s |
 | | fast | `a4500-dfl7-32k` (DFlash2 drafter) | 32k | f16 | 92.2 | 1395 t/s |
 | | 262k | `a4500-mtp3-262k-q4` | 262k | q4_0 | 91.0 | 1449 t/s |
@@ -221,6 +223,15 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
   expert parallel (`IK2_EP=1`) 14.5, and an uneven split tried here (layers 0-5 / 6-23: 34.8; 0-17 / 18-23: 19.3); the
   A4500 and V100 have no peer access, so every hop goes through RAM, which costs more than fetching experts. Maya has no
   option to put only the KV cache on the second card.
+- **Strata 0.2.19 for Inkling-2-Mini** (Niko1221/Strata, its prebuilt `strata-inkling` 0.1.65 CUDA 12 engine in
+  `kernel/strata-inkling`, and the `SQ-15` pack from `strata-engine/Inkling-2-Mini-Strata`, 14.35 GB, checksums verified).
+  The engine speaks Maya's line protocol, so Maya's server runs it: preset `strata` (`start-maya.bat strata`, the GUI),
+  A4500 alone, 64k, FP8 KV, its built-in DSpark drafter. **64.4 tok/s on code, 44.2 on prose** (its own `--bench`: 77.2
+  with DSpark, 43.1 without), 8k prompt ~650 tok/s, load ~2 min. Slower than Maya's `64k-new` (88 / 87) on the same card:
+  Strata's fast kernels target RTX 40 / 50 (sm_89 / sm_120). Hard suite **65.6**, text only (Maya's image-encoder command
+  is "unknown" to it, and its own vision pack only works inside the Strata app): coding 81, reasoning 95, instructions 50,
+  search 100, agent 83, long context 50; 76.6 over the 6 text categories against Maya's 89.6 (with vision). The V100 was
+  not tested (it was busy with another server). `--bench` reads only `.strata` packs, not GGUF.
 - **Inkling kernel `bin-inklings`** (realugbun's `inkling2-speed` fork of llama.cpp: upstream `e50c254a` + fused CUDA
   kernels for Inkling 2's small op chains): every Inkling preset runs on it. Against `bin-inklingm` with the same files and
   settings: A4500 base 36.3 -> 58.1 tok/s, uncensored 37.5 -> 54.6, V100 IQ3_S 33.0 -> 48.3, 128k 36.9 -> 52.8; 7k prompts

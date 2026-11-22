@@ -22,3 +22,5 @@ tools/eval/results_phone/
 kernel/src-*/
 kernel/build-*/
 kernel/bin-*/
+kernel/strata-inkling/
+kernel/strata-dl/

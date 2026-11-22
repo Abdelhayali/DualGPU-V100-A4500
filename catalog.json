@@ -4428,6 +4428,13 @@
                                          "size":  635801416,
                                          "sha256":  "7c3b651317f01f73bcf4e1dceba66ef8b7e1a1eac6bc171e882e690a4b10a1d2",
                                          "url":  "https://huggingface.co/thinkingmachines/Inkling-2-Mini/resolve/main/mtp.safetensors"
+                                     },
+                                     {
+                                         "name":  "Inkling-2-Mini-SQ-15.strata",
+                                         "repo":  "strata-engine/Inkling-2-Mini-Strata",
+                                         "size":  14348316672,
+                                         "sha256":  "2ea32eed533afba257e2cbee7b073dc2c3da80fe55d1d2d794779b5498e30737",
+                                         "url":  "https://huggingface.co/strata-engine/Inkling-2-Mini-Strata/resolve/main/Inkling-2-Mini-SQ-15.strata"
                                      }
                                  ],
                        "model":  "Inkling-2-Mini-UD-Q4_K_XL.gguf",
@@ -4528,6 +4535,22 @@
                                                           [
                                                               "--preset",
                                                               "v100",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "strata",
+                                           "name":  "strata: Strata 0.2.19 engine (strata-inkling, prebuilt) with its SQ-15 pack: A4500 alone, 64k ctx, FP8 KV, DSpark drafter, text only - 64 tok/s code, 44 prose",
+                                           "kernel":  "maya",
+                                           "kernels":  [
+                                                           "maya"
+                                                       ],
+                                           "bench":  "64.4 code / 44.2 prose tok/s; hard suite 65.6 (text only: 76.6 over the 6 text categories)",
+                                           "params":  [
+                                                          [
+                                                              "--preset",
+                                                              "strata",
                                                               ""
                                                           ]
                                                       ]

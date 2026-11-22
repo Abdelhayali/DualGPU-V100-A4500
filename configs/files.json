@@ -53,6 +53,12 @@
   "size": 899283104,
   "url": "https://huggingface.co/huihui-ai/Huihui-Qwen3.6-35B-A3B-abliterated-MTP-GGUF/resolve/main/mmproj-model-f16.gguf"
  },
+ "inkling-2-mini-maya/Inkling-2-Mini-SQ-15.strata": {
+  "repo": "strata-engine/Inkling-2-Mini-Strata",
+  "sha256": "2ea32eed533afba257e2cbee7b073dc2c3da80fe55d1d2d794779b5498e30737",
+  "size": 14348316672,
+  "url": "https://huggingface.co/strata-engine/Inkling-2-Mini-Strata/resolve/main/Inkling-2-Mini-SQ-15.strata"
+ },
  "inkling-2-mini-maya/Inkling-2-Mini-UD-Q4_K_XL.gguf": {
   "repo": "unsloth/Inkling-2-Mini-GGUF",
   "sha256": "e62d463c135ffe283df8d94b279a96ca145ac128b52ce854478613045bf4de15",

@@ -1,0 +1,19 @@
+{
+ "exe": "{root}/kernel/strata-inkling/strata-inkling.exe",
+ "src": "src-maya2",
+ "card": "A4500",
+ "tokenizer": "{root}/models/inkling-2-mini-maya/ik2/tokenizer",
+ "model_name": "inkling-2-mini",
+ "reasoning_effort": "low",
+ "args": [
+  "--native",
+  "{root}/models/inkling-2-mini-maya/Inkling-2-Mini-SQ-15.strata",
+  "--max-context",
+  "65536",
+  "--kv",
+  "fp8",
+  "--draft",
+  "dspark"
+ ],
+ "note": "Strata 0.2.19 strata-inkling 0.1.65: SQ-15 pack, RTX A4500 alone, 64k, FP8 KV, DSpark drafter, text only"
+}

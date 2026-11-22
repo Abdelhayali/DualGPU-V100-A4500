@@ -146,3 +146,19 @@ cmake -S kernel\src-kintsugi\kintsugi-engine-5f393adb5 -B kernel\build-kintsugi 
   -DGGML_RPC=OFF -DGGML_BLAS=OFF -DGGML_NATIVE=OFF -DGGML_CCACHE=OFF -DGGML_CUDA_NCCL=OFF -DBUILD_SHARED_LIBS=OFF
 cmake --build kernel\build-kintsugi --target llama-server      (copy bin\llama-*.exe + the CUDA 12 DLLs to kernel\bin-kintsugi)
 ```
+
+## Engine: `strata-inkling` (Strata 0.2.19, prebuilt, Inkling-2-Mini `.strata` packs)
+
+`kernel/strata-inkling` = `strata-inkling-0.1.65-windows-x86_64-cuda-cuda12.tar.gz` from
+https://github.com/Niko1221/Strata/releases/tag/v0.2.19 (571,479,044 bytes, sha256 `27c313bc...8022f02` as in the
+release's `SHA256SUMS.txt`; MIT; built by the release with CUDA 12.9 for sm_60..sm_120, so the V100 is included). It
+speaks the same stdin line protocol as Maya's engine, so Maya's server (`kernel\src-maya2\serve\server.py`) drives it
+for text; Maya's image-encoder command is not understood ("unknown command"), so the preset is text only.
+
+```bat
+gh release download v0.2.19 -R Niko1221/Strata -p strata-inkling-0.1.65-windows-x86_64-cuda-cuda12.tar.gz -p SHA256SUMS.txt -D kernel\strata-dl
+mkdir kernel\strata-inkling && tar -xzf kernel\strata-dl\strata-inkling-0.1.65-windows-x86_64-cuda-cuda12.tar.gz -C kernel\strata-inkling
+hf download strata-engine/Inkling-2-Mini-Strata Inkling-2-Mini-SQ-15.strata --local-dir models\inkling-2-mini-maya
+```
+
+Preset `configs\maya\inkling-2-mini-strata.json` (`start-maya.bat strata`). `--bench` only reads `.strata` packs.
