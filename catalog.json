@@ -5083,7 +5083,7 @@
                    {
                        "id":  "inkling-2-mini-maya",
                        "name":  "Inkling-2-Mini UD-Q4_K_XL on the Maya engine (maya-ik2, one card: A4500, or the V100 with Maya v1.1.73, vision)",
-                       "desc":  "Maya\u0027s own engine for Inkling-2-Mini (alesha-pro/maya-inkling-mini, built here with CUDA 13.4 for sm_86; not llama.cpp): every one of the 3,072 experts stays in VRAM and a token is one CUDA graph. Presets 64k / code: the first build, RTX A4500 alone. Preset v100: Maya v1.1.73; presets 64k-new / 128k / 262k: Maya v1.1.74 (kernel\\build-maya3; v1.1.73 (mw00/project-maya, built with CUDA 12.9 for sm_70 + sm_86 in kernel\\build-maya2), which keeps the experts that do not fit in pinned RAM and the most-picked ones (its profile) in VRAM: the V100 alone at 52 tok/s on code (20-27 on prose: Maya\u0027s expert profile favours code), the A4500 at 64k 88, 128k 80 / 37 and 262k 58 / 22 (code / prose); v1.1.74 lends the cache space a chat has not reached yet to the experts, so the A4500 does 92 at 64k and 90 at 128k and 262k on code and prose, with the same answers as v1.1.73). Two cards (layer split, expert parallel) were slower than one card here: the cards copy through RAM. 86-92 tok/s at 64k; 64k is the most that keeps every expert resident on 20 GB. Hard suite 89.6 (reasoning effort low, images on the CPU encoder). Needs the tokenizer folder ik2\tokenizer, made once with Maya\u0027s tools/strata_tokenizer.py (kernel\\SOURCE.md). Reasoning: Maya does not open the reasoning block itself, so its presets default to effort low (minimal does not reason at all here).",
+                       "desc":  "Maya\u0027s own engine for Inkling-2-Mini (alesha-pro/maya-inkling-mini, built here with CUDA 13.4 for sm_86; not llama.cpp): every one of the 3,072 experts stays in VRAM and a token is one CUDA graph. Presets 64k / code: the first build, RTX A4500 alone. Preset v100: Maya v1.1.73; presets 64k-new / 128k / 262k: Maya v1.1.74 (kernel\\build-maya3; v1.1.73 (mw00/project-maya, built with CUDA 12.9 for sm_70 + sm_86 in kernel\\build-maya2), which keeps the experts that do not fit in pinned RAM and the most-picked ones (its profile) in VRAM: the V100 alone at 52 tok/s on code (20-27 on prose: Maya\u0027s expert profile favours code), the A4500 at 64k 88, 128k 80 / 37 and 262k 58 / 22 (code / prose); v1.1.74 lends the cache space a chat has not reached yet to the experts, so the A4500 does 92 at 64k and 90 at 128k and 262k on code and prose, with the same answers as v1.1.73). Two cards (layer split, expert parallel) were slower than one card here: the cards copy through RAM. 86-92 tok/s at 64k; 64k is the most that keeps every expert resident on 20 GB. Hard suite 89.6 (reasoning effort low, images on the CPU encoder). Needs the tokenizer folder ik2\tokenizer, made once with Maya\u0027s tools/strata_tokenizer.py (kernel\\SOURCE.md). Reasoning: Maya does not open the reasoning block itself, so its presets default to effort low (minimal does not reason at all here). Presets 128k-fast / 262k-fast: Maya v1.1.75 with Inkling-2-Mini-UD-Q4_K_XL-nvfp4tail.gguf - UD-Q4_K_XL with the Q8_0 experts of layers 20-23 re-quantized to NVFP4 (tools/ik2_nvfp4_tail.py, 2.0 GB smaller, every other tensor byte for byte), so every expert stays on the 20 GB A4500 at 262k with the GGUF drafter beside them: 153-169 tok/s on code, 86-96 on prose, hard suite 91.1 (reasoning on).",
                        "files":  [
                                      {
                                          "name":  "Inkling-2-Mini-UD-Q4_K_XL.gguf",
@@ -5127,6 +5127,38 @@
                                     "template":  "inkling-2-mini"
                                 },
                        "presets":  [
+                                       {
+                                           "id":  "262k-fast",
+                                           "name":  "262k-fast: FASTEST long context: A4500 alone (Maya v1.1.75), 262k ctx, every expert in VRAM (UD-Q4_K_XL with layers 20-23 experts in NVFP4, made with tools/ik2_nvfp4_tail.py), GGUF drafter - 153-161 tok/s code, 92-96 prose",
+                                           "kernel":  "maya",
+                                           "kernels":  [
+                                                           "maya"
+                                                       ],
+                                           "bench":  "153-161 code / 92-96 prose tok/s; 106 after a 143k prompt; hard suite 91.1 (reasoning on), 139.9 tok/s mean over the suite",
+                                           "params":  [
+                                                          [
+                                                              "--preset",
+                                                              "262k-fast",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "128k-fast",
+                                           "name":  "128k-fast: A4500 alone (Maya v1.1.75), 128k ctx, every expert in VRAM (NVFP4 tail file), GGUF drafter - 169 tok/s code, 86 prose",
+                                           "kernel":  "maya",
+                                           "kernels":  [
+                                                           "maya"
+                                                       ],
+                                           "bench":  "169 code / 86 prose tok/s",
+                                           "params":  [
+                                                          [
+                                                              "--preset",
+                                                              "128k-fast",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
                                        {
                                            "id":  "64k",
                                            "name":  "64k: default: 64k ctx, FP8 KV, every expert in VRAM, A4500 only, reasoning effort low, images on the CPU - 86-92 tok/s",
