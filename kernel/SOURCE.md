@@ -184,3 +184,5 @@ UD-Q4_K_XL (the `Old_Support` layout) with:
 ```bat
 python -I tools\ik2_nvfp4_tail.py models\inkling-2-mini-maya\Inkling-2-Mini-UD-Q4_K_XL.gguf models\inkling-2-mini-maya\Inkling-2-Mini-UD-Q4_K_XL-nvfp4tail.gguf
 ```
+
+Result here: 15,591,332,256 bytes, sha256 `ee205a600be110910ae0b94d88a5b3671d2f2440dda36f5d282e7c82311db651` (the same input and script give the same file).
