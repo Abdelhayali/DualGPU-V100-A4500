@@ -169,3 +169,11 @@ hf download strata-engine/Inkling-2-Mini-Strata Inkling-2-Mini-SQ-15.strata --lo
 ```
 
 Preset `configs\maya\inkling-2-mini-strata.json` (`start-maya.bat strata`). `--bench` only reads `.strata` packs.
+
+## Engine: `build-maya4` (Maya v1.1.75 `maya-ik2`: GGUF drafter, two GPUs on Windows)
+
+`kernel/src-maya4` = https://github.com/mw00/project-maya tag `v1.1.75` (commit `8621f7a`), unchanged. Built as `build-maya3`
+plus `-DMAYA_GGML_DIR=D:/DualGPU/kernel/build-maya3/_deps/strata_llamacpp-src` (the same pinned ggml commit `3cf0325`;
+its own fetch came back empty here). Drafter: `peasantsmith/Inkling-2-Mini-Maya-GGUF` revision `3702771`,
+`drafter/dspark-Inkling-2-Mini-Q8_0.gguf` (sha256 `2ec78510...3773`) into `models/inkling-2-mini-maya`. Preset
+`configs/maya/inkling-2-mini-2gpu.json` (`"card": "A4500|V100"`, `--gpus 2`).

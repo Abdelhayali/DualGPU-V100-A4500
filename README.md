@@ -249,6 +249,17 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
   the suite's default `enable_thinking: false` Maya does not reason at all: 76.1 for v1.1.73, v1.1.74 and the first
   build alike (instructions 42, long context 50; 75.4 at 262k), so v1.1.74 gives the same answers as v1.1.73. The
   `v100` preset stays on v1.1.73 until it is tested on the V100 (busy). Two GPUs for Inkling are Linux only in v1.1.74.
+- **Maya v1.1.75 for Inkling-2-Mini: drafting everywhere, two cards on Windows** (`kernel/build-maya4`; its build
+  could not fetch the pinned ggml, so `-DMAYA_GGML_DIR` points at the same commit already fetched for v1.1.74). Its GGUF
+  drafter (`dspark-Inkling-2-Mini-Q8_0.gguf`, 0.4 GB, checksum verified) and `--drafting auto`, which times no
+  drafting / the prompt lookup / the drafter once per PC. Measured here (code / prose tok/s, two runs each): A4500 64k
+  92 / 91 (the drafter does not fit beside every expert, auto keeps the prompt lookup: no change); 128k 98-142 / 62-72
+  and 262k 96-121 / 59-62 with the drafter, against **90 / 90** for v1.1.74's expert lending without it, so the
+  `128k` / `262k` presets stay on v1.1.74. V100 alone 32k: 50-55 / 19-20 without drafting, 48 / 14-17 with it (auto
+  picked the drafter by 30.7 vs 28.6 tok/s on its own short test) - no better than v1.1.73's `v100`. **Both cards now
+  run on Windows** (`--gpus 2`, the server fix of v1.1.75): new preset `2gpu`, A4500 + V100 at 262k, **69-72 / 28-30**:
+  the V100 holds the experts the A4500 cannot, but every token copies through RAM (no peer access), so the A4500 alone
+  is faster. Prompts ~1,000-1,460 tok/s and images work on every preset.
 - **Strata 0.2.19 for Inkling-2-Mini** (Niko1221/Strata, its prebuilt `strata-inkling` 0.1.65 CUDA 12 engine in
   `kernel/strata-inkling`, and the `SQ-15` pack from `strata-engine/Inkling-2-Mini-Strata`, 14.35 GB, checksums verified).
   The engine speaks Maya's line protocol, so Maya's server runs it: preset `strata` (`start-maya.bat strata`, the GUI),

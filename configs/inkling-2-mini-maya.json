@@ -26,6 +26,12 @@
       "file": "Inkling-2-Mini-SQ-15.strata",
       "gb": 14.35,
       "note": "Strata's SQ-15 pack, strata preset only (engine: kernel\\SOURCE.md)"
+    },
+    {
+      "repo": "peasantsmith/Inkling-2-Mini-Maya-GGUF",
+      "file": "drafter/dspark-Inkling-2-Mini-Q8_0.gguf",
+      "gb": 0.4,
+      "note": "Maya's GGUF drafter (unsloth's dspark Q8_0), 2gpu preset"
     }
   ],
   "notes": "Maya's own engine for Inkling-2-Mini (alesha-pro/maya-inkling-mini, built here with CUDA 13.4 for sm_86; not llama.cpp): every one of the 3,072 experts stays in VRAM and a token is one CUDA graph. Presets 64k / code: the first build, RTX A4500 alone. Preset v100: Maya v1.1.73; presets 64k-new / 128k / 262k: Maya v1.1.74 (kernel\\build-maya3; v1.1.73 (mw00/project-maya, built with CUDA 12.9 for sm_70 + sm_86 in kernel\\build-maya2), which keeps the experts that do not fit in pinned RAM and the most-picked ones (its profile) in VRAM: the V100 alone at 52 tok/s on code (20-27 on prose: Maya's expert profile favours code), the A4500 at 64k 88, 128k 80 / 37 and 262k 58 / 22 (code / prose); v1.1.74 lends the cache space a chat has not reached yet to the experts, so the A4500 does 92 at 64k and 90 at 128k and 262k on code and prose, with the same answers as v1.1.73). Two cards (layer split, expert parallel) were slower than one card here: the cards copy through RAM. 86-92 tok/s at 64k; 64k is the most that keeps every expert resident on 20 GB. Hard suite 89.6 (reasoning effort low, images on the CPU encoder). Needs the tokenizer folder ik2\tokenizer, made once with Maya's tools/strata_tokenizer.py (kernel\\SOURCE.md). Reasoning: Maya does not open the reasoning block itself, so its presets default to effort low (minimal does not reason at all here).",
@@ -66,6 +72,11 @@
         "name": "strata",
         "summary": "Strata 0.2.19 engine (strata-inkling, prebuilt) with its SQ-15 pack: A4500 alone, 64k ctx, FP8 KV, DSpark drafter, text only - 64 tok/s code, 44 prose",
         "bench": "64.4 code / 44.2 prose tok/s; hard suite 65.6 (text only: 76.6 over the 6 text categories)"
+      },
+      {
+        "name": "2gpu",
+        "summary": "A4500 + V100 together (Maya v1.1.75, --gpus 2): 262k ctx, FP8 KV, the V100 holds the experts that do not fit the A4500, GGUF drafter - 70 tok/s code, 29 prose (slower than the A4500 alone)",
+        "bench": "69.0-72.3 code / 28.2-30.1 prose tok/s"
       }
     ]
   }
