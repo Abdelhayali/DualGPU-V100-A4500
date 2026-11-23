@@ -17,6 +17,7 @@ HARD = ROOT / "results" / "hard"
 PAIRS = [
     ("Surogate3.7-35B-A3B Q5_K_M", "surogate-3.7-35b@l60-mtp3-128k", "surogate-3.7-35b@l60-mtp3-128k-thinking-on"),
     ("Phai-A1-35B-1M i1-Q5_K_M", "phai-a1-35b@l60-mtp3-128k", "phai-a1-35b@l60-mtp3-128k-thinking-on"),
+    ("WeMM-Ecom-35B-A3B Q5_K_M", "wemm-ecom-35b@l60-nodraft-128k", "wemm-ecom-35b@l60-nodraft-128k-thinking-on"),
     ("Qwen3.6-35B-A3B UD-Q5_K_XL", "qwen3.6-35b-a3b@auto-mtp3-128k", "qwen3.6-35b-a3b@auto-mtp3-128k-thinking-on"),
     ("Qwen3.8-27B UD-Q5_K_XL", "qwen3.8-27b@l60-mtp3-128k", "qwen3.8-27b@l60-mtp3-128k-thinking-on"),
     ("Inkling-2-Mini IQ4_NL", "inkling-2-mini@a4500-32k-q8-min", "inkling-2-mini@a4500-32k-q8-high-thinking-on"),

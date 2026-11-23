@@ -376,5 +376,17 @@
   "sha256": "6786aa6bcfce1da6d4d233d4b24bbb473608d8b6c487b9af3989af02cc4d1ccd",
   "size": 899282976,
   "url": "https://huggingface.co/abdelhayali91/Surogate3.7-35B-A3B-GGUF/resolve/main/mmproj-Surogate3.7-35B-A3B-F16.gguf"
+ },
+ "wemm-ecom-35b/WeMM-Ecom-35B-A3B-Q5_K_M.gguf": {
+  "repo": "bartowski/WeMM-Ecom-35B-A3B-GGUF",
+  "sha256": "c0e5dc1ea16865dec22466319e34d2528a1b4a1cfef08212daddcc68298c0440",
+  "size": 26984676288,
+  "url": "https://huggingface.co/bartowski/WeMM-Ecom-35B-A3B-GGUF/resolve/main/WeMM-Ecom-35B-A3B-Q5_K_M.gguf"
+ },
+ "wemm-ecom-35b/mmproj-WeMM-Ecom-35B-A3B-f16.gguf": {
+  "repo": "bartowski/WeMM-Ecom-35B-A3B-GGUF",
+  "sha256": "7945190de5cb5b7171c89e96358c8e829b015ed80acc11a1e7f691d6de6b2b16",
+  "size": 899283776,
+  "url": "https://huggingface.co/bartowski/WeMM-Ecom-35B-A3B-GGUF/resolve/main/mmproj-WeMM-Ecom-35B-A3B-f16.gguf"
  }
 }

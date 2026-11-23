@@ -1,0 +1,84 @@
+{
+  "id": "wemm-ecom-35b",
+  "name": "WeMM-Ecom-35B-A3B Q5_K_M (Tencent WeChat Vision, e-commerce multimodal fine-tune of Qwen3.5-35B-A3B, MoE, hybrid thinking, vision)",
+  "gguf": "WeMM-Ecom-35B-A3B-Q5_K_M.gguf",
+  "mmproj": "mmproj-WeMM-Ecom-35B-A3B-f16.gguf",
+  "files": [
+    {
+      "repo": "bartowski/WeMM-Ecom-35B-A3B-GGUF",
+      "file": "WeMM-Ecom-35B-A3B-Q5_K_M.gguf",
+      "gb": 26.98,
+      "note": "bartowski's imatrix Q5_K_M (Tencent's own GGUF is a single 19.7 GB quant)"
+    },
+    {
+      "repo": "bartowski/WeMM-Ecom-35B-A3B-GGUF",
+      "file": "mmproj-WeMM-Ecom-35B-A3B-f16.gguf",
+      "gb": 0.9
+    }
+  ],
+  "sampling": [
+    "--temp",
+    "0.7",
+    "--top-k",
+    "20",
+    "--top-p",
+    "0.95",
+    "--min-p",
+    "0"
+  ],
+  "notes": "Tencent WeChat Vision's WeMM-Ecom-35B-A3B: Qwen3.5-35B-A3B post-trained for e-commerce image understanding (product attributes, moderation, OCR, retrieval, grounding) while keeping general skills; hybrid thinking, 262k context, text / image / video input. ~3B active. No MTP head in the release (mtp_num_hidden_layers 0), so no MTP drafting. Same architecture as qwen3.6-35b-a3b otherwise. Sampling: generation_config top_k 20, top_p 0.95, with temperature 0.7 as the other Qwen3.5 / 3.6 presets. ts = A4500,V100.",
+  "configs": [
+    {
+      "name": "auto-nodraft-32k",
+      "ctx": 32768,
+      "sm": "layer"
+    },
+    {
+      "name": "l50-nodraft-32k",
+      "ctx": 32768,
+      "sm": "layer",
+      "ts": "50,50"
+    },
+    {
+      "name": "l60-nodraft-32k",
+      "ctx": 32768,
+      "sm": "layer",
+      "ts": "60,40"
+    },
+    {
+      "name": "auto-nodraft-128k",
+      "ctx": 131072,
+      "sm": "layer"
+    },
+    {
+      "name": "l60-nodraft-128k",
+      "ctx": 131072,
+      "sm": "layer",
+      "ts": "60,40"
+    },
+    {
+      "name": "auto-nodraft-262k",
+      "ctx": 262144,
+      "sm": "layer"
+    },
+    {
+      "name": "auto-nodraft-262k-q8",
+      "ctx": 262144,
+      "sm": "layer",
+      "kv": "q8_0"
+    }
+  ],
+  "sets": {
+    "split": [
+      "auto-nodraft-32k",
+      "l50-nodraft-32k",
+      "l60-nodraft-32k"
+    ],
+    "ctx": [
+      "auto-nodraft-128k",
+      "l60-nodraft-128k",
+      "auto-nodraft-262k",
+      "auto-nodraft-262k-q8"
+    ]
+  }
+}

@@ -22412,6 +22412,588 @@
                                        }
                                    ],
                        "mmproj":  "mmproj-Surogate3.7-35B-A3B-F16.gguf"
+                   },
+                   {
+                       "id":  "wemm-ecom-35b",
+                       "name":  "WeMM-Ecom-35B-A3B Q5_K_M (Tencent WeChat Vision, e-commerce multimodal fine-tune of Qwen3.5-35B-A3B, MoE, hybrid thinking, vision)",
+                       "desc":  "Tencent WeChat Vision\u0027s WeMM-Ecom-35B-A3B: Qwen3.5-35B-A3B post-trained for e-commerce image understanding (product attributes, moderation, OCR, retrieval, grounding) while keeping general skills; hybrid thinking, 262k context, text / image / video input. ~3B active. No MTP head in the release (mtp_num_hidden_layers 0), so no MTP drafting. Same architecture as qwen3.6-35b-a3b otherwise. Sampling: generation_config top_k 20, top_p 0.95, with temperature 0.7 as the other Qwen3.5 / 3.6 presets. ts = A4500,V100.",
+                       "files":  [
+                                     {
+                                         "name":  "WeMM-Ecom-35B-A3B-Q5_K_M.gguf",
+                                         "repo":  "bartowski/WeMM-Ecom-35B-A3B-GGUF",
+                                         "size":  26984676288,
+                                         "sha256":  "c0e5dc1ea16865dec22466319e34d2528a1b4a1cfef08212daddcc68298c0440",
+                                         "url":  "https://huggingface.co/bartowski/WeMM-Ecom-35B-A3B-GGUF/resolve/main/WeMM-Ecom-35B-A3B-Q5_K_M.gguf"
+                                     },
+                                     {
+                                         "name":  "mmproj-WeMM-Ecom-35B-A3B-f16.gguf",
+                                         "repo":  "bartowski/WeMM-Ecom-35B-A3B-GGUF",
+                                         "size":  899283776,
+                                         "sha256":  "7945190de5cb5b7171c89e96358c8e829b015ed80acc11a1e7f691d6de6b2b16",
+                                         "url":  "https://huggingface.co/bartowski/WeMM-Ecom-35B-A3B-GGUF/resolve/main/mmproj-WeMM-Ecom-35B-A3B-f16.gguf"
+                                     }
+                                 ],
+                       "model":  "WeMM-Ecom-35B-A3B-Q5_K_M.gguf",
+                       "presets":  [
+                                       {
+                                           "id":  "auto-nodraft-32k",
+                                           "name":  "config auto-nodraft-32k (tested)",
+                                           "kernel":  "dualgpu",
+                                           "kernels":  [
+                                                           "dualgpu"
+                                                       ],
+                                           "bench":  "89.6 tok/s (code 88.7 / chat 90.6), 7k prompt 1004 t/s, VRAM 17328+11663 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "32768",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "512",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.7",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-k",
+                                                              "20",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.95",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "layer",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "l50-nodraft-32k",
+                                           "name":  "config l50-nodraft-32k (tested)",
+                                           "kernel":  "dualgpu",
+                                           "kernels":  [
+                                                           "dualgpu"
+                                                       ],
+                                           "bench":  "85.4 tok/s (code 87.3 / chat 83.6), 7k prompt 930 t/s, VRAM 16187+12805 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "32768",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "512",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.7",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-k",
+                                                              "20",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.95",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "layer",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ts",
+                                                              "50,50",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "l60-nodraft-32k",
+                                           "name":  "config l60-nodraft-32k (tested)",
+                                           "kernel":  "dualgpu",
+                                           "kernels":  [
+                                                           "dualgpu"
+                                                       ],
+                                           "bench":  "87.8 tok/s (code 88.1 / chat 87.5), 7k prompt 1091 t/s, VRAM 18520+10466 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "32768",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "512",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.7",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-k",
+                                                              "20",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.95",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "layer",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ts",
+                                                              "60,40",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "auto-nodraft-128k",
+                                           "name":  "config auto-nodraft-128k (tested)",
+                                           "kernel":  "dualgpu",
+                                           "kernels":  [
+                                                           "dualgpu"
+                                                       ],
+                                           "bench":  "89.2 tok/s (code 88.8 / chat 89.6), 7k prompt 1000 t/s, VRAM 18663+13007 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "131072",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "512",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.7",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-k",
+                                                              "20",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.95",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "layer",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "l60-nodraft-128k",
+                                           "name":  "config l60-nodraft-128k (tested)",
+                                           "kernel":  "dualgpu",
+                                           "kernels":  [
+                                                           "dualgpu"
+                                                       ],
+                                           "bench":  "86.4 tok/s (code 87.3 / chat 85.6), 7k prompt 1079 t/s, VRAM 19969+11618 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "131072",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "512",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.7",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-k",
+                                                              "20",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.95",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "layer",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ts",
+                                                              "60,40",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "auto-nodraft-262k",
+                                           "name":  "config auto-nodraft-262k (tested)",
+                                           "kernel":  "dualgpu",
+                                           "kernels":  [
+                                                           "dualgpu"
+                                                       ],
+                                           "bench":  "86.4 tok/s (code 83.6 / chat 89.2), 7k prompt 971 t/s, VRAM 20041+14799 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "262144",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "512",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.7",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-k",
+                                                              "20",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.95",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "layer",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "auto-nodraft-262k-q8",
+                                           "name":  "config auto-nodraft-262k-q8 (tested)",
+                                           "kernel":  "dualgpu",
+                                           "kernels":  [
+                                                           "dualgpu"
+                                                       ],
+                                           "bench":  "78.3 tok/s (code 73.6 / chat 83.0), 7k prompt 986 t/s, VRAM 19427+14061 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "262144",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "512",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.7",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-k",
+                                                              "20",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "0.95",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctk",
+                                                              "q8_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctv",
+                                                              "q8_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "layer",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       }
+                                   ],
+                       "mmproj":  "mmproj-WeMM-Ecom-35B-A3B-f16.gguf"
                    }
                ]
 }
