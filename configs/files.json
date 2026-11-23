@@ -203,6 +203,18 @@
   "size": 927606848,
   "url": "https://huggingface.co/orcarouter/OrcaCyber-Nano-1.0/resolve/1af1635aa22b97e965450c2d69525761d9bd463f/mmproj-OrcaCyber-Nano-1.0-AI-Defense-F16.gguf"
  },
+ "phai-a1-35b/Phai-A1-35B-1M-MTP-Repacked.i1-Q5_K_M.gguf": {
+  "repo": "mradermacher/Phai-A1-35B-1M-MTP-Repacked-i1-GGUF",
+  "sha256": "ea1265ed640417f4f9af7c6fb12f2f00bfc9ee3260873ae19a39a4d3d5e6d097",
+  "size": 25347533856,
+  "url": "https://huggingface.co/mradermacher/Phai-A1-35B-1M-MTP-Repacked-i1-GGUF/resolve/main/Phai-A1-35B-1M-MTP-Repacked.i1-Q5_K_M.gguf"
+ },
+ "phai-a1-35b/Phai-A1-35B-1M-MTP-Repacked.mmproj-f16.gguf": {
+  "repo": "mradermacher/Phai-A1-35B-1M-MTP-Repacked-GGUF",
+  "sha256": "18bb5437584f7f594fdaaf48114d5760d0e3b6515c480ac57646f5abf6c4c05a",
+  "size": 899283776,
+  "url": "https://huggingface.co/mradermacher/Phai-A1-35B-1M-MTP-Repacked-GGUF/resolve/main/Phai-A1-35B-1M-MTP-Repacked.mmproj-f16.gguf"
+ },
  "qwen2.5-coder-32b-pcb/qwen2.5-coder-0.5b-instruct-q8_0.gguf": {
   "repo": "Qwen/Qwen2.5-Coder-0.5B-Instruct-GGUF",
   "sha256": "e1a77721fa97d412f121878223eec81fb4ae6f271e18f922d746711f67b344d1",

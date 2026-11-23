@@ -40,14 +40,15 @@ start.bat minicpm-v4.7-35b-a3b fast       :: a named preset
 | 10 | Surogate3.7-35B-A3B Q5_K_M (25.3 GB, MoE, MTP, converted here), vision | `128k` | 128k | 105.3 | 100 | 100 | 42 | 88 | 100 | 88 | 100 | **88.1** |
 | 11 | MiniCPM-V 4.7 35B-A3B Q6_K (26.6 GB), vision | `128k` | 128k | 83.6 | 94 | 100 | 33 | 88 | 100 | 88 | 100 | **86.0** |
 | 12 | Qwen3.8-27B UD-Q5_K_XL (20.9 GB, MTP), vision | `128k` | 128k | 51.3 | 88 | 95 | 58 | 100 | 100 | 88 | 50 | **82.6** |
-| 13 | Qwen3.8-27B pi-adapted (harness-hub LoRA on UD-Q5_K_XL 21.0 GB + 0.3 GB, MTP), vision | `128k` | 128k | 43.8 | 81 | 100 | 50 | 100 | 100 | 88 | 50 | **81.2** |
-| 14 | Qwen3.8-27B UD-Q5_K_XL (21.0 GB, unsloth update 2026-11-12, MTP), vision | `128k` | 128k | 51.3 | 75 | 100 | 50 | 100 | 100 | 88 | 50 | **80.4** |
-| 15 | Ripple-65B Preview AD-IQ3_XXS (28.0 GB, dense), text only | `64k` | 64k | 13.9 | 75 | 100 | 83 | 100 | 100 | - | 100 | **79.8**\* |
-| 16 | Kintsugi-27B (Qwen3.8-27B at 2.47 bpw, 10.5 GB, EXL3 trellis, A4500 only, MTP), vision | `128k` | 128k | 89.6 | 88 | 95 | 42 | 88 | 83 | 88 | 50 | **76.1** |
-| 17 | Inkling-2-Mini SQ-15 on the **Strata 0.2.19 engine** (14.35 GB, A4500 only, reasoning effort low), text only here | `start-maya.bat strata` | 64k | 74.3 | 81 | 95 | 50 | 100 | 83 | - | 50 | **65.6**\* |
-| 18 | Apex-35B-V1.0 Q4_K_M (21.7 GB, MoE, fine-tune of Qwen3.6-35B-A3B), text only | `262k` | 262k | 100.2 | 50 | 85 | 25 | 63 | 100 | - | 100 | **60.4**\* |
-| 19 | Kimi-Linear 48B-A3B abliterated i1-Q4_K_M (27.7 GB), text only | `262k` | 262k | 100.9 | 56 | 60 | 50 | 88 | 100 | - | 50 | **57.7**\* |
-| 20 | Qwen2.5-Coder-32B PCB GRPO (Simonssb LoRA on Q4_K_M 19.9 GB + 0.5 GB, dense), text only | `32k` | 32k | 20.0 | 63 | 60 | 42 | 75 | 50 | - | 50 | **48.5**\* |
+| 13 | Phai-A1-35B-1M i1-Q5_K_M (25.3 GB, MoE, MTP, coding / agent fine-tune of Qwen3.6-35B-A3B), vision | `128k` | 128k | 101.6 | 75 | 95 | 42 | 75 | 100 | 88 | 100 | **82.0** |
+| 14 | Qwen3.8-27B pi-adapted (harness-hub LoRA on UD-Q5_K_XL 21.0 GB + 0.3 GB, MTP), vision | `128k` | 128k | 43.8 | 81 | 100 | 50 | 100 | 100 | 88 | 50 | **81.2** |
+| 15 | Qwen3.8-27B UD-Q5_K_XL (21.0 GB, unsloth update 2026-11-12, MTP), vision | `128k` | 128k | 51.3 | 75 | 100 | 50 | 100 | 100 | 88 | 50 | **80.4** |
+| 16 | Ripple-65B Preview AD-IQ3_XXS (28.0 GB, dense), text only | `64k` | 64k | 13.9 | 75 | 100 | 83 | 100 | 100 | - | 100 | **79.8**\* |
+| 17 | Kintsugi-27B (Qwen3.8-27B at 2.47 bpw, 10.5 GB, EXL3 trellis, A4500 only, MTP), vision | `128k` | 128k | 89.6 | 88 | 95 | 42 | 88 | 83 | 88 | 50 | **76.1** |
+| 18 | Inkling-2-Mini SQ-15 on the **Strata 0.2.19 engine** (14.35 GB, A4500 only, reasoning effort low), text only here | `start-maya.bat strata` | 64k | 74.3 | 81 | 95 | 50 | 100 | 83 | - | 50 | **65.6**\* |
+| 19 | Apex-35B-V1.0 Q4_K_M (21.7 GB, MoE, fine-tune of Qwen3.6-35B-A3B), text only | `262k` | 262k | 100.2 | 50 | 85 | 25 | 63 | 100 | - | 100 | **60.4**\* |
+| 20 | Kimi-Linear 48B-A3B abliterated i1-Q4_K_M (27.7 GB), text only | `262k` | 262k | 100.9 | 56 | 60 | 50 | 88 | 100 | - | 50 | **57.7**\* |
+| 21 | Qwen2.5-Coder-32B PCB GRPO (Simonssb LoRA on Q4_K_M 19.9 GB + 0.5 GB, dense), text only | `32k` | 32k | 20.0 | 63 | 60 | 42 | 75 | 50 | - | 50 | **48.5**\* |
 
 † Run with reasoning on (`eval_thinking`, 5x token budget): with `enable_thinking=false` this model still reasons, into
 the answer, without closing `</think>`, which scored 80.7 (instruction following 8.3, coding 68.8). All other rows ran
@@ -72,10 +73,11 @@ Same presets as above with reasoning on (`EVAL_THINKING=1`, 5x token budget). In
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 | Surogate3.7-35B-A3B Q5_K_M | 101.6 | 81 | 100 | 92 | 88 | 100 | 100 | 100 | **94.3** | 88.1 | +6.2 |
 | 2 | Qwen3.8-40B Ultimate Heretic | 37.3 | 81 | 100 | 83 | 100 | 100 | 88 | 100 | **93.1** | 80.7 | +12.4 |
-| 3 | Qwen3.8-27B UD-Q5_K_XL | 46.1 | 50 | 100 | 100 | 100 | 100 | 88 | 100 | **91.1** | 82.6 | +8.5 |
-| 4 | Qwen3.6-35B-A3B UD-Q5_K_XL | 95.3 | 81 | 100 | 92 | 75 | 100 | 88 | 100 | **90.8** | 88.4 | +2.4 |
-| 5 | Inkling-2-Mini IQ4_NL | 36.2 | 56 | 100 | 83 | 62 | 83 | 100 | 100 | **83.6** | 92.0 | -8.4 |
-| 6 | Apex-35B-V1.0 Q4_K_M (text only) | 101.0 | 31 | 95 | 58 | 88 | 100 | 0 | 100 | **67.4** | 60.4 | +7.0 |
+| 3 | Phai-A1-35B-1M i1-Q5_K_M | 92.4 | 81 | 100 | 83 | 88 | 100 | 88 | 100 | **91.4** | 82.0 | +9.4 |
+| 4 | Qwen3.8-27B UD-Q5_K_XL | 46.1 | 50 | 100 | 100 | 100 | 100 | 88 | 100 | **91.1** | 82.6 | +8.5 |
+| 5 | Qwen3.6-35B-A3B UD-Q5_K_XL | 95.3 | 81 | 100 | 92 | 75 | 100 | 88 | 100 | **90.8** | 88.4 | +2.4 |
+| 6 | Inkling-2-Mini IQ4_NL | 36.2 | 56 | 100 | 83 | 62 | 83 | 100 | 100 | **83.6** | 92.0 | -8.4 |
+| 7 | Apex-35B-V1.0 Q4_K_M (text only) | 101.0 | 31 | 95 | 58 | 88 | 100 | 0 | 100 | **67.4** | 60.4 | +7.0 |
 
 - Reasoning raises instruction following on every Qwen model (Qwen3.8-27B 58 -> 100, Qwen3.6 50 -> 92) and fixes
   Qwen3.8-27B's long-context misses (50 -> 100). It costs coding: Qwen3.8-27B drops 88 -> 50 and Inkling 81 -> 56, mostly
@@ -128,6 +130,9 @@ Same presets as above with reasoning on (`EVAL_THINKING=1`, 5x token budget). In
 | surogate-3.7-35b | **128k** (default) | `l60-mtp3-128k` | 128k | f16 | **94.9** (111.0 on code) | 961 t/s |
 | | fast | `l60-mtp3-32k` | 32k | f16 | 98.6 (115.8 on code) | 961 t/s |
 | | 262k | `auto-mtp3-262k-q8` | 262k | q8_0 | 90.6 | 886 t/s |
+| phai-a1-35b | **128k** (default) | `l60-mtp3-128k` | 128k | f16 | **86.1** (91.3 on code) | 919 t/s |
+| | fast | `l50-mtp3-32k` | 32k | f16 | 93.7 (110.3 on code) | 759 t/s |
+| | 262k | `auto-mtp3-262k-q8` | 262k | q8_0 | 83.8 (97.9 on code) | 840 t/s |
 | qwen2.5-coder-32b-pcb | **32k** (default) | `auto-nodraft-32k` | 32k | f16 | **20.9** | 684 t/s |
 | | code | `auto-draft16-32k` (0.5B draft) | 32k | f16 | 19.6 (**30.6** on code, 8.6 on chat) | 629 t/s |
 | | 128k | `l55-nodraft-128k-q4-yarn` | 128k | q4_0 | 20.4 | 549 t/s |
@@ -278,6 +283,13 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
   (93.4), so the difference between these runs is noise, not the quant. Q4_K split with most layers on the V100 (`-ts`
   over the 48 looped slots): 4/44 18.3 tok/s (A4500 4.9 GB, V100 15.7 GB), 5/43 14.9, 6/42 12.7, 8/40 9.8; 2/46 and 3/45
   run the V100 out of memory. Half the speed of one card at best, so the one-card presets stay.
+- **Phai-A1-35B-1M** (PhaiModelLab: Qwen3.6-35B-A3B with SFT and GRPO reinforcement learning in 4,000 code / tool
+  sandboxes, trained on Huawei Ascend NPUs, YaRN x4 for a 1M context; MTP head and vision). mradermacher's imatrix
+  `i1-Q5_K_M` of prithivMLmods' MTP repack (25.3 GB) + `mmproj-f16`, checksums verified. Every config passes (image, 7k
+  prompt), A4500 + V100 layer split: 32k 50/50 MTP3 **93.7** tok/s (110 code / 77 prose), no draft 91.4, MTP2 91.2;
+  128k 60/40 MTP3 **86.1**; 262k 82.0 (f16 cache) / 83.8 (q8_0). About 10% slower than Surogate on the same base and
+  size. Hard suite at 128k: **82.0** with reasoning off (agent 100, long context 100, vision 88, instructions 42) and
+  **91.4** with reasoning on (third on the reasoning-on board, +9.4); Surogate scores 88.1 / 94.3.
 - **Surogate3.7-35B-A3B** (surogate: Qwen3.5-35B-A3B-Base with agentic post-training, MTP head, vision; their numbers
   SWE-bench Verified 78.0, IFEval 94.1, GPQA 91.4). No GGUF was published, so it was converted here from the BF16
   weights (13 shards, sha256-checked; `kernel/src` `convert_hf_to_gguf.py`, MTP kept as `nextn`, the vision projector with
