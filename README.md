@@ -127,6 +127,8 @@ Same presets as above with reasoning on (`EVAL_THINKING=1`, 5x token budget). In
 | | v100-128k | `v100-128k-q4-ub32-min-s` (V100 only) | 128k | q4_0 | 47.8 | 320 t/s |
 | inkling-2-mini (Maya engine) | **64k** (`start-maya.bat`) | `configs/maya/inkling-2-mini-64k.json` (A4500 only, effort low) | 64k | fp8 | **86-92** | - |
 | | code | `configs/maya/inkling-2-mini-code.json` (DSpark drafter) | 24k | fp8 | 76 prose, **97-134** code | - |
+| | **262k-fast** | `configs/maya/inkling-2-mini-262k-fast.json` (Maya v1.1.75, A4500, NVFP4-tail file + drafter) | 262k | fp8 | **153-161 code, 92-96 prose** | - |
+| | **128k-fast** | `configs/maya/inkling-2-mini-128k-fast.json` (Maya v1.1.75, A4500, NVFP4-tail file + drafter) | 128k | fp8 | **169 code, 86 prose** | - |
 | | 64k-new | `configs/maya/inkling-2-mini-64k-new.json` (Maya v1.1.74, A4500) | 64k | fp8 | **92** code, **92** prose | - |
 | | 128k | `configs/maya/inkling-2-mini-128k.json` (Maya v1.1.74, A4500, expert lending) | 128k | fp8 | 90 code, 90 prose | - |
 | | 262k | `configs/maya/inkling-2-mini-262k.json` (Maya v1.1.74, A4500, expert lending) | 262k | fp8 | 90 code, 90 prose (56-70 deep) | - |
@@ -249,6 +251,17 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
   the suite's default `enable_thinking: false` Maya does not reason at all: 76.1 for v1.1.73, v1.1.74 and the first
   build alike (instructions 42, long context 50; 75.4 at 262k), so v1.1.74 gives the same answers as v1.1.73. The
   `v100` preset stays on v1.1.73 until it is tested on the V100 (busy). Two GPUs for Inkling are Linux only in v1.1.74.
+- **Inkling-2-Mini above 100 tok/s at 128k-262k on the A4500 alone** (presets `262k-fast`, `128k-fast`). Why the
+  long-context presets were stuck at 90: at 128k and above not every expert fits on 20 GB, Maya runs its offload path,
+  and there drafting has to use the slower "mode A" decoding (prose 60-80 with the drafter; streaming the KV cache from
+  RAM instead was 33 tok/s). Fix: UD-Q4_K_XL keeps the experts of layers 20-23 in Q8_0 (4.0 GiB) while layers 0-19 are
+  NVFP4; `tools/ik2_nvfp4_tail.py` re-quantizes those four layers to NVFP4 with per-expert scales in unsloth's own
+  convention (relative RMS error 0.095 against the Q8_0, like any NVFP4 layer; every other tensor byte for byte), giving
+  `Inkling-2-Mini-UD-Q4_K_XL-nvfp4tail.gguf` at 15.6 GB instead of 17.6. Now every expert stays in VRAM with Maya
+  v1.1.75's GGUF drafter (`IK2_DRAFT_CTX=16384`, `IK2_VISION_GIB=0`; images still work on the CPU encoder). Code / prose
+  tok/s: **262k 153-161 / 92-96** (no drafter 92 / 92), **128k 169 / 86** (no drafter 94 / 94); after a 143k-token prompt
+  **106** tok/s, prompts ~1,000-1,130 tok/s. Hard suite with reasoning on: **91.1** (UD-Q4_K_XL 90.2), and the suite's
+  answers came at **139.9 tok/s** on average (86.4 before).
 - **Maya v1.1.75 for Inkling-2-Mini: drafting everywhere, two cards on Windows** (`kernel/build-maya4`; its build
   could not fetch the pinned ggml, so `-DMAYA_GGML_DIR` points at the same commit already fetched for v1.1.74). Its GGUF
   drafter (`dspark-Inkling-2-Mini-Q8_0.gguf`, 0.4 GB, checksum verified) and `--drafting auto`, which times no

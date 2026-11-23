@@ -177,3 +177,10 @@ plus `-DMAYA_GGML_DIR=D:/DualGPU/kernel/build-maya3/_deps/strata_llamacpp-src` (
 its own fetch came back empty here). Drafter: `peasantsmith/Inkling-2-Mini-Maya-GGUF` revision `3702771`,
 `drafter/dspark-Inkling-2-Mini-Q8_0.gguf` (sha256 `2ec78510...3773`) into `models/inkling-2-mini-maya`. Preset
 `configs/maya/inkling-2-mini-2gpu.json` (`"card": "A4500|V100"`, `--gpus 2`).
+
+Presets `262k-fast` / `128k-fast` read `models/inkling-2-mini-maya/Inkling-2-Mini-UD-Q4_K_XL-nvfp4tail.gguf`, made once from
+UD-Q4_K_XL (the `Old_Support` layout) with:
+
+```bat
+python -I tools\ik2_nvfp4_tail.py models\inkling-2-mini-maya\Inkling-2-Mini-UD-Q4_K_XL.gguf models\inkling-2-mini-maya\Inkling-2-Mini-UD-Q4_K_XL-nvfp4tail.gguf
+```

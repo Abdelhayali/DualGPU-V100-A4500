@@ -5,6 +5,7 @@
 #   v100: Maya v1.1.73 (kernel\build-maya2, its server in kernel\src-maya2; experts past VRAM in pinned RAM)
 #   64k-new, 128k, 262k: Maya v1.1.74 (kernel\build-maya3, kernel\src-maya3; expert lending)
 #   2gpu: Maya v1.1.75 (kernel\build-maya4, kernel\src-maya4): A4500 + V100 with --gpus 2
+#   262k-fast, 128k-fast: Maya v1.1.75, the NVFP4-tail file (tools\ik2_nvfp4_tail.py) + GGUF drafter, A4500: 150+ tok/s on code
 # The template's "card" names the card (default A4500) and "src" the Maya source folder (default src-maya). Another port
 # leaves other servers running, e.g. start-maya.bat v100 8900 (V100) next to start-maya.bat 64k (A4500).
 param([string] $Preset = '64k', [int] $ListenPort = 8899)
