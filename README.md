@@ -35,21 +35,22 @@ start.bat minicpm-v4.7-35b-a3b fast       :: a named preset
 | 5 | Qwen3.8-27B UD-Q4_K_M (16.6 GB, dense, MTP), vision | `128k` | 128k | 58.8 | 94 | 100 | 42 | 100 | 100 | 100 | 100 | **90.8** |
 | 6 | Huihui Gemma-4-26B-A4B-it QAT abliterated Q4_K (16.8 GB, MoE), vision | `262k` | 262k | 86.5 | 88 | 100 | 83 | 88 | 100 | 75 | 100 | **90.5** |
 | 7 | OrcaCyber-Nano 1.0 27B Mix-15.7G (MTP), vision | `128k` | 128k | 61.6 | 94 | 100 | 50 | 100 | 100 | 88 | 100 | **90.2** |
-| 8 | Inkling-2-Mini UD-Q4_K_XL on the **Maya engine** (17.6 GB, A4500 only, reasoning effort low), vision | `start-maya.bat` | 64k | 90.0 | 81 | 100 | 75 | 100 | 83 | 88 | 100 | **89.6** |
-| 9 | Qwen3.6-35B-A3B UD-Q5_K_XL (25.3 GB, MoE, MTP), vision | `128k` | 128k | 99.6 | 94 | 100 | 50 | 88 | 100 | 88 | 100 | **88.4** |
-| 10 | Surogate3.7-35B-A3B Q5_K_M (25.3 GB, MoE, MTP, converted here), vision | `128k` | 128k | 105.3 | 100 | 100 | 42 | 88 | 100 | 88 | 100 | **88.1** |
-| 11 | WeMM-Ecom-35B-A3B Q5_K_M (27.0 GB, MoE, Tencent e-commerce fine-tune of Qwen3.5-35B-A3B, no MTP), vision | `128k` | 128k | 86.2 | 81 | 100 | 42 | 100 | 100 | 88 | 100 | **87.2** |
-| 12 | MiniCPM-V 4.7 35B-A3B Q6_K (26.6 GB), vision | `128k` | 128k | 83.6 | 94 | 100 | 33 | 88 | 100 | 88 | 100 | **86.0** |
-| 13 | Qwen3.8-27B UD-Q5_K_XL (20.9 GB, MTP), vision | `128k` | 128k | 51.3 | 88 | 95 | 58 | 100 | 100 | 88 | 50 | **82.6** |
-| 14 | Phai-A1-35B-1M i1-Q5_K_M (25.3 GB, MoE, MTP, coding / agent fine-tune of Qwen3.6-35B-A3B), vision | `128k` | 128k | 101.6 | 75 | 95 | 42 | 75 | 100 | 88 | 100 | **82.0** |
-| 15 | Qwen3.8-27B pi-adapted (harness-hub LoRA on UD-Q5_K_XL 21.0 GB + 0.3 GB, MTP), vision | `128k` | 128k | 43.8 | 81 | 100 | 50 | 100 | 100 | 88 | 50 | **81.2** |
-| 16 | Qwen3.8-27B UD-Q5_K_XL (21.0 GB, unsloth update 2026-11-12, MTP), vision | `128k` | 128k | 51.3 | 75 | 100 | 50 | 100 | 100 | 88 | 50 | **80.4** |
-| 17 | Ripple-65B Preview AD-IQ3_XXS (28.0 GB, dense), text only | `64k` | 64k | 13.9 | 75 | 100 | 83 | 100 | 100 | - | 100 | **79.8**\* |
-| 18 | Kintsugi-27B (Qwen3.8-27B at 2.47 bpw, 10.5 GB, EXL3 trellis, A4500 only, MTP), vision | `128k` | 128k | 89.6 | 88 | 95 | 42 | 88 | 83 | 88 | 50 | **76.1** |
-| 19 | Inkling-2-Mini SQ-15 on the **Strata 0.2.19 engine** (14.35 GB, A4500 only, reasoning effort low), text only here | `start-maya.bat strata` | 64k | 74.3 | 81 | 95 | 50 | 100 | 83 | - | 50 | **65.6**\* |
-| 20 | Apex-35B-V1.0 Q4_K_M (21.7 GB, MoE, fine-tune of Qwen3.6-35B-A3B), text only | `262k` | 262k | 100.2 | 50 | 85 | 25 | 63 | 100 | - | 100 | **60.4**\* |
-| 21 | Kimi-Linear 48B-A3B abliterated i1-Q4_K_M (27.7 GB), text only | `262k` | 262k | 100.9 | 56 | 60 | 50 | 88 | 100 | - | 50 | **57.7**\* |
-| 22 | Qwen2.5-Coder-32B PCB GRPO (Simonssb LoRA on Q4_K_M 19.9 GB + 0.5 GB, dense), text only | `32k` | 32k | 20.0 | 63 | 60 | 42 | 75 | 50 | - | 50 | **48.5**\* |
+| 8 | Inkling-2-Mini abliterated Mix-16G (15.7 GB, orcarouter, looped MoE, A4500 only, reasoning effort minimal), vision | `32k` | 32k | 57.5 | 69 | 100 | 92 | 100 | 83 | 88 | 100 | **90.2** |
+| 9 | Inkling-2-Mini UD-Q4_K_XL on the **Maya engine** (17.6 GB, A4500 only, reasoning effort low), vision | `start-maya.bat` | 64k | 90.0 | 81 | 100 | 75 | 100 | 83 | 88 | 100 | **89.6** |
+| 10 | Qwen3.6-35B-A3B UD-Q5_K_XL (25.3 GB, MoE, MTP), vision | `128k` | 128k | 99.6 | 94 | 100 | 50 | 88 | 100 | 88 | 100 | **88.4** |
+| 11 | Surogate3.7-35B-A3B Q5_K_M (25.3 GB, MoE, MTP, converted here), vision | `128k` | 128k | 105.3 | 100 | 100 | 42 | 88 | 100 | 88 | 100 | **88.1** |
+| 12 | WeMM-Ecom-35B-A3B Q5_K_M (27.0 GB, MoE, Tencent e-commerce fine-tune of Qwen3.5-35B-A3B, no MTP), vision | `128k` | 128k | 86.2 | 81 | 100 | 42 | 100 | 100 | 88 | 100 | **87.2** |
+| 13 | MiniCPM-V 4.7 35B-A3B Q6_K (26.6 GB), vision | `128k` | 128k | 83.6 | 94 | 100 | 33 | 88 | 100 | 88 | 100 | **86.0** |
+| 14 | Qwen3.8-27B UD-Q5_K_XL (20.9 GB, MTP), vision | `128k` | 128k | 51.3 | 88 | 95 | 58 | 100 | 100 | 88 | 50 | **82.6** |
+| 15 | Phai-A1-35B-1M i1-Q5_K_M (25.3 GB, MoE, MTP, coding / agent fine-tune of Qwen3.6-35B-A3B), vision | `128k` | 128k | 101.6 | 75 | 95 | 42 | 75 | 100 | 88 | 100 | **82.0** |
+| 16 | Qwen3.8-27B pi-adapted (harness-hub LoRA on UD-Q5_K_XL 21.0 GB + 0.3 GB, MTP), vision | `128k` | 128k | 43.8 | 81 | 100 | 50 | 100 | 100 | 88 | 50 | **81.2** |
+| 17 | Qwen3.8-27B UD-Q5_K_XL (21.0 GB, unsloth update 2026-11-12, MTP), vision | `128k` | 128k | 51.3 | 75 | 100 | 50 | 100 | 100 | 88 | 50 | **80.4** |
+| 18 | Ripple-65B Preview AD-IQ3_XXS (28.0 GB, dense), text only | `64k` | 64k | 13.9 | 75 | 100 | 83 | 100 | 100 | - | 100 | **79.8**\* |
+| 19 | Kintsugi-27B (Qwen3.8-27B at 2.47 bpw, 10.5 GB, EXL3 trellis, A4500 only, MTP), vision | `128k` | 128k | 89.6 | 88 | 95 | 42 | 88 | 83 | 88 | 50 | **76.1** |
+| 20 | Inkling-2-Mini SQ-15 on the **Strata 0.2.19 engine** (14.35 GB, A4500 only, reasoning effort low), text only here | `start-maya.bat strata` | 64k | 74.3 | 81 | 95 | 50 | 100 | 83 | - | 50 | **65.6**\* |
+| 21 | Apex-35B-V1.0 Q4_K_M (21.7 GB, MoE, fine-tune of Qwen3.6-35B-A3B), text only | `262k` | 262k | 100.2 | 50 | 85 | 25 | 63 | 100 | - | 100 | **60.4**\* |
+| 22 | Kimi-Linear 48B-A3B abliterated i1-Q4_K_M (27.7 GB), text only | `262k` | 262k | 100.9 | 56 | 60 | 50 | 88 | 100 | - | 50 | **57.7**\* |
+| 23 | Qwen2.5-Coder-32B PCB GRPO (Simonssb LoRA on Q4_K_M 19.9 GB + 0.5 GB, dense), text only | `32k` | 32k | 20.0 | 63 | 60 | 42 | 75 | 50 | - | 50 | **48.5**\* |
 
 † Run with reasoning on (`eval_thinking`, 5x token budget): with `enable_thinking=false` this model still reasons, into
 the answer, without closing `</think>`, which scored 80.7 (instruction following 8.3, coding 68.8). All other rows ran
@@ -112,6 +113,11 @@ Same presets as above with reasoning on (`EVAL_THINKING=1`, 5x token budget). In
 | | think | `a4500-32k-q8-high-s` (reasoning high) | 32k | q8_0 | 57.8 | 809 t/s |
 | | 64k | `a4500-64k-q8-ub128-min-s` | 64k | q8_0 | 57.2 | 611 t/s |
 | | 128k | `a4500-128k-q4-ub64-min-s` | 128k | q4_0 | 57.7 | 498 t/s |
+| inkling-2-mini-abliterated | **32k** (default) | `a4500-32k-min` (A4500 only, Mix-16G) | 32k | f16 | **61.5** | 815 t/s |
+| | 128k | `a4500-128k-q4-ub64-min` | 128k | q4_0 | 59.1 | 453 t/s |
+| | v100 | `v100-32k-q8-ub128-min` (**V100 alone**, Mix-12G) | 32k | q8_0 | 53.9 | 578 t/s |
+| | v100 128k | `v100-128k-q4-ub32-min` (V100 alone, Mix-12G) | 128k | q4_0 | 53.3 | 323 t/s |
+| | both | `both-l4-32k-min` (layers 4 / 44, Mix-16G) | 32k | f16 | 36.3 | 772 t/s |
 | inkling-2-mini-uncensored | **32k** (default) | `a4500-32k-min-s` (A4500 only) | 32k | f16 | **54.6** | 887 t/s |
 | | think | `a4500-32k-high-s` | 32k | f16 | 53.8 | 816 t/s |
 | | 64k | `a4500-64k-q8-ub128-min-s` | 64k | q8_0 | 52.5 | 586 t/s |
@@ -288,6 +294,16 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
   (93.4), so the difference between these runs is noise, not the quant. Q4_K split with most layers on the V100 (`-ts`
   over the 48 looped slots): 4/44 18.3 tok/s (A4500 4.9 GB, V100 15.7 GB), 5/43 14.9, 6/42 12.7, 8/40 9.8; 2/46 and 3/45
   run the V100 out of memory. Half the speed of one card at best, so the one-card presets stay.
+- **Inkling-2-Mini abliterated** (orcarouter: refusal direction removed; their numbers: harmful-prompt refusals 11.9%
+  against 82.5% for the base). Gated repo (accept the terms on Hugging Face first). Two mixed-precision imatrix builds,
+  Mix-16G (15.7 GB) and Mix-12G (11.6 GB), checksums verified; vision from unsloth's base `mmproj-BF16`. **Maya cannot run
+  it**: the files use llama.cpp's merged `inkling2_loop` layout and Q6_K / Q5_K / IQ4_NL / IQ4_XS tensors, while Maya's
+  engine reads only unsloth's `inkling2` layout with Q8_0 / NVFP4 / BF16 experts ("no key inkling2.block_count"), so it
+  runs on `bin-inklings`. A4500 alone (Mix-16G) **61.5** tok/s at 32k, 59.5 at 64k, 59.1 at 128k; **V100 alone** (Mix-12G)
+  **53.9** at 32k, 53.8 at 64k, 53.3 at 128k (Mix-16G does not fit the V100); both cards, layers 4 / 44: 36.3 (auto split
+  at 128k and 262k run out of memory: the compute buffer, 17.6 / 25.4 GB, sits on the A4500). Hard suite (reasoning effort
+  minimal): A4500 **90.2** (instructions 92, long context 100, coding 69), V100 87.8, both cards 89.9. Faster than
+  the Uncensored AD-Q4_K (54.6) on the same card.
 - **WeMM-Ecom-35B-A3B** (Tencent WeChat Vision: Qwen3.5-35B-A3B post-trained for e-commerce image understanding -
   product attributes, moderation, OCR, retrieval, grounding - with hybrid thinking, 262k context). bartowski's imatrix
   `Q5_K_M` (27.0 GB) + `mmproj-f16`, checksums verified. The release has no MTP head, so no drafting. Every config passes

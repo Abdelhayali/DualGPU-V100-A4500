@@ -19,7 +19,7 @@ $tmp = "$env:TEMP\maya-inkling-2-mini-$Preset.json"
 $py = 'D:\venvs\maya\Scripts\python.exe'
 if (-not (Test-Path $py)) { throw "no Python venv at $py (python -m venv D:\venvs\maya; pip install numpy jinja2 regex pyyaml tqdm requests pillow psutil 'jsonschema>=4.18,<5' huggingface_hub)" }
 if ($ListenPort -eq $Port) { Stop-Srv }
-$env:CUDA_VISIBLE_DEVICES = ($Gpus | Where-Object name -match $card).uuid
+$env:CUDA_VISIBLE_DEVICES = @(($Gpus | Where-Object name -match $card).uuid) -join ','   # "card": "A4500|V100" = both, A4500 first (--gpus 2)
 $env:PATH = (Split-Path $j.exe -Parent) + ';' + $env:PATH   # the engine's CUDA runtime DLLs sit beside it
 "maya-ik2 / $Preset : $($j.note)  (port $ListenPort, $card only)"
 Push-Location "$Root\kernel\$msrc"

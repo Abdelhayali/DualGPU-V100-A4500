@@ -1,0 +1,41 @@
+[11-23 20:39:41] a4500-32k-min : loading
+[11-23 20:41:41] a4500-32k-min : loaded, vram 19179+318 MiB; speed test
+[11-23 20:41:53] a4500-32k-min : speed 61.5 tok/s; image test
+[11-23 20:41:57] a4500-32k-min : image True; 7k prompt
+[11-23 20:42:09] a4500-32k-min : MEAN 61.5 tok/s (code 61.4 / chat 61.6), vram 19251+318 MiB, image True, 7k prompt True @ 815 t/s -> pass
+[11-23 20:42:09] a4500-64k-q8-ub128-min : loading
+[11-23 20:42:45] a4500-64k-q8-ub128-min : loaded, vram 19107+318 MiB; speed test
+[11-23 20:42:56] a4500-64k-q8-ub128-min : speed 59.5 tok/s; image test
+[11-23 20:43:00] a4500-64k-q8-ub128-min : image True; 7k prompt
+[11-23 20:43:16] a4500-64k-q8-ub128-min : MEAN 59.5 tok/s (code 60.0 / chat 59.1), vram 19217+318 MiB, image True, 7k prompt True @ 586 t/s -> pass
+[11-23 20:43:16] a4500-128k-q4-ub64-min : loading
+[11-23 20:43:50] a4500-128k-q4-ub64-min : loaded, vram 18383+318 MiB; speed test
+[11-23 20:44:03] a4500-128k-q4-ub64-min : speed 59.1 tok/s; image test
+[11-23 20:44:10] a4500-128k-q4-ub64-min : image True; 7k prompt
+[11-23 20:44:30] a4500-128k-q4-ub64-min : MEAN 59.1 tok/s (code 59.7 / chat 58.4), vram 18513+318 MiB, image True, 7k prompt True @ 453 t/s -> pass
+[11-23 20:44:30] v100-32k-q8-ub128-min : loading
+[11-23 20:44:58] v100-32k-q8-ub128-min : loaded, vram 718+13441 MiB; speed test
+[11-23 20:45:10] v100-32k-q8-ub128-min : speed 53.9 tok/s; image test
+[11-23 20:45:13] v100-32k-q8-ub128-min : image True; 7k prompt
+[11-23 20:45:30] v100-32k-q8-ub128-min : MEAN 53.9 tok/s (code 54.0 / chat 53.8), vram 718+13630 MiB, image True, 7k prompt True @ 578 t/s -> pass
+[11-23 20:45:30] v100-64k-q8-ub64-min : loading
+[11-23 20:45:58] v100-64k-q8-ub64-min : loaded, vram 739+13961 MiB; speed test
+[11-23 20:46:10] v100-64k-q8-ub64-min : speed 53.8 tok/s; image test
+[11-23 20:46:13] v100-64k-q8-ub64-min : image True; 7k prompt
+[11-23 20:46:34] v100-64k-q8-ub64-min : MEAN 53.8 tok/s (code 53.8 / chat 53.8), vram 751+14202 MiB, image True, 7k prompt True @ 444 t/s -> pass
+[11-23 20:46:34] v100-128k-q4-ub32-min : loading
+[11-23 20:46:59] v100-128k-q4-ub32-min : loaded, vram 754+13249 MiB; speed test
+[11-23 20:47:11] v100-128k-q4-ub32-min : speed 53.3 tok/s; image test
+[11-23 20:47:17] v100-128k-q4-ub32-min : image True; 7k prompt
+[11-23 20:47:45] v100-128k-q4-ub32-min : MEAN 53.3 tok/s (code 53.3 / chat 53.3), vram 754+13366 MiB, image True, 7k prompt True @ 323 t/s -> pass
+[11-23 20:47:45] v100-16g-32k-q8-ub64-min : loading
+[11-23 20:48:25] v100-16g-32k-q8-ub64-min : does not start
+[11-23 20:48:25] both-auto-128k-min : loading
+[11-23 20:49:07] both-auto-128k-min : does not start
+[11-23 20:49:07] both-l4-32k-min : loading
+[11-23 20:49:42] both-l4-32k-min : loaded, vram 4681+15215 MiB; speed test
+[11-23 20:49:59] both-l4-32k-min : speed 36.3 tok/s; image test
+[11-23 20:50:04] both-l4-32k-min : image True; 7k prompt
+[11-23 20:50:17] both-l4-32k-min : MEAN 36.3 tok/s (code 36.3 / chat 36.4), vram 4717+15268 MiB, image True, 7k prompt True @ 772 t/s -> pass
+[11-23 20:50:17] both-auto-262k-q8-min : loading
+[11-23 20:51:02] both-auto-262k-q8-min : does not start
