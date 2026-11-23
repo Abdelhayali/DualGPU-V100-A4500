@@ -1,4 +1,4 @@
-﻿# DualGPU: LLMs on an RTX A4500 + Tesla V100
+# DualGPU: LLMs on an RTX A4500 + Tesla V100
 
 Run and tune local LLMs with llama.cpp split over two different GPUs, served on `http://127.0.0.1:8899/v1` (OpenAI API).
 
@@ -30,7 +30,7 @@ start.bat minicpm-v4.7-35b-a3b fast       :: a named preset
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 | Inkling-2-Mini Uncensored AD-IQ3_S (13.3 GB, AtomicChat, looped MoE, **V100 only**, reasoning effort minimal), vision | `v100` | 32k | 32.2 | 81 | 100 | 100 | 100 | 83 | 100 | 100 | **94.9** |
 | 2 | Inkling-2-Mini Uncensored AD-Q4_K (16.5 GB, AtomicChat, looped MoE, A4500 only, reasoning effort minimal), vision | `32k` | 32k | 34.9 | 88 | 100 | 83 | 100 | 83 | 100 | 100 | **93.4** |
-| 3 | Qwen3.8-40B Ultimate Heretic (DavidAU) MTP-Q4_K_M (24.2 GB, dense, MTP), vision, **thinking on**â€  | `64k` | 64k | 37.3 | 81 | 100 | 83 | 100 | 100 | 88 | 100 | **93.1**â€  |
+| 3 | Qwen3.8-40B Ultimate Heretic (DavidAU) MTP-Q4_K_M (24.2 GB, dense, MTP), vision, **thinking on**† | `64k` | 64k | 37.3 | 81 | 100 | 83 | 100 | 100 | 88 | 100 | **93.1**† |
 | 4 | Inkling-2-Mini IQ4_NL (17.6 GB, looped MoE, A4500 only, reasoning effort minimal), vision | `32k` | 32k | 35.1 | 81 | 100 | 92 | 100 | 83 | 88 | 100 | **92.0** |
 | 5 | Qwen3.8-27B UD-Q4_K_M (16.6 GB, dense, MTP), vision | `128k` | 128k | 58.8 | 94 | 100 | 42 | 100 | 100 | 100 | 100 | **90.8** |
 | 6 | Huihui Gemma-4-26B-A4B-it QAT abliterated Q4_K (16.8 GB, MoE), vision | `262k` | 262k | 86.5 | 88 | 100 | 83 | 88 | 100 | 75 | 100 | **90.5** |
@@ -52,7 +52,7 @@ start.bat minicpm-v4.7-35b-a3b fast       :: a named preset
 | 22 | Kimi-Linear 48B-A3B abliterated i1-Q4_K_M (27.7 GB), text only | `262k` | 262k | 100.9 | 56 | 60 | 50 | 88 | 100 | - | 50 | **57.7**\* |
 | 23 | Qwen2.5-Coder-32B PCB GRPO (Simonssb LoRA on Q4_K_M 19.9 GB + 0.5 GB, dense), text only | `32k` | 32k | 20.0 | 63 | 60 | 42 | 75 | 50 | - | 50 | **48.5**\* |
 
-â€  Run with reasoning on (`eval_thinking`, 5x token budget): with `enable_thinking=false` this model still reasons, into
+† Run with reasoning on (`eval_thinking`, 5x token budget): with `enable_thinking=false` this model still reasons, into
 the answer, without closing `</think>`, which scored 80.7 (instruction following 8.3, coding 68.8). All other rows ran
 with reasoning off, so its rank is not a like-for-like comparison: thinking on usually helps instruction following and coding.
 
