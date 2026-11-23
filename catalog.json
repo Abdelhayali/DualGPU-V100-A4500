@@ -5112,6 +5112,13 @@
                                          "size":  14348316672,
                                          "sha256":  "2ea32eed533afba257e2cbee7b073dc2c3da80fe55d1d2d794779b5498e30737",
                                          "url":  "https://huggingface.co/strata-engine/Inkling-2-Mini-Strata/resolve/main/Inkling-2-Mini-SQ-15.strata"
+                                     },
+                                     {
+                                         "name":  "dspark-Inkling-2-Mini-Q8_0.gguf",
+                                         "repo":  "peasantsmith/Inkling-2-Mini-Maya-GGUF",
+                                         "size":  402278560,
+                                         "sha256":  "2ec78510da837e8fc3be54a14757a0c5fbd2d8d9e85a0d92853fafdf674f3773",
+                                         "url":  "https://huggingface.co/peasantsmith/Inkling-2-Mini-Maya-GGUF/resolve/37027719327de5f574684b525ad88fe50c4ff222/drafter/dspark-Inkling-2-Mini-Q8_0.gguf"
                                      }
                                  ],
                        "model":  "Inkling-2-Mini-UD-Q4_K_XL.gguf",
@@ -5228,6 +5235,22 @@
                                                           [
                                                               "--preset",
                                                               "strata",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "2gpu",
+                                           "name":  "2gpu: A4500 + V100 together (Maya v1.1.75, --gpus 2): 262k ctx, FP8 KV, the V100 holds the experts that do not fit the A4500, GGUF drafter - 70 tok/s code, 29 prose (slower than the A4500 alone)",
+                                           "kernel":  "maya",
+                                           "kernels":  [
+                                                           "maya"
+                                                       ],
+                                           "bench":  "69.0-72.3 code / 28.2-30.1 prose tok/s",
+                                           "params":  [
+                                                          [
+                                                              "--preset",
+                                                              "2gpu",
                                                               ""
                                                           ]
                                                       ]
