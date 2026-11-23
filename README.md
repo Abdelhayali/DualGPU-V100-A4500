@@ -1,4 +1,4 @@
-# DualGPU: LLMs on an RTX A4500 + Tesla V100
+﻿# DualGPU: LLMs on an RTX A4500 + Tesla V100
 
 Run and tune local LLMs with llama.cpp split over two different GPUs, served on `http://127.0.0.1:8899/v1` (OpenAI API).
 
@@ -30,13 +30,13 @@ start.bat minicpm-v4.7-35b-a3b fast       :: a named preset
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 | Inkling-2-Mini Uncensored AD-IQ3_S (13.3 GB, AtomicChat, looped MoE, **V100 only**, reasoning effort minimal), vision | `v100` | 32k | 32.2 | 81 | 100 | 100 | 100 | 83 | 100 | 100 | **94.9** |
 | 2 | Inkling-2-Mini Uncensored AD-Q4_K (16.5 GB, AtomicChat, looped MoE, A4500 only, reasoning effort minimal), vision | `32k` | 32k | 34.9 | 88 | 100 | 83 | 100 | 83 | 100 | 100 | **93.4** |
-| 3 | Qwen3.8-40B Ultimate Heretic (DavidAU) MTP-Q4_K_M (24.2 GB, dense, MTP), vision, **thinking on**† | `64k` | 64k | 37.3 | 81 | 100 | 83 | 100 | 100 | 88 | 100 | **93.1**† |
+| 3 | Qwen3.8-40B Ultimate Heretic (DavidAU) MTP-Q4_K_M (24.2 GB, dense, MTP), vision, **thinking on**â€  | `64k` | 64k | 37.3 | 81 | 100 | 83 | 100 | 100 | 88 | 100 | **93.1**â€  |
 | 4 | Inkling-2-Mini IQ4_NL (17.6 GB, looped MoE, A4500 only, reasoning effort minimal), vision | `32k` | 32k | 35.1 | 81 | 100 | 92 | 100 | 83 | 88 | 100 | **92.0** |
 | 5 | Qwen3.8-27B UD-Q4_K_M (16.6 GB, dense, MTP), vision | `128k` | 128k | 58.8 | 94 | 100 | 42 | 100 | 100 | 100 | 100 | **90.8** |
 | 6 | Huihui Gemma-4-26B-A4B-it QAT abliterated Q4_K (16.8 GB, MoE), vision | `262k` | 262k | 86.5 | 88 | 100 | 83 | 88 | 100 | 75 | 100 | **90.5** |
 | 7 | OrcaCyber-Nano 1.0 27B Mix-15.7G (MTP), vision | `128k` | 128k | 61.6 | 94 | 100 | 50 | 100 | 100 | 88 | 100 | **90.2** |
 | 8 | Inkling-2-Mini abliterated Mix-16G (15.7 GB, orcarouter, looped MoE, A4500 only, reasoning effort minimal), vision | `32k` | 32k | 57.5 | 69 | 100 | 92 | 100 | 83 | 88 | 100 | **90.2** |
-| 9 | Inkling-2-Mini UD-Q4_K_XL on the **Maya engine** (17.6 GB, A4500 only, reasoning effort low), vision | `start-maya.bat` | 64k | 90.0 | 81 | 100 | 75 | 100 | 83 | 88 | 100 | **89.6** |
+| 9 | Inkling-2-Mini UD-Q4_K_XL on the **Maya engine** (17.6 GB, A4500 only, reasoning effort low), vision | `start-maya.bat 64k` | 64k | 90.0 | 81 | 100 | 75 | 100 | 83 | 88 | 100 | **89.6** |
 | 10 | Qwen3.6-35B-A3B UD-Q5_K_XL (25.3 GB, MoE, MTP), vision | `128k` | 128k | 99.6 | 94 | 100 | 50 | 88 | 100 | 88 | 100 | **88.4** |
 | 11 | Surogate3.7-35B-A3B Q5_K_M (25.3 GB, MoE, MTP, converted here), vision | `128k` | 128k | 105.3 | 100 | 100 | 42 | 88 | 100 | 88 | 100 | **88.1** |
 | 12 | WeMM-Ecom-35B-A3B Q5_K_M (27.0 GB, MoE, Tencent e-commerce fine-tune of Qwen3.5-35B-A3B, no MTP), vision | `128k` | 128k | 86.2 | 81 | 100 | 42 | 100 | 100 | 88 | 100 | **87.2** |
@@ -52,7 +52,7 @@ start.bat minicpm-v4.7-35b-a3b fast       :: a named preset
 | 22 | Kimi-Linear 48B-A3B abliterated i1-Q4_K_M (27.7 GB), text only | `262k` | 262k | 100.9 | 56 | 60 | 50 | 88 | 100 | - | 50 | **57.7**\* |
 | 23 | Qwen2.5-Coder-32B PCB GRPO (Simonssb LoRA on Q4_K_M 19.9 GB + 0.5 GB, dense), text only | `32k` | 32k | 20.0 | 63 | 60 | 42 | 75 | 50 | - | 50 | **48.5**\* |
 
-† Run with reasoning on (`eval_thinking`, 5x token budget): with `enable_thinking=false` this model still reasons, into
+â€  Run with reasoning on (`eval_thinking`, 5x token budget): with `enable_thinking=false` this model still reasons, into
 the answer, without closing `</think>`, which scored 80.7 (instruction following 8.3, coding 68.8). All other rows ran
 with reasoning off, so its rank is not a like-for-like comparison: thinking on usually helps instruction following and coding.
 
@@ -125,9 +125,9 @@ Same presets as above with reasoning on (`EVAL_THINKING=1`, 5x token budget). In
 | | v100 | `v100-32k-q8-ub128-min-s` (**V100 only**, AD-IQ3_S) | 32k | q8_0 | **48.3** | 597 t/s |
 | | v100-64k | `v100-64k-q8-ub64-min-s` (V100 only) | 64k | q8_0 | 47.9 | 457 t/s |
 | | v100-128k | `v100-128k-q4-ub32-min-s` (V100 only) | 128k | q4_0 | 47.8 | 320 t/s |
-| inkling-2-mini (Maya engine) | **64k** (`start-maya.bat`) | `configs/maya/inkling-2-mini-64k.json` (A4500 only, effort low) | 64k | fp8 | **86-92** | - |
+| inkling-2-mini (Maya engine) | 64k (`start-maya.bat 64k`) | `configs/maya/inkling-2-mini-64k.json` (A4500 only, effort low) | 64k | fp8 | **86-92** | - |
 | | code | `configs/maya/inkling-2-mini-code.json` (DSpark drafter) | 24k | fp8 | 76 prose, **97-134** code | - |
-| | **262k-fast** | `configs/maya/inkling-2-mini-262k-fast.json` (Maya v1.1.75, A4500, NVFP4-tail file + drafter) | 262k | fp8 | **153-161 code, 92-96 prose** | - |
+| | **262k-fast** (default: `start-maya.bat`, first in the GUI) | `configs/maya/inkling-2-mini-262k-fast.json` (Maya v1.1.75, A4500, NVFP4-tail file + drafter) | 262k | fp8 | **153-161 code, 92-96 prose** | - |
 | | **128k-fast** | `configs/maya/inkling-2-mini-128k-fast.json` (Maya v1.1.75, A4500, NVFP4-tail file + drafter) | 128k | fp8 | **169 code, 86 prose** | - |
 | | 64k-new | `configs/maya/inkling-2-mini-64k-new.json` (Maya v1.1.74, A4500) | 64k | fp8 | **92** code, **92** prose | - |
 | | 128k | `configs/maya/inkling-2-mini-128k.json` (Maya v1.1.74, A4500, expert lending) | 128k | fp8 | 90 code, 90 prose | - |
@@ -224,7 +224,7 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
   **89.6** at 64k with reasoning effort low, images on the CPU encoder (coding 81, instructions 75, vision 88, long context
   100). Effort: Maya's server does not open the reasoning block itself, so at `minimal` the model does not reason at all
   (hard suite 63.6 text only: instructions 42, long context 50); llama.cpp's Inkling parser opens it, which is why its
-  `minimal` runs score like Maya's `low`. Start: `start-maya.bat` (64k) or `start-maya.bat code`, port 8899, A4500 only;
+  `minimal` runs score like Maya's `low`. Start: `start-maya.bat` (now the `262k-fast` preset), `start-maya.bat 64k` or `start-maya.bat code`, port 8899, A4500 only;
   it can run next to `start.bat inkling-2-mini-uncensored v100 8900` on the V100. **In the GUI** (and so in the phone /
   desktop app) it is the model `inkling-2-mini-maya` with presets `64k` and `code` (engine type `maya`: the launcher fills
   in the `configs/maya` template, starts Maya's Python server from venv `D:\venvs\maya` with only the A4500 visible, and
