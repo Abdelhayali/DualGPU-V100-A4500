@@ -32,11 +32,11 @@ start.bat minicpm-v4.7-35b-a3b fast       :: a named preset
 | 2 | Inkling-2-Mini Uncensored AD-Q4_K (16.5 GB, AtomicChat, looped MoE, A4500 only, reasoning effort minimal), vision | `32k` | 32k | 34.9 | 88 | 100 | 83 | 100 | 83 | 100 | 100 | **93.4** |
 | 3 | Qwen3.8-40B Ultimate Heretic (DavidAU) MTP-Q4_K_M (24.2 GB, dense, MTP), vision, **thinking on**† | `64k` | 64k | 37.3 | 81 | 100 | 83 | 100 | 100 | 88 | 100 | **93.1**† |
 | 4 | Inkling-2-Mini IQ4_NL (17.6 GB, looped MoE, A4500 only, reasoning effort minimal), vision | `32k` | 32k | 35.1 | 81 | 100 | 92 | 100 | 83 | 88 | 100 | **92.0** |
-| 5 | Qwen3.8-27B UD-Q4_K_M (16.6 GB, dense, MTP), vision | `128k` | 128k | 58.8 | 94 | 100 | 42 | 100 | 100 | 100 | 100 | **90.8** |
-| 6 | Huihui Gemma-4-26B-A4B-it QAT abliterated Q4_K (16.8 GB, MoE), vision | `262k` | 262k | 86.5 | 88 | 100 | 83 | 88 | 100 | 75 | 100 | **90.5** |
-| 7 | OrcaCyber-Nano 1.0 27B Mix-15.7G (MTP), vision | `128k` | 128k | 61.6 | 94 | 100 | 50 | 100 | 100 | 88 | 100 | **90.2** |
-| 8 | Inkling-2-Mini abliterated Mix-16G (15.7 GB, orcarouter, looped MoE, A4500 only, reasoning effort minimal), vision | `32k` | 32k | 57.5 | 69 | 100 | 92 | 100 | 83 | 88 | 100 | **90.2** |
-| 9 | Inkling-2-Mini UD-Q4_K_XL on the **Maya engine** (17.6 GB, A4500 only, reasoning effort low), vision | `start-maya.bat 64k` | 64k | 90.0 | 81 | 100 | 75 | 100 | 83 | 88 | 100 | **89.6** |
+| 5 | Inkling-2-Mini UD-Q4_K_XL, layers 20-23 experts in NVFP4 (15.6 GB, `tools/ik2_nvfp4_tail.py`), **Maya engine** v1.1.75 + drafter, A4500 only, reasoning effort low‡, vision | `start-maya.bat` (`512k-fast`) | 512k | 128.5 | 75 | 100 | 92 | 100 | 83 | 88 | 100 | **91.1**‡ |
+| 6 | Qwen3.8-27B UD-Q4_K_M (16.6 GB, dense, MTP), vision | `128k` | 128k | 58.8 | 94 | 100 | 42 | 100 | 100 | 100 | 100 | **90.8** |
+| 7 | Huihui Gemma-4-26B-A4B-it QAT abliterated Q4_K (16.8 GB, MoE), vision | `262k` | 262k | 86.5 | 88 | 100 | 83 | 88 | 100 | 75 | 100 | **90.5** |
+| 8 | OrcaCyber-Nano 1.0 27B Mix-15.7G (MTP), vision | `128k` | 128k | 61.6 | 94 | 100 | 50 | 100 | 100 | 88 | 100 | **90.2** |
+| 9 | Inkling-2-Mini abliterated Mix-16G (15.7 GB, orcarouter, looped MoE, A4500 only, reasoning effort minimal), vision | `32k` | 32k | 57.5 | 69 | 100 | 92 | 100 | 83 | 88 | 100 | **90.2** |
 | 10 | Qwen3.6-35B-A3B UD-Q5_K_XL (25.3 GB, MoE, MTP), vision | `128k` | 128k | 99.6 | 94 | 100 | 50 | 88 | 100 | 88 | 100 | **88.4** |
 | 11 | Surogate3.7-35B-A3B Q5_K_M (25.3 GB, MoE, MTP, converted here), vision | `128k` | 128k | 105.3 | 100 | 100 | 42 | 88 | 100 | 88 | 100 | **88.1** |
 | 12 | WeMM-Ecom-35B-A3B Q5_K_M (27.0 GB, MoE, Tencent e-commerce fine-tune of Qwen3.5-35B-A3B, no MTP), vision | `128k` | 128k | 86.2 | 81 | 100 | 42 | 100 | 100 | 88 | 100 | **87.2** |
@@ -55,6 +55,11 @@ start.bat minicpm-v4.7-35b-a3b fast       :: a named preset
 † Run with reasoning on (`eval_thinking`, 5x token budget): with `enable_thinking=false` this model still reasons, into
 the answer, without closing `</think>`, which scored 80.7 (instruction following 8.3, coding 68.8). All other rows ran
 with reasoning off, so its rank is not a like-for-like comparison: thinking on usually helps instruction following and coding.
+
+‡ Maya's server does not open Inkling's reasoning block itself, so with the suite's `enable_thinking=false` the model
+does not reason at all (76.1, the same for every Maya build); this row ran with thinking enabled at reasoning effort low
+(`EVAL_THINKING=1`, the 2,048-token budget), which matches what llama.cpp's Inkling parser does at effort minimal in the
+other Inkling rows. Coding with reasoning off on the same preset: 87.5 at 162 tok/s.
 
 \* Text-only models: the suite scores the missing vision category as 0. Over the 6 text categories Ripple averages 93.1, Inkling on Strata 76.6, Apex 70.4
 (the best instruction-following score here, 83) and Kimi 67.3. Many reasoning misses are
