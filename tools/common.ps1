@@ -104,6 +104,8 @@ function Restore-SrvGpu {
 
 function Start-Srv($a, $errlog) {
     Stop-Srv
+    # another server (e.g. Maya, a python process Stop-Srv leaves alone) on the port would answer the checks instead
+    if (Get-NetTCPConnection -LocalPort $Port -State Listen -EA SilentlyContinue) { "port $Port is held by another server" | Set-Content $errlog; return $false }
     $a = Use-SrvGpu $a
     $p = Start-Process "$Kd\llama-server.exe" -PassThru -WindowStyle Hidden -RedirectStandardError $errlog -ArgumentList (Get-QuotedArgs $a)
     Restore-SrvGpu
