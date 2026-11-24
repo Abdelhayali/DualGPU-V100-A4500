@@ -5128,8 +5128,24 @@
                                 },
                        "presets":  [
                                        {
+                                           "id":  "512k-fast",
+                                           "name":  "512k-fast: DEFAULT: A4500 alone (Maya v1.1.75), 512k ctx, the NVFP4-tail file, GGUF drafter - 118-162 tok/s code, 92-97 prose, hard suite 91.1; keep prompts under ~256k (a 287k prompt crashed the PC)",
+                                           "kernel":  "maya",
+                                           "kernels":  [
+                                                           "maya"
+                                                       ],
+                                           "bench":  "118-162 code / 92-97 prose tok/s; 103 after 143k, 77 after 227k; hard suite 91.1 at 128.5 tok/s",
+                                           "params":  [
+                                                          [
+                                                              "--preset",
+                                                              "512k-fast",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
                                            "id":  "262k-fast",
-                                           "name":  "262k-fast: FASTEST long context: A4500 alone (Maya v1.1.75), 262k ctx, every expert in VRAM (UD-Q4_K_XL with layers 20-23 experts in NVFP4, made with tools/ik2_nvfp4_tail.py), GGUF drafter - 153-161 tok/s code, 92-96 prose",
+                                           "name":  "262k-fast: A4500 alone (Maya v1.1.75), 262k ctx, every expert in VRAM (UD-Q4_K_XL with layers 20-23 experts in NVFP4, made with tools/ik2_nvfp4_tail.py), GGUF drafter - 153-161 tok/s code, 92-96 prose",
                                            "kernel":  "maya",
                                            "kernels":  [
                                                            "maya"

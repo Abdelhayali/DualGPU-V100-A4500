@@ -127,7 +127,8 @@ Same presets as above with reasoning on (`EVAL_THINKING=1`, 5x token budget). In
 | | v100-128k | `v100-128k-q4-ub32-min-s` (V100 only) | 128k | q4_0 | 47.8 | 320 t/s |
 | inkling-2-mini (Maya engine) | 64k (`start-maya.bat 64k`) | `configs/maya/inkling-2-mini-64k.json` (A4500 only, effort low) | 64k | fp8 | **86-92** | - |
 | | code | `configs/maya/inkling-2-mini-code.json` (DSpark drafter) | 24k | fp8 | 76 prose, **97-134** code | - |
-| | **262k-fast** (default: `start-maya.bat`, first in the GUI) | `configs/maya/inkling-2-mini-262k-fast.json` (Maya v1.1.75, A4500, NVFP4-tail file + drafter) | 262k | fp8 | **153-161 code, 92-96 prose** | - |
+| | **512k-fast** (default: `start-maya.bat`, first in the GUI) | `configs/maya/inkling-2-mini-512k-fast.json` (Maya v1.1.75, A4500, NVFP4-tail file + drafter; prompts under ~256k) | 512k | fp8 | **118-162 code, 92-97 prose** | - |
+| | **262k-fast** | `configs/maya/inkling-2-mini-262k-fast.json` (Maya v1.1.75, A4500, NVFP4-tail file + drafter) | 262k | fp8 | **153-161 code, 92-96 prose** | - |
 | | **128k-fast** | `configs/maya/inkling-2-mini-128k-fast.json` (Maya v1.1.75, A4500, NVFP4-tail file + drafter) | 128k | fp8 | **169 code, 86 prose** | - |
 | | 64k-new | `configs/maya/inkling-2-mini-64k-new.json` (Maya v1.1.74, A4500) | 64k | fp8 | **92** code, **92** prose | - |
 | | 128k | `configs/maya/inkling-2-mini-128k.json` (Maya v1.1.74, A4500, expert lending) | 128k | fp8 | 90 code, 90 prose | - |
@@ -262,6 +263,14 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
   tok/s: **262k 153-161 / 92-96** (no drafter 92 / 92), **128k 169 / 86** (no drafter 94 / 94); after a 143k-token prompt
   **106** tok/s, prompts ~1,000-1,130 tok/s. Hard suite with reasoning on: **91.1** (UD-Q4_K_XL 90.2), and the suite's
   answers came at **139.9 tok/s** on average (86.4 before).
+- **512k-fast (the default)**: the same file and drafter at `--max-context 524288` on the A4500 alone. At 512k part of
+  the experts leave VRAM until the chat fills the cache (Maya lends the unused cache to them), yet with the drafter it
+  runs 118-162 tok/s on code, 92-97 on prose (59-64 without the drafter). After a prompt of 29k tokens 47 tok/s (the
+  first request after a start, while the lent experts are still copied in), 143k **103**, 227k 77, every answer right;
+  hard suite with reasoning on **91.1** at 128.5 tok/s. **Keep prompts under ~256k**: a 287k-token prompt stopped the
+  A4500 mid-prompt (no GPU activity for 4 minutes, then corrected PCIe errors on its root port) and Windows stopped
+  with bugcheck 0x133 (DPC_WATCHDOG_VIOLATION). 1M on the A4500 alone runs at 6 tok/s (the 16 GiB cache leaves no
+  room for experts); 1M on both cards is not tested yet.
 - **Maya v1.1.75 for Inkling-2-Mini: drafting everywhere, two cards on Windows** (`kernel/build-maya4`; its build
   could not fetch the pinned ggml, so `-DMAYA_GGML_DIR` points at the same commit already fetched for v1.1.74). Its GGUF
   drafter (`dspark-Inkling-2-Mini-Q8_0.gguf`, 0.4 GB, checksum verified) and `--drafting auto`, which times no
