@@ -267,7 +267,10 @@ All presets pass the image test (vision models) and a ~7k-token prompt. Per-mode
   the experts leave VRAM until the chat fills the cache (Maya lends the unused cache to them), yet with the drafter it
   runs 118-162 tok/s on code, 92-97 on prose (59-64 without the drafter). After a prompt of 29k tokens 47 tok/s (the
   first request after a start, while the lent experts are still copied in), 143k **103**, 227k 77, every answer right;
-  hard suite with reasoning on **91.1** at 128.5 tok/s. **Keep prompts under ~256k**: a 287k-token prompt stopped the
+  hard suite with reasoning on **91.1** at 128.5 tok/s (coding 75 there: with reasoning on the thinking shares the
+  suite's 2,048-token answer budget and three answers ran out before the code; with the 5x budget the other reasoning-on
+  runs use, coding is 81.2 - `edit` names its function differently, `regex` and `roman_parse` miss cases, as on the
+  other Inkling builds). **Keep prompts under ~256k**: a 287k-token prompt stopped the
   A4500 mid-prompt (no GPU activity for 4 minutes, then corrected PCIe errors on its root port) and Windows stopped
   with bugcheck 0x133 (DPC_WATCHDOG_VIOLATION). 1M on the A4500 alone runs at 6 tok/s (the 16 GiB cache leaves no
   room for experts); 1M on both cards is not tested yet.
