@@ -15926,7 +15926,7 @@
                    {
                        "id":  "qwen3.8-27b-nariq",
                        "name":  "Qwen3.8-27B NariQ (trellis-coded 3.0 / 2.5 / 2.0 bpw, nari-labs fork of llama.cpp, vision)",
-                       "desc":  "Needs the nari-labs llama.cpp fork (kernel\\bin-nari, release b12431-nariv0, CUDA 12.8 Windows build). NariQ tensors run only on Ampere or newer: on the V100 they fall back to the CPU, so the model sits on the A4500 (sm none, mg 0). No MTP heads in these files, and DFlash/DSpine drafters do not start: they share the target\u0027s embedding and output, which are trellis-coded here. Sampling = the model card\u0027s thinking settings.",
+                       "desc":  "Needs the nari-labs llama.cpp fork (kernel\\bin-nari, release b12431-nariv0, CUDA 12.8 Windows build). NariQ tensors run only on Ampere or newer: on the V100 they fall back to the CPU, so the model sits on the A4500 (sm none, mg 0). No MTP heads in these files, and DFlash/DSpine drafters do not start: they share the target\u0027s embedding and output, which are trellis-coded here. Sampling = Qwen\u0027s non-thinking settings (temp 0.7, top-p 0.8), as in the other Qwen3.8-27B configs. Hard suite (greedy) 85.0 with and without the grafted MTP layer, the same answers: the graft is lossless, coding 75 is the 3.0 bpw level.",
                        "files":  [
                                      {
                                          "name":  "Qwen3.8-27B-NariQ-3.0bpw.gguf",
@@ -16029,7 +16029,7 @@
                                                           ],
                                                           [
                                                               "--temp",
-                                                              "1.0",
+                                                              "0.7",
                                                               ""
                                                           ],
                                                           [
@@ -16039,7 +16039,7 @@
                                                           ],
                                                           [
                                                               "--top-p",
-                                                              "0.95",
+                                                              "0.8",
                                                               ""
                                                           ],
                                                           [
@@ -16140,7 +16140,7 @@
                                                           ],
                                                           [
                                                               "--temp",
-                                                              "1.0",
+                                                              "0.7",
                                                               ""
                                                           ],
                                                           [
@@ -16150,7 +16150,7 @@
                                                           ],
                                                           [
                                                               "--top-p",
-                                                              "0.95",
+                                                              "0.8",
                                                               ""
                                                           ],
                                                           [
@@ -16246,7 +16246,7 @@
                                                           ],
                                                           [
                                                               "--temp",
-                                                              "1.0",
+                                                              "0.7",
                                                               ""
                                                           ],
                                                           [
@@ -16256,7 +16256,7 @@
                                                           ],
                                                           [
                                                               "--top-p",
-                                                              "0.95",
+                                                              "0.8",
                                                               ""
                                                           ],
                                                           [
@@ -16332,7 +16332,7 @@
                                                           ],
                                                           [
                                                               "--temp",
-                                                              "1.0",
+                                                              "0.7",
                                                               ""
                                                           ],
                                                           [
@@ -16342,7 +16342,7 @@
                                                           ],
                                                           [
                                                               "--top-p",
-                                                              "0.95",
+                                                              "0.8",
                                                               ""
                                                           ],
                                                           [
@@ -16418,7 +16418,7 @@
                                                           ],
                                                           [
                                                               "--temp",
-                                                              "1.0",
+                                                              "0.7",
                                                               ""
                                                           ],
                                                           [
@@ -16428,7 +16428,7 @@
                                                           ],
                                                           [
                                                               "--top-p",
-                                                              "0.95",
+                                                              "0.8",
                                                               ""
                                                           ],
                                                           [
@@ -16504,7 +16504,7 @@
                                                           ],
                                                           [
                                                               "--temp",
-                                                              "1.0",
+                                                              "0.7",
                                                               ""
                                                           ],
                                                           [
@@ -16514,7 +16514,7 @@
                                                           ],
                                                           [
                                                               "--top-p",
-                                                              "0.95",
+                                                              "0.8",
                                                               ""
                                                           ],
                                                           [
@@ -16585,7 +16585,7 @@
                                                           ],
                                                           [
                                                               "--temp",
-                                                              "1.0",
+                                                              "0.7",
                                                               ""
                                                           ],
                                                           [
@@ -16595,7 +16595,7 @@
                                                           ],
                                                           [
                                                               "--top-p",
-                                                              "0.95",
+                                                              "0.8",
                                                               ""
                                                           ],
                                                           [
@@ -16626,87 +16626,6 @@
                                                           [
                                                               "-bs",
                                                               "",
-                                                              ""
-                                                          ]
-                                                      ]
-                                       },
-                                       {
-                                           "id":  "q30-128k",
-                                           "name":  "config q30-128k (tested)",
-                                           "kernel":  "dualgpu-nari",
-                                           "kernels":  [
-                                                           "dualgpu-nari"
-                                                       ],
-                                           "bench":  "97.6 tok/s (code 113.4 / chat 81.8), draft accept 64%, 7k prompt 633 t/s, VRAM 19747+15544 MiB (A4500+V100)",
-                                           "params":  [
-                                                          [
-                                                              "-c",
-                                                              "131072",
-                                                              ""
-                                                          ],
-                                                          [
-                                                              "-np",
-                                                              "1",
-                                                              ""
-                                                          ],
-                                                          [
-                                                              "-fa",
-                                                              "on",
-                                                              ""
-                                                          ],
-                                                          [
-                                                              "-b",
-                                                              "2048",
-                                                              ""
-                                                          ],
-                                                          [
-                                                              "-ub",
-                                                              "512",
-                                                              ""
-                                                          ],
-                                                          [
-                                                              "--jinja",
-                                                              "",
-                                                              ""
-                                                          ],
-                                                          [
-                                                              "--cache-ram",
-                                                              "2048",
-                                                              ""
-                                                          ],
-                                                          [
-                                                              "-ngl",
-                                                              "all",
-                                                              ""
-                                                          ],
-                                                          [
-                                                              "--temp",
-                                                              "1.0",
-                                                              ""
-                                                          ],
-                                                          [
-                                                              "--top-k",
-                                                              "20",
-                                                              ""
-                                                          ],
-                                                          [
-                                                              "--top-p",
-                                                              "0.95",
-                                                              ""
-                                                          ],
-                                                          [
-                                                              "--min-p",
-                                                              "0",
-                                                              ""
-                                                          ],
-                                                          [
-                                                              "-sm",
-                                                              "none",
-                                                              ""
-                                                          ],
-                                                          [
-                                                              "-mg",
-                                                              "0",
                                                               ""
                                                           ]
                                                       ]
@@ -16767,7 +16686,7 @@
                                                           ],
                                                           [
                                                               "--temp",
-                                                              "1.0",
+                                                              "0.7",
                                                               ""
                                                           ],
                                                           [
@@ -16777,7 +16696,7 @@
                                                           ],
                                                           [
                                                               "--top-p",
-                                                              "0.95",
+                                                              "0.8",
                                                               ""
                                                           ],
                                                           [
@@ -16868,7 +16787,7 @@
                                                           ],
                                                           [
                                                               "--temp",
-                                                              "1.0",
+                                                              "0.7",
                                                               ""
                                                           ],
                                                           [
@@ -16878,7 +16797,7 @@
                                                           ],
                                                           [
                                                               "--top-p",
-                                                              "0.95",
+                                                              "0.8",
                                                               ""
                                                           ],
                                                           [
@@ -16969,7 +16888,7 @@
                                                           ],
                                                           [
                                                               "--temp",
-                                                              "1.0",
+                                                              "0.7",
                                                               ""
                                                           ],
                                                           [
@@ -16979,7 +16898,7 @@
                                                           ],
                                                           [
                                                               "--top-p",
-                                                              "0.95",
+                                                              "0.8",
                                                               ""
                                                           ],
                                                           [
@@ -17070,7 +16989,7 @@
                                                           ],
                                                           [
                                                               "--temp",
-                                                              "1.0",
+                                                              "0.7",
                                                               ""
                                                           ],
                                                           [
@@ -17080,7 +16999,7 @@
                                                           ],
                                                           [
                                                               "--top-p",
-                                                              "0.95",
+                                                              "0.8",
                                                               ""
                                                           ],
                                                           [
@@ -17166,7 +17085,7 @@
                                                           ],
                                                           [
                                                               "--temp",
-                                                              "1.0",
+                                                              "0.7",
                                                               ""
                                                           ],
                                                           [
@@ -17176,7 +17095,7 @@
                                                           ],
                                                           [
                                                               "--top-p",
-                                                              "0.95",
+                                                              "0.8",
                                                               ""
                                                           ],
                                                           [
@@ -18086,6 +18005,462 @@
                                                           [
                                                               "-ts",
                                                               "65,35",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-type",
+                                                              "draft-mtp",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-n-max",
+                                                              "3",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-p-min",
+                                                              "0",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       }
+                                   ],
+                       "mmproj":  "mmproj-F16.gguf"
+                   },
+                   {
+                       "id":  "qwen3.8-27b-opencode",
+                       "name":  "Qwen3.8-27B opencode-adapted (harness-hub LoRA on unsloth UD-Q5_K_XL, dense, MTP built in, vision)",
+                       "desc":  "harness-hub LoRA (RL-trained, async GRPO) that tunes Qwen3.8-27B for the OpenCode coding agent: SWE-bench Pro hard-51 35.3 -\u003e 51.0, Terminal-Bench 2.1 46.4 -\u003e 52.4 (their numbers, thinking off; keep thinking off, it adds nothing for the adapter). Sampling = their training sampling (temp 0.8, top-p 1.0). Served as --lora on the Q5_K_XL base already on disk. The MTP head is not touched by the LoRA. ts = A4500,V100.",
+                       "files":  [
+                                     {
+                                         "name":  "Qwen3.8-27B-UD-Q5_K_XL.gguf",
+                                         "repo":  "unsloth/Qwen3.8-27B-GGUF",
+                                         "size":  20976962464,
+                                         "sha256":  "a9c4a1d9f7298dfb00c95dd83241530bc07b141ee01ec6962cd31b39d746837c",
+                                         "url":  "https://huggingface.co/unsloth/Qwen3.8-27B-GGUF/resolve/main/Qwen3.8-27B-UD-Q5_K_XL.gguf"
+                                     },
+                                     {
+                                         "name":  "mmproj-F16.gguf",
+                                         "repo":  "unsloth/Qwen3.8-27B-GGUF",
+                                         "size":  927607488,
+                                         "sha256":  "cbb841a9ee0636b2ec172f5bb8df2ea8dfeb01e90fe7c6126581d662a0b4e43e",
+                                         "url":  "https://huggingface.co/unsloth/Qwen3.8-27B-GGUF/resolve/main/mmproj-F16.gguf"
+                                     },
+                                     {
+                                         "name":  "Qwen3.8-27B-opencode-lora-F16.gguf",
+                                         "repo":  "harness-hub/Qwen3.8-27B-opencode-adapted-GGUF",
+                                         "size":  318802400,
+                                         "sha256":  "46bfab85a002fdc4366895c88e50d6f692b176fecabe1a3cced37b44a89815b3",
+                                         "url":  "https://huggingface.co/harness-hub/Qwen3.8-27B-opencode-adapted-GGUF/resolve/main/Qwen3.8-27B-opencode-lora-F16.gguf"
+                                     }
+                                 ],
+                       "model":  "Qwen3.8-27B-UD-Q5_K_XL.gguf",
+                       "presets":  [
+                                       {
+                                           "id":  "128k",
+                                           "name":  "128k: default: 128k ctx, f16 KV, MTP 3, split 60/40 - 41.9 tok/s (code 46.5), vision, hard suite 81.2 (harness-hub OpenCode LoRA on Q5_K_XL; keep thinking off)",
+                                           "kernel":  "dualgpu",
+                                           "kernels":  [
+                                                           "dualgpu"
+                                                       ],
+                                           "bench":  "41.9 tok/s (code 46.5 / chat 37.3), draft accept 75%, 7k prompt 755 t/s, VRAM 18612+14881 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "131072",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "512",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--lora",
+                                                              "{model:Qwen3.8-27B-opencode-lora-F16.gguf}",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.8",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-k",
+                                                              "20",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "1.0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "layer",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ts",
+                                                              "60,40",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-type",
+                                                              "draft-mtp",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-n-max",
+                                                              "3",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-p-min",
+                                                              "0",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "fast",
+                                           "name":  "fast: fastest: 32k ctx, f16 KV, MTP 4 - 42.9 tok/s (code 49.9)",
+                                           "kernel":  "dualgpu",
+                                           "kernels":  [
+                                                           "dualgpu"
+                                                       ],
+                                           "bench":  "42.9 tok/s (code 49.9 / chat 35.9), draft accept 65%, 7k prompt 749 t/s, VRAM 11294+14669 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "32768",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "512",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--lora",
+                                                              "{model:Qwen3.8-27B-opencode-lora-F16.gguf}",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.8",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-k",
+                                                              "20",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "1.0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "layer",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ts",
+                                                              "45,55",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-type",
+                                                              "draft-mtp",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-n-max",
+                                                              "4",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-p-min",
+                                                              "0",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "262k",
+                                           "name":  "262k: full 262k ctx, q4 KV, MTP 3, split 65/35, ub 256 - 39.8 tok/s",
+                                           "kernel":  "dualgpu",
+                                           "kernels":  [
+                                                           "dualgpu"
+                                                       ],
+                                           "bench":  "39.8 tok/s (code 43.9 / chat 35.7), draft accept 75%, 7k prompt 670 t/s, VRAM 18118+14277 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "262144",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "256",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--lora",
+                                                              "{model:Qwen3.8-27B-opencode-lora-F16.gguf}",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.8",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-k",
+                                                              "20",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "1.0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctk",
+                                                              "q4_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ctv",
+                                                              "q4_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "layer",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ts",
+                                                              "65,35",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-type",
+                                                              "draft-mtp",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-n-max",
+                                                              "3",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-p-min",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-type-k",
+                                                              "q4_0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--spec-draft-type-v",
+                                                              "q4_0",
+                                                              ""
+                                                          ]
+                                                      ]
+                                       },
+                                       {
+                                           "id":  "l45-mtp3-32k",
+                                           "name":  "config l45-mtp3-32k (tested)",
+                                           "kernel":  "dualgpu",
+                                           "kernels":  [
+                                                           "dualgpu"
+                                                       ],
+                                           "bench":  "41.3 tok/s (code 45.2 / chat 37.3), draft accept 76%, 7k prompt 748 t/s, VRAM 11222+14591 MiB (A4500+V100)",
+                                           "params":  [
+                                                          [
+                                                              "-c",
+                                                              "32768",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-np",
+                                                              "1",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-fa",
+                                                              "on",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-b",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ub",
+                                                              "512",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--jinja",
+                                                              "",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--cache-ram",
+                                                              "2048",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ngl",
+                                                              "all",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--lora",
+                                                              "{model:Qwen3.8-27B-opencode-lora-F16.gguf}",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--temp",
+                                                              "0.8",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-k",
+                                                              "20",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--top-p",
+                                                              "1.0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "--min-p",
+                                                              "0",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-sm",
+                                                              "layer",
+                                                              ""
+                                                          ],
+                                                          [
+                                                              "-ts",
+                                                              "45,55",
                                                               ""
                                                           ],
                                                           [

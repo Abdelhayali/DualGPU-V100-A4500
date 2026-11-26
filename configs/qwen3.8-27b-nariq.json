@@ -13,8 +13,8 @@
     { "repo": "z-lab/Qwen3.8-27B-DFlash2-GGUF", "file": "Qwen3.8-27B-DFlash2-Q4_K_M.gguf", "gb": 1.14, "note": "only for spec=dflash; hard link of the qwen3.8-27b copy" },
     { "repo": "aj9o9/Qwen3.8-27B-DSpine-b16-GGUF", "file": "Qwen3.8-27B-DSpine-b16-Q4_K_M.gguf", "gb": 1.26, "note": "DSpine drafter; hard link of the qwen3.8-27b copy" }
   ],
-  "sampling": ["--temp", "1.0", "--top-k", "20", "--top-p", "0.95", "--min-p", "0"],
-  "notes": "Needs the nari-labs llama.cpp fork (kernel\\bin-nari, release b12431-nariv0, CUDA 12.8 Windows build). NariQ tensors run only on Ampere or newer: on the V100 they fall back to the CPU, so the model sits on the A4500 (sm none, mg 0). No MTP heads in these files, and DFlash/DSpine drafters do not start: they share the target's embedding and output, which are trellis-coded here. Sampling = the model card's thinking settings.",
+  "sampling": ["--temp", "0.7", "--top-k", "20", "--top-p", "0.8", "--min-p", "0"],
+  "notes": "Needs the nari-labs llama.cpp fork (kernel\\bin-nari, release b12431-nariv0, CUDA 12.8 Windows build). NariQ tensors run only on Ampere or newer: on the V100 they fall back to the CPU, so the model sits on the A4500 (sm none, mg 0). No MTP heads in these files, and DFlash/DSpine drafters do not start: they share the target's embedding and output, which are trellis-coded here. Sampling = Qwen's non-thinking settings (temp 0.7, top-p 0.8), as in the other Qwen3.8-27B configs. Hard suite (greedy) 85.0 with and without the grafted MTP layer, the same answers: the graft is lossless, coding 75 is the 3.0 bpw level.",
   "configs": [
     { "name": "q30-32k",          "ctx": 32768, "sm": "none", "mg": 0 },
     { "name": "q25-32k",          "ctx": 32768, "sm": "none", "mg": 0, "gguf": "Qwen3.8-27B-NariQ-2.5bpw.gguf" },

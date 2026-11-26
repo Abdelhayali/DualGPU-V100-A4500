@@ -1,0 +1,23 @@
+{
+  "id": "qwen3.8-27b-opencode",
+  "name": "Qwen3.8-27B opencode-adapted (harness-hub LoRA on unsloth UD-Q5_K_XL, dense, MTP built in, vision)",
+  "gguf": "Qwen3.8-27B-UD-Q5_K_XL.gguf",
+  "mmproj": "mmproj-F16.gguf",
+  "lora": "Qwen3.8-27B-opencode-lora-F16.gguf",
+  "files": [
+    { "repo": "unsloth/Qwen3.8-27B-GGUF", "file": "Qwen3.8-27B-UD-Q5_K_XL.gguf", "gb": 20.98, "note": "same file as models/qwen3.8-27b-pi (hard link, no second copy)" },
+    { "repo": "unsloth/Qwen3.8-27B-GGUF", "file": "mmproj-F16.gguf", "gb": 0.93 },
+    { "repo": "harness-hub/Qwen3.8-27B-opencode-adapted-GGUF", "file": "Qwen3.8-27B-opencode-lora-F16.gguf", "gb": 0.32, "sha256": "46bfab85a002fdc4366895c88e50d6f692b176fecabe1a3cced37b44a89815b3" }
+  ],
+  "sampling": ["--temp", "0.8", "--top-k", "20", "--top-p", "1.0", "--min-p", "0"],
+  "notes": "harness-hub LoRA (RL-trained, async GRPO) that tunes Qwen3.8-27B for the OpenCode coding agent: SWE-bench Pro hard-51 35.3 -> 51.0, Terminal-Bench 2.1 46.4 -> 52.4 (their numbers, thinking off; keep thinking off, it adds nothing for the adapter). Sampling = their training sampling (temp 0.8, top-p 1.0). Served as --lora on the Q5_K_XL base already on disk. The MTP head is not touched by the LoRA. ts = A4500,V100.",
+  "configs": [
+    { "name": "l45-mtp3-32k", "ctx": 32768, "sm": "layer", "ts": "45,55", "spec": "mtp", "n": 3 },
+    { "name": "l45-mtp4-32k", "ctx": 32768, "sm": "layer", "ts": "45,55", "spec": "mtp", "n": 4 },
+    { "name": "l60-mtp3-128k", "ctx": 131072, "sm": "layer", "ts": "60,40", "spec": "mtp", "n": 3 },
+    { "name": "l65-mtp3-262k-q4-ub256", "ctx": 262144, "sm": "layer", "ts": "65,35", "kv": "q4_0", "ub": 256, "spec": "mtp", "n": 3 }
+  ],
+  "sets": {
+    "main": ["l45-mtp3-32k", "l45-mtp4-32k", "l60-mtp3-128k", "l65-mtp3-262k-q4-ub256"]
+  }
+}

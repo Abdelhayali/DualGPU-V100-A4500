@@ -510,6 +510,26 @@
         }
       ]
     },
+    "qwen3.8-27b-opencode": {
+      "default": "128k",
+      "presets": [
+        {
+          "name": "128k",
+          "config": "l60-mtp3-128k",
+          "summary": "default: 128k ctx, f16 KV, MTP 3, split 60/40 - 41.9 tok/s (code 46.5), vision, hard suite 81.2 (harness-hub OpenCode LoRA on Q5_K_XL; keep thinking off)"
+        },
+        {
+          "name": "fast",
+          "config": "l45-mtp4-32k",
+          "summary": "fastest: 32k ctx, f16 KV, MTP 4 - 42.9 tok/s (code 49.9)"
+        },
+        {
+          "name": "262k",
+          "config": "l65-mtp3-262k-q4-ub256",
+          "summary": "full 262k ctx, q4 KV, MTP 3, split 65/35, ub 256 - 39.8 tok/s"
+        }
+      ]
+    },
     "ternary-bonsai-2.5-27b-qsa": {
       "default": "200k",
       "presets": [
