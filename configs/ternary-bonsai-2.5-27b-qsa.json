@@ -1,0 +1,27 @@
+{
+  "id": "ternary-bonsai-2.5-27b-qsa",
+  "name": "Ternary Bonsai 2.5 27B QSA (PTQ1_0 + MTP head + Qwen Sparse Attention indexers, sahenjp, vision)",
+  "gguf": "Ternary-Bonsai-2.5-27B-PTQ1_0-QSA-bonsai-v1-mtp.gguf",
+  "mmproj": "Ternary-Bonsai-2.5-27B-mmproj-BF16.gguf",
+  "kernel": "qsa",
+  "files": [
+    { "repo": "sahenjp/Ternary-Bonsai-2.5-27B-QSA-GGUF", "file": "Ternary-Bonsai-2.5-27B-PTQ1_0-QSA-bonsai-v1-mtp.gguf", "gb": 6.44, "note": "needs the PrismML fork with patches/bonsai-qsa-engine.patch (kernel\\bin-qsa)" },
+    { "repo": "prism-ml/Ternary-Bonsai-2.5-27B-GGUF", "file": "Ternary-Bonsai-2.5-27B-mmproj-BF16.gguf", "gb": 0.93, "note": "hard link of the ternary-bonsai-2.5-27b copy" }
+  ],
+  "sampling": ["--temp", "1.0", "--top-k", "20", "--top-p", "0.95", "--min-p", "0"],
+  "notes": "Same ternary weights as ternary-bonsai-2.5-27b plus 16 distilled QSA indexers (block-sparse attention, top_k 2048). Engine: PrismML-Eng/llama.cpp prism branch (ce40e81) + the repo's bonsai-qsa-engine.patch, built as kernel\\src-qsa -> bin-qsa (sm 70 + 86). QSA needs flash attention and F16 or Q8_0 KV. Sampling = the model card's thinking settings.",
+  "configs": [
+    { "name": "v100-mtp3-32k",          "ctx": 32768,  "gpu": "V100", "spec": "mtp", "n": 3 },
+    { "name": "v100-mtp3-128k-q8-mmA",  "ctx": 131072, "sm": "none", "mg": 1, "spec": "mtp", "n": 3, "kv": "q8_0", "extra": ["-mmdev", "CUDA0"], "note": "model on the V100, vision projector on the A4500" },
+    { "name": "v100-mtp3-200k-q8-mmA",  "ctx": 204800, "sm": "none", "mg": 1, "spec": "mtp", "n": 3, "kv": "q8_0", "extra": ["-mmdev", "CUDA0"], "note": "model on the V100, vision projector on the A4500" },
+    { "name": "v100-200k-q8-mmA",       "ctx": 204800, "sm": "none", "mg": 1, "kv": "q8_0", "extra": ["-mmdev", "CUDA0"], "note": "no MTP" },
+    { "name": "v100-262k-q8-mmA",      "ctx": 262144, "sm": "none", "mg": 1, "kv": "q8_0", "extra": ["-mmdev", "CUDA0"], "note": "no MTP: the card says plain QSA is faster at 256K" },
+    { "name": "v100-mtp3-262k-q8-mmA",  "ctx": 262144, "sm": "none", "mg": 1, "spec": "mtp", "n": 3, "kv": "q8_0", "extra": ["-mmdev", "CUDA0"], "note": "model on the V100, vision projector on the A4500" },
+    { "name": "a4500-mtp3-32k",         "ctx": 32768,  "gpu": "A4500", "spec": "mtp", "n": 3 },
+    { "name": "a4500-mtp3-262k-q8",     "ctx": 262144, "gpu": "A4500", "spec": "mtp", "n": 3, "kv": "q8_0" },
+    { "name": "a4500-262k-q8",          "ctx": 262144, "gpu": "A4500", "kv": "q8_0" }
+  ],
+  "sets": {
+    "main": ["v100-mtp3-32k", "v100-mtp3-128k-q8-mmA", "v100-mtp3-200k-q8-mmA", "v100-262k-q8-mmA", "v100-mtp3-262k-q8-mmA", "a4500-mtp3-32k", "a4500-mtp3-262k-q8", "a4500-262k-q8"]
+  }
+}

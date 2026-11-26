@@ -121,7 +121,23 @@ $cat = [ordered]@{
       'dualgpu-inklingm' = [ordered]@{
         name = 'llama.cpp master e50c254a (Inkling-2-Mini, merged #32694)'
         desc = 'Upstream llama.cpp e50c254a (2026-11-21) with the merged looped Inkling-2-Mini support, no V100 MMVQ patch; built by tools\build-kernel.bat <cuda> inklingm. kernel\bin-inklingm.'
-        exe = 'llama-server.exe'; dir = 'bin-inklingm' } }
+        exe = 'llama-server.exe'; dir = 'bin-inklingm' }
+      'dualgpu-prism' = [ordered]@{
+        name = 'PrismML llama.cpp prism-b12178-03ec600 (Bonsai PTQ1_0 / Q2_0 ternary)'
+        desc = 'PrismML release build (CUDA 12.4, Windows). kernelin-prism.'
+        exe = 'llama-server.exe'; dir = 'bin-prism' }
+      'dualgpu-raon' = [ordered]@{
+        name = 'KRAFTON llama.cpp raon-1-mini e164709 (Raon-1 mini)'
+        desc = 'KRAFTON fork, branch raon-1-mini, built by toolsuild-kernel.bat (CUDA 12.9, sm_70 + sm_86). kernelin-raon.'
+        exe = 'llama-server.exe'; dir = 'bin-raon' }
+      'dualgpu-nari' = [ordered]@{
+        name = 'nari-labs llama.cpp b12431-nariv0 (NariQ trellis, Ampere only)'
+        desc = 'nari-labs release build (CUDA 12.8, Windows). kernelin-nari.'
+        exe = 'llama-server.exe'; dir = 'bin-nari' }
+      'dualgpu-qsa' = [ordered]@{
+        name = 'PrismML llama.cpp ce40e81 + bonsai-qsa-engine.patch (Qwen Sparse Attention)'
+        desc = 'kernel\src-qsa built with tools\build-kernel.bat (variant qsa, sm 70 + 86) into kernel\bin-qsa.'
+        exe = 'llama-server.exe'; dir = 'bin-qsa' } }
     models = $models
 }
 [IO.File]::WriteAllText("$Root\catalog.json", ($cat | ConvertTo-Json -Depth 10), [Text.UTF8Encoding]::new($false))

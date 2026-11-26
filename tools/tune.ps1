@@ -3,9 +3,10 @@
 # Usage: tools\tune.ps1 <model id> [config name ...]      (no names = every config in the file)
 #        tools\tune.ps1 <model id> -Set <set name>        (a named group from "sets" in the config file)
 [CmdletBinding(PositionalBinding = $false)]
-param([Parameter(Mandatory, Position = 0)][string] $Model, [string] $Set, [Parameter(ValueFromRemainingArguments)] [string[]] $Names)
+param([Parameter(Mandatory, Position = 0)][string] $Model, [string] $Set, [int] $ListenPort, [Parameter(ValueFromRemainingArguments)] [string[]] $Names)
 $ErrorActionPreference = 'Continue'
 . "$PSScriptRoot\common.ps1"
+if ($ListenPort) { $Port = $ListenPort }   # e.g. -ListenPort 8900 next to a server on 8899
 $m = Get-ModelCfg $Model
 $configs = @($m.configs)
 if ($Set) { $Names = @($m.sets.$Set) }

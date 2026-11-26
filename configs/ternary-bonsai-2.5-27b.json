@@ -1,0 +1,42 @@
+{
+  "id": "ternary-bonsai-2.5-27b",
+  "name": "Ternary Bonsai 2.5 27B PTQ1_0 + MTP head (PrismML, ternary Qwen3.8-27B, 1.76 bpw, vision)",
+  "gguf": "Ternary-Bonsai-2.5-27B-PTQ1_0-mtp.gguf",
+  "mmproj": "Ternary-Bonsai-2.5-27B-mmproj-BF16.gguf",
+  "kernel": "prism",
+  "files": [
+    { "repo": "prism-ml/Ternary-Bonsai-2.5-27B-GGUF", "file": "Ternary-Bonsai-2.5-27B-PTQ1_0-mtp.gguf", "gb": 6.23, "note": "needs the PrismML llama.cpp fork (kernel\\bin-prism)" },
+    { "repo": "prism-ml/Ternary-Bonsai-2.5-27B-GGUF", "file": "Ternary-Bonsai-2.5-27B-Q2_0-mtp.gguf", "gb": 7.91, "note": "the same weights in llama.cpp's standard Q2_0" },
+    { "repo": "prism-ml/Ternary-Bonsai-2.5-27B-GGUF", "file": "Ternary-Bonsai-2.5-27B-mmproj-BF16.gguf", "gb": 0.93 }
+  ],
+  "sampling": ["--temp", "1.0", "--top-k", "20", "--top-p", "0.95", "--min-p", "0"],
+  "notes": "PrismML fork release prism-b12178-03ec600 (Windows CUDA 12.4 build). MTP settings from the model's CUDA preset: n-max 3, p-min 0 (consumer) / 0.1 (datacenter). Sampling = the model card's. The model is small enough for one card, so the other stays free.",
+  "configs": [
+    { "name": "v100-mtp3-32k",        "ctx": 32768,  "gpu": "V100", "spec": "mtp", "n": 3 },
+    { "name": "v100-nodraft-32k",     "ctx": 32768,  "gpu": "V100" },
+    { "name": "v100-mtp2-32k",        "ctx": 32768,  "gpu": "V100", "spec": "mtp", "n": 2 },
+    { "name": "v100-mtp4-32k",        "ctx": 32768,  "gpu": "V100", "spec": "mtp", "n": 4 },
+    { "name": "v100-mtp3-p01-32k",    "ctx": 32768,  "gpu": "V100", "spec": "mtp", "n": 3, "extra": ["--spec-draft-p-min", "0.1"] },
+    { "name": "v100-q2-mtp3-32k",     "ctx": 32768,  "gpu": "V100", "spec": "mtp", "n": 3, "gguf": "Ternary-Bonsai-2.5-27B-Q2_0-mtp.gguf" },
+    { "name": "v100-mtp3-128k",       "ctx": 131072, "gpu": "V100", "spec": "mtp", "n": 3 },
+    { "name": "v100-mtp4-128k-q8",    "ctx": 131072, "gpu": "V100", "spec": "mtp", "n": 4, "kv": "q8_0", "mmgpu": false, "note": "vision projector on the CPU" },
+    { "name": "v100-mtp3-262k-q8",    "ctx": 262144, "gpu": "V100", "spec": "mtp", "n": 3, "kv": "q8_0" },
+    { "name": "v100-mtp3-128k-mmA", "ctx": 131072, "sm": "none", "mg": 1, "spec": "mtp", "n": 3, "extra": ["-mmdev", "CUDA0"], "note": "model on the V100, vision projector on the A4500" },
+    { "name": "v100-mtp3-128k-q8-mmA", "ctx": 131072, "sm": "none", "mg": 1, "spec": "mtp", "n": 3, "kv": "q8_0", "extra": ["-mmdev", "CUDA0"], "note": "model on the V100, vision projector on the A4500" },
+    { "name": "v100-mtp4-128k-q8-mmA", "ctx": 131072, "sm": "none", "mg": 1, "spec": "mtp", "n": 4, "kv": "q8_0", "extra": ["-mmdev", "CUDA0"], "note": "model on the V100, vision projector on the A4500" },
+    { "name": "v100-mtp3-200k-q8-mmA", "ctx": 204800, "sm": "none", "mg": 1, "spec": "mtp", "n": 3, "kv": "q8_0", "extra": ["-mmdev", "CUDA0"], "note": "model on the V100, vision projector on the A4500" },
+    { "name": "v100-mtp4-200k-q8-mmA", "ctx": 204800, "sm": "none", "mg": 1, "spec": "mtp", "n": 4, "kv": "q8_0", "extra": ["-mmdev", "CUDA0"], "note": "model on the V100, vision projector on the A4500" },
+
+    { "name": "a4500-mtp3-32k",       "ctx": 32768,  "gpu": "A4500", "spec": "mtp", "n": 3 },
+    { "name": "a4500-mtp4-32k",       "ctx": 32768,  "gpu": "A4500", "spec": "mtp", "n": 4 },
+    { "name": "a4500-mtp4-262k-q8",   "ctx": 262144, "gpu": "A4500", "spec": "mtp", "n": 4, "kv": "q8_0" },
+    { "name": "a4500-q2-mtp3-32k",    "ctx": 32768,  "gpu": "A4500", "spec": "mtp", "n": 3, "gguf": "Ternary-Bonsai-2.5-27B-Q2_0-mtp.gguf" },
+    { "name": "a4500-mtp3-262k",      "ctx": 262144, "gpu": "A4500", "spec": "mtp", "n": 3 },
+    { "name": "a4500-mtp3-262k-q8",   "ctx": 262144, "gpu": "A4500", "spec": "mtp", "n": 3, "kv": "q8_0" },
+    { "name": "both-l50-mtp3-262k",   "ctx": 262144, "sm": "layer", "ts": "50,50", "spec": "mtp", "n": 3 }
+  ],
+  "sets": {
+    "v100": ["v100-mtp3-32k", "v100-nodraft-32k", "v100-mtp2-32k", "v100-mtp4-32k", "v100-mtp3-p01-32k", "v100-q2-mtp3-32k", "v100-mtp3-128k", "v100-mtp3-262k-q8"],
+    "a4500": ["a4500-mtp3-32k", "a4500-q2-mtp3-32k", "a4500-mtp3-262k", "a4500-mtp3-262k-q8", "both-l50-mtp3-262k"]
+  }
+}

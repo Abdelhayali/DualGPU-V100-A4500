@@ -1,0 +1,58 @@
+{
+  "id": "qwen3.8-27b-nariq",
+  "name": "Qwen3.8-27B NariQ (trellis-coded 3.0 / 2.5 / 2.0 bpw, nari-labs fork of llama.cpp, vision)",
+  "gguf": "Qwen3.8-27B-NariQ-3.0bpw.gguf",
+  "mmproj": "Qwen3.8-27B-NariQ-mmproj-BF16.gguf",
+  "draft": "Qwen3.8-27B-DFlash2-Q4_K_M.gguf",
+  "kernel": "nari",
+  "files": [
+    { "repo": "nari-labs/Qwen3.8-27B-NariQ-GGUF", "file": "Qwen3.8-27B-NariQ-3.0bpw.gguf", "gb": 10.12 },
+    { "repo": "nari-labs/Qwen3.8-27B-NariQ-GGUF", "file": "Qwen3.8-27B-NariQ-2.5bpw.gguf", "gb": 8.44 },
+    { "repo": "nari-labs/Qwen3.8-27B-NariQ-GGUF", "file": "Qwen3.8-27B-NariQ-2.0bpw.gguf", "gb": 6.75, "note": "weaker on math and agent tasks (model card)" },
+    { "repo": "nari-labs/Qwen3.8-27B-NariQ-GGUF", "file": "Qwen3.8-27B-NariQ-mmproj-BF16.gguf", "gb": 0.93 },
+    { "repo": "z-lab/Qwen3.8-27B-DFlash2-GGUF", "file": "Qwen3.8-27B-DFlash2-Q4_K_M.gguf", "gb": 1.14, "note": "only for spec=dflash; hard link of the qwen3.8-27b copy" },
+    { "repo": "aj9o9/Qwen3.8-27B-DSpine-b16-GGUF", "file": "Qwen3.8-27B-DSpine-b16-Q4_K_M.gguf", "gb": 1.26, "note": "DSpine drafter; hard link of the qwen3.8-27b copy" }
+  ],
+  "sampling": ["--temp", "1.0", "--top-k", "20", "--top-p", "0.95", "--min-p", "0"],
+  "notes": "Needs the nari-labs llama.cpp fork (kernel\\bin-nari, release b12431-nariv0, CUDA 12.8 Windows build). NariQ tensors run only on Ampere or newer: on the V100 they fall back to the CPU, so the model sits on the A4500 (sm none, mg 0). No MTP heads in these files, and DFlash/DSpine drafters do not start: they share the target's embedding and output, which are trellis-coded here. Sampling = the model card's thinking settings.",
+  "configs": [
+    { "name": "q30-32k",          "ctx": 32768, "sm": "none", "mg": 0 },
+    { "name": "q25-32k",          "ctx": 32768, "sm": "none", "mg": 0, "gguf": "Qwen3.8-27B-NariQ-2.5bpw.gguf" },
+    { "name": "q20-32k",          "ctx": 32768, "sm": "none", "mg": 0, "gguf": "Qwen3.8-27B-NariQ-2.0bpw.gguf" },
+    { "name": "q30-32k-bf16-bs",  "ctx": 32768, "sm": "none", "mg": 0, "kv": "bf16", "extra": ["-bs"], "note": "the model card's benchmark flags" },
+    { "name": "q30-l50-32k",      "ctx": 32768, "sm": "layer", "ts": "50,50", "note": "half the layers on the V100 (NariQ falls back to the CPU there)" },
+
+    { "name": "q30-128k",         "ctx": 131072, "sm": "none", "mg": 0 },
+    { "name": "q25-128k",         "ctx": 131072, "sm": "none", "mg": 0, "gguf": "Qwen3.8-27B-NariQ-2.5bpw.gguf" },
+    { "name": "q25-262k-q8",      "ctx": 262144, "sm": "none", "mg": 0, "kv": "q8_0", "gguf": "Qwen3.8-27B-NariQ-2.5bpw.gguf" },
+    { "name": "q30-262k-q8",      "ctx": 262144, "sm": "none", "mg": 0, "kv": "q8_0" },
+
+    { "name": "q30-mtp2-32k",     "ctx": 32768, "sm": "none", "mg": 0, "spec": "mtp", "n": 2, "gguf": "Qwen3.8-27B-NariQ-3.0bpw-mtp.gguf", "note": "MTP layer grafted from Qwen3.8-27B-UD-Q5_K_XL (tools/mtp_graft.py)" },
+    { "name": "q30-mtp3-32k",     "ctx": 32768, "sm": "none", "mg": 0, "spec": "mtp", "n": 3, "gguf": "Qwen3.8-27B-NariQ-3.0bpw-mtp.gguf", "note": "MTP layer grafted from Qwen3.8-27B-UD-Q5_K_XL (tools/mtp_graft.py)" },
+    { "name": "q30-mtp4-32k",     "ctx": 32768, "sm": "none", "mg": 0, "spec": "mtp", "n": 4, "gguf": "Qwen3.8-27B-NariQ-3.0bpw-mtp.gguf", "note": "MTP layer grafted from Qwen3.8-27B-UD-Q5_K_XL (tools/mtp_graft.py)" },
+    { "name": "q25-mtp3-32k",     "ctx": 32768, "sm": "none", "mg": 0, "spec": "mtp", "n": 3, "gguf": "Qwen3.8-27B-NariQ-2.5bpw-mtp.gguf", "note": "MTP layer grafted from Qwen3.8-27B-UD-Q5_K_XL (tools/mtp_graft.py)" },
+    { "name": "q30-mtp3-128k",    "ctx": 131072, "sm": "none", "mg": 0, "spec": "mtp", "n": 3, "gguf": "Qwen3.8-27B-NariQ-3.0bpw-mtp.gguf" },
+    { "name": "q30-mtp3-262k-q8", "ctx": 262144, "sm": "none", "mg": 0, "spec": "mtp", "n": 3, "kv": "q8_0", "gguf": "Qwen3.8-27B-NariQ-3.0bpw-mtp.gguf" },
+    { "name": "q25-mtp3-262k-q8", "ctx": 262144, "sm": "none", "mg": 0, "spec": "mtp", "n": 3, "kv": "q8_0", "gguf": "Qwen3.8-27B-NariQ-2.5bpw-mtp.gguf" },
+    { "name": "q30-mtp3-128k-mV",     "ctx": 131072, "sm": "none", "mg": 0, "spec": "mtp", "n": 3, "gguf": "Qwen3.8-27B-NariQ-3.0bpw-mtp.gguf", "extra": ["-ot", "blk\\.64\\.=CUDA1", "-mmdev", "CUDA1"], "note": "grafted MTP layer + vision on the V100" },
+    { "name": "q30-mtp3-262k-q8-mV",  "ctx": 262144, "sm": "none", "mg": 0, "spec": "mtp", "n": 3, "kv": "q8_0", "gguf": "Qwen3.8-27B-NariQ-3.0bpw-mtp.gguf", "extra": ["-ot", "blk\\.64\\.=CUDA1", "-mmdev", "CUDA1"], "note": "grafted MTP layer + vision on the V100" },
+    { "name": "q25-mtp3-262k-q8-mV",  "ctx": 262144, "sm": "none", "mg": 0, "spec": "mtp", "n": 3, "kv": "q8_0", "gguf": "Qwen3.8-27B-NariQ-2.5bpw-mtp.gguf", "extra": ["-ot", "blk\\.64\\.=CUDA1", "-mmdev", "CUDA1"], "note": "grafted MTP layer + vision on the V100" },
+    { "name": "q30-mtp3-64k-mV",      "ctx": 65536, "sm": "none", "mg": 0, "spec": "mtp", "n": 3, "gguf": "Qwen3.8-27B-NariQ-3.0bpw-mtp.gguf", "extra": ["-ot", "nextn\\.embed_tokens=CPU", "-mmdev", "CUDA1"], "note": "grafted MTP embeddings in RAM, vision on the V100" },
+    { "name": "q25-mtp3-128k-mV",     "ctx": 131072, "sm": "none", "mg": 0, "spec": "mtp", "n": 3, "gguf": "Qwen3.8-27B-NariQ-2.5bpw-mtp.gguf", "extra": ["-ot", "nextn\\.embed_tokens=CPU", "-mmdev", "CUDA1"], "note": "grafted MTP embeddings in RAM, vision on the V100" },
+    { "name": "q25-mtp3-262k-q8-mVc", "ctx": 262144, "sm": "none", "mg": 0, "spec": "mtp", "n": 3, "kv": "q8_0", "gguf": "Qwen3.8-27B-NariQ-2.5bpw-mtp.gguf", "extra": ["-ot", "nextn\\.embed_tokens=CPU", "-mmdev", "CUDA1"], "note": "grafted MTP embeddings in RAM, vision on the V100" },
+    { "name": "q30-128k-mV",         "ctx": 131072, "sm": "none", "mg": 0, "extra": ["-mmdev", "CUDA1"], "note": "no MTP, vision on the V100" },
+    { "name": "q30-ngram-32k",   "ctx": 32768, "sm": "none", "mg": 0, "spec": "ngram", "n": 8, "note": "prompt-lookup drafting, no draft model" },
+
+    { "name": "q30-dfl4-32k",   "ctx": 32768, "sm": "none", "mg": 0, "spec": "dflash", "n": 4 },
+    { "name": "q30-dfl6-32k",     "ctx": 32768, "sm": "none", "mg": 0, "spec": "dflash", "n": 6 },
+    { "name": "q30-dfl4-32k-dV",  "ctx": 32768, "sm": "none", "mg": 0, "spec": "dflash", "n": 4, "devd": "CUDA1", "note": "drafter on the V100" },
+    { "name": "q30-dsp15-32k",    "ctx": 32768, "sm": "none", "mg": 0, "spec": "dflash", "n": 15, "draft": "Qwen3.8-27B-DSpine-b16-Q4_K_M.gguf" },
+    { "name": "q25-dfl4-32k",     "ctx": 32768, "sm": "none", "mg": 0, "spec": "dflash", "n": 4, "gguf": "Qwen3.8-27B-NariQ-2.5bpw.gguf" },
+    { "name": "q20-dfl4-32k",     "ctx": 32768, "sm": "none", "mg": 0, "spec": "dflash", "n": 4, "gguf": "Qwen3.8-27B-NariQ-2.0bpw.gguf" }
+  ],
+  "sets": {
+    "base": ["q30-32k", "q25-32k", "q20-32k", "q30-32k-bf16-bs", "q30-l50-32k"],
+    "ctx": ["q30-128k", "q25-128k", "q25-262k-q8", "q30-262k-q8"],
+    "spec": ["q30-dfl4-32k", "q30-dfl6-32k", "q30-dfl4-32k-dV", "q30-dsp15-32k", "q25-dfl4-32k", "q20-dfl4-32k"]
+  }
+}

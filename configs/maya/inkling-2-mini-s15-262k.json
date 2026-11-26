@@ -1,0 +1,19 @@
+{
+ "exe": "{root}/kernel/strata-inkling-0169/strata-inkling.exe",
+ "src": "src-maya4",
+ "tokenizer": "{root}/models/inkling-2-mini-maya/ik2/tokenizer",
+ "model_name": "inkling-2-mini",
+ "reasoning_effort": "low",
+ "card": "A4500",
+ "args": [
+  "--native",
+  "{root}/models/inkling-2-mini-maya/Inkling-2-Mini-SQ-15.strata",
+  "--max-context",
+  "262144",
+  "--kv",
+  "fp8",
+  "--draft",
+  "dspark"
+ ],
+ "note": "Strata 0.1.69: SQ-15, A4500, 262k, FP8 KV, DSpark, text only (the engine does not take Maya's image command)"
+}

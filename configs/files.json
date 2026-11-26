@@ -71,6 +71,12 @@
   "size": 641805760,
   "url": "https://huggingface.co/unsloth/Inkling-2-Mini-GGUF/resolve/main/mmproj-BF16.gguf"
  },
+ "inkling-2-mini-maya/Inkling-2-Mini-SQ-10.strata": {
+  "repo": "strata-engine/Inkling-2-Mini-Strata",
+  "sha256": "ac4d452ad03e4930abd9d46f9c5eec22b2f75a1da45a1e49bd24ccd58b065934",
+  "size": 10471526400,
+  "url": "https://huggingface.co/strata-engine/Inkling-2-Mini-Strata/resolve/main/Inkling-2-Mini-SQ-10.strata"
+ },
  "inkling-2-mini-maya/Inkling-2-Mini-SQ-15.strata": {
   "repo": "strata-engine/Inkling-2-Mini-Strata",
   "sha256": "2ea32eed533afba257e2cbee7b073dc2c3da80fe55d1d2d794779b5498e30737",
@@ -269,6 +275,42 @@
   "size": 899283584,
   "url": "https://huggingface.co/unsloth/Qwen3.6-35B-A3B-MTP-GGUF/resolve/main/mmproj-F16.gguf"
  },
+ "qwen3.8-27b-nariq/Qwen3.8-27B-DFlash2-Q4_K_M.gguf": {
+  "repo": "z-lab/Qwen3.8-27B-DFlash2-GGUF",
+  "sha256": "1a25c56858e1ebe93f2718ac1d49d1151f9323325c1bbfd6209370f4db131ebd",
+  "size": 1143006816,
+  "url": "https://huggingface.co/z-lab/Qwen3.8-27B-DFlash2-GGUF/resolve/main/Qwen3.8-27B-DFlash2-Q4_K_M.gguf"
+ },
+ "qwen3.8-27b-nariq/Qwen3.8-27B-DSpine-b16-Q4_K_M.gguf": {
+  "repo": "aj9o9/Qwen3.8-27B-DSpine-b16-GGUF",
+  "sha256": "0c6c984ac18611288d7b8f497bc347c4921e8231b1b6abf28650481eaf35ff55",
+  "size": 1257892896,
+  "url": "https://huggingface.co/aj9o9/Qwen3.8-27B-DSpine-b16-GGUF/resolve/main/Qwen3.8-27B-DSpine-b16-Q4_K_M.gguf"
+ },
+ "qwen3.8-27b-nariq/Qwen3.8-27B-NariQ-2.0bpw.gguf": {
+  "repo": "nari-labs/Qwen3.8-27B-NariQ-GGUF",
+  "sha256": "3a9e4955329dba8ba0be5509a9552220e5ccdae2f66bcc72c21c4580cd49bbb2",
+  "size": 6753954304,
+  "url": "https://huggingface.co/nari-labs/Qwen3.8-27B-NariQ-GGUF/resolve/main/Qwen3.8-27B-NariQ-2.0bpw.gguf"
+ },
+ "qwen3.8-27b-nariq/Qwen3.8-27B-NariQ-2.5bpw.gguf": {
+  "repo": "nari-labs/Qwen3.8-27B-NariQ-GGUF",
+  "sha256": "2445372e6de20620b940fbfab53aa718af9ba741f202da30cd2f02b5df78d05c",
+  "size": 8443119712,
+  "url": "https://huggingface.co/nari-labs/Qwen3.8-27B-NariQ-GGUF/resolve/main/Qwen3.8-27B-NariQ-2.5bpw.gguf"
+ },
+ "qwen3.8-27b-nariq/Qwen3.8-27B-NariQ-3.0bpw.gguf": {
+  "repo": "nari-labs/Qwen3.8-27B-NariQ-GGUF",
+  "sha256": "1eaad934aa05579b8eba47ed9b26450392f9875fc2354efe8cfa8b29be8f4419",
+  "size": 10123626592,
+  "url": "https://huggingface.co/nari-labs/Qwen3.8-27B-NariQ-GGUF/resolve/main/Qwen3.8-27B-NariQ-3.0bpw.gguf"
+ },
+ "qwen3.8-27b-nariq/Qwen3.8-27B-NariQ-mmproj-BF16.gguf": {
+  "repo": "nari-labs/Qwen3.8-27B-NariQ-GGUF",
+  "sha256": "8832425f593068d3278e08eda4c1591072c7a2d8dc90f21e4f86394e4b2eb002",
+  "size": 931145760,
+  "url": "https://huggingface.co/nari-labs/Qwen3.8-27B-NariQ-GGUF/resolve/main/Qwen3.8-27B-NariQ-mmproj-BF16.gguf"
+ },
  "qwen3.8-27b-nov12/Qwen3.8-27B-UD-Q5_K_XL.gguf": {
   "repo": "unsloth/Qwen3.8-27B-GGUF",
   "sha256": "a9c4a1d9f7298dfb00c95dd83241530bc07b141ee01ec6962cd31b39d746837c",
@@ -383,6 +425,24 @@
   "size": 4137429120,
   "url": "https://huggingface.co/unsloth/Qwen3.8-Flash-Next-GGUF/resolve/main/mtp-Qwen3.8-Flash-Next-Q8_0.gguf"
  },
+ "raon-1-mini/dflash-raon-1-mini-Q8_0.gguf": {
+  "repo": "KRAFTON/Raon-1-mini-gguf",
+  "sha256": "7ddb422341cb3ae9abf312a8e26385e0c0ada4c104dd2c8a8556aa75e8c39cac",
+  "size": 732539232,
+  "url": "https://huggingface.co/KRAFTON/Raon-1-mini-gguf/resolve/main/dflash-raon-1-mini-Q8_0.gguf"
+ },
+ "raon-1-mini/raon-1-mini-IQ4_XS.gguf": {
+  "repo": "KRAFTON/Raon-1-mini-gguf",
+  "sha256": "15d2fca1851f66296d29f2d0db39d9a09762c78a76209cd28c4f4e9ce29e38ff",
+  "size": 16210359040,
+  "url": "https://huggingface.co/KRAFTON/Raon-1-mini-gguf/resolve/main/raon-1-mini-IQ4_XS.gguf"
+ },
+ "raon-1-mini/raon-1-mini-Q4_K_M.gguf": {
+  "repo": "KRAFTON/Raon-1-mini-gguf",
+  "sha256": "38e9910ce20dc2a48b88f017b2348d76a093775550f267ef60f12a8e56e704c8",
+  "size": 19686485760,
+  "url": "https://huggingface.co/KRAFTON/Raon-1-mini-gguf/resolve/main/raon-1-mini-Q4_K_M.gguf"
+ },
  "ripple-65b/Ripple-65B-Preview-AD-IQ3_XXS.gguf": {
   "repo": "AtomicChat/Ripple-65B-Preview-GGUF",
   "sha256": "0aca90d6d3062dcadbc5f7988504c2b53588d99f648b4e0b09107a72e427401a",
@@ -400,6 +460,36 @@
   "sha256": "6786aa6bcfce1da6d4d233d4b24bbb473608d8b6c487b9af3989af02cc4d1ccd",
   "size": 899282976,
   "url": "https://huggingface.co/abdelhayali91/Surogate3.7-35B-A3B-GGUF/resolve/main/mmproj-Surogate3.7-35B-A3B-F16.gguf"
+ },
+ "ternary-bonsai-2.5-27b-qsa/Ternary-Bonsai-2.5-27B-PTQ1_0-QSA-bonsai-v1-mtp.gguf": {
+  "repo": "sahenjp/Ternary-Bonsai-2.5-27B-QSA-GGUF",
+  "sha256": "c800d52b78c1eeda904ca8a7b25e2f31c4f51733b60dd306db672773f12b7b68",
+  "size": 6442564320,
+  "url": "https://huggingface.co/sahenjp/Ternary-Bonsai-2.5-27B-QSA-GGUF/resolve/main/Ternary-Bonsai-2.5-27B-PTQ1_0-QSA-bonsai-v1-mtp.gguf"
+ },
+ "ternary-bonsai-2.5-27b-qsa/Ternary-Bonsai-2.5-27B-mmproj-BF16.gguf": {
+  "repo": "prism-ml/Ternary-Bonsai-2.5-27B-GGUF",
+  "sha256": "e287342d92332fa3577ed1d42e921dac9370c08da58ba9337fa450f6cc76cfd7",
+  "size": 931145856,
+  "url": "https://huggingface.co/prism-ml/Ternary-Bonsai-2.5-27B-GGUF/resolve/main/Ternary-Bonsai-2.5-27B-mmproj-BF16.gguf"
+ },
+ "ternary-bonsai-2.5-27b/Ternary-Bonsai-2.5-27B-PTQ1_0-mtp.gguf": {
+  "repo": "prism-ml/Ternary-Bonsai-2.5-27B-GGUF",
+  "sha256": "e0fc5f3d47b9c926d52677d303b19df356a2376614b3e1cb9973865fc04ca431",
+  "size": 6232818944,
+  "url": "https://huggingface.co/prism-ml/Ternary-Bonsai-2.5-27B-GGUF/resolve/main/Ternary-Bonsai-2.5-27B-PTQ1_0-mtp.gguf"
+ },
+ "ternary-bonsai-2.5-27b/Ternary-Bonsai-2.5-27B-Q2_0-mtp.gguf": {
+  "repo": "prism-ml/Ternary-Bonsai-2.5-27B-GGUF",
+  "sha256": "b0f83de8481c3200c529aef5fb495dbfedf2a4a3f017f7a3ea0a69c67be1d306",
+  "size": 7912178944,
+  "url": "https://huggingface.co/prism-ml/Ternary-Bonsai-2.5-27B-GGUF/resolve/main/Ternary-Bonsai-2.5-27B-Q2_0-mtp.gguf"
+ },
+ "ternary-bonsai-2.5-27b/Ternary-Bonsai-2.5-27B-mmproj-BF16.gguf": {
+  "repo": "prism-ml/Ternary-Bonsai-2.5-27B-GGUF",
+  "sha256": "e287342d92332fa3577ed1d42e921dac9370c08da58ba9337fa450f6cc76cfd7",
+  "size": 931145856,
+  "url": "https://huggingface.co/prism-ml/Ternary-Bonsai-2.5-27B-GGUF/resolve/main/Ternary-Bonsai-2.5-27B-mmproj-BF16.gguf"
  },
  "wemm-ecom-35b/WeMM-Ecom-35B-A3B-Q5_K_M.gguf": {
   "repo": "bartowski/WeMM-Ecom-35B-A3B-GGUF",

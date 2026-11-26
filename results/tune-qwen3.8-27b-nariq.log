@@ -1,0 +1,102 @@
+﻿[11-25 07:28:21] q30-32k : loading
+[11-25 07:31:31] q30-32k : does not start
+[11-25 07:31:31] q25-32k : loading
+[11-25 07:34:40] q25-32k : loaded, vram 12016+318 MiB; speed test
+[11-25 07:36:59] q25-32k : speed 30.6 tok/s; image test
+[11-25 07:37:59] q25-32k : image True; 7k prompt
+[11-25 07:38:12] q25-32k : MEAN 30.6 tok/s (code 30.7 / chat 30.6), vram 12086+318 MiB, image True, 7k prompt True @ 794 t/s -> pass
+[11-25 07:38:12] q20-32k : loading
+[11-25 07:39:05] q20-32k : loaded, vram 10504+318 MiB; speed test
+[11-25 07:39:24] q20-32k : speed 32.6 tok/s; image test
+[11-25 07:39:26] q20-32k : image True; 7k prompt
+[11-25 07:39:39] q20-32k : MEAN 32.6 tok/s (code 32.5 / chat 32.6), vram 10574+318 MiB, image True, 7k prompt True @ 794 t/s -> pass
+[11-25 07:39:39] q30-32k-bf16-bs : loading
+[11-25 07:40:35] q30-32k-bf16-bs : loaded, vram 13696+318 MiB; speed test
+[11-25 07:40:58] q30-32k-bf16-bs : speed 29.4 tok/s; image test
+[11-25 07:41:02] q30-32k-bf16-bs : image True; 7k prompt
+[11-25 07:41:15] q30-32k-bf16-bs : MEAN 29.4 tok/s (code 29.5 / chat 29.2), vram 13780+318 MiB, image True, 7k prompt True @ 772 t/s -> pass
+[11-25 07:41:15] q30-dfl4-32k : loading
+[11-25 07:41:56] q30-dfl4-32k : does not start
+[11-25 07:41:56] q30-dsp15-32k : loading
+[11-25 07:42:28] q30-dsp15-32k : does not start
+[11-25 09:53:07] q30-32k : loading
+[11-26 23:35:33] q30-32k : loading
+[11-26 23:36:51] q30-32k : loaded, vram 13967+318 MiB; speed test
+[11-26 23:37:14] q30-32k : speed 29.3 tok/s; image test
+[11-26 23:37:19] q30-32k : image True; 7k prompt
+[11-26 23:37:32] q30-32k : MEAN 29.3 tok/s (code 29.4 / chat 29.3), vram 14037+318 MiB, image True, 7k prompt True @ 781 t/s -> pass
+[11-26 23:37:32] q25-32k : loading
+[11-26 23:38:02] q25-32k : loaded, vram 12365+318 MiB; speed test
+[11-26 23:38:21] q25-32k : speed 30.2 tok/s; image test
+[11-26 23:38:24] q25-32k : image True; 7k prompt
+[11-26 23:38:37] q25-32k : MEAN 30.2 tok/s (code 30.2 / chat 30.2), vram 12435+318 MiB, image True, 7k prompt True @ 777 t/s -> pass
+[11-26 23:38:37] q30-mtp2-32k : loading
+[11-26 23:38:57] q30-mtp2-32k : does not start
+[11-26 23:38:57] q30-mtp3-32k : loading
+[11-26 23:39:16] q30-mtp3-32k : does not start
+[11-26 23:39:16] q30-mtp4-32k : loading
+[11-26 23:39:36] q30-mtp4-32k : does not start
+[11-26 23:39:36] q25-mtp3-32k : loading
+[11-26 23:39:55] q25-mtp3-32k : does not start
+[11-26 23:39:55] q30-mtp3-128k : loading
+[11-26 23:40:15] q30-mtp3-128k : does not start
+[11-26 23:40:15] q30-mtp3-262k-q8 : loading
+[11-26 23:40:34] q30-mtp3-262k-q8 : does not start
+[11-26 23:40:34] q25-mtp3-262k-q8 : loading
+[11-26 23:40:54] q25-mtp3-262k-q8 : does not start
+[11-26 23:40:54] q30-ngram-32k : loading
+[11-26 23:41:23] q30-ngram-32k : loaded, vram 13977+318 MiB; speed test
+[11-26 23:41:46] q30-ngram-32k : speed 29.0 tok/s; image test
+[11-26 23:41:50] q30-ngram-32k : image True; 7k prompt
+[11-26 23:42:04] q30-ngram-32k : MEAN 29.0 tok/s (code 29.1 / chat 28.8), vram 14047+318 MiB, image True, 7k prompt True @ 775 t/s -> pass
+[11-26 23:44:29] q30-mtp3-32k : loading
+[11-26 23:44:50] q30-mtp3-32k : does not start
+[11-26 23:46:21] q30-mtp3-32k : loading
+[11-26 23:47:48] q30-mtp3-32k : loaded, vram 17321+318 MiB; speed test
+[11-26 23:48:35] q30-mtp3-32k : speed 53.0 tok/s; image test
+[11-26 23:48:39] q30-mtp3-32k : image True; 7k prompt
+[11-26 23:48:51] q30-mtp3-32k : MEAN 53.0 tok/s (code 61.2 / chat 44.8), accept 72%, vram 17417+318 MiB, image True, 7k prompt True @ 761 t/s -> pass
+[11-26 23:50:18] q30-mtp2-32k : loading
+[11-26 23:50:54] q30-mtp2-32k : loaded, vram 17172+318 MiB; speed test
+[11-26 23:51:10] q30-mtp2-32k : speed 46.7 tok/s; image test
+[11-26 23:51:13] q30-mtp2-32k : image True; 7k prompt
+[11-26 23:51:26] q30-mtp2-32k : MEAN 46.7 tok/s (code 50.8 / chat 42.6), accept 79%, vram 17268+318 MiB, image True, 7k prompt True @ 757 t/s -> pass
+[11-26 23:51:26] q30-mtp4-32k : loading
+[11-26 23:52:01] q30-mtp4-32k : loaded, vram 17472+318 MiB; speed test
+[11-26 23:52:15] q30-mtp4-32k : speed 53.0 tok/s; image test
+[11-26 23:52:18] q30-mtp4-32k : image True; 7k prompt
+[11-26 23:52:30] q30-mtp4-32k : MEAN 53.0 tok/s (code 61.2 / chat 44.9), accept 64%, vram 17568+318 MiB, image True, 7k prompt True @ 752 t/s -> pass
+[11-26 23:52:30] q25-mtp3-32k : loading
+[11-26 23:53:02] q25-mtp3-32k : loaded, vram 15720+318 MiB; speed test
+[11-26 23:53:15] q25-mtp3-32k : speed 53.1 tok/s; image test
+[11-26 23:53:17] q25-mtp3-32k : image True; 7k prompt
+[11-26 23:53:29] q25-mtp3-32k : MEAN 53.1 tok/s (code 60.9 / chat 45.3), accept 72%, vram 15817+318 MiB, image True, 7k prompt True @ 751 t/s -> pass
+[11-26 23:53:29] q30-mtp3-128k : loading
+[11-26 23:54:09] q30-mtp3-128k : does not start
+[11-26 23:54:09] q30-mtp3-262k-q8 : loading
+[11-26 23:54:47] q30-mtp3-262k-q8 : does not start
+[11-26 23:54:47] q25-mtp3-262k-q8 : loading
+[11-26 23:55:26] q25-mtp3-262k-q8 : does not start
+[11-26 23:55:47] q30-mtp3-128k-mV : loading
+[11-26 23:56:08] q30-mtp3-128k-mV : does not start
+[11-26 23:56:08] q30-mtp3-262k-q8-mV : loading
+[11-26 23:56:27] q30-mtp3-262k-q8-mV : does not start
+[11-26 23:56:27] q25-mtp3-262k-q8-mV : loading
+[11-26 23:56:47] q25-mtp3-262k-q8-mV : does not start
+[11-26 23:56:47] q30-128k-mV : loading
+[11-26 23:58:43] q30-128k-mV : loaded, vram 18291+1458 MiB; speed test
+[11-26 23:59:05] q30-128k-mV : speed 29.2 tok/s; image test
+[11-26 23:59:19] q30-128k-mV : image True; 7k prompt
+[11-26 23:59:33] q30-128k-mV : MEAN 29.2 tok/s (code 29.3 / chat 29.2), vram 18336+1726 MiB, image True, 7k prompt True @ 769 t/s -> pass
+[11-26 23:59:55] q30-mtp3-64k-mV : loading
+[11-27 00:00:32] q30-mtp3-64k-mV : loaded, vram 16622+1456 MiB; speed test
+[11-27 00:00:45] q30-mtp3-64k-mV : speed 52.7 tok/s; image test
+[11-27 00:00:49] q30-mtp3-64k-mV : image True; 7k prompt
+[11-27 00:01:01] q30-mtp3-64k-mV : MEAN 52.7 tok/s (code 60.1 / chat 45.4), accept 72%, vram 16694+1726 MiB, image True, 7k prompt True @ 743 t/s -> pass
+[11-27 00:01:01] q25-mtp3-128k-mV : loading
+[11-27 00:01:33] q25-mtp3-128k-mV : loaded, vram 19501+1457 MiB; speed test
+[11-27 00:01:46] q25-mtp3-128k-mV : speed 52.3 tok/s; image test
+[11-27 00:01:48] q25-mtp3-128k-mV : image True; 7k prompt
+[11-27 00:02:00] q25-mtp3-128k-mV : MEAN 52.3 tok/s (code 59.5 / chat 45.1), accept 72%, vram 19573+1727 MiB, image True, 7k prompt True @ 748 t/s -> pass
+[11-27 00:02:00] q25-mtp3-262k-q8-mVc : loading
+[11-27 00:02:32] q25-mtp3-262k-q8-mVc : does not start

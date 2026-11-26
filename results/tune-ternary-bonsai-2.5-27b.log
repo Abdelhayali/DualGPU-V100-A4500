@@ -1,0 +1,75 @@
+[11-25 06:24:13] v100-mtp3-32k : loading
+[11-25 06:24:25] v100-mtp3-32k : does not start
+[11-25 06:24:25] v100-nodraft-32k : loading
+[11-25 06:31:48] v100-nodraft-32k : loaded, vram 19657+9337 MiB; speed test
+[11-25 06:33:24] v100-nodraft-32k : speed 63.0 tok/s; image test
+[11-25 06:33:35] v100-nodraft-32k : image True; 7k prompt
+[11-25 06:33:48] v100-nodraft-32k : MEAN 63.0 tok/s (code 64.1 / chat 61.9), vram 19657+9901 MiB, image True, 7k prompt True @ 747 t/s -> pass
+[11-25 06:33:48] v100-mtp4-32k : loading
+[11-25 06:34:11] v100-mtp4-32k : loaded, vram 19657+10425 MiB; speed test
+[11-25 06:34:33] v100-mtp4-32k : speed 89.1 tok/s; image test
+[11-25 06:34:35] v100-mtp4-32k : image True; 7k prompt
+[11-25 06:34:48] v100-mtp4-32k : MEAN 89.1 tok/s (code 107.9 / chat 70.3), accept 56%, vram 19657+11417 MiB, image True, 7k prompt True @ 650 t/s -> pass
+[11-25 06:34:48] v100-q2-mtp3-32k : loading
+[11-25 06:36:56] v100-q2-mtp3-32k : loaded, vram 19657+11804 MiB; speed test
+[11-25 06:37:30] v100-q2-mtp3-32k : speed 73.7 tok/s; image test
+[11-25 06:37:33] v100-q2-mtp3-32k : image True; 7k prompt
+[11-25 06:37:47] v100-q2-mtp3-32k : MEAN 73.7 tok/s (code 84.3 / chat 63.1), accept 64%, vram 19657+12787 MiB, image True, 7k prompt True @ 595 t/s -> pass
+[11-25 06:37:47] v100-mtp3-128k : loading
+[11-25 06:38:29] v100-mtp3-128k : does not start
+[11-25 06:38:29] v100-mtp3-262k-q8 : loading
+[11-25 06:39:05] v100-mtp3-262k-q8 : does not start
+[11-25 08:53:09] v100-mtp3-32k : loading
+[11-25 08:55:00] v100-mtp3-32k : loaded, vram 587+10275 MiB; speed test
+[11-25 08:55:09] v100-mtp3-32k : speed 102.2 tok/s; image test
+[11-25 08:55:11] v100-mtp3-32k : image True; 7k prompt
+[11-25 08:55:24] v100-mtp3-32k : MEAN 102.2 tok/s (code 119.5 / chat 84.9), accept 64%, vram 587+11249 MiB, image True, 7k prompt True @ 671 t/s -> pass
+[11-25 08:55:24] v100-mtp4-128k-q8 : loading
+[11-25 08:55:44] v100-mtp4-128k-q8 : loaded, vram 587+11897 MiB; speed test
+[11-25 08:56:38] v100-mtp4-128k-q8 : speed 86.8 tok/s; image test
+[11-25 08:56:47] v100-mtp4-128k-q8 : image True; 7k prompt
+[11-25 08:57:01] v100-mtp4-128k-q8 : MEAN 86.8 tok/s (code 105.1 / chat 68.6), accept 55%, vram 587+12661 MiB, image True, 7k prompt True @ 653 t/s -> pass
+[11-25 08:57:01] a4500-mtp4-32k : loading
+[11-25 08:57:27] a4500-mtp4-32k : loaded, vram 10882+10 MiB; speed test
+[11-25 08:57:39] a4500-mtp4-32k : speed 68.2 tok/s; image test
+[11-25 08:57:41] a4500-mtp4-32k : image True; 7k prompt
+[11-25 08:57:53] a4500-mtp4-32k : MEAN 68.2 tok/s (code 80.7 / chat 55.6), accept 56%, vram 10954+10 MiB, image True, 7k prompt True @ 803 t/s -> pass
+[11-25 08:57:53] a4500-mtp4-262k-q8 : loading
+[11-25 08:58:16] a4500-mtp4-262k-q8 : loaded, vram 18342+10 MiB; speed test
+[11-25 08:58:28] a4500-mtp4-262k-q8 : speed 67.0 tok/s; image test
+[11-25 08:58:30] a4500-mtp4-262k-q8 : image True; 7k prompt
+[11-25 08:58:42] a4500-mtp4-262k-q8 : MEAN 67.0 tok/s (code 79.9 / chat 54.2), accept 55%, vram 18426+10 MiB, image True, 7k prompt True @ 781 t/s -> pass
+[11-25 09:55:24] v100-mtp3-128k-cpumm : loading
+[11-25 09:55:47] v100-mtp3-128k-cpumm : loaded, vram 564+15832 MiB; speed test
+[11-25 09:55:55] v100-mtp3-128k-cpumm : speed 102.0 tok/s; image test
+[11-25 09:56:12] v100-mtp3-128k-cpumm : image False; 7k prompt
+[11-25 09:56:17] v100-mtp3-128k-cpumm : MEAN 102.0 tok/s (code 119.0 / chat 85.0), accept 64%, vram 561+10 MiB, image False, 7k prompt False @  t/s -> FAIL
+[11-25 09:56:17] v100-mtp3-128k-q8 : loading
+[11-25 09:56:40] v100-mtp3-128k-q8 : loaded, vram 564+11747 MiB; speed test
+[11-25 09:56:48] v100-mtp3-128k-q8 : speed 98.2 tok/s; image test
+[11-25 09:56:57] v100-mtp3-128k-q8 : image True; 7k prompt
+[11-25 09:57:30] v100-mtp3-128k-mmA : loading
+[11-25 09:57:54] v100-mtp3-128k-mmA : loaded, vram 1883+15832 MiB; speed test
+[11-25 09:58:03] v100-mtp3-128k-mmA : speed 100.0 tok/s; image test
+[11-25 09:59:03] v100-mtp3-128k-mmA : image False; 7k prompt
+[11-25 09:59:08] v100-mtp3-128k-mmA : MEAN 100.0 tok/s (code 117.5 / chat 82.5), accept 64%, vram 562+10 MiB, image False, 7k prompt False @  t/s -> FAIL
+[11-25 09:59:08] v100-mtp3-128k-q8-mmA : loading
+[11-25 09:59:31] v100-mtp3-128k-q8-mmA : loaded, vram 1883+11747 MiB; speed test
+[11-25 09:59:40] v100-mtp3-128k-q8-mmA : speed 97.6 tok/s; image test
+[11-25 09:59:42] v100-mtp3-128k-q8-mmA : image True; 7k prompt
+[11-25 09:59:55] v100-mtp3-128k-q8-mmA : MEAN 97.6 tok/s (code 113.7 / chat 81.5), accept 64%, vram 1941+12489 MiB, image True, 7k prompt True @ 651 t/s -> pass
+[11-25 09:59:55] v100-mtp4-128k-q8-mmA : loading
+[11-25 10:00:18] v100-mtp4-128k-q8-mmA : loaded, vram 1883+11897 MiB; speed test
+[11-25 10:00:28] v100-mtp4-128k-q8-mmA : speed 84.3 tok/s; image test
+[11-25 10:00:30] v100-mtp4-128k-q8-mmA : image True; 7k prompt
+[11-25 10:00:44] v100-mtp4-128k-q8-mmA : MEAN 84.3 tok/s (code 102.1 / chat 66.6), accept 55%, vram 1941+12661 MiB, image True, 7k prompt True @ 621 t/s -> pass
+[11-25 10:00:44] v100-mtp3-200k-q8-mmA : loading
+[11-25 10:01:07] v100-mtp3-200k-q8-mmA : loaded, vram 1883+14495 MiB; speed test
+[11-25 10:01:16] v100-mtp3-200k-q8-mmA : speed 95.7 tok/s; image test
+[11-25 10:01:18] v100-mtp3-200k-q8-mmA : image True; 7k prompt
+[11-25 10:01:31] v100-mtp3-200k-q8-mmA : MEAN 95.7 tok/s (code 112.1 / chat 79.4), accept 64%, vram 1941+15235 MiB, image True, 7k prompt True @ 624 t/s -> pass
+[11-25 10:01:31] v100-mtp4-200k-q8-mmA : loading
+[11-25 10:01:54] v100-mtp4-200k-q8-mmA : loaded, vram 1883+14645 MiB; speed test
+[11-25 10:02:04] v100-mtp4-200k-q8-mmA : speed 83.0 tok/s; image test
+[11-25 10:02:07] v100-mtp4-200k-q8-mmA : image True; 7k prompt
+[11-25 10:02:21] v100-mtp4-200k-q8-mmA : MEAN 83.0 tok/s (code 100.4 / chat 65.7), accept 55%, vram 1941+15407 MiB, image True, 7k prompt True @ 616 t/s -> pass

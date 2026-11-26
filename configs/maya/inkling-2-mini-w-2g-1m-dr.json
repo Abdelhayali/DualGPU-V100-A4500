@@ -1,0 +1,38 @@
+{
+ "exe": "{root}/kernel/build-maya4/maya-ik2.exe",
+ "src": "src-maya4",
+ "card": "A4500|V100",
+ "tokenizer": "{root}/models/inkling-2-mini-maya/ik2/tokenizer",
+ "model_name": "inkling-2-mini",
+ "reasoning_effort": "low",
+ "args": [
+  "--model",
+  "{root}/models/inkling-2-mini-maya/Inkling-2-Mini-UD-Q4_K_XL-nvfp4tail.gguf",
+  "--max-context",
+  "1048576",
+  "--gpus",
+  "2",
+  "--draft",
+  "{root}/models/inkling-2-mini-maya/dspark-Inkling-2-Mini-Q8_0.gguf",
+  "--drafting",
+  "on"
+ ],
+ "env": {
+  "IK2_KV": "fp8",
+  "IK2_UNSUPPORTED": "1",
+  "IK2_WARM": "{root}/kernel/src-maya4/data/expert-profile-ik2mini.bin",
+  "IK2_GATE_TILE": "64",
+  "IK2_GATE_BF16": "1",
+  "IK2_Q8_UNROLL": "1",
+  "IK2_VISION_GIB": "0",
+  "IK2_DRAFT_CTX": "16384"
+ },
+ "vision": {
+  "exe": "{root}/kernel/build-maya-vision/bin/maya-vision.exe",
+  "mmproj": "{root}/models/inkling-2-mini-maya/mmproj-BF16.gguf",
+  "model": "{root}/models/inkling-2-mini-maya/Inkling-2-Mini-UD-Q4_K_XL-nvfp4tail.gguf",
+  "gpu": false,
+  "resident": true
+ },
+ "note": "w-2g-1m-dr"
+}

@@ -3,176 +3,531 @@
     "qwen3.8-27b": {
       "default": "128k",
       "presets": [
-        { "name": "128k", "config": "l60-mtp3-128k",          "summary": "default: 128k ctx, f16 KV, MTP 3, split 60/40 - 48.3 tok/s, 7k prompt 917 t/s" },
-        { "name": "fast", "config": "layer-auto-mtp3-32k",    "summary": "fastest: 32k ctx, f16 KV, MTP 3, auto split - 50.2 tok/s, 7k prompt 952 t/s" },
-        { "name": "code", "config": "auto-dsp15-32k",         "summary": "code: 32k ctx, DSpine drafter (15 tokens) - 71.3 tok/s on code, 27.2 on chat (kernel bin-dspine)" },
-        { "name": "262k", "config": "l65-mtp3-262k-q4-ub256", "summary": "full 262k ctx, q4 KV, MTP 3, split 65/35, ub 256 - 46.0 tok/s" }
+        {
+          "name": "128k",
+          "config": "l60-mtp3-128k",
+          "summary": "default: 128k ctx, f16 KV, MTP 3, split 60/40 - 48.3 tok/s, 7k prompt 917 t/s"
+        },
+        {
+          "name": "fast",
+          "config": "layer-auto-mtp3-32k",
+          "summary": "fastest: 32k ctx, f16 KV, MTP 3, auto split - 50.2 tok/s, 7k prompt 952 t/s"
+        },
+        {
+          "name": "code",
+          "config": "auto-dsp15-32k",
+          "summary": "code: 32k ctx, DSpine drafter (15 tokens) - 71.3 tok/s on code, 27.2 on chat (kernel bin-dspine)"
+        },
+        {
+          "name": "262k",
+          "config": "l65-mtp3-262k-q4-ub256",
+          "summary": "full 262k ctx, q4 KV, MTP 3, split 65/35, ub 256 - 46.0 tok/s"
+        }
       ]
     },
     "orcacyber-nano-27b": {
       "default": "128k",
       "presets": [
-        { "name": "128k", "config": "auto-mtp3-128k",   "summary": "default: 128k ctx, f16 KV, MTP 3, auto split - 58.2 tok/s, 7k prompt 974 t/s" },
-        { "name": "code", "config": "auto-dsp15-32k",   "summary": "code: 32k ctx, DSpine drafter (15 tokens) - 78.2 tok/s on code, 26.1 on chat (kernel bin-dspine)" },
-        { "name": "262k", "config": "l55-mtp3-262k-q8", "summary": "full 262k ctx, q8 KV, MTP 3 - 56.5 tok/s (both GPUs nearly full)" }
+        {
+          "name": "128k",
+          "config": "auto-mtp3-128k",
+          "summary": "default: 128k ctx, f16 KV, MTP 3, auto split - 58.2 tok/s, 7k prompt 974 t/s"
+        },
+        {
+          "name": "code",
+          "config": "auto-dsp15-32k",
+          "summary": "code: 32k ctx, DSpine drafter (15 tokens) - 78.2 tok/s on code, 26.1 on chat (kernel bin-dspine)"
+        },
+        {
+          "name": "262k",
+          "config": "l55-mtp3-262k-q8",
+          "summary": "full 262k ctx, q8 KV, MTP 3 - 56.5 tok/s (both GPUs nearly full)"
+        }
       ]
     },
     "minicpm-v4.7-35b-a3b": {
       "default": "128k",
       "presets": [
-        { "name": "128k", "config": "auto-nodraft-128k",    "summary": "default: 128k ctx, f16 KV, no draft - 87.0 tok/s, 7k prompt 1055 t/s" },
-        { "name": "fast", "config": "auto-nodraft-32k",     "summary": "fastest: 32k ctx, f16 KV, no draft - 91.6 tok/s" },
-        { "name": "262k", "config": "auto-nodraft-262k-q8", "summary": "full 262k ctx, q8 KV, no draft - 82.3 tok/s" }
+        {
+          "name": "128k",
+          "config": "auto-nodraft-128k",
+          "summary": "default: 128k ctx, f16 KV, no draft - 87.0 tok/s, 7k prompt 1055 t/s"
+        },
+        {
+          "name": "fast",
+          "config": "auto-nodraft-32k",
+          "summary": "fastest: 32k ctx, f16 KV, no draft - 91.6 tok/s"
+        },
+        {
+          "name": "262k",
+          "config": "auto-nodraft-262k-q8",
+          "summary": "full 262k ctx, q8 KV, no draft - 82.3 tok/s"
+        }
       ]
     },
     "qwen3.6-35b-a3b": {
       "default": "128k",
       "presets": [
-        { "name": "128k", "config": "auto-mtp3-128k",    "summary": "default: 128k ctx, f16 KV, MTP 3 - 95.2 tok/s (code 109.7), 7k prompt 919 t/s" },
-        { "name": "fast", "config": "l60-mtp3-32k",      "summary": "fastest: 32k ctx, MTP 3, split 60/40 - 96.6 tok/s (code 111.0)" },
-        { "name": "262k", "config": "auto-mtp3-262k-q8", "summary": "full 262k ctx, q8 KV, MTP 3 - 86.0 tok/s (V100 nearly full)" }
+        {
+          "name": "128k",
+          "config": "auto-mtp3-128k",
+          "summary": "default: 128k ctx, f16 KV, MTP 3 - 95.2 tok/s (code 109.7), 7k prompt 919 t/s"
+        },
+        {
+          "name": "fast",
+          "config": "l60-mtp3-32k",
+          "summary": "fastest: 32k ctx, MTP 3, split 60/40 - 96.6 tok/s (code 111.0)"
+        },
+        {
+          "name": "262k",
+          "config": "auto-mtp3-262k-q8",
+          "summary": "full 262k ctx, q8 KV, MTP 3 - 86.0 tok/s (V100 nearly full)"
+        }
       ]
     },
     "nanbeige4.3-33b": {
       "default": "64k",
       "presets": [
-        { "name": "64k",  "config": "auto-64k-q8",  "summary": "default: 64k ctx, q8 KV - 23.1 tok/s, 7k prompt 1045 t/s (33B dense, text only)" },
-        { "name": "fast", "config": "l50-32k",      "summary": "fastest: 32k ctx, f16 KV, split 50/50 - 23.8 tok/s" },
-        { "name": "128k", "config": "auto-128k-q4", "summary": "128k ctx, q4 KV - 22.9 tok/s (both GPUs nearly full; 262k does not fit)" }
+        {
+          "name": "64k",
+          "config": "auto-64k-q8",
+          "summary": "default: 64k ctx, q8 KV - 23.1 tok/s, 7k prompt 1045 t/s (33B dense, text only)"
+        },
+        {
+          "name": "fast",
+          "config": "l50-32k",
+          "summary": "fastest: 32k ctx, f16 KV, split 50/50 - 23.8 tok/s"
+        },
+        {
+          "name": "128k",
+          "config": "auto-128k-q4",
+          "summary": "128k ctx, q4 KV - 22.9 tok/s (both GPUs nearly full; 262k does not fit)"
+        }
       ]
     },
     "ripple-65b": {
       "default": "64k",
       "presets": [
-        { "name": "64k",  "config": "auto-64k",     "summary": "default: 64k ctx, f16 KV - 14.8 tok/s, 7k prompt 427 t/s (65B dense, text only, kernel bin-ripple)" },
-        { "name": "fast", "config": "l50-32k",      "summary": "fastest: 32k ctx, f16 KV, split 50/50 - 15.2 tok/s" },
-        { "name": "128k", "config": "auto-128k-q8", "summary": "128k ctx, q8 KV - 14.4 tok/s (V100 nearly full)" },
-        { "name": "262k", "config": "auto-262k-q4", "summary": "262k ctx, q4 KV - 14.4 tok/s (both GPUs nearly full)" }
+        {
+          "name": "64k",
+          "config": "auto-64k",
+          "summary": "default: 64k ctx, f16 KV - 14.8 tok/s, 7k prompt 427 t/s (65B dense, text only, kernel bin-ripple)"
+        },
+        {
+          "name": "fast",
+          "config": "l50-32k",
+          "summary": "fastest: 32k ctx, f16 KV, split 50/50 - 15.2 tok/s"
+        },
+        {
+          "name": "128k",
+          "config": "auto-128k-q8",
+          "summary": "128k ctx, q8 KV - 14.4 tok/s (V100 nearly full)"
+        },
+        {
+          "name": "262k",
+          "config": "auto-262k-q4",
+          "summary": "262k ctx, q4 KV - 14.4 tok/s (both GPUs nearly full)"
+        }
       ]
     },
     "qwen3.8-27b-nov12": {
       "default": "128k",
       "presets": [
-        { "name": "128k", "config": "l60-mtp3-128k",          "summary": "default: 128k ctx, f16 KV, MTP 3, split 60/40 - 47.2 tok/s (code 53.6), 7k prompt 901 t/s, vision (unsloth update 2026-11-12)" },
-        { "name": "fast", "config": "l45-mtp4-32k",           "summary": "fastest: 32k ctx, f16 KV, MTP 4 - 48.9 tok/s (code 58.2)" },
-        { "name": "262k", "config": "l65-mtp3-262k-q4-ub256", "summary": "full 262k ctx, q4 KV, MTP 3, split 65/35, ub 256 - 45.3 tok/s (q8 KV at 262k does not fit)" }
+        {
+          "name": "128k",
+          "config": "l60-mtp3-128k",
+          "summary": "default: 128k ctx, f16 KV, MTP 3, split 60/40 - 47.2 tok/s (code 53.6), 7k prompt 901 t/s, vision (unsloth update 2026-11-12)"
+        },
+        {
+          "name": "fast",
+          "config": "l45-mtp4-32k",
+          "summary": "fastest: 32k ctx, f16 KV, MTP 4 - 48.9 tok/s (code 58.2)"
+        },
+        {
+          "name": "262k",
+          "config": "l65-mtp3-262k-q4-ub256",
+          "summary": "full 262k ctx, q4 KV, MTP 3, split 65/35, ub 256 - 45.3 tok/s (q8 KV at 262k does not fit)"
+        }
       ]
     },
     "qwen3.8-27b-q4km": {
       "default": "128k",
       "presets": [
-        { "name": "128k", "config": "l60-mtp3-128k",      "summary": "default: 128k ctx, f16 KV, MTP 3, split 60/40 - 53.5 tok/s (code 60.2), 7k prompt 961 t/s, vision (UD-Q4_K_M)" },
-        { "name": "fast", "config": "l50-mtp3-32k",       "summary": "fastest: 32k ctx, f16 KV, MTP 3, split 50/50 - 55.0 tok/s (code 62.0)" },
-        { "name": "262k", "config": "l60-mtp3-262k-q8",   "summary": "full 262k ctx, q8 KV, MTP 3, split 60/40 - 51.7 tok/s, vision" }
+        {
+          "name": "128k",
+          "config": "l60-mtp3-128k",
+          "summary": "default: 128k ctx, f16 KV, MTP 3, split 60/40 - 53.5 tok/s (code 60.2), 7k prompt 961 t/s, vision (UD-Q4_K_M)"
+        },
+        {
+          "name": "fast",
+          "config": "l50-mtp3-32k",
+          "summary": "fastest: 32k ctx, f16 KV, MTP 3, split 50/50 - 55.0 tok/s (code 62.0)"
+        },
+        {
+          "name": "262k",
+          "config": "l60-mtp3-262k-q8",
+          "summary": "full 262k ctx, q8 KV, MTP 3, split 60/40 - 51.7 tok/s, vision"
+        }
       ]
     },
     "gemma4-31b-ara-heretic": {
       "default": "64k",
       "presets": [
-        { "name": "64k",  "config": "auto-mtp4-64k",     "summary": "default: 64k ctx, f16 KV, MTP 4 - 42.7 tok/s (code 48.5), 7k prompt 784 t/s, vision (31B dense)" },
-        { "name": "fast", "config": "auto-mtp4-32k",     "summary": "fastest: 32k ctx, f16 KV, MTP 4 - 43.8 tok/s (code 50.0)" },
-        { "name": "128k", "config": "auto-mtp4-128k-q8", "summary": "128k ctx, q8 KV, MTP 4 - 39.3 tok/s (both GPUs nearly full; f16 and 262k do not fit)" }
+        {
+          "name": "64k",
+          "config": "auto-mtp4-64k",
+          "summary": "default: 64k ctx, f16 KV, MTP 4 - 42.7 tok/s (code 48.5), 7k prompt 784 t/s, vision (31B dense)"
+        },
+        {
+          "name": "fast",
+          "config": "auto-mtp4-32k",
+          "summary": "fastest: 32k ctx, f16 KV, MTP 4 - 43.8 tok/s (code 50.0)"
+        },
+        {
+          "name": "128k",
+          "config": "auto-mtp4-128k-q8",
+          "summary": "128k ctx, q8 KV, MTP 4 - 39.3 tok/s (both GPUs nearly full; f16 and 262k do not fit)"
+        }
       ]
     },
     "apex-35b-v1": {
       "default": "262k",
       "presets": [
-        { "name": "262k", "config": "l60-nodraft-262k", "summary": "default: full 262k ctx, f16 KV, no draft, split 60/40 - 100.6 tok/s, 7k prompt 1133 t/s (text only)" },
-        { "name": "128k", "config": "l60-nodraft-128k", "summary": "128k ctx, f16 KV, split 60/40 - 100.4 tok/s, less VRAM" },
-        { "name": "code", "config": "auto-mtp3-32k",    "summary": "code: 32k ctx, MTP 3 - 110.8 tok/s on code, 74.3 on chat" }
+        {
+          "name": "262k",
+          "config": "l60-nodraft-262k",
+          "summary": "default: full 262k ctx, f16 KV, no draft, split 60/40 - 100.6 tok/s, 7k prompt 1133 t/s (text only)"
+        },
+        {
+          "name": "128k",
+          "config": "l60-nodraft-128k",
+          "summary": "128k ctx, f16 KV, split 60/40 - 100.4 tok/s, less VRAM"
+        },
+        {
+          "name": "code",
+          "config": "auto-mtp3-32k",
+          "summary": "code: 32k ctx, MTP 3 - 110.8 tok/s on code, 74.3 on chat"
+        }
       ]
     },
     "inkling-2-mini": {
       "default": "32k",
       "presets": [
-        { "name": "32k",   "config": "a4500-32k-q8-min-s",       "summary": "default: 32k ctx, q8 KV, A4500 only, reasoning effort minimal - 58.1 tok/s, 7k prompt 853 t/s, vision (looped MoE, IQ4_NL, kernel bin-inklings)" },
-        { "name": "think", "config": "a4500-32k-q8-high-s",      "summary": "32k ctx, q8 KV, reasoning effort high (the model's default) - 57.8 tok/s, long answers" },
-        { "name": "64k",   "config": "a4500-64k-q8-ub128-min-s", "summary": "64k ctx, q8 KV, ubatch 128 - 57.2 tok/s, 7k prompt 611 t/s" },
-        { "name": "128k",  "config": "a4500-128k-q4-ub64-min-s", "summary": "128k ctx, q4 KV, ubatch 64, vision projector on CPU - 57.7 tok/s, 7k prompt 498 t/s" }
+        {
+          "name": "32k",
+          "config": "a4500-32k-q8-min-s",
+          "summary": "default: 32k ctx, q8 KV, A4500 only, reasoning effort minimal - 58.1 tok/s, 7k prompt 853 t/s, vision (looped MoE, IQ4_NL, kernel bin-inklings)"
+        },
+        {
+          "name": "think",
+          "config": "a4500-32k-q8-high-s",
+          "summary": "32k ctx, q8 KV, reasoning effort high (the model's default) - 57.8 tok/s, long answers"
+        },
+        {
+          "name": "64k",
+          "config": "a4500-64k-q8-ub128-min-s",
+          "summary": "64k ctx, q8 KV, ubatch 128 - 57.2 tok/s, 7k prompt 611 t/s"
+        },
+        {
+          "name": "128k",
+          "config": "a4500-128k-q4-ub64-min-s",
+          "summary": "128k ctx, q4 KV, ubatch 64, vision projector on CPU - 57.7 tok/s, 7k prompt 498 t/s"
+        }
       ]
     },
     "inkling-2-mini-uncensored": {
       "default": "32k",
       "presets": [
-        { "name": "32k",   "config": "a4500-32k-min-s",          "summary": "default: 32k ctx, f16 KV, A4500 only, reasoning effort minimal - 54.6 tok/s, 7k prompt 887 t/s, vision (AtomicChat uncensored AD-Q4_K, kernel bin-inklings)" },
-        { "name": "think", "config": "a4500-32k-high-s",         "summary": "32k ctx, reasoning effort high - 53.8 tok/s" },
-        { "name": "64k",   "config": "a4500-64k-q8-ub128-min-s", "summary": "64k ctx, q8 KV, ubatch 128 - 52.5 tok/s" },
-        { "name": "128k",  "config": "a4500-128k-q4-ub64-min-s", "summary": "128k ctx, q4 KV, ubatch 64, vision projector on CPU - 52.8 tok/s, 7k prompt 498 t/s" },
-        { "name": "v100",      "config": "v100-32k-q8-ub128-min-s",  "summary": "Tesla V100 ONLY (A4500 stays free): AD-IQ3_S 13.3 GB, 32k ctx, q8 KV - 48.3 tok/s, 7k prompt 597 t/s; next to another model: start.bat inkling-2-mini-uncensored v100 8900" },
-        { "name": "v100-64k",  "config": "v100-64k-q8-ub64-min-s",   "summary": "V100 only, 64k ctx, q8 KV, ubatch 64 - 47.9 tok/s" },
-        { "name": "v100-128k", "config": "v100-128k-q4-ub32-min-s",  "summary": "V100 only, 128k ctx, q4 KV, ubatch 32, vision projector on CPU - 47.8 tok/s, 7k prompt 320 t/s" }
+        {
+          "name": "32k",
+          "config": "a4500-32k-min-s",
+          "summary": "default: 32k ctx, f16 KV, A4500 only, reasoning effort minimal - 54.6 tok/s, 7k prompt 887 t/s, vision (AtomicChat uncensored AD-Q4_K, kernel bin-inklings)"
+        },
+        {
+          "name": "think",
+          "config": "a4500-32k-high-s",
+          "summary": "32k ctx, reasoning effort high - 53.8 tok/s"
+        },
+        {
+          "name": "64k",
+          "config": "a4500-64k-q8-ub128-min-s",
+          "summary": "64k ctx, q8 KV, ubatch 128 - 52.5 tok/s"
+        },
+        {
+          "name": "128k",
+          "config": "a4500-128k-q4-ub64-min-s",
+          "summary": "128k ctx, q4 KV, ubatch 64, vision projector on CPU - 52.8 tok/s, 7k prompt 498 t/s"
+        },
+        {
+          "name": "v100",
+          "config": "v100-32k-q8-ub128-min-s",
+          "summary": "Tesla V100 ONLY (A4500 stays free): AD-IQ3_S 13.3 GB, 32k ctx, q8 KV - 48.3 tok/s, 7k prompt 597 t/s; next to another model: start.bat inkling-2-mini-uncensored v100 8900"
+        },
+        {
+          "name": "v100-64k",
+          "config": "v100-64k-q8-ub64-min-s",
+          "summary": "V100 only, 64k ctx, q8 KV, ubatch 64 - 47.9 tok/s"
+        },
+        {
+          "name": "v100-128k",
+          "config": "v100-128k-q4-ub32-min-s",
+          "summary": "V100 only, 128k ctx, q4 KV, ubatch 32, vision projector on CPU - 47.8 tok/s, 7k prompt 320 t/s"
+        }
       ]
     },
     "kintsugi-27b": {
       "default": "128k",
       "presets": [
-        { "name": "128k", "config": "a4500-mtp3-128k-q8", "summary": "default: 128k ctx, q8 KV, MTP 3 + lookup, A4500 only - 91.8 tok/s, 7k prompt 1450 t/s, vision (Qwen3.8-27B at 2.47 bpw, kernel bin-kintsugi)" },
-        { "name": "fast", "config": "a4500-dfl7-32k",     "summary": "32k ctx, DFlash2 drafter (draft 7) - 92.2 tok/s" },
-        { "name": "262k", "config": "a4500-mtp3-262k-q4", "summary": "full 262k ctx, q4 KV, MTP 3 + lookup - 91.0 tok/s, 7k prompt 1449 t/s" }
+        {
+          "name": "128k",
+          "config": "a4500-mtp3-128k-q8",
+          "summary": "default: 128k ctx, q8 KV, MTP 3 + lookup, A4500 only - 91.8 tok/s, 7k prompt 1450 t/s, vision (Qwen3.8-27B at 2.47 bpw, kernel bin-kintsugi)"
+        },
+        {
+          "name": "fast",
+          "config": "a4500-dfl7-32k",
+          "summary": "32k ctx, DFlash2 drafter (draft 7) - 92.2 tok/s"
+        },
+        {
+          "name": "262k",
+          "config": "a4500-mtp3-262k-q4",
+          "summary": "full 262k ctx, q4 KV, MTP 3 + lookup - 91.0 tok/s, 7k prompt 1449 t/s"
+        }
       ]
     },
     "surogate-3.7-35b": {
       "default": "128k",
       "presets": [
-        { "name": "128k", "config": "l60-mtp3-128k",     "summary": "default: 128k ctx, f16 KV, MTP 3, split 60/40 - 94.9 tok/s (code 111.0), 7k prompt 961 t/s, vision (agentic Qwen3.5-35B-A3B fine-tune, converted here)" },
-        { "name": "fast", "config": "l60-mtp3-32k",      "summary": "fastest: 32k ctx, MTP 3, split 60/40 - 98.6 tok/s (code 115.8)" },
-        { "name": "262k", "config": "auto-mtp3-262k-q8", "summary": "full 262k ctx, q8 KV, MTP 3 - 90.6 tok/s (code 103.4)" }
+        {
+          "name": "128k",
+          "config": "l60-mtp3-128k",
+          "summary": "default: 128k ctx, f16 KV, MTP 3, split 60/40 - 94.9 tok/s (code 111.0), 7k prompt 961 t/s, vision (agentic Qwen3.5-35B-A3B fine-tune, converted here)"
+        },
+        {
+          "name": "fast",
+          "config": "l60-mtp3-32k",
+          "summary": "fastest: 32k ctx, MTP 3, split 60/40 - 98.6 tok/s (code 115.8)"
+        },
+        {
+          "name": "262k",
+          "config": "auto-mtp3-262k-q8",
+          "summary": "full 262k ctx, q8 KV, MTP 3 - 90.6 tok/s (code 103.4)"
+        }
       ]
     },
     "qwen2.5-coder-32b-pcb": {
       "default": "32k",
       "presets": [
-        { "name": "32k",  "config": "auto-nodraft-32k",         "summary": "default: 32k ctx (native), f16 KV, no drafting - 20.9 tok/s, 7k prompt 684 t/s, text only (Simonssb KiCad PCB LoRA on Qwen2.5-Coder-32B Q4_K_M)" },
-        { "name": "code", "config": "auto-draft16-32k",         "summary": "code/JSON: 32k ctx, 0.5B coder draft, 16 tokens - 30.6 tok/s on code, but 8.6 on chat" },
-        { "name": "128k", "config": "l55-nodraft-128k-q4-yarn", "summary": "128k ctx with YaRN (native 32k), q4 KV, split 55/45, ub 256 - 20.4 tok/s" }
+        {
+          "name": "32k",
+          "config": "auto-nodraft-32k",
+          "summary": "default: 32k ctx (native), f16 KV, no drafting - 20.9 tok/s, 7k prompt 684 t/s, text only (Simonssb KiCad PCB LoRA on Qwen2.5-Coder-32B Q4_K_M)"
+        },
+        {
+          "name": "code",
+          "config": "auto-draft16-32k",
+          "summary": "code/JSON: 32k ctx, 0.5B coder draft, 16 tokens - 30.6 tok/s on code, but 8.6 on chat"
+        },
+        {
+          "name": "128k",
+          "config": "l55-nodraft-128k-q4-yarn",
+          "summary": "128k ctx with YaRN (native 32k), q4 KV, split 55/45, ub 256 - 20.4 tok/s"
+        }
       ]
     },
     "qwen3.8-27b-pi": {
       "default": "128k",
       "presets": [
-        { "name": "128k", "config": "l60-mtp3-128k",          "summary": "default: 128k ctx, f16 KV, MTP 3, split 60/40 - 40.3 tok/s (code 46.6), 7k prompt 730 t/s, vision (harness-hub pi LoRA on Q5_K_XL)" },
-        { "name": "fast", "config": "l45-mtp4-32k",           "summary": "fastest: 32k ctx, f16 KV, MTP 4 - 43.6 tok/s (code 49.9)" },
-        { "name": "262k", "config": "l65-mtp3-262k-q4-ub256", "summary": "full 262k ctx, q4 KV, MTP 3, split 65/35, ub 256 - 40.4 tok/s" }
+        {
+          "name": "128k",
+          "config": "l60-mtp3-128k",
+          "summary": "default: 128k ctx, f16 KV, MTP 3, split 60/40 - 40.3 tok/s (code 46.6), 7k prompt 730 t/s, vision (harness-hub pi LoRA on Q5_K_XL)"
+        },
+        {
+          "name": "fast",
+          "config": "l45-mtp4-32k",
+          "summary": "fastest: 32k ctx, f16 KV, MTP 4 - 43.6 tok/s (code 49.9)"
+        },
+        {
+          "name": "262k",
+          "config": "l65-mtp3-262k-q4-ub256",
+          "summary": "full 262k ctx, q4 KV, MTP 3, split 65/35, ub 256 - 40.4 tok/s"
+        }
       ]
     },
     "qwen3.8-40b-heretic": {
       "default": "64k",
       "presets": [
-        { "name": "64k",  "config": "auto-mtp2-64k",     "summary": "default: 64k ctx, f16 KV, MTP 2 - 35.7 tok/s (code 37.5), 7k prompt 580 t/s, vision (40B dense)" },
-        { "name": "code", "config": "auto-mtp4-32k",     "summary": "code: 32k ctx, MTP 4 - 38.8 tok/s on code, 31.0 on chat" },
-        { "name": "128k", "config": "l55-mtp3-128k-q4",  "summary": "128k ctx, q4 KV, MTP 3, split 55/45 - 34.5 tok/s (V100 nearly full; f16 and 262k do not fit)" }
+        {
+          "name": "64k",
+          "config": "auto-mtp2-64k",
+          "summary": "default: 64k ctx, f16 KV, MTP 2 - 35.7 tok/s (code 37.5), 7k prompt 580 t/s, vision (40B dense)"
+        },
+        {
+          "name": "code",
+          "config": "auto-mtp4-32k",
+          "summary": "code: 32k ctx, MTP 4 - 38.8 tok/s on code, 31.0 on chat"
+        },
+        {
+          "name": "128k",
+          "config": "l55-mtp3-128k-q4",
+          "summary": "128k ctx, q4 KV, MTP 3, split 55/45 - 34.5 tok/s (V100 nearly full; f16 and 262k do not fit)"
+        }
       ]
     },
     "muse-glimmer-30b": {
       "default": "128k",
       "presets": [
-        { "name": "128k",    "config": "auto-dfl15-128k",   "summary": "default: 128k ctx (native max), f16 KV, DFlash 15 - 40.6 tok/s (code 45.5), 7k prompt 801 t/s, vision" },
-        { "name": "fast",    "config": "auto-dfl12-32k",    "summary": "fastest: 32k ctx, DFlash 12 - 41.3 tok/s (code 46.8)" },
-        { "name": "nodraft", "config": "auto-nodraft-128k", "summary": "128k ctx, no draft - 26.6 tok/s but 7k prompt 1165 t/s (long-document work)" }
+        {
+          "name": "128k",
+          "config": "auto-dfl15-128k",
+          "summary": "default: 128k ctx (native max), f16 KV, DFlash 15 - 40.6 tok/s (code 45.5), 7k prompt 801 t/s, vision"
+        },
+        {
+          "name": "fast",
+          "config": "auto-dfl12-32k",
+          "summary": "fastest: 32k ctx, DFlash 12 - 41.3 tok/s (code 46.8)"
+        },
+        {
+          "name": "nodraft",
+          "config": "auto-nodraft-128k",
+          "summary": "128k ctx, no draft - 26.6 tok/s but 7k prompt 1165 t/s (long-document work)"
+        }
       ]
     },
     "huihui-gemma4-26b-a4b": {
       "default": "262k",
       "presets": [
-        { "name": "262k", "config": "auto-nodraft-262k", "summary": "default: 262k ctx, f16 KV, no draft - 87.5 tok/s, 7k prompt 1808 t/s, vision" },
-        { "name": "fast", "config": "l60-nodraft-32k",   "summary": "fastest: 32k ctx, no draft, split 60/40 - 88.9 tok/s, 7k prompt 1904 t/s" },
-        { "name": "code", "config": "auto-mtp2-262k",    "summary": "code: 262k ctx, MTP 2 - 88.4 tok/s (code 96.6, chat 80.2)" }
+        {
+          "name": "262k",
+          "config": "auto-nodraft-262k",
+          "summary": "default: 262k ctx, f16 KV, no draft - 87.5 tok/s, 7k prompt 1808 t/s, vision"
+        },
+        {
+          "name": "fast",
+          "config": "l60-nodraft-32k",
+          "summary": "fastest: 32k ctx, no draft, split 60/40 - 88.9 tok/s, 7k prompt 1904 t/s"
+        },
+        {
+          "name": "code",
+          "config": "auto-mtp2-262k",
+          "summary": "code: 262k ctx, MTP 2 - 88.4 tok/s (code 96.6, chat 80.2)"
+        }
       ]
     },
     "huihui-qwen3.6-35b-a3b": {
       "default": "128k",
       "presets": [
-        { "name": "128k", "config": "auto-mtp3-128k", "summary": "default: 128k ctx, f16 KV, MTP 3 - 97.0 tok/s (code 105.4), 7k prompt 931 t/s, vision" },
-        { "name": "fast", "config": "auto-mtp4-32k",  "summary": "fastest: 32k ctx, MTP 4 - 103.6 tok/s (code 120.9)" },
-        { "name": "262k", "config": "auto-mtp3-262k", "summary": "full 262k ctx, f16 KV, MTP 3 - 93.7 tok/s, vision works" }
+        {
+          "name": "128k",
+          "config": "auto-mtp3-128k",
+          "summary": "default: 128k ctx, f16 KV, MTP 3 - 97.0 tok/s (code 105.4), 7k prompt 931 t/s, vision"
+        },
+        {
+          "name": "fast",
+          "config": "auto-mtp4-32k",
+          "summary": "fastest: 32k ctx, MTP 4 - 103.6 tok/s (code 120.9)"
+        },
+        {
+          "name": "262k",
+          "config": "auto-mtp3-262k",
+          "summary": "full 262k ctx, f16 KV, MTP 3 - 93.7 tok/s, vision works"
+        }
       ]
     },
     "kimi-linear-48b-a3b": {
       "default": "262k",
       "presets": [
-        { "name": "262k", "config": "auto-262k", "summary": "default: 262k ctx, f16 KV - 104.8 tok/s, 7k prompt 1299 t/s (text only)" },
-        { "name": "fast", "config": "auto-32k",  "summary": "fastest: 32k ctx - 106.0 tok/s" },
-        { "name": "512k", "config": "auto-512k", "summary": "max on this PC: 512k ctx, f16 KV - 102.1 tok/s (1M does not fit)" }
+        {
+          "name": "262k",
+          "config": "auto-262k",
+          "summary": "default: 262k ctx, f16 KV - 104.8 tok/s, 7k prompt 1299 t/s (text only)"
+        },
+        {
+          "name": "fast",
+          "config": "auto-32k",
+          "summary": "fastest: 32k ctx - 106.0 tok/s"
+        },
+        {
+          "name": "512k",
+          "config": "auto-512k",
+          "summary": "max on this PC: 512k ctx, f16 KV - 102.1 tok/s (1M does not fit)"
+        }
+      ]
+    },
+    "ternary-bonsai-2.5-27b": {
+      "default": "200k",
+      "presets": [
+        {
+          "name": "200k",
+          "config": "v100-mtp3-200k-q8-mmA",
+          "summary": "default: V100, 200k ctx, q8 KV, MTP 3, vision on the A4500 - 95.7 tok/s (code 112)"
+        },
+        {
+          "name": "128k",
+          "config": "v100-mtp3-128k-q8-mmA",
+          "summary": "V100, 128k ctx, q8 KV, MTP 3, vision on the A4500 - 97.6 tok/s"
+        },
+        {
+          "name": "fast",
+          "config": "v100-mtp3-32k",
+          "summary": "fastest: V100 only, 32k ctx, MTP 3 - 102.2 tok/s (code 119.5), A4500 stays free"
+        },
+        {
+          "name": "a4500-262k",
+          "config": "a4500-mtp4-262k-q8",
+          "summary": "A4500 only, 262k ctx, q8 KV, MTP 4 - 67.0 tok/s, V100 stays free"
+        }
+      ]
+    },
+    "raon-1-mini": {
+      "default": "262k",
+      "presets": [
+        {
+          "name": "262k",
+          "config": "a4500-iq4xs-262k",
+          "summary": "default: A4500 only, IQ4_XS, 262k ctx - 95.4 tok/s, 7k prompt 2225 t/s (text only)"
+        }
+      ]
+    },
+    "qwen3.8-27b-nariq": {
+      "default": "64k-mtp",
+      "presets": [
+        {
+          "name": "64k-mtp",
+          "config": "q30-mtp3-64k-mV",
+          "summary": "default: 3.0 bpw on the A4500, 64k ctx, grafted MTP 3, vision on the V100 - 52.7 tok/s (code 60), hard suite 85.0"
+        },
+        {
+          "name": "128k-mtp",
+          "config": "q25-mtp3-128k-mV",
+          "summary": "2.5 bpw on the A4500, 128k ctx, grafted MTP 3, vision on the V100 - 52.3 tok/s"
+        },
+        {
+          "name": "128k",
+          "config": "q30-128k-mV",
+          "summary": "3.0 bpw, 128k ctx, no MTP, vision on the V100 - 29.2 tok/s"
+        }
+      ]
+    },
+    "ternary-bonsai-2.5-27b-qsa": {
+      "default": "200k",
+      "presets": [
+        {
+          "name": "200k",
+          "config": "v100-200k-q8-mmA",
+          "summary": "default: V100, 200k ctx, sparse attention, no MTP, vision on the A4500 - 36.6 tok/s with a 161k prompt (old Bonsai 15.3)"
+        },
+        {
+          "name": "200k-mtp",
+          "config": "v100-mtp3-200k-q8-mmA",
+          "summary": "V100, 200k ctx, MTP 3, vision on the A4500 - 86.7 tok/s on short prompts; very long prompts crash"
+        },
+        {
+          "name": "a4500-262k",
+          "config": "a4500-mtp3-262k-q8",
+          "summary": "A4500 alone, 262k ctx, MTP 3 - 81.8 tok/s short, 40.5 tok/s (no MTP) with a 161k prompt"
+        }
       ]
     }
   }

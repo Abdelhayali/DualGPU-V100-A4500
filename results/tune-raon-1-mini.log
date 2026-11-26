@@ -1,0 +1,19 @@
+[11-25 07:42:42] l50-262k : loading
+[11-25 07:46:59] l50-262k : loaded, vram 11768+12415 MiB; speed test
+[11-25 07:47:20] l50-262k : vram 11768+12415, generation failed
+[11-25 07:47:20] l50-dfl7-262k : loading
+[11-25 07:48:18] l50-dfl7-262k : loaded, vram 12332+13563 MiB; speed test
+[11-25 08:18:18] l50-dfl7-262k : vram 12332+13563, generation failed
+[11-25 08:18:18] l50-dfl4-262k : loading
+[11-25 08:19:05] l50-dfl4-262k : loaded, vram 12266+13499 MiB; speed test
+[11-25 08:49:05] l50-dfl4-262k : vram 12266+13499, generation failed
+[11-25 08:49:05] a4500-iq4xs-262k : loading
+[11-25 08:51:56] a4500-iq4xs-262k : loaded, vram 18404+10 MiB; speed test
+[11-25 08:52:02] a4500-iq4xs-262k : speed 95.4 tok/s; image test
+[11-25 08:52:02] a4500-iq4xs-262k : image n/a; 7k prompt
+[11-25 08:52:07] a4500-iq4xs-262k : MEAN 95.4 tok/s (code 95.4 / chat 95.3), vram 18442+10 MiB, image n/a, 7k prompt True @ 2225 t/s -> pass
+[11-25 08:52:07] a4500-iq4xs-dfl7-128k : loading
+[11-25 08:52:48] a4500-iq4xs-dfl7-128k : loaded, vram 18856+10 MiB; speed test
+[11-25 08:52:58] a4500-iq4xs-dfl7-128k : speed 70.9 tok/s; image test
+[11-25 08:52:58] a4500-iq4xs-dfl7-128k : image n/a; 7k prompt
+[11-25 08:53:05] a4500-iq4xs-dfl7-128k : MEAN 70.9 tok/s (code 88.2 / chat 53.6), accept 28%, vram 19426+10 MiB, image n/a, 7k prompt True @ 1576 t/s -> pass

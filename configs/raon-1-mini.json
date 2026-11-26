@@ -1,0 +1,21 @@
+{
+  "id": "raon-1-mini",
+  "name": "Raon-1 mini Q4_K_M (KRAFTON, 30B-A4B MoE, hybrid delta attention + MLA, trained from scratch)",
+  "gguf": "raon-1-mini-Q4_K_M.gguf",
+  "draft": "dflash-raon-1-mini-Q8_0.gguf",
+  "kernel": "raon",
+  "files": [
+    { "repo": "KRAFTON/Raon-1-mini-gguf", "file": "raon-1-mini-Q4_K_M.gguf", "gb": 19.69, "note": "needs KRAFTON's llama.cpp fork, branch raon-1-mini (kernel\\src-raon -> bin-raon)" },
+    { "repo": "KRAFTON/Raon-1-mini-gguf", "file": "raon-1-mini-IQ4_XS.gguf", "gb": 16.21 },
+    { "repo": "KRAFTON/Raon-1-mini-gguf", "file": "dflash-raon-1-mini-Q8_0.gguf", "gb": 0.73, "note": "DFlash2 drafter, only for spec=dflash" }
+  ],
+  "sampling": ["--temp", "1.0", "--top-k", "20", "--top-p", "0.95", "--min-p", "0"],
+  "notes": "Text only. 18 of 25 layers keep a fixed-size state, the 7 MLA layers ~8 KiB/token of KV, so 262k context costs ~2 GB. Sampling from the model card (presence penalty 0, its setting for code and math). ts = A4500,V100.",
+  "configs": [
+    { "name": "l50-262k",            "ctx": 262144, "sm": "layer", "ts": "50,50" },
+    { "name": "l50-dfl7-262k",       "ctx": 262144, "sm": "layer", "ts": "50,50", "spec": "dflash", "n": 7, "note": "n 7 = the model card's setting" },
+    { "name": "l50-dfl4-262k",       "ctx": 262144, "sm": "layer", "ts": "50,50", "spec": "dflash", "n": 4 },
+    { "name": "a4500-iq4xs-262k",    "ctx": 262144, "gpu": "A4500", "gguf": "raon-1-mini-IQ4_XS.gguf" },
+    { "name": "a4500-iq4xs-dfl7-128k", "ctx": 131072, "gpu": "A4500", "gguf": "raon-1-mini-IQ4_XS.gguf", "spec": "dflash", "n": 7 }
+  ]
+}
