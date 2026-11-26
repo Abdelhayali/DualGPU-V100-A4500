@@ -30,7 +30,7 @@ start.bat minicpm-v4.7-35b-a3b fast       :: a named preset
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 | Inkling-2-Mini Uncensored AD-IQ3_S (13.3 GB, AtomicChat, looped MoE, **V100 only**, reasoning effort minimal), vision | `v100` | 32k | 32.2 | 81 | 100 | 100 | 100 | 83 | 100 | 100 | **94.9** |
 | 2 | Inkling-2-Mini Uncensored AD-Q4_K (16.5 GB, AtomicChat, looped MoE, A4500 only, reasoning effort minimal), vision | `32k` | 32k | 34.9 | 88 | 100 | 83 | 100 | 83 | 100 | 100 | **93.4** |
-| 3 | Qwen3.8-40B Ultimate Heretic (DavidAU) MTP-Q4_K_M (24.2 GB, dense, MTP), vision, **thinking on**† | `64k` | 64k | 37.3 | 81 | 100 | 83 | 100 | 100 | 88 | 100 | **93.1**† |
+| 3 | Qwen3.8-40B Ultimate Heretic (DavidAU) MTP-Q4_K_M (24.2 GB, dense, MTP), vision, **thinking on** (note below) | `64k` | 64k | 37.3 | 81 | 100 | 83 | 100 | 100 | 88 | 100 | **93.1** |
 | 4 | Inkling-2-Mini IQ4_NL (17.6 GB, looped MoE, A4500 only, reasoning effort minimal), vision | `32k` | 32k | 35.1 | 81 | 100 | 92 | 100 | 83 | 88 | 100 | **92.0** |
 | 5 | Inkling-2-Mini UD-Q4_K_XL, layers 20-23 experts in NVFP4 (15.6 GB, `tools/ik2_nvfp4_tail.py`), **Maya engine** v1.1.75 + drafter, A4500 only, reasoning effort low‡, vision | `start-maya.bat` (`512k-fast`) | 512k | 128.5 | 75 | 100 | 92 | 100 | 83 | 88 | 100 | **91.1**‡ |
 | 6 | Qwen3.8-27B UD-Q4_K_M (16.6 GB, dense, MTP), vision | `128k` | 128k | 58.8 | 94 | 100 | 42 | 100 | 100 | 100 | 100 | **90.8** |
@@ -41,18 +41,21 @@ start.bat minicpm-v4.7-35b-a3b fast       :: a named preset
 | 11 | Surogate3.7-35B-A3B Q5_K_M (25.3 GB, MoE, MTP, converted here), vision | `128k` | 128k | 105.3 | 100 | 100 | 42 | 88 | 100 | 88 | 100 | **88.1** |
 | 12 | WeMM-Ecom-35B-A3B Q5_K_M (27.0 GB, MoE, Tencent e-commerce fine-tune of Qwen3.5-35B-A3B, no MTP), vision | `128k` | 128k | 86.2 | 81 | 100 | 42 | 100 | 100 | 88 | 100 | **87.2** |
 | 13 | MiniCPM-V 4.7 35B-A3B Q6_K (26.6 GB), vision | `128k` | 128k | 83.6 | 94 | 100 | 33 | 88 | 100 | 88 | 100 | **86.0** |
-| 14 | Qwen3.8-27B UD-Q5_K_XL (20.9 GB, MTP), vision | `128k` | 128k | 51.3 | 88 | 95 | 58 | 100 | 100 | 88 | 50 | **82.6** |
-| 15 | Phai-A1-35B-1M i1-Q5_K_M (25.3 GB, MoE, MTP, coding / agent fine-tune of Qwen3.6-35B-A3B), vision | `128k` | 128k | 101.6 | 75 | 95 | 42 | 75 | 100 | 88 | 100 | **82.0** |
-| 16 | Qwen3.8-27B pi-adapted (harness-hub LoRA on UD-Q5_K_XL 21.0 GB + 0.3 GB, MTP), vision | `128k` | 128k | 43.8 | 81 | 100 | 50 | 100 | 100 | 88 | 50 | **81.2** |
-| 17 | Qwen3.8-27B UD-Q5_K_XL (21.0 GB, unsloth update 2026-11-12, MTP), vision | `128k` | 128k | 51.3 | 75 | 100 | 50 | 100 | 100 | 88 | 50 | **80.4** |
-| 18 | Ripple-65B Preview AD-IQ3_XXS (28.0 GB, dense), text only | `64k` | 64k | 13.9 | 75 | 100 | 83 | 100 | 100 | - | 100 | **79.8**\* |
-| 19 | Kintsugi-27B (Qwen3.8-27B at 2.47 bpw, 10.5 GB, EXL3 trellis, A4500 only, MTP), vision | `128k` | 128k | 89.6 | 88 | 95 | 42 | 88 | 83 | 88 | 50 | **76.1** |
-| 20 | Inkling-2-Mini SQ-15 on the **Strata 0.2.19 engine** (14.35 GB, A4500 only, reasoning effort low), text only here | `start-maya.bat strata` | 64k | 74.3 | 81 | 95 | 50 | 100 | 83 | - | 50 | **65.6**\* |
-| 21 | Apex-35B-V1.0 Q4_K_M (21.7 GB, MoE, fine-tune of Qwen3.6-35B-A3B), text only | `262k` | 262k | 100.2 | 50 | 85 | 25 | 63 | 100 | - | 100 | **60.4**\* |
-| 22 | Kimi-Linear 48B-A3B abliterated i1-Q4_K_M (27.7 GB), text only | `262k` | 262k | 100.9 | 56 | 60 | 50 | 88 | 100 | - | 50 | **57.7**\* |
-| 23 | Qwen2.5-Coder-32B PCB GRPO (Simonssb LoRA on Q4_K_M 19.9 GB + 0.5 GB, dense), text only | `32k` | 32k | 20.0 | 63 | 60 | 42 | 75 | 50 | - | 50 | **48.5**\* |
+| 14 | Qwen3.8-27B NariQ 3.0 bpw + **grafted MTP layer** (12.9 GB, nari-labs trellis, A4500, MTP head from `tools/mtp_graft.py`, [on Hugging Face](https://huggingface.co/abdelhayali91/Qwen3.8-27B-NariQ-MTP-GGUF)), vision on the V100 | `64k-mtp` | 64k | 56.9 | 75 | 95 | 50 | 88 | 100 | 88 | 100 | **85.0** |
+| 15 | Qwen3.8-27B UD-Q5_K_XL (20.9 GB, MTP), vision | `128k` | 128k | 51.3 | 88 | 95 | 58 | 100 | 100 | 88 | 50 | **82.6** |
+| 16 | Phai-A1-35B-1M i1-Q5_K_M (25.3 GB, MoE, MTP, coding / agent fine-tune of Qwen3.6-35B-A3B), vision | `128k` | 128k | 101.6 | 75 | 95 | 42 | 75 | 100 | 88 | 100 | **82.0** |
+| 17 | Qwen3.8-27B pi-adapted (harness-hub LoRA on UD-Q5_K_XL 21.0 GB + 0.3 GB, MTP), vision | `128k` | 128k | 43.8 | 81 | 100 | 50 | 100 | 100 | 88 | 50 | **81.2** |
+| 18 | Qwen3.8-27B UD-Q5_K_XL (21.0 GB, unsloth update 2026-11-12, MTP), vision | `128k` | 128k | 51.3 | 75 | 100 | 50 | 100 | 100 | 88 | 50 | **80.4** |
+| 19 | Ternary Bonsai 2.5 27B PTQ1_0 (5.8 GB, PrismML ternary Qwen3.8-27B, 1.76 bpw, MTP, **V100 only**), vision | `fast` | 32k | 105.1 | 81 | 100 | 42 | 100 | 100 | 88 | 50 | **80.1** |
+| 20 | Ripple-65B Preview AD-IQ3_XXS (28.0 GB, dense), text only | `64k` | 64k | 13.9 | 75 | 100 | 83 | 100 | 100 | - | 100 | **79.8**\* |
+| 21 | Kintsugi-27B (Qwen3.8-27B at 2.47 bpw, 10.5 GB, EXL3 trellis, A4500 only, MTP), vision | `128k` | 128k | 89.6 | 88 | 95 | 42 | 88 | 83 | 88 | 50 | **76.1** |
+| 22 | Inkling-2-Mini SQ-15 on the **Strata 0.2.19 engine** (14.35 GB, A4500 only, reasoning effort low), text only here | `start-maya.bat strata` | 64k | 74.3 | 81 | 95 | 50 | 100 | 83 | - | 50 | **65.6**\* |
+| 23 | Raon-1-mini IQ4_XS (16.2 GB, KRAFTON 30B-A4B MoE trained from scratch, A4500 only), text only | `262k` | 262k | 93.1 | 94 | 95 | 50 | 88 | 100 | - | 0 | **60.9**\* |
+| 24 | Apex-35B-V1.0 Q4_K_M (21.7 GB, MoE, fine-tune of Qwen3.6-35B-A3B), text only | `262k` | 262k | 100.2 | 50 | 85 | 25 | 63 | 100 | - | 100 | **60.4**\* |
+| 25 | Kimi-Linear 48B-A3B abliterated i1-Q4_K_M (27.7 GB), text only | `262k` | 262k | 100.9 | 56 | 60 | 50 | 88 | 100 | - | 50 | **57.7**\* |
+| 26 | Qwen2.5-Coder-32B PCB GRPO (Simonssb LoRA on Q4_K_M 19.9 GB + 0.5 GB, dense), text only | `32k` | 32k | 20.0 | 63 | 60 | 42 | 75 | 50 | - | 50 | **48.5**\* |
 
-† Run with reasoning on (`eval_thinking`, 5x token budget): with `enable_thinking=false` this model still reasons, into
+Qwen3.8-40B Ultimate Heretic (marked "thinking on") ran with reasoning on (`eval_thinking`, 5x token budget): with `enable_thinking=false` this model still reasons, into
 the answer, without closing `</think>`, which scored 80.7 (instruction following 8.3, coding 68.8). All other rows ran
 with reasoning off, so its rank is not a like-for-like comparison: thinking on usually helps instruction following and coding.
 
@@ -61,7 +64,7 @@ does not reason at all (76.1, the same for every Maya build); this row ran with 
 (`EVAL_THINKING=1`, the 2,048-token budget), which matches what llama.cpp's Inkling parser does at effort minimal in the
 other Inkling rows. Coding with reasoning off on the same preset: 87.5 at 162 tok/s.
 
-\* Text-only models: the suite scores the missing vision category as 0. Over the 6 text categories Ripple averages 93.1, Inkling on Strata 76.6, Apex 70.4
+\* Text-only models: the suite scores the missing vision category as 0. Over the 6 text categories Ripple averages 93.1, Inkling on Strata 76.6, Raon 71.1 (its long-context answers all failed), Apex 70.4
 (the best instruction-following score here, 83) and Kimi 67.3. Many reasoning misses are
 format (it ends with a LaTeX `\[ ... \]` block, so the graded last line is `\]`), but the coding misses are real bugs.
 
@@ -84,8 +87,9 @@ Same presets as above with reasoning on (`EVAL_THINKING=1`, 5x token budget). In
 | 4 | Qwen3.8-27B UD-Q5_K_XL | 46.1 | 50 | 100 | 100 | 100 | 100 | 88 | 100 | **91.1** | 82.6 | +8.5 |
 | 5 | WeMM-Ecom-35B-A3B Q5_K_M | 87.2 | 81 | 100 | 67 | 100 | 100 | 88 | 100 | **90.8** | 87.2 | +3.6 |
 | 6 | Qwen3.6-35B-A3B UD-Q5_K_XL | 95.3 | 81 | 100 | 92 | 75 | 100 | 88 | 100 | **90.8** | 88.4 | +2.4 |
-| 7 | Inkling-2-Mini IQ4_NL | 36.2 | 56 | 100 | 83 | 62 | 83 | 100 | 100 | **83.6** | 92.0 | -8.4 |
-| 8 | Apex-35B-V1.0 Q4_K_M (text only) | 101.0 | 31 | 95 | 58 | 88 | 100 | 0 | 100 | **67.4** | 60.4 | +7.0 |
+| 7 | Ternary Bonsai 2.5 27B PTQ1_0 | 86.5 | 44 | 100 | 100 | 100 | 100 | 88 | 100 | **90.2** | 80.1 | +10.1 |
+| 8 | Inkling-2-Mini IQ4_NL | 36.2 | 56 | 100 | 83 | 62 | 83 | 100 | 100 | **83.6** | 92.0 | -8.4 |
+| 9 | Apex-35B-V1.0 Q4_K_M (text only) | 101.0 | 31 | 95 | 58 | 88 | 100 | 0 | 100 | **67.4** | 60.4 | +7.0 |
 
 - Reasoning raises instruction following on every Qwen model (Qwen3.8-27B 58 -> 100, Qwen3.6 50 -> 92) and fixes
   Qwen3.8-27B's long-context misses (50 -> 100). It costs coding: Qwen3.8-27B drops 88 -> 50 and Inkling 81 -> 56, mostly

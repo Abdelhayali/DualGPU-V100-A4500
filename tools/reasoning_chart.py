@@ -22,6 +22,7 @@ PAIRS = [
     ("Qwen3.8-27B UD-Q5_K_XL", "qwen3.8-27b@l60-mtp3-128k", "qwen3.8-27b@l60-mtp3-128k-thinking-on"),
     ("Inkling-2-Mini IQ4_NL", "inkling-2-mini@a4500-32k-q8-min", "inkling-2-mini@a4500-32k-q8-high-thinking-on"),
     ("Qwen3.8-40B Ultimate Heretic", None, "qwen3.8-40b-heretic@auto-mtp2-64k"),
+    ("Ternary Bonsai 2.5 27B PTQ1_0", "ternary-bonsai-2.5-27b@v100-mtp3-32k", "ternary-bonsai-2.5-27b@v100-mtp3-128k-q8-mmA-thinking-on-5x"),
     ("Apex-35B-V1.0 Q4_K_M (text only)", "apex-35b-v1@l60-nodraft-262k", "apex-35b-v1@l60-nodraft-262k-thinking-on"),
 ]
 # Heretic's reasoning-off run (80.7) was not kept as a result file: it reasons anyway, without closing </think>.
